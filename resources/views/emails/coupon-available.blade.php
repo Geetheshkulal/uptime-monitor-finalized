@@ -96,7 +96,7 @@
         </div>
       
         <div class="footer">
-    <p>You are receiving this email because you signed up for updates from Check My Site.<br>
+    <p>You are receiving this email because you signed up for updates from Drishti Pulse<br>
     If you wish to unsubscribe, please update your email preferences.</p>
 
     <p style="margin-top: 20px;"><strong>Follow us on:</strong></p>

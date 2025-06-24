@@ -332,15 +332,15 @@
     <div class="bill-container">
         <div class="bill-header">
             <div class="company-info">
-                <div class="company-name">CheckMySite</div>
+                <div class="company-name">DRISHTI PULSE</div>
                 <div class="company-tagline">Website Monitoring Solutions</div>
                 <div class="company-address">
-                    123 Tech Park, Innovation Road<br>
-                    Bangalore, Karnataka 560001<br>
+                    3rd Floor VSK Towers kottara chowki,<br>
+                    Mangalore, Karnataka 560001<br>
                     India<br>
-                    GSTIN: 22ABCDE1234F1Z5<br>
-                    Phone: +91 9876543210<br>
-                    Email: billing@checkmysite.com
+                    GSTIN: 29AAICD0310K1ZT<br>
+                    Phone: +91 8073462033<br>
+                    Email: drishtipulse2025@gmail.com
                 </div>
             </div>
             <div class="invoice-info">
@@ -356,11 +356,11 @@
             <div class="bill-from">
                 <div class="section-title">From:</div>
                 <div>
-                    <strong>ChechMySite</strong><br>
-                    123 Tech Park, Innovation Road<br>
-                    Bangalore, Karnataka 560001<br>
+                    <strong></strong><br>
+                    3rd Floor VSK Towers kottara chowki,<br>
+                    Mangalore, Karnataka 560001<br>
                     India<br>
-                    GSTIN: 22ABCDE1234F1Z5
+                    GSTIN: 29AAICD0310K1ZT
                 </div>
             </div>
             <div class="bill-to">
@@ -424,13 +424,13 @@
 
         <div class="signature-area">
             <div class="signature-line">Customer Signature</div>
-            <div class="signature-line">For ChechMySite</div>
+            <div class="signature-line">DRISHTI PULSE</div>
         </div>
 
         <div class="bill-footer">
             <div class="thank-you">Thank you for your business!</div>
             <div>This is computer generated receipt and does not require physical signature.</div>
-            <div>If you have any questions about this invoice, please contact our billing department at billing@checkmysite.com</div>
+            <div>If you have any questions about this invoice, please contact our support at drishtipulse2025@gmail.com</div>
         </div>
     </div>
 </div>

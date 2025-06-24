@@ -152,14 +152,14 @@
         <table width="100%" style="margin-bottom: 10px; border-bottom: 1px solid #e0e0e0; padding-bottom: 10px;">
             <tr>
                 <td style="text-align: left; vertical-align: top;">
-                    <div class="company-name">CheckMySite</div>
+                    <div class="company-name">DRISHTI PULSE</div>
                     <div class="company-tagline">Website Monitoring Solutions</div>
                     <div class="company-address">
                         3rd Floor, VSK Towers, Kottara Chowki, Mangaluru, Karnataka<br>
                         India<br>
                         GSTIN: 22ABCDE1234F1Z5<br>
                         Phone: +91 8073462033<br>
-                        Email: billing@checkmysite.com
+                        Email: drishtipulse2025@gmail.com
                     </div>
                 </td>
                 <td style="text-align: right; vertical-align: top;">
@@ -177,7 +177,7 @@
                 <td width="50%" style="background: #f9f9f9; padding: 8px;">
                     <div class="section-title">From:</div>
                     <div>
-                        <strong>CheckMySite</strong><br>
+                        <strong>DRISHTI PULSE</strong><br>
                         3rd Floor, VSK Towers Kottara Chowki<br>
                         Mangalore, Karnataka 575006<br>
                         India<br>

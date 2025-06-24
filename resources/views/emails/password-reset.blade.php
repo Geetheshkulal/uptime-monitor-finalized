@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reset Your Password - CheckMySite</title>
+    <title>Reset Your Password - DRISHTI PULSE</title>
 </head>
 <body style="font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f5f7fa; margin: 0; padding: 0; color: #333333; -webkit-font-smoothing: antialiased;">
     <table width="100%" cellpadding="0" cellspacing="0" border="0" style="min-width: 100%; border-collapse: collapse;">
@@ -22,7 +22,7 @@
                                                     <img src="https://i.ibb.co/Fq8LgD9s/mainlogo.png" alt="Logo" style="height: 40px; display: inline-block;">
                                                 </td>
                                                 <td style="vertical-align: middle; padding-left: 10px;">
-                                                    <span style="color: white; font-size: 24px; font-weight: 600; display: inline-block;">CheckMySite</span>
+                                                    <span style="color: white; font-size: 24px; font-weight: 600; display: inline-block;">DRISHTI PULSE</span>
                                                 </td>
                                             </tr>
                                         </table>
@@ -75,7 +75,7 @@
                             <table width="100%" cellpadding="0" cellspacing="0" border="0">
                                 <tr>
                                     <td colspan="3" style="text-align: center; padding-bottom: 20px;">
-                                        <h3 style="margin: 0; color: #333; font-size: 18px;">What You Can Do With CheckMySite</h3>
+                                        <h3 style="margin: 0; color: #333; font-size: 18px;">What You Can Do With DRISHTI PULSE</h3>
                                     </td>
                                 </tr>
                                 <tr>
@@ -108,21 +108,21 @@
                                         <img src="https://i.ibb.co/Fq8LgD9s/mainlogo.png" alt="Logo" style="height: 30px; display: inline-block;">
                                     </td>
                                     <td style="vertical-align: middle; padding-left: 8px;">
-                                        <span style="color: #333; font-size: 18px; font-weight: 600; display: inline-block;">CheckMySite</span>
+                                        <span style="color: #333; font-size: 18px; font-weight: 600; display: inline-block;">DRISHTI PULSE</span>
                                     </td>
                                 </tr>
                             </table>
                             
                             <p style="font-size: 14px; color: #666; margin: 20px 0 15px 0;">
-                                Have questions? Contact us at <a href="mailto:checkmysite2025@gmail.com" style="color: #0066cc; text-decoration: none;">checkmysite2025@gmail.com</a>
+                                Have questions? Contact us at <a href="mailto:drishtipulse2025@gmail.com" style="color: #0066cc; text-decoration: none;">drishtipulse2025@gmail.com</a>
                             </p>
                             
                             <p style="font-size: 13px; color: #999; margin: 0;">
-                                &copy; {{ now()->year }} CheckMySite. All rights reserved.
+                                &copy; {{ now()->year }} DRISHTI PULSE. All rights reserved.
                             </p>
                             
                             <p style="font-size: 12px; color: #999; margin-top: 15px;">
-                                This email was sent to you because a password reset was requested for your CheckMySite account.<br>
+                                This email was sent to you because a password reset was requested for your Drishti Pulse account.<br>
                                 <a href="#" style="color: #0066cc; text-decoration: none;">Privacy Policy</a> | <a href="#" style="color: #0066cc; text-decoration: none;">Terms of Service</a>
                             </p>
                         </td>

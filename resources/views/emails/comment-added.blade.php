@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Comment on Your Ticket - CheckMySite</title>
+    <title>New Comment on Your Ticket - DRISHTI PULSE</title>
 </head>
 <body style="font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f5f7fa; margin: 0; padding: 0; color: #333333; -webkit-font-smoothing: antialiased;">
     <table width="100%" cellpadding="0" cellspacing="0" border="0" style="min-width: 100%; border-collapse: collapse;">
@@ -50,10 +50,10 @@
                         <td style="background-color: #f8f9fa; padding: 30px; text-align: center; border-radius: 0 0 12px 12px;">
                             <img src="https://i.ibb.co/Fq8LgD9s/mainlogo.png" alt="Logo" style="height: 30px;">
                             <p style="font-size: 14px; color: #666; margin: 15px 0;">
-                                &copy; {{ now()->year }} CheckMySite. All rights reserved.
+                                &copy; 2025 DRISHTI PULSE. All rights reserved.
                             </p>
                             <p style="font-size: 12px; color: #999; margin-top: 10px;">
-                                You received this email because you submitted a support ticket on CheckMySite.
+                                You received this email because you submitted a support ticket on Drishti Pulse
                             </p>
                         </td>
                     </tr>

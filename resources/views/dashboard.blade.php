@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
-    <title>@yield('title', 'CheckMySite')</title>
+    <title>@yield('title', 'DRISHTI PULSE')</title>
 
     <link rel="manifest" href="{{ asset('/manifest.json') }}">
     <meta name="theme-color" content="#6777ef">
@@ -37,6 +37,7 @@
                 document.documentElement.classList.add('dark-mode');
             }
         })();
+        
     </script>
     
     <!-- Skeleton Loader Styles -->

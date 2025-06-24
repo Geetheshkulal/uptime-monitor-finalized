@@ -274,12 +274,13 @@
             $unreadCount = auth()->user()->unreadNotifications->count();
         @endphp
 
-        <span class="badge badge-danger badge-counter" {{ $unreadCount === 0 ? 'd-none' : ''}} id="notificationCounter">
+        <span class="badge badge-danger badge-counter {{ $unreadCount === 0 ? 'd-none' : ''}}" id="notificationCounter">
             {{-- {{ auth()->user()->unreadNotifications->count() > 0 ? auth()->user()->unreadNotifications->count() : '' }} --}}
             {{ $unreadCount }}
         </span>
        
     </a>
+    
     <!-- Dropdown - Alerts -->
     <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
         aria-labelledby="alertsDropdown">

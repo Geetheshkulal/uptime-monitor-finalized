@@ -187,6 +187,21 @@
                 padding: 0.8rem 1.1rem;
             }
         }
+
+        /* for mobile devices */
+          @media (max-width: 400px) {
+           .login-text{
+            margin-top:21px;
+           }
+   
+            
+  }
+.recaptcha-wrapper {
+    transform: scale(0.85); 
+    transform-origin: 0 0;  
+}
+
+
     </style>
 
 @if (session('error'))
@@ -253,11 +268,12 @@
                                             @enderror
                                         </div>
 
-                                        <div class="g-recaptcha mt-4" data-sitekey="{{config('services.recaptcha.key')}}"></div>
-                                        @error('g-recaptcha-response')
-                                            <span class="text-danger">{{ $errors->first('g-recaptcha-response') }}</span>
-                                        @enderror
-
+                                        <div class="recaptcha-wrapper">
+                                            <div class="g-recaptcha mt-4" data-sitekey="{{ config('services.recaptcha.key') }}"></div>
+                                            @error('g-recaptcha-response')
+                                                <span class="text-danger">{{ $errors->first('g-recaptcha-response') }}</span>
+                                            @enderror
+                                        </div>
 
                                         <div class="form-group d-flex justify-content-between align-items-center">
                                             <div class="custom-control custom-checkbox">
