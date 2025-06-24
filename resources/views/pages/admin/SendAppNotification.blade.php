@@ -31,6 +31,7 @@
     transition: right 0.3s ease-in-out;
     z-index: 1049;
     box-shadow: -2px 0 5px rgba(0,0,0,0.5);
+
 }
 
 #notificationToggle:hover + #notificationSidebar,
@@ -44,6 +45,19 @@
     font-size: 14px;
 }
 
+   /* for mobile devices */
+        @media (max-width: 400px) {
+           .notification-title{
+            margin-top:65px;
+           }
+           #notificationToggle{
+            margin-top:-17px;
+           }
+          .box{
+             width: 93% !important;
+          }
+  }
+
 </style>
 
 @endpush
@@ -51,14 +65,14 @@
 
 <form method="POST" action="{{ route('admin.send.notification') }}">
     @csrf
-    <h1 class="h3 mb-2 text-gray-800 ml-3">Send Notification to All Users</h1>
+    <h1 class="h3 mb-2 text-gray-800 ml-3 notification-title">Send Notification to All Users</h1>
     <div class="form-group ml-3">
         <label for="message">Message</label>
-        <textarea class="form-control w-25" name="message" placeholder="Enter your notification message" required rows="3"></textarea>
+        <textarea class="form-control w-25 box" name="message" placeholder="Enter your notification message" required rows="3"></textarea>
     </div>
     <div class="form-group ml-3">
         <label for="type">Notification Type</label>
-        <select class="form-control w-25" name="type">
+        <select class="form-control w-25 box" name="type">
             <option value="announcement">Announcement</option>
             <option value="alert">Alert</option>
             <option value="update">Update</option>
@@ -75,8 +89,9 @@
 
 <!-- Notification Sidebar (initially collapsed) -->
 <div id="notificationSidebar">
-    <h6 class="text-white px-3 pt-3">Latest Notifications</h6>
+    <h6 class="text-white px-3 pt-3 fw-bold">Latest Notifications</h6>
 
+    @if($LatestNotifications && count($LatestNotifications))
     @foreach($LatestNotifications as $note)
         @php
             $data = is_array($note->data) ? $note->data : json_decode($note->data, true);
@@ -97,6 +112,11 @@
             </div>
         </div>
     @endforeach
+    @else
+              <div class="d-flex justify-content-center align-items-center text-white" style="height: 150px;">
+                No notifications yet.
+            </div>
+    @endif
 </div>
 
 
@@ -116,4 +136,5 @@
     @endif
 </script>
 @endpush
+
 @endsection
