@@ -127,6 +127,7 @@
     background-color: #444 !important;
   }
 
+
 </style>
 {{-- @push('styles') --}}
 <style>
@@ -149,15 +150,6 @@
         50% { transform: scale(1); }
         100% { transform: scale(0.7); }
     }
-
-    /* .icon-circle {
-        height: 2.5rem;
-        width: 2.5rem;
-        border-radius: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    } */
 
     .icon-circle {
     width: 40px;
@@ -238,7 +230,7 @@
       <li class="nav-item dropdown no-arrow mx-1">
           <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="helpDropdown" role="button"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding: 10px 15px; font-size: 1rem; font-weight: 600;">
-              <i class="fas fa-question-circle mr-2" style="font-size: 1.2rem;"></i>
+              <i class="fas fa-question-circle mr-2" style="font-size: 1.2rem; color:#555879;"></i>
               <span class="text-gray-600">Help</span>
               <i class="fas fa-caret-down ml-1" style="font-size: 0.9rem;"></i> <!-- Dropdown indicator -->
           </a>
@@ -260,9 +252,9 @@
 
       {{-- dark mode button after deploy can we enable it  --}}
 
-      {{-- <button id="darkModeToggle" class="btn btn-sm ml-2" title="Toggle Dark Mode">
+       <!-- <button id="darkModeToggle" class="btn btn-sm ml-2" title="Toggle Dark Mode">
         <i id="themeIcon" class="fas fa-moon"></i>
-    </button> --}}
+    </button>  -->
 
 <!-- Nav Item - Alerts -->
 <li class="nav-item dropdown no-arrow mx-1">

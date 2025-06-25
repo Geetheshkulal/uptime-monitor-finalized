@@ -39,6 +39,8 @@ use App\Http\Controllers\EditTemplateController;
 use App\Events\AdminNotification;
 use App\Http\Controllers\AppNotificationController;
 
+
+
 Route::get('/Product_documentation', function () {
     return view('pages.CheckMySiteDocumentation');
 })->name('product.documentation')->middleware('blockIp');

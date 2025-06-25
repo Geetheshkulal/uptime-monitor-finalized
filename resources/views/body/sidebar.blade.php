@@ -139,7 +139,7 @@
         box-shadow: 0 8px 24px rgba(255, 107, 107, 0.3);
         /* animation: slideIn 0.6s ease-out; */
         margin: 15px 0;
-        /* border-left: 5px solid #f89603; */
+      
     }
 
     .alert-info::before {
@@ -171,7 +171,7 @@
     }
 
 
-    /* Optional: Add if you want a confetti effect */
+
     .alert-info::after {
         content: "";
         position: absolute;
@@ -203,15 +203,15 @@
     
 }
 
-/* Default light mode sidebar */
+
 .sidebar {
     background-color: #4e73df; /* Light */
     color: white;
 }
 
-/* Dark mode override */
+
 .dark-mode .sidebar {
-    background-color: #1f1f2e !important; /* Dark */
+    background-color: #1f1f2e !important; 
     color: #f1f1f1;
 }
 </style>

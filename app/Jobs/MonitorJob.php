@@ -206,6 +206,7 @@ class MonitorJob
         Log::info('Telegram API Response: ', $response->json());
     }
 
+    
     public function SendPwaNotification($userId, $notificationToken = null)
     {
         try {
@@ -216,13 +217,26 @@ class MonitorJob
                 return;
             }
 
+            // $webPush = new WebPush([
+            //     'VAPID' => [
+            //         'subject' => 'mailto:'.env('MAIL_FROM_ADDRESS', 'notifications@example.com'),
+            //         'publicKey' => env('VAPID_PUBLIC_KEY'),
+            //         'privateKey' => env('VAPID_PRIVATE_KEY'),
+            //     ]
+            // ]);
+
+            // Log::info('DEBUG VAPID KEYS:', [
+            //     'from_config_public' => config('webpush.vapid.public_key'),
+            //     'from_config_private' => config('webpush.vapid.private_key'),
+            // ]);
+
             $webPush = new WebPush([
-                'VAPID' => [
-                    'subject' => 'mailto:'.env('MAIL_FROM_ADDRESS', 'notifications@example.com'),
-                    'publicKey' => env('VAPID_PUBLIC_KEY'),
-                    'privateKey' => env('VAPID_PRIVATE_KEY'),
-                ]
-            ]);
+            'VAPID' => [
+                'subject' => config('webpush.vapid.subject'),
+                'publicKey' => config('webpush.vapid.public_key'),
+                'privateKey' => config('webpush.vapid.private_key'),
+            ]
+        ]);
 
             $payload = json_encode([
                 'title' => 'Monitor Alert',
@@ -253,6 +267,8 @@ class MonitorJob
             Log::error("PWA notification error for user {$userId}: " . $e->getMessage());
         }
     }
+
+
     private function checkHttp(Monitors $monitor)
     {
         $status = 'down';

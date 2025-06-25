@@ -1,10 +1,10 @@
 {
-    "name": "CheckMySite",
+    "name": "DRISHTI PULSE",
     "short_name": "LPT",
     "start_url": "/",
     "scope": "/",
     "background_color": "#6777ef",
-    "description": "CheckMySite",
+    "description": "DRISHTI PULSE",
     "display": "fullscreen",
     "theme_color": "#6777ef",
     "icons": [
