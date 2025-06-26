@@ -50,7 +50,7 @@
     overflow-y: auto;
     position: relative;
     background-color: #f8f9fa;
-    min-height: 100vh;
+    min-height: 94vh;
 }
 
 
@@ -293,7 +293,7 @@
  <div class="sidebar">
     <div class="sidebar-header">
         <a>
-            <h4><i class="fas fa-heartbeat me-2"></i>CheckMySite</h4>
+            <h4><i class="fas fa-heartbeat me-2"></i>Drishti Pulse</h4>
         </a>
     </div>
     <div class="nav-menu">
@@ -343,7 +343,7 @@
         <h2><i class="fas fa-home feature-icon"></i> Overview</h2>
       </div>
       
-      <p>CheckMySite is a comprehensive solution for tracking the availability and performance of your websites and online services in real-time. Get instant notifications when issues arise and maintain optimal uptime for your digital assets.</p>
+      <p>Drishti Pulse is a comprehensive solution for tracking the availability and performance of your websites and online services in real-time. Get instant notifications when issues arise and maintain optimal uptime for your digital assets.</p>
       
       <div class="highlight">
         <h5>Key Features:</h5>

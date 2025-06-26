@@ -119,59 +119,8 @@
       
     </style>
 
-<style>
-  
 
-.dark-mode body,
-body.dark-mode,
-.dark-mode #content-wrapper {
-    background-color: #181818 !important;
-    color: #e0e0e0 !important;
-}
-
-.dark-mode .card,
-.dark-mode .modal-content,
-.dark-mode .dropdown-menu,
-.dark-mode .bg-white {
-    background-color: #2b2b2b !important;
-    color: #ffffff !important;
-}
-
-.dark-mode .btn-primary {
-    background-color: #3a3f51;
-    border-color: #3a3f51;
-}
-
-.dark-mode .form-control {
-    background-color: #2e2e2e;
-    color: white;
-    border-color: #444;
-}
-
-/* Default (light mode) */
-#accordionSidebar {
-    background-color: #4e73df;
-    /* transition: background-color 0.3s ease; */
-}
-
-/* Dark mode version */
-body.dark-mode #accordionSidebar {
-    background-color: #1e1e2f; /* Or any dark tone */
-}
-
-body.dark-mode #accordionSidebar .nav-link,
-body.dark-mode #accordionSidebar .nav-link i,
-body.dark-mode #accordionSidebar .sidebar-heading,
-body.dark-mode .sidebar-brand-text {
-    color: #ffffff;
-}
-
-body.dark-mode #accordionSidebar {
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
-    border-right: 1px solid #333;
-}
-</style>
-
+@include('layouts.darkmode-style')
 @stack('styles')
 </head>
 

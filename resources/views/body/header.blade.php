@@ -1,6 +1,7 @@
 {{-- @extends('layouts.app') --}}
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
+
 @push('styles')
   <style>
       @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
@@ -12,8 +13,6 @@
         background-color: #fff;
         transition: background 0.2s linear;
       }
-    
-      body.dark { background-color: #292c35; color: white; }
     
       .checkbox {
         opacity: 0;
@@ -60,73 +59,11 @@
     font-size: 0.9rem;
     margin-left: 5px;
 }
-      /* Ensure Bootstrap does not override dark mode */
-  body.dark {
-    background-color: #292c35 !important; /* Force dark background */
-    color: white !important;
-  }
 
-  /* Override Bootstrap background */
-  body.dark .bg-light {
-    background-color: #333 !important;
-    color: white !important;
-  }
+/* .notification-bell{
+    color: #084bbf;
 
-  body.dark .navbar, body.dark .card, body.dark .dropdown-menu {
-    background-color: #444 !important;
-    color: white !important;
-  }
-
-  body.dark .btn-primary {
-    background-color: #007bff !important;
-    border-color: #0056b3 !important;
-  }
-
-  body.dark .btn-secondary {
-    background-color: #6c757d !important;
-    border-color: #545b62 !important;
-  }
-
-  body.dark a {
-    color: #f8d210 !important;
-  }
-
-  /* Ensure Bootstrap table is styled in dark mode */
-  body.dark .table {
-    background-color: #2c2f33 !important;
-    color: white !important;
-  }
-
-  body.dark .table thead {
-    background-color: #23272a !important;
-  }
-
-  body.dark .table tbody tr {
-    background-color: #2c2f33 !important;
-    border-color: #555 !important;
-  }
-
-  /* Form Inputs */
-  body.dark input, body.dark textarea, body.dark select {
-    background-color: #333 !important;
-    color: white !important;
-    border: 1px solid #555 !important;
-  }
-
-  /* Bootstrap Dropdown */
-  body.dark .dropdown-menu {
-    background-color: #333 !important;
-    border-color: #555 !important;
-  }
-
-  body.dark .dropdown-item {
-    color: white !important;
-  }
-
-  body.dark .dropdown-item:hover {
-    background-color: #444 !important;
-  }
-
+} */
 
 </style>
 {{-- @push('styles') --}}
@@ -230,7 +167,7 @@
       <li class="nav-item dropdown no-arrow mx-1">
           <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="helpDropdown" role="button"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding: 10px 15px; font-size: 1rem; font-weight: 600;">
-              <i class="fas fa-question-circle mr-2" style="font-size: 1.2rem; color:#555879;"></i>
+              <i class="fas fa-question-circle mr-2 white-color" style="font-size: 1.2rem; color:#555879;"></i>
               <span class="text-gray-600">Help</span>
               <i class="fas fa-caret-down ml-1" style="font-size: 0.9rem;"></i> <!-- Dropdown indicator -->
           </a>
@@ -260,7 +197,7 @@
 <li class="nav-item dropdown no-arrow mx-1">
     <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fas fa-bell fa-fw" style="color: #084bbf; font-size: larger;"></i>
+        <i class="fas fa-bell fa-fw notification-bell" style="color: #084bbf;"></i>
         <!-- Counter - Alerts -->
         @php
             $unreadCount = auth()->user()->unreadNotifications->count();
@@ -331,7 +268,7 @@
       <!-- Nav Item - User Information -->
       <li class="nav-item">
           <a class="nav-link" href="{{ url('/profile') }}" role="button" aria-haspopup="true" aria-expanded="false">
-              <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
+              <span class="mr-2 d-none d-lg-inline text-gray-600 small white-color">{{ Auth::user()->name }}</span>
               <img class="img-profile rounded-circle profile"
                   src="{{ Avatar::create(auth()->user()->name)->toBase64() }}">
           </a>
@@ -340,7 +277,7 @@
        
        <li class="nav-item">
         <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
-            <i class="fas fa-sign-out-alt fa-sm fa-fw fa-rotate-180  text-gray-600"></i>
+            <i class="fas fa-sign-out-alt fa-sm fa-fw fa-rotate-180  text-gray-600 white-color"></i>
         </a>
     </li>
 

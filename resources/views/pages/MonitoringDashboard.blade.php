@@ -121,7 +121,7 @@
         }
 
 
-        .table thead th {
+        /* .table thead th {
             border: none;
             font-weight: 700;
             color: var(--gray);
@@ -133,7 +133,7 @@
             padding: 1rem;
             vertical-align: middle;
             border-top: 1px solid #e3e6f0;
-        }
+        } */
 
         /* ========== UTILITY CLASSES ========== */
         .text-primary {
@@ -144,7 +144,7 @@
             font-weight: 600;
         }
 
-        .disabled-row {
+        /* .disabled-row {
             background-color: var(--light-gray);
             color: var(--gray);
         }
@@ -152,7 +152,7 @@
         .disabled-row a {
             color: var(--gray) !important;
             pointer-events: none;
-        }
+        } */
 
         /* ========== ANIMATIONS ========== */
         @keyframes fadeIn {
@@ -225,7 +225,7 @@
         <div class="container-fluid">
             <!-- Page Header -->
             <div data-aos="fade-up" class="d-flex align-items-center justify-content-between mb-4 fade-in">
-                <h1 class="h3 mb-0 text-gray-800 font-300">Overview</h1>
+                <h1 class="h3 mb-0 text-gray-800 font-300 white-color">Overview</h1>
                 
                 @if($totalMonitors>=5 && auth()->user()->status=='free')
                 <a class="btn btn-primary AddMonitor" style="color:yellow;" href="{{ route('premium.page') }}">

@@ -506,9 +506,9 @@
           {{-- <li class="nav-item">
             <a class="nav-link" href="{{ route('product.documentation') }}">Product Docs</a>
           </li> --}}
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="{{ route('latest.page') }}">Updates</a>
-          </li>
+          </li> -->
         </ul>
         
         <!-- Right-aligned items -->
@@ -558,7 +558,7 @@
             </span>
           </h1>
           {{-- <h1 class="display-4 fw-bold mb-4 animate__animated animate__fadeInDown">Never Miss a Website Downtime</span> Again</h1> --}}
-          <p class="lead mb-4 animate__animated animate__fadeIn animate__delay-1s">Get instant alerts when your websites go down. Monitor performance, uptime, and response times with CheckMySite's powerful monitoring tools.</p>
+          <p class="lead mb-4 animate__animated animate__fadeIn animate__delay-1s">Get instant alerts when your websites go down. Monitor performance, uptime, and response times with Drishti Pulse powerful monitoring tools.</p>
           <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start gap-3 animate__animated animate__fadeIn animate__delay-2s">
             @if(auth()->check())
                 @hasrole('superadmin')
@@ -584,7 +584,7 @@
                 <div class="status-bar">
                   <div class="status-item">
                     <div class="status-indicator up"></div>
-                    <small>checkmysite.com</small>
+                    <small>drishtipulse.in</small>
                   </div>
                   <div class="status-item">
                     <div class="status-indicator up"></div>
@@ -712,7 +712,7 @@
     <div class="container">
       <div class="text-center mb-5">
         <br><br>
-        <h2 class="fw-bold mb-3 section-title animate__animated animate__fadeIn">How CheckMySite Works</h2>
+        <h2 class="fw-bold mb-3 section-title animate__animated animate__fadeIn">How Drishti Pulse Works</h2>
         <p class="text-muted mx-auto animate__animated animate__fadeIn animate__delay-1s" style="max-width: 600px;">Simple setup, powerful results. Get started in less than 2 minutes.</p>
       </div>
       
@@ -815,7 +815,7 @@
       <div class="row justify-content-center text-center">
         <div class="col-lg-8">
           <h2 class="display-5 fw-semibold mb-4 animate__animated animate__fadeInDown">Ready to Monitor Your Websites?</h2>
-          <p class="lead mb-5 animate__animated animate__fadeIn animate__delay-1s">Join thousands of businesses that trust CheckMySite to keep their websites and services running smoothly.</p>
+          <p class="lead mb-5 animate__animated animate__fadeIn animate__delay-1s">Join thousands of businesses that trust Drishti Pulse to keep their websites and services running smoothly.</p>
           <div class="d-flex flex-column flex-sm-row justify-content-center gap-3 animate__animated animate__fadeIn animate__delay-2s">
             <a href="{{ route('login') }}" class="btn btn-light btn-lg fw-bold px-4">
               <i class="fas fa-rocket me-2"></i> Start Your Free Trial
