@@ -193,6 +193,13 @@
         * {
     border-radius: 0 !important;
 }
+
+@media (max-width: 430px) {
+    .register-text{
+        margin-top: 18px
+    }
+    
+}
     </style>
 
 <link rel="manifest" href="{{ asset('manifest.json') }}">

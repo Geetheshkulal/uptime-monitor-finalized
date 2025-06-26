@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Session;
 use Jenssegers\Agent\Agent;
 use App\Models\TrafficLog;
+use Illuminate\Support\Facades\Hash;
 
 
 class AuthenticatedSessionController extends Controller
@@ -34,7 +35,7 @@ class AuthenticatedSessionController extends Controller
      * Handle an incoming authentication request.
      */
 
-        public function store(LoginRequest $request): RedirectResponse
+    public function store(LoginRequest $request): RedirectResponse
     {
         $request->validate([
             'email' => 'required|email',
@@ -53,6 +54,16 @@ class AuthenticatedSessionController extends Controller
                 }
             }],
         ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        if(!$user){
+            return back()->withErrors(['email' => 'This email is not registered.'])->withInput();
+        }
+
+        if (!Hash::check($request->password, $user->password)) {
+            return back()->withErrors(['password' => 'Wrong password.'])->withInput();
+    }
 
         try {
             $request->authenticate();
