@@ -497,8 +497,8 @@
             intro.setOptions({
                 disableInteraction: false,
                 steps:[{
-                title:'Check My Site',
-                intro:'Welcome to check my site! Lets take a quick tour'
+                title:'Drishti Pulse',
+                intro:'Welcome to Drishti Pulse! Lets take a quick tour'
             },
             {
                 element:document.querySelector('.profile'),
@@ -552,8 +552,8 @@
          intro.setOptions({
                 disableInteraction: false,
                 steps:[{
-                title:'Check My Site',
-                intro:'Welcome to check my site! Lets take a quick tour'
+                title:'Drishti Pulse',
+                intro:'Welcome to Drishti Pulse! Lets take a quick tour'
             },
             {
                 element:document.querySelector('.profile'),
@@ -643,8 +643,8 @@
         intro.setOptions({
             steps: [
                 {
-                    title: 'Check My Site',
-                    intro: 'Welcome to check my site! Lets take a quick tour'
+                    title:'Drishti Pulse',
+                    intro:'Welcome to Drishti Pulse! Lets take a quick tour'
                 },
                 {
                     element: document.querySelector('.profile'),
