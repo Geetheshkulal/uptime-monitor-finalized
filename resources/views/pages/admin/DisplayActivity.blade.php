@@ -51,7 +51,53 @@
             overflow-y: auto;
         }
 
+    /* Select2 Dark Mode Styling */
+body.dark-mode .select2-container--default .select2-selection--single {
+    background-color: #1e1e2f !important;
+    border: 1px solid #2d2d42 !important;
+    color: #e0e0e0 !important;
+    height: 38px !important;
+}
 
+body.dark-mode .select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #e0e0e0 !important;
+    line-height: 36px !important;
+}
+
+body.dark-mode .select2-container--default .select2-selection--single .select2-selection__arrow b {
+    border-color: #e0e0e0 transparent transparent transparent !important;
+}
+
+body.dark-mode .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
+    border-color: transparent transparent #e0e0e0 transparent !important;
+}
+
+body.dark-mode .select2-dropdown {
+    background-color: #1e1e2f !important;
+    border: 1px solid #2d2d42 !important;
+}
+
+body.dark-mode .select2-container--default .select2-results__option {
+    color: #e0e0e0 !important;
+    background-color: #1e1e2f !important;
+}
+
+body.dark-mode .select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #2d2d42 !important;
+    color: #ffffff !important;
+}
+
+body.dark-mode .select2-container--default .select2-search--dropdown .select2-search__field {
+    background-color: #1a1a27 !important;
+    border: 1px solid #2d2d42 !important;
+    color: #e0e0e0 !important;
+}
+
+body.dark-mode .select2-container--default .select2-results__option[aria-selected=true] {
+    background-color: #2d2d42 !important;
+    color: #ffffff !important;
+}
+      
 
     </style>
 @endpush
@@ -60,14 +106,14 @@
 <div class="page-content">
     <div class="container-fluid">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Activity Log</h1>
+            <h1 class="h3 mb-0 text-gray-800 white-color">Activity Log</h1>
         </div>
         
         <!-- Activity Log Table -->
         <div class="card shadow mb-4">
             <div class="card-body px-4 py-4">
                 <div class="filter-container">
-                    <label for="userFilter">Filter by User:</label>
+                    <label for="userFilter" class="white-color">Filter by User:</label>
                     <select class="js-user-select form-control" id="userFilter" style="width: 300px;"></select>
                 </div>
                 

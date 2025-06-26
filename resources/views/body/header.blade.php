@@ -187,7 +187,7 @@
           </div>
       </li>
 
-      {{-- dark mode button after deploy can we enable it  --}}
+       <!-- dark mode button after deploy can we enable it   -->
 
        <!-- <button id="darkModeToggle" class="btn btn-sm ml-2" title="Toggle Dark Mode">
         <i id="themeIcon" class="fas fa-moon"></i>

@@ -442,7 +442,7 @@
 
 <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="h3 mb-0 text-gray-800 font-600">Status Page</h1>
+        <h1 class="h3 mb-0 text-gray-800 font-600 white-color">Status Page</h1>
          <a href="{{ route('user.status-settings') }}" class="btn btn-primary {{ request()->routeIs('user.status-settings*') ? 'active' : '' }} style="padding: 0.5rem 1rem;">
         <i class="fas fa-globe me-2"></i>  Share Status Page
         </a>

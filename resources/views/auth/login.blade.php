@@ -173,6 +173,7 @@
         *{
             border-radius: 0 !important;
         }
+
         @media (max-width: 768px) {
             .bg-login-image {
                 min-height: 200px;
@@ -189,26 +190,94 @@
         }
 
         /* for mobile devices */
-          @media (max-width: 400px) {
-           .login-text{
-            margin-top:21px;
-           }
-   
-            
-  }
-.recaptcha-wrapper {
-    transform: scale(0.85); 
-    transform-origin: 0 0;  
-}
+ @media (max-width: 430px) {
+    .card {
+        margin: 0.5rem;
+        border-radius: 0.5rem;
+    }
 
+    .login-text {
+        font-size: 1.25rem;
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    .login-subtext {
+        font-size: 0.8rem;
+        text-align: center;
+    }
+
+    .form-control-user {
+        font-size: 0.8rem;
+        padding: 0.6rem 1rem;
+    }
+
+    .btn-primary {
+        font-size: 0.8rem;
+        padding: 0.6rem 0.9rem;
+    }
+
+    .login-footer {
+        font-size: 0.8rem;
+        text-align: center;
+    }
+
+    .login-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        padding-left: 0;
+        margin-top: 0;
+        border-radius: 0.5rem 0.5rem 0 0;
+    }
+
+    .custom-back-button {
+        top: 10px;
+        left: 10px;
+    }
+
+    .custom-btn-lg {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+
+    .recaptcha-wrapper {
+        transform: scale(0.75);
+        transform-origin: 0 0;
+    }
+
+    .password-toggle {
+        right: 10px;
+        font-size: 0.9rem;
+    }
+
+    .divider {
+        font-size: 0.7rem;
+    }
+
+    .divider span {
+        padding: 0 8px;
+    }
+
+    .g-recaptcha {
+        margin-bottom: 10px;
+    }
+     /* .gap-on-mobile {
+         flex-direction: column;
+        align-items: flex-start !important; 
+        gap: 8px; 
+    } */
+
+    .forgot-password-link {
+        margin-left: 5 !important;
+        margin-top: 5px;
+    }
+}
 
     </style>
 
-@if (session('error'))
-    <script>
-        toastr.error("{{ session('error') }}");
-    </script>
-@endif
+
 
 <body class="bg-gradient-primary">
 
@@ -275,13 +344,13 @@
                                             @enderror
                                         </div>
 
-                                        <div class="form-group d-flex justify-content-between align-items-center">
+                                        <div class="form-group d-flex justify-content-between align-items-center mt-3 flex-wrap gap-on-mobile">
                                             <div class="custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input" id="remember_me" name="remember" {{ request()->cookie('remember_email') ? 'checked' : '' }}>
                                                 <label class="custom-control-label" for="remember_me">Remember Me</label>
                                             </div>
                                             @if (Route::has('password.request'))
-                                                <a class="small text-primary" href="{{ route('password.request') }}">Forgot Password?</a>
+                                                <a class="small text-primary forgot-password-link" href="{{ route('password.request') }}">Forgot Password?</a>
                                             @endif
                                         </div>
 

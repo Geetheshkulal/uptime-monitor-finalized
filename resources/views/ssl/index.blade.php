@@ -13,7 +13,7 @@
 #historyDropdownBtn {
     font-size: 1rem; /* Adjust font size */
     font-weight: 600; /* Make the text bold */
-    color:#4e73df /* Primary color */
+    color: #4e73df /* Primary color */
     text-decoration: none; /* Remove underline */
     padding: 0.5rem 1rem; /* Add padding for better spacing */
     border: 1px solid #4e73df; /* Add a border */
@@ -165,6 +165,8 @@
 </button>
 <br>
 <br>
+
+
 <!-- SSL History Table -->
 <div id="historyTable" class="row mx-3" style="display: none;">
     <div class="col-12">

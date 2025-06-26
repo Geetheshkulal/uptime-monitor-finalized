@@ -107,43 +107,192 @@
     color: #ffffff !important;
 }
 
-    /* TABLES */
+/* TABLES */
 
-    body.dark-mode .table thead th {
+body.dark-mode .table {
+    border-collapse: collapse !important;
+    border: none !important;
+}
+
+body.dark-mode .table td, 
+body.dark-mode .table th {
+    border: none !important;
+}
+
+/* Keep your existing table styles */
+body.dark-mode .table thead th {
     background-color: #1e1e2f !important;
     color: #ffffff !important;
 }
 
-    body.dark-mode .table td {
-        border-top: 1px solid #333 !important;
-        color: #e0e0e0 !important;
-    }
+body.dark-mode .table td {
+    color: #e0e0e0 !important;
+}
 
-    /* DataTables pagination fix for dark mode */
-body.dark-mode .dataTables_wrapper .dataTables_paginate .pagination .paginate_button {
-    background-color: #2b2b2b !important;
+/* Your pagination styles */
+body.dark-mode .pagination .page-item .page-link {
+    background-color: #1e1e2f !important;
+    border-color: #333 !important;
     color: #ffffff !important;
-    border: 1px solid #444 !important;
 }
 
-body.dark-mode .dataTables_wrapper .dataTables_paginate .paginate_button.current {
-    background-color: #084bbf !important;
-    color: white !important;
-    border: 1px solid #084bbf !important;
+body.dark-mode .pagination .page-item.active .page-link {
+    background-color: #000000 !important;
+    border-color: #000000 !important;
+    color: #ffffff !important;
 }
 
-body.dark-mode .dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
-    background-color: #1e1e1e !important;
-    color: #777 !important;
-    border: 1px solid #333 !important;
-    cursor: not-allowed;
+body.dark-mode .pagination .page-item:hover .page-link {
+    background-color: #333 !important;
+    color: #ffffff !important;
 }
 
-    /* body.dark .table {
-        background-color: #2c2f33 !important;
-        color: white !important;
-    } */
+    
+/* SSL History Table - Dark Mode */
+body.dark-mode #sslChecksTable {
+    border: none !important;
+}
 
+body.dark-mode #sslChecksTable.table-bordered thead th,
+body.dark-mode #sslChecksTable.table-bordered tbody td {
+    border: none !important;
+    background-color: #1e1e2f !important;
+    color: #e0e0e0 !important;
+}
+
+body.dark-mode #sslChecksTable.table-bordered {
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+}
+
+body.dark-mode .card {
+    background-color: #1e1e2f !important;
+    border: none !important;
+}
+body.dark-mode #historyDropdownBtn{
+      color: #e0e0e0 !important;
+    border: 1px solid #e0e0e0; 
+     background-color: #1e1e2f !important;
+}
+
+/* body.dark-mode .card-header {
+    background-color: #1a1a27 !important;
+    border-bottom: 1px solid #2d2d42 !important;
+} */
+
+
+/* Monitors Section - Dark Mode */
+body.dark-mode .monitor-card {
+    background-color: #1e1e2f !important;
+    border: 1px solid #2d2d42 !important;
+    color: #e0e0e0 !important;
+}
+
+body.dark-mode .monitor-card:hover {
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(0, 0, 0, 0.3) !important;
+}
+
+body.dark-mode .monitor-name {
+    color: #ffffff !important;
+}
+
+body.dark-mode .monitor-url {
+    color: #a0a0c0 !important;
+}
+
+body.dark-mode .status-indicator-up {
+    background-color: #28a745 !important;
+    box-shadow: 0 0 0 2px #1e1e2f, 0 0 0 4px #28a745 !important;
+}
+
+body.dark-mode .status-indicator-down {
+    background-color: #dc3545 !important;
+    box-shadow: 0 0 0 2px #1e1e2f, 0 0 0 4px #dc3545 !important;
+}
+
+body.dark-mode .status-indicator-paused {
+    background-color: #ffc107 !important;
+    box-shadow: 0 0 0 2px #1e1e2f, 0 0 0 4px #ffc107 !important;
+}
+
+
+body.dark-mode .status-badge {
+    border-radius: 0.375rem !important;
+    padding: 0.25rem 0.5rem !important;
+    font-weight: 600 !important;
+}
+
+body.dark-mode .bg-success-100 {
+    background-color: rgba(40, 167, 69, 0.2) !important;
+}
+
+body.dark-mode .text-success-800 {
+    color: #28a745 !important;
+}
+
+body.dark-mode .bg-danger-100 {
+    background-color: rgba(220, 53, 69, 0.2) !important;
+}
+
+body.dark-mode .text-danger-800 {
+    color: #dc3545 !important;
+}
+
+body.dark-mode .bg-warning-100 {
+    background-color: rgba(255, 193, 7, 0.2) !important;
+}
+
+body.dark-mode .text-warning-800 {
+    color: #ffc107 !important;
+}
+
+
+body.dark-mode .bars-container {
+    background-color: #1a1a27 !important;
+    border: 1px solid #2d2d42 !important;
+}
+
+body.dark-mode .bar-segment-wrapper:hover .bar-segment {
+    opacity: 0.8 !important;
+}
+
+body.dark-mode .uptime-legend {
+    border-top: 1px solid #2d2d42 !important;
+    color: #a0a0c0 !important;
+}
+
+body.dark-mode .legend-item span {
+    color: #e0e0e0 !important;
+}
+
+/* Monitor stats */
+body.dark-mode .monitor-stats {
+    color: #a0a0c0 !important;
+     background-color: #1a1a27 !important;
+     border: none !important;
+}
+
+body.dark-mode .stat-value {
+    color: #ffffff !important;
+    font-weight: 600 !important;
+}
+
+
+body.dark-mode .card {
+    background-color: #1a1a27 !important;
+    border: none !important;
+}
+
+body.dark-mode .card-header {
+    background-color: #1a1a27 !important;
+    border-bottom: 1px solid #2d2d42 !important;
+}
+
+body.dark-mode .text-primary {
+    color: #6cb2eb !important;
+}
+
+/* Monitors Section - ends */
 
     /* SCROLLBAR HIDING */
     #accordionSidebar::-webkit-scrollbar {
