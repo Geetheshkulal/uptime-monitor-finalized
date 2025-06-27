@@ -59,7 +59,7 @@
                                 </p>
                             </div>
 
-                            <p style="margin-bottom: 0;">If you have any questions, feel free to <a href="mailto:checkmysite2025@gmail.com" style="color: #0066cc; text-decoration: none; font-weight: 500;">contact our support team</a>.</p>
+                            <p style="margin-bottom: 0;">If you have any questions, feel free to <a href="mailto:drishtipulse2025@gmail.com" style="color: #0066cc; text-decoration: none; font-weight: 500;">contact our support team</a>.</p>
                         </td>
                     </tr>
                     
@@ -120,7 +120,7 @@
 
                             
                             <p style="font-size: 13px; color: #999; margin: 0;">
-                                &copy; 2025 CheckMySite. All rights reserved.
+                                &copy; 2025 Drishti Pulse. All rights reserved.
                             </p>
                             
                             <p style="font-size: 12px; color: #999; margin-top: 15px;">

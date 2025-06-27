@@ -287,7 +287,7 @@
         padding: 1.5rem !important;
     }
     
-   
+    /* Ensure the checkbox and forgot password align properly */
     .form-group.d-flex {
         flex-direction: column;
         align-items: flex-start;

@@ -175,6 +175,10 @@
     align-items: center;
     justify-content: center;
 }
+
+.p-5 {
+    padding: 2rem !important;
+}
         
         @media (max-width: 768px) {
             .card {
@@ -196,7 +200,7 @@
 
 @media (max-width: 430px) {
     .register-text{
-        margin-top: 18px
+        margin-top: 35px
     }
     
 }
