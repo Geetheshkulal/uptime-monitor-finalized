@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Login to your dashboard">
     <meta name="author" content="Your App">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
@@ -242,11 +242,6 @@
         font-size: 16px;
     }
 
-    .recaptcha-wrapper {
-        transform: scale(0.75);
-        transform-origin: 0 0;
-    }
-
     .password-toggle {
         right: 10px;
         font-size: 0.9rem;
@@ -260,18 +255,47 @@
         padding: 0 8px;
     }
 
+       /* .recaptcha-wrapper {
+        transform: scale(0.75);
+        transform-origin: 0 0;
+    }
+
     .g-recaptcha {
         margin-bottom: 10px;
-    }
-     /* .gap-on-mobile {
-         flex-direction: column;
-        align-items: flex-start !important; 
-        gap: 8px; 
-    } */
+    } 
+   
 
     .forgot-password-link {
         margin-left: 5 !important;
         margin-top: 5px;
+    } */
+
+    .g-recaptcha {
+        transform: scale(0.70) !important;
+        transform-origin: 0 0;
+        width: 100%;
+        margin: 10px 0;
+    }
+    
+    .recaptcha-wrapper {
+        width: 100%;
+        overflow: visible;
+        margin: 15px 0;
+    }
+    
+    .p-5 {
+        padding: 1.5rem !important;
+    }
+    
+   
+    .form-group.d-flex {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .forgot-password-link {
+        margin-top: 10px;
+        margin-left: 0 !important;
     }
 }
 
