@@ -285,7 +285,7 @@ body.dark-mode .card {
 
 body.dark-mode .card-header {
     background-color: #1a1a27 !important;
-    border-bottom: 1px solid #2d2d42 !important;
+    /* border-bottom: 1px solid #2d2d42 !important; */
 }
 
 body.dark-mode .text-primary {
@@ -293,6 +293,180 @@ body.dark-mode .text-primary {
 }
 
 /* Monitors Section - ends */
+
+
+/* Dark mode for premium blade */
+.dark-mode .upgrade-container {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+
+.dark-mode .page-header h2 {
+    color: #ffffff;
+}
+
+.dark-mode .page-header p {
+    color: #b0b0b0;
+}
+
+
+.dark-mode .pricing-card {
+   background-color: #1a1a27 !important;
+    color: #e0e0e0;
+}
+
+
+.dark-mode .pricing-card.basic {
+    background-color: #252525;
+}
+
+.dark-mode .pricing-card.premium {
+    background-color: #2a2a2a;
+    border-color: #ffc107;
+}
+
+.dark-mode .pricing-card .features-list {
+    color: #d0d0d0;
+}
+
+.dark-mode .pricing-card .features-list i.text-success {
+    color: #4caf50 !important;
+}
+
+.dark-mode .pricing-card .features-list i.text-danger {
+    color: #f44336 !important;
+}
+
+.dark-mode .applied-coupon-msg {
+    background-color: #3a3a3a;
+    color: #a5d6a7;
+}
+
+.dark-mode .card-badge {
+    background-color: #2980b9;
+    color: #fff;
+}
+
+
+.dark-mode .btn-warning {
+    background-color: #d4a017;
+    color: #fff;
+} 
+ 
+.dark-mode .btn-disabled {
+    background-color: #3a3a3a !important;
+    color: #777 !important;
+}
+
+.dark-mode .modal-content {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+}
+
+.dark-mode .form-control {
+    background-color: #3a3a3a;
+    border-color: #555;
+    color: #e0e0e0;
+}
+
+.dark-mode .form-control:focus {
+    background-color: #4a4a4a;
+    color: #fff;
+}
+
+/* dark mode for premium blade ends */
+
+.dark-mode .custom-select{
+     background-color: #2c2c2c; 
+    color: #fff;
+    border:none;
+}
+
+/* raise ticket file input */
+body.dark-mode .custom-file-label {
+    background-color: #2a2a2a;
+    color: #ffffff;
+    border-color: #555;
+}
+
+body.dark-mode .custom-file-input:focus ~ .custom-file-label {
+    border-color: #888;
+    box-shadow: 0 0 0 0.1rem rgba(255, 255, 255, 0.25);
+}
+
+body.dark-mode .custom-file-input {
+    background-color: #2a2a2a;
+    color: #ffffff;
+    border-color: #555;
+}
+body.dark-mode .custom-file-label::after {
+    background-color: #444;
+    color: #fff;
+    border-left: 1px solid #555;
+}
+/* raise ticket file input ends */
+
+/* dark mode for quill editor */
+
+body.dark-mode .ql-toolbar.ql-snow {
+    background-color: #2c2c2c; 
+    border-color: #444;
+    color: #fff;
+}
+
+body.dark-mode .ql-toolbar.ql-snow .ql-picker,
+body.dark-mode .ql-toolbar.ql-snow .ql-picker-label,
+body.dark-mode .ql-toolbar.ql-snow .ql-picker-item {
+    color: #fff;
+}
+
+body.dark-mode .ql-toolbar.ql-snow button {
+    color: #fff;
+    border: none;
+}
+
+body.dark-mode .ql-toolbar.ql-snow .ql-stroke {
+    stroke: #ffffff;
+}
+
+body.dark-mode .ql-toolbar.ql-snow .ql-fill {
+    fill: #ffffff;
+}
+
+body.dark-mode .ql-toolbar.ql-snow .ql-picker-options {
+    background-color: #3a3a3a;
+    color: #fff;
+}
+
+body.dark-mode .ql-container.ql-snow {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    border-color: #444;
+}
+body.dark-mode .ql-editor::before {
+    color: #aaa;
+}
+
+/* quill editor ends */
+
+body.dark-mode .comment{
+    background-color: #1a1a27 !important;
+    color: #e0e0e0;
+    border:'none';
+}
+
+body.dark-mode .comment-header{
+    background-color: #1a1a27 !important;
+    color: #e0e0e0;
+}
+body.dark-mode .new-comment-header{
+       background-color: #1a1a27 !important;
+    color: #e0e0e0;
+}
+.body.dark-mode .ql-editor{
+     background-color: #1a1a27 !important;
+}
+
 
     /* SCROLLBAR HIDING */
     #accordionSidebar::-webkit-scrollbar {
@@ -342,4 +516,6 @@ body.dark-mode .text-primary {
     body.dark #darkModeToggle i {
         color: white !important;
     }
+
+    
 </style>

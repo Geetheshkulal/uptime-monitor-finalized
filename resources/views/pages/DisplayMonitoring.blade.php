@@ -31,7 +31,10 @@
             background-color: #2e59d9;
             border-color: #2653d4;
         }  
-        </style>
+
+
+       
+    </style>
     <!-- Page Heading -->
     <div class="container-fluid">
         <div class="row  p-2">
@@ -41,7 +44,7 @@
 
                     <!-- monitor Name -->
                     <div class="mb-2 mb-md-0 mr-md-3">
-                        <span class="h4 text-gray-800 font-weight-bold">{{ strtoupper($details->name) }}</span>
+                        <span class="h4 text-gray-800 font-weight-bold white-color">{{ strtoupper($details->name) }}</span>
                     </div>
 
                     <!-- Buttons - will wrap under name on small screens -->
@@ -144,7 +147,7 @@
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-2">
                                     Current Status
                                 </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="statusElement">
+                                <div class="h5 mb-0 font-weight-bold text-gray-800 white-color" id="statusElement">
                                     {{-- {{ $details->status }} --}}
                                     {{-- @if ($details->paused)
                                             Paused
@@ -171,7 +174,7 @@
                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-2">
                                     Current Response Time
                                 </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="currentResponse">0 ms</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800 white-color" id="currentResponse">0 ms</div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-check-circle fa-2x text-success"></i>
@@ -190,7 +193,7 @@
                                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-2">
                                     Average Response
                                 </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="averageResponse">0 ms</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800 white-color" id="averageResponse">0 ms</div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-hourglass-half fa-2x text-warning"></i>
@@ -230,15 +233,20 @@
 
     @push('scripts')
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        
 
         <script>
+            let myLineChart;
 
             document.addEventListener("DOMContentLoaded", function() {
-                var ctx = document.getElementById("myAreaChart").getContext('2d');
+
+                const isDark = localStorage.getItem('theme') === 'dark';
+                var ctx = document.getElementById("myAreaChart").getContext('2d');     
 
                 var gradient = ctx.createLinearGradient(0, 0, 0, 400); // Vertical gradient
                 gradient.addColorStop(0, "rgba(0, 0, 139, 0.6)"); // Dark blue (top) with 50% opacity
                 gradient.addColorStop(1, "rgba(173, 216, 230, 0.1)"); // Light blue (bottom) with 20% opacity
+
 
                 var responseTimes = {!! json_encode(array_slice($ChartResponses->pluck('response_time')->toArray(), -20)) !!};
                 var timestamps = {!! json_encode(
@@ -253,7 +261,8 @@
                 var averageResponseElement = document.getElementById('averageResponse');
                 var statusHeartbeat = document.getElementById('status-heartbeat');
 
-                var myLineChart = new Chart(ctx, {
+
+                 myLineChart = new Chart(ctx, {
                     type: 'line',
                     data: {
                         labels: timestamps,
@@ -263,7 +272,7 @@
                             // backgroundColor: "rgba(78, 115, 223, 0.05)",
                             backgroundColor: gradient, 
                             // borderColor: "rgba(78, 115, 223, 1)",
-                            borderColor: "rgba(0, 0, 139, 1)",
+                            borderColor:"rgba(12, 12, 233, 0.97)",
                             pointRadius: 3,
                             pointBackgroundColor: "rgba(78, 115, 223, 1)",
                             pointBorderColor: "rgba(78, 115, 223, 1)",
@@ -275,6 +284,7 @@
                             data: responseTimes,
                         }],
                     },
+                 
                     options: {
                         maintainAspectRatio: false,
                         layout: {
@@ -295,7 +305,9 @@
                                     drawBorder: true
                                 },
                                 ticks: {
-                                    maxTicksLimit: 20
+                                    maxTicksLimit: 20,
+                                    // color: isDark ? '#e0e0e0' : '#333'
+                                    color: isDark ? '#e0e0e0' : '#4e73df'
                                 }
                             },
                             y:{
@@ -304,7 +316,8 @@
                                     padding: 10,
                                     callback: function(value) {
                                         return value + ' ms';
-                                    }
+                                    },
+                                    color: isDark ? '#e0e0e0' : '#4e73df'
                                 },
                                 gridLines: {
                                     color: "rgb(234, 236, 244)",
@@ -340,7 +353,11 @@
                             }
                         }
                     }
+
+
                 });
+
+
 
                 function updateAverageResponse(responseTimes) {
                     if (responseTimes.length > 0) {

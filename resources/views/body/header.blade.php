@@ -291,6 +291,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+
         const toggleBtn = document.getElementById('darkModeToggle');
         const themeIcon = document.getElementById('themeIcon');
         const root = document.body;
@@ -313,6 +314,23 @@
                     themeIcon.title = "Switch to Dark Mode";
                 }
             }
+
+            // for monitoring line chart
+    if (window.myLineChart) {
+        const isDark = document.body.classList.contains('dark-mode');
+        myLineChart.options.scales.x.ticks.color = isDark ? '#e0e0e0' : '#333';
+        myLineChart.options.scales.x.grid.color = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)';
+        myLineChart.options.scales.y.ticks.color = isDark ? '#e0e0e0' : '#333';
+        myLineChart.options.scales.y.grid.color = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)';
+
+        myLineChart.options.plugins.legend.labels.color = isDark ? '#f0f0f0' : '#333';
+        myLineChart.options.plugins.tooltip.backgroundColor = isDark ? '#2d2d2d' : '#fff';
+        myLineChart.options.plugins.tooltip.titleColor = isDark ? '#ffffff' : '#6e707e';
+        myLineChart.options.plugins.tooltip.bodyColor = isDark ? '#dddddd' : '#858796';
+        myLineChart.options.plugins.tooltip.borderColor = isDark ? '#444' : '#dddfeb';
+
+    myLineChart.update(); // ✅ Refresh chart
+}
         }
 
         // Initial Load

@@ -144,7 +144,7 @@
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Create New Ticket</h1>
+        <h1 class="h3 mb-0 text-gray-800 white-color">Create New Ticket</h1>
          <a href="{{(!(auth()->user()->hasRole('user') || auth()->user()->hasRole('subuser')))?route('tickets'):route('display.tickets') }}" class="btn btn-primary">
             <i class="fas fa-arrow-left mr-1"></i> Back
         </a>
@@ -180,7 +180,7 @@
                 <div class="form-group row">
                         <label for="priority" class="col-md-2 col-form-label">Priority*</label>
                         <div class="col-md-4">
-                            <select class="custom-select @error('priority') is-invalid @enderror" id="priority" name="priority">
+                            <select class="custom-select @error('priority') is-invalid @enderror " id="priority" name="priority">
                                 <option value="" selected disabled>Select priority</option>
                                 <option value="low" {{ old('priority') == 'low' ? 'selected' : '' }}>Low</option>
                                 <option value="medium" {{ old('priority') == 'medium' ? 'selected' : '' }}>Medium</option>
@@ -227,7 +227,7 @@
                     <div class="col-md-10">
                         <div class="custom-file">
                             <input type="file" class="custom-file-input @error('attachments') is-invalid @enderror @error('attachments.*') is-invalid @enderror" id="attachments" accept="image/*" name="attachments[]" multiple>
-                            <label class="custom-file-label" for="attachments">Choose files (max 5MB each)</label>
+                            <label class="custom-file-label" for="attachments white-color">Choose files (max 5MB each)</label>
                             @error('attachments')
                                 <div class="invalid-feedback d-block">{{ $message }}</div>
                             @enderror

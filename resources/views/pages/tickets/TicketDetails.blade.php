@@ -337,9 +337,9 @@
             {{ $ticket->title }}
         </h1>
         <div class="issue-meta">
-            <span>#{{ $ticket->id }} opened on {{ $ticket->created_at->format('M j, Y') }} by {{ $ticket->user->name }}</span>
+            <span class="white-color">#{{ $ticket->id }} opened on {{ $ticket->created_at->format('M j, Y') }} by {{ $ticket->user->name }}</span>
             @if($ticket->priority)
-            <span class="ml-2">• Priority: {{ ucfirst($ticket->priority) }}</span>
+            <span class="ml-2 white-color">• Priority: {{ ucfirst($ticket->priority) }}</span>
             @endif
         </div>
     </div>
@@ -348,10 +348,10 @@
         <div class="comment">
             <div class="comment-header">
                 <img src="{{ Avatar::create($ticket->user->name)->toBase64() }}" class="comment-avatar" alt="{{ $ticket->user->name }}">
-                <span class="comment-author">{{ $ticket->user->name }}</span>
-                <span class="comment-meta">commented on {{ $ticket->created_at->format('M j, Y') }}</span>
+                <span class="comment-author white-color">{{ $ticket->user->name }}</span>
+                <span class="comment-meta white-color">commented on {{ $ticket->created_at->format('M j, Y') }}</span>
             </div>
-            <div class="comment-body markdown-body">
+            <div class="comment-body markdown-body white-color">
                 {!! $ticket->message !!}
                 @if(count($ticket->attachments)>0)
                     <hr style="height:1px;">
@@ -408,10 +408,10 @@
                 <div class="comment">
                     <div class="comment-header">
                         <img src="{{ Avatar::create($comment->user->name)->toBase64() }}" class="comment-avatar" alt="{{ $comment->user->name }}">
-                        <span class="comment-author">{{ $comment->user->name }}{{$comment->user->hasRole('support')?'(Support)':''}}</span>
-                        <span class="comment-meta">commented on {{ $comment->created_at->format('M j, Y') }}</span>
+                        <span class="comment-author white-color">{{ $comment->user->name }}{{$comment->user->hasRole('support')?'(Support)':''}}</span>
+                        <span class="comment-meta white-color">commented on {{ $comment->created_at->format('M j, Y') }}</span>
                     </div>
-                    <div class="comment-body markdown-body">
+                    <div class="comment-body markdown-body white-color">
                         {!! $comment->comment_message !!}
                     </div>
                 </div>
