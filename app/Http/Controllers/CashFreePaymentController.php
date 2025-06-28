@@ -46,7 +46,8 @@ class CashFreePaymentController extends Controller
 
         $orderAmount = $subscription->amount;
 
-        $url = "https://sandbox.cashfree.com/pg/orders";
+        // $url = "https://sandbox.cashfree.com/pg/orders";
+        $url = "https://api.cashfree.com/pg/orders";
 
         $couponCode = CouponUser::with(['coupon' => function ($query) {
                     $now = now();
@@ -174,7 +175,10 @@ class CashFreePaymentController extends Controller
         ];
 
         // First get order details to verify status
-        $curl = curl_init("https://sandbox.cashfree.com/pg/orders/{$orderId}");
+        // $curl = curl_init("https://sandbox.cashfree.com/pg/orders/{$orderId}");
+
+        $curl = curl_init("https://api.cashfree.com/pg/orders/{$orderId}");
+
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         $response = curl_exec($curl);
@@ -188,7 +192,9 @@ class CashFreePaymentController extends Controller
         }
 
         // Now get payment details to get payment method
-        $curl = curl_init("https://sandbox.cashfree.com/pg/orders/{$orderId}/payments");
+        // $curl = curl_init("https://sandbox.cashfree.com/pg/orders/{$orderId}/payments");
+
+         $curl = curl_init("https://api.cashfree.com/pg/orders/{$orderId}/payments");
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         $paymentResponse = curl_exec($curl);
@@ -206,7 +212,6 @@ class CashFreePaymentController extends Controller
             }
         }
 
-        // Fetch order details from Cashfree
         $headers = [
             "Content-Type: application/json",
             "x-api-version: 2022-01-01",
@@ -262,7 +267,7 @@ class CashFreePaymentController extends Controller
 
        $discount_type = in_array($discount_type, ['fixed', 'percentage']) ? $discount_type : null;
 
-        // Create payment record
+
         $payment = Payment::create([
             'coupon_code' => $couponCode ?: null,
             'coupon_value' => $couponValue > 0 ? $couponValue : null,

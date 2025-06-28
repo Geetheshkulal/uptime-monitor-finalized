@@ -247,9 +247,7 @@
               <img class="img-profile rounded-circle profile"
                   src="{{ Avatar::create(auth()->user()->name)->toBase64() }}">
           </a>
-      </li>
-
-       
+      </li>       
        <li class="nav-item">
         <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
             <i class="fas fa-sign-out-alt fa-sm fa-fw fa-rotate-180  text-gray-600 white-color"></i>
