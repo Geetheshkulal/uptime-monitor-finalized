@@ -407,9 +407,8 @@ body.dark-mode .custom-file-label::after {
 /* raise ticket file input ends */
 
 /* dark mode for quill editor */
-
 body.dark-mode .ql-toolbar.ql-snow {
-    background-color: #2c2c2c; 
+    background-color: #1a1a27 ;
     border-color: #444;
     color: #fff;
 }
@@ -449,6 +448,8 @@ body.dark-mode .ql-editor::before {
 
 /* quill editor ends */
 
+
+/* quill editor for adding comment */
 body.dark-mode .comment{
     background-color: #1a1a27 !important;
     color: #e0e0e0;
@@ -463,10 +464,17 @@ body.dark-mode .new-comment-header{
        background-color: #1a1a27 !important;
     color: #e0e0e0;
 }
-.body.dark-mode .ql-editor{
-     background-color: #1a1a27 !important;
+
+body.dark-mode .ql-editor {
+    background-color: #1a1a27 !important;
+    color: #f0f0f0 !important;
 }
 
+body.dark-mode .commment-black{
+    color:  #1a1a27 !important;
+}
+
+/* quill editor for adding comments ends */
 
     /* SCROLLBAR HIDING */
     #accordionSidebar::-webkit-scrollbar {
@@ -515,7 +523,7 @@ body.dark-mode .new-comment-header{
 
     body.dark #darkModeToggle i {
         color: white !important;
+        border: 'none' !important;
     }
-
     
 </style>

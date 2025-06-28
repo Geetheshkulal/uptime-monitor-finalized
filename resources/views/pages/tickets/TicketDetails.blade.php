@@ -443,14 +443,14 @@
                     <button type="submit" class="btn btn-primary">Comment</button>
                 </div>
                 @else
-                {{--  show message that ticket is closed and no comments can be added and disable the button --}}
+                <!-- show message that ticket is closed and no comments can be added and disable the button  -->
                 <div class="form-actions">
                     <button type="button" class="btn btn-primary" disabled>
                         <i class="fas fa-lock mr-1"></i> Ticket is closed
                     </button>
                 </div>
                 <div class="comment-note bg-warning mt-2 p-2">
-                    <i class="fas fa-exclamation-triangle"></i> <strong>This ticket is closed. You cannot add comments to a closed ticket.</strong> 
+                    <i class="fas fa-exclamation-triangle commment-black"></i> <strong class="commment-black">This ticket is closed. You cannot add comments to a closed ticket.</strong> 
                 </div>
                 @endif      
 

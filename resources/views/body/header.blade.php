@@ -1,6 +1,7 @@
 {{-- @extends('layouts.app') --}}
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 @push('styles')
   <style>
@@ -60,13 +61,9 @@
     margin-left: 5px;
 }
 
-/* .notification-bell{
-    color: #084bbf;
-
-} */
 
 </style>
-{{-- @push('styles') --}}
+
 <style>
     /* Notification styles */
     .badge-counter {
@@ -120,6 +117,14 @@
     .flex-grow-1 {
         flex-grow: 1;
     }
+
+@media (max-width: 430px) {
+
+     .hide-on-mobile {
+            display: none !important;
+        }
+}
+
 </style>
 @endpush
 
@@ -130,53 +135,23 @@
  <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-  {{-- @hasrole('user')
-  <div class="dropdown d-flex align-items-center">
-    <span class="d-flex align-items-center mr-2">
-        <i class="fas fa-question-circle mr-1"></i> Help
-    </span>
-    <button
-      class="btn btn-sm dropdown-toggle"
-      type="button"
-      id="helpBtn"
-      data-toggle="dropdown"
-      aria-haspopup="true"
-      aria-expanded="false"
-    >
-    </button>
-    <div class="dropdown-menu" aria-labelledby="helpBtn">
-        @if (request()->is('dashboard*') || request()->is('ssl-check*') || request()->is('monitoring/add*'))
-            <button class="dropdown-item" id="startTourBtn">
-                <i class="fas fa-play mr-2"></i> Start Tour
-            </button>
-        @endif
-        <a class="dropdown-item" href="mailto:checkmysite2025@gmail.com?subject=Issue%20Report">
-            <i class="fas fa-bug mr-2"></i> Report an Issue
-        </a>
-        <a class="dropdown-item" href="{{ url('/documentation') }}">
-            <i class="fas fa-info-circle mr-2"></i> For more info
-        </a>
-    </div>
-</div>
-  
-  @endhasrole --}}
+ 
 
   <!-- Topbar Navbar -->
-  <ul class="navbar-nav ml-auto">
+  <ul class="navbar-nav ml-auto d-flex align-items-center justify-content-center">
     @hasanyrole(['user','subuser'])
-      <li class="nav-item dropdown no-arrow mx-1">
-          <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="helpDropdown" role="button"
+        <li class="nav-item dropdown no-arrow mx-1 d-none d-sm-inline-block" id="helpDropdown">
+          <a class="nav-link dropdown-toggle d-flex align-items-center" href="#"  role="button"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding: 10px 15px; font-size: 1rem; font-weight: 600;">
               <i class="fas fa-question-circle mr-2 white-color" style="font-size: 1.2rem; color:#555879;"></i>
               <span class="text-gray-600">Help</span>
-              <i class="fas fa-caret-down ml-1" style="font-size: 0.9rem;"></i> <!-- Dropdown indicator -->
+              <i class="fas fa-caret-down ml-1" style="font-size: 0.9rem;"></i> 
           </a>
-          <!-- Dropdown - Help -->
           <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="helpDropdown">
               @if (request()->is('dashboard*') || request()->is('ssl-check*') || request()->is('monitoring/add*'))
-                  <button class="dropdown-item" id="startTourBtn">
+                  <a class="dropdown-item" id="startTourBtn">
                       <i class="fas fa-play mr-2"></i> Start Tour
-                  </button>
+  </a>
               @endif
               <a class="dropdown-item" href="{{url('/raise/tickets')}}">
                   <i class="fas fa-bug mr-2"></i> Report an Issue
@@ -185,20 +160,20 @@
                   <i class="fas fa-info-circle mr-2"></i> For more info
               </a>
           </div>
-      </li>
+      </li> 
 
-       <!-- dark mode button after deploy can we enable it   -->
+       <!-- dark mode button  -->
 
-       <!-- <button id="darkModeToggle" class="btn btn-sm ml-2" title="Toggle Dark Mode">
+       <button id="darkModeToggle" class="ml-2 mr-3" title="Toggle Dark Mode">
         <i id="themeIcon" class="fas fa-moon"></i>
-    </button>  -->
+    </button> 
 
-<!-- Nav Item - Alerts -->
+
+<!-- Alerts -->
 <li class="nav-item dropdown no-arrow mx-1">
     <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="fas fa-bell fa-fw notification-bell" style="color: #084bbf;"></i>
-        <!-- Counter - Alerts -->
         @php
             $unreadCount = auth()->user()->unreadNotifications->count();
         @endphp
@@ -265,7 +240,7 @@
   @endhasanyrole
       <div class="topbar-divider d-sm-block"></div>
 
-      <!-- Nav Item - User Information -->
+      <!--User profile-->
       <li class="nav-item">
           <a class="nav-link" href="{{ url('/profile') }}" role="button" aria-haspopup="true" aria-expanded="false">
               <span class="mr-2 d-none d-lg-inline text-gray-600 small white-color">{{ Auth::user()->name }}</span>
@@ -279,7 +254,7 @@
         <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
             <i class="fas fa-sign-out-alt fa-sm fa-fw fa-rotate-180  text-gray-600 white-color"></i>
         </a>
-    </li>
+        </li>
 
   </ul>
 

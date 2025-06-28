@@ -62,7 +62,6 @@
             
         }
 
-        /* Hide scrollbar for WebKit Browsers (Chrome, Edge, Safari) */
         #accordionSidebar::-webkit-scrollbar {
             display: none; /* Hides the scrollbar */
         }
