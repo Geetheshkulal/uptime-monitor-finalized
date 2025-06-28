@@ -1,6 +1,6 @@
 <section>
-    <h2 class="text-lg font-medium text-danger">Delete Account</h2>
-    <p class="mt-1 text-sm text-gray-600">
+    <h2 class="text-lg font-medium text-danger white-color">Delete Account</h2>
+    <p class="mt-1 text-sm text-gray-600 white-color">
         Once your account is deleted, all of its resources and data will be permanently removed. Please enter your password to confirm.
     </p>
 
