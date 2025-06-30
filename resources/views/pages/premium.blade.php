@@ -293,10 +293,26 @@
             top:0;
         }
     }
+
+.card-horizontal-layout {
+    display: flex;
+    flex-direction: row; 
+}
+.premium-header{
+    margin-top:68px;
+}
+
     @media (max-width: 430px) {
      .features-list {
         margin-top:15px;
     }
+     .card-horizontal-layout {
+        display: flex;
+        flex-direction: column-reverse; /* Stack vertically on mobile */
+    }
+    .premium-header{
+    margin-top:0px;
+}
 }
 </style>
 @endpush
@@ -351,7 +367,8 @@
         @foreach($plans as $plan)
         <!-- Premium Plan -->
         <div class="pricing-card premium h-100 premium-highlight" data-subscription-id="{{ $plan->id }}">
-            <div class="card-header">
+            <div class="card-horizontal-layout">
+            <div class="card-header premium-header">
                 <h5>{{ $plan->name }}</h5>
                 <div class="price" data-original="{{ $plan->amount }}">
                     @php
@@ -408,6 +425,7 @@
                         <i class="fas fa-arrow-up me-2"></i>Upgrade Now
                     </button>
                 </form>
+            </div>
             </div>
         </div>
         @endforeach
