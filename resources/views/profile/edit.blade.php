@@ -8,7 +8,46 @@
         .nav-item{
             margin-right: 10px;
         }
-    </style>
+
+
+.responsive-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+
+@media screen and (max-width: 430px) {
+    .responsive-tabs {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+        gap: 5px;
+        scrollbar-width: none; 
+        -ms-overflow-style: none; 
+    }
+
+    .responsive-tabs::-webkit-scrollbar {
+        display: none; 
+    }
+
+
+    .responsive-tabs .nav-item {
+        flex: 0 0 auto;
+    }
+}
+
+/* for dark mode */
+body.dark-mode .responsive-tabs .nav-link.active {
+    background-color:rgb(15, 43, 92) !important;
+    color: white !important;
+    border:none;
+     transition: background-color 0.3s, color 0.3s;
+}
+
+ </style>
 @endpush
 <div class="container-fluid">
     <div class="row d-flex flex-column-reverse flex-lg-row">
@@ -26,7 +65,7 @@
                 }
             }">
                 <!-- Tabs -->
-                <ul class="nav nav-tabs mb-4 white-color">
+                <ul class="nav nav-tabs mb-4 white-color responsive-tabs">
                     <!-- Profile Tab -->
                     <li class="nav-item btn-primary">
                         <button class="nav-link btn-primary"

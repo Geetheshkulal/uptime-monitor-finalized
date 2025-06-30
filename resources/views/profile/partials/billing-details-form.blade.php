@@ -1,9 +1,18 @@
+<style>
+    
+    @media screen and (max-width: 430px) {
+        .profile-update{
+            width: 100% !important;
+        }
+    }
+    </style>
+
 <section>
 
     <h2 class="text-lg font-medium text-gray-900 white-color">Billing Information</h2>
     <p class="mt-1 text-sm text-gray-600 white-color">Update your billing address and location details.</p>
 
-    <form method="post" action="{{ route('update.billing.info') }}" class="mt-4">
+    <form method="post" action="{{ route('update.billing.info') }}" class="mt-4 w-50 profile-update">
         @csrf
         @method('patch')
 
