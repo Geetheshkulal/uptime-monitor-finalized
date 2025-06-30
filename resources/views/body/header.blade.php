@@ -123,6 +123,7 @@
      .hide-on-mobile {
             display: none !important;
         }
+
 }
 
 </style>
@@ -132,7 +133,7 @@
 
 
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
- <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+ <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3 white-color">
                         <i class="fa fa-bars"></i>
                     </button>
  
@@ -238,21 +239,20 @@
 
     
   @endhasanyrole
-      <div class="topbar-divider d-sm-block"></div>
 
       <!--User profile-->
       <li class="nav-item">
-          <a class="nav-link" href="{{ url('/profile') }}" role="button" aria-haspopup="true" aria-expanded="false">
-              <span class="mr-2 d-none d-lg-inline text-gray-600 small white-color">{{ Auth::user()->name }}</span>
+          <a class="d-flex align-items-center" href="{{ url('/profile') }}" role="button" aria-haspopup="true" aria-expanded="false">
+              <span class="mr-2 d-none d-lg-inline text-gray-600 small white-color auth-name">{{ Auth::user()->name }}</span>
               <img class="img-profile rounded-circle profile"
-                  src="{{ Avatar::create(auth()->user()->name)->toBase64() }}">
+                  src="{{ Avatar::create(auth()->user()->name)->toBase64() }}" style="width: 35px !important; height: 35px !important; object-fit: cover; border-radius: 50%;">
           </a>
       </li>       
        <li class="nav-item">
         <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
             <i class="fas fa-sign-out-alt fa-sm fa-fw fa-rotate-180  text-gray-600 white-color"></i>
         </a>
-        </li>
+    </li>
 
   </ul>
 

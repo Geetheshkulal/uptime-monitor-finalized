@@ -234,6 +234,16 @@
             padding-top: 5px;
             font-size: 12px;
         }
+
+       @media (max-width: 430px) {
+    .dataTables_length {
+        text-align: left !important;
+        margin-left: 16px;
+        margin-bottom: 10px;
+    }
+}
+
+
     </style>
 @endpush
 
@@ -241,7 +251,7 @@
     <div id="content">
         <div class="container-fluid">
             <!-- Payments Table -->
-            <div class="d-sm-flex align-items-center justify-content-between mb-4 ml-4">
+            <div class="d-sm-flex align-items-center justify-content-between mb-4 ml-2">
                 <h1 class="h3 mb-0 text-gray-800 font-600 white-color">My Payment History</h1>
             </div>
             <div class="card shadow mb-4" data-aos="fade-up">

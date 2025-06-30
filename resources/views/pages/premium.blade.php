@@ -293,6 +293,11 @@
             top:0;
         }
     }
+    @media (max-width: 430px) {
+     .features-list {
+        margin-top:15px;
+    }
+}
 </style>
 @endpush
 

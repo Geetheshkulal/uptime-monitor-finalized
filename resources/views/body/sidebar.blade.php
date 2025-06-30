@@ -214,6 +214,14 @@
     background-color: #1f1f2e !important; 
     color: #f1f1f1;
 }
+
+
+@media (max-width: 430px) {
+
+     .sidebar{
+            width:116px;
+        }
+}
 </style>
 
 <ul class="navbar-nav sidebar sidebar-dark accordion d-flex flex-column"  id="accordionSidebar">

@@ -24,15 +24,35 @@
     .tag .remove-btn:hover {
       color: #dc3545;
     }
+
+    @media (max-width: 430px) {
+
+     /* .status-page{
+        width: 112px;
+        height: 40px;
+        } */
+
+    .status-page-back-button {
+        position: absolute;
+        top: 78px;
+        right: 19px;
+        margin: 0;
+        width: 79px;
+        height: auto;
+    }
+    .title-status-setting{
+        margin-top: 25px;
+    }
+}
+
 </style>
 @endpush
 <div class="container-fluid">
 
     <div class="page-title-box d-flex align-items-center justify-content-between">
-    {{-- <h1 class="mb-0">Status Page Settings</h1> --}}
-     <h1 class="h3 mb-0 text-gray-800 font-600">Status Page Settings</h1>
-    <a href="{{ route('status') }}" class="btn btn-primary ms-3" style="padding: 0.5rem 1rem;">
-        <i class="fas fa-arrow-left me-2"></i> Back to Status Page
+     <h1 class="h3 mb-0 text-gray-800 font-600 white-color title-status-setting">Status Page Settings</h1>
+    <a href="{{ route('status') }}" class="btn btn-primary ms-3 status-page status-page-back-button" style="padding: 0.4rem 0.5rem;">
+        <i class="fas fa-arrow-left me-2"></i> Back
     </a>
 </div><br>
 

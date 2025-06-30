@@ -119,21 +119,7 @@
             border-spacing: 0;
             height: 100%;
         }
-
-
-        /* .table thead th {
-            border: none;
-            font-weight: 700;
-            color: var(--gray);
-            padding: 1rem;
-            background: #f8f9fc;
-        }
-
-        .table td {
-            padding: 1rem;
-            vertical-align: middle;
-            border-top: 1px solid #e3e6f0;
-        } */
+      
 
         /* ========== UTILITY CLASSES ========== */
         .text-primary {
@@ -143,16 +129,6 @@
         .font-600 {
             font-weight: 600;
         }
-
-        /* .disabled-row {
-            background-color: var(--light-gray);
-            color: var(--gray);
-        }
-
-        .disabled-row a {
-            color: var(--gray) !important;
-            pointer-events: none;
-        } */
 
         /* ========== ANIMATIONS ========== */
         @keyframes fadeIn {
@@ -212,6 +188,16 @@
         .introjs-helperLayer {
             pointer-events: none;
         }
+
+        /* for mobile devices */
+    @media (max-width: 430px) {
+
+     .AddMonitor{
+        width: 92px;
+        padding: 1px;
+        height: 50px;
+        }
+}
     </style>
     @endpush
 

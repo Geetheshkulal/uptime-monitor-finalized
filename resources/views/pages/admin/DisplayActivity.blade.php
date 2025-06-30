@@ -97,7 +97,20 @@ body.dark-mode .select2-container--default .select2-results__option[aria-selecte
     background-color: #2d2d42 !important;
     color: #ffffff !important;
 }
-      
+  
+
+    @media (max-width: 430px) {
+    .dataTables_length {
+        text-align: left !important;
+        margin-left: 11px;
+        margin-bottom: 10px;
+    }
+    .filter-container{
+        margin-left: 11px;
+        overflow:hidden;
+    }
+}
+
 
     </style>
 @endpush

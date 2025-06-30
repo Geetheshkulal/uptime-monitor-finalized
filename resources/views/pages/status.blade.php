@@ -436,6 +436,78 @@
             margin-bottom: 0.5rem;
         }
     }
+
+    @media (max-width: 430px) {
+
+     .status-page{
+        width: 162px;
+        height: 60px;
+        }
+
+         .monitor-card {
+        padding: 1rem;
+        margin: 0 0.5rem;
+        border-radius: 8px;
+    }
+
+    .monitor-name {
+        display: block;
+        font-size: 0.95rem;
+        margin-bottom: 2px;
+    }
+
+    .monitor-url {
+        display: block;
+        font-size: 0.8rem;
+        color: #6c757d;
+        margin-left: 0;
+        word-break: break-word;
+    }
+
+    .bars-container {
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+    }
+
+    .bar-segment-wrapper {
+        width: 12px;
+        margin-right: 3px;
+    }
+
+    .uptime-legend {
+        flex-direction: row;
+        font-size: 0.75rem;
+    }
+
+    .legend-item {
+        margin-bottom: 5px;
+    }
+
+    .monitor-stats {
+        font-size: 0.8rem;
+        gap: 0.3rem;
+    }
+
+    .status-badge {
+        font-size: 0.75rem;
+        padding: 0.2rem 0.4rem;
+    }
+
+    .card-header h6 {
+        font-size: 1rem;
+    }
+
+    .flex {
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+
+    .monitor-card .flex.justify-between {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+}
 </style>
 @endpush
 
@@ -443,10 +515,11 @@
 <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="h3 mb-0 text-gray-800 font-600 white-color">Status Page</h1>
-         <a href="{{ route('user.status-settings') }}" class="btn btn-primary {{ request()->routeIs('user.status-settings*') ? 'active' : '' }} style="padding: 0.5rem 1rem;">
-        <i class="fas fa-globe me-2"></i>  Share Status Page
+         <a href="{{ route('user.status-settings') }}" class="btn btn-primary {{ request()->routeIs('user.status-settings*') ? 'active' : '' }} status-page" style="padding: 0.5rem 1rem;">
+        <i class="fas fa-globe me-2"></i>Share Status Page
         </a>
     </div>
+
 
     <!-- Monitors Section -->
     <div class="row animate__animated animate__fadeInUp">

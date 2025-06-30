@@ -151,6 +151,17 @@
     padding: 3px 6px;
     border-radius: 50% !important;
 }
+   @media (max-width: 430px) {
+    .dataTables_length {
+        text-align: left !important;
+        margin-left: 3px;
+        margin-bottom: 10px;
+    }
+    .dataTables_filter{
+       margin-left: -11px;
+
+    }
+}
     </style>
 </head>
 
@@ -171,7 +182,7 @@
                 <div class="card mb-4 px-4">
                     <br>
                     <div class="card-body p-0">
-                        <div class="table-responsive" style="min-width: 100%;">
+                        <div class="table-responsive">
                             <table class="table table-bordered" id="ticketsTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
@@ -267,7 +278,7 @@
             "info": true,
             "order": [[4, "desc"]], // Default sort by Created date
             "language": {
-                "search": "_INPUT_",
+                "search": "Search : _INPUT_",
                 "searchPlaceholder": "Search tickets...",
                 "lengthMenu": "Show _MENU_",
                 "info": "Showing _START_ to _END_ of _TOTAL_ tickets"

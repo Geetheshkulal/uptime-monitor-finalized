@@ -76,6 +76,12 @@
         color: #ffffff;
     }
 
+    /* navbar hamburger */
+body.dark-mode .topbar #sidebarToggleTop:hover {
+    background-color: transparent !important;
+    border: none !important;
+}
+
  
 
     /* DROPDOWNS */

@@ -320,7 +320,6 @@ class UserController extends Controller
 
             $permissions = $request->input('permission', []);
             
-
             $user->syncPermissions($permissions);
 
             return redirect()->route('display.sub.users')->with('success', 'Permissions updated successfully.');
@@ -337,10 +336,8 @@ class UserController extends Controller
             }
 
             $whitelistedIPs = Whitelist::where('user_id',$user->id)->first();
-
         
             // Auto-generate unique hash if doesn't exist
-
             
             if (!$user->status_page_hash) {
                 $user->status_page_hash = Str::random(32);
