@@ -28,15 +28,10 @@ class FreeTrialCheck extends Command
      */
     public function handle()
     {
-        $today = Carbon::now();
-
-        // Get users whose free trial has expired (10 days after created_at) and are still marked as 'paid'
+        $tenDayAgo = Carbon::now()->subDays(10);
 
         $users = User::where('status','free_trial')
-            ->where(function($query){
-                $query->whereNull('premium_end_date')
-                      ->orWhere('premium_end_date', '<', Carbon::now());
-            })
+            ->where('created_at','<',  $tenDayAgo)
             ->get();
 
             $this->info("Found " . $users->count() . " users whose free trial has expired.");

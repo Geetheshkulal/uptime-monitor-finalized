@@ -65,14 +65,16 @@
         }
         .container-fluid{
             overflow: auto;
+            margin-left: -19px;
         }
+
  </style>
 
 <div class="container-fluid">
     <div class="row mb-4 px-3 px-lg-4">
         <div class="col-12">
             <div class="page-title-box d-flex align-items-center justify-content-between">
-                <h1 class="mb-0 ml-lg-3">Add Monitoring</h1>
+                <h1 class="h3 mb-0 ml-lg-3">Add Monitoring</h1>
                 <a href="{{ route('monitoring.dashboard') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                     <i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to Dashboard
                 </a>
@@ -107,7 +109,7 @@
                     <!-- Default Form (HTTP Monitoring) -->
                     <h4 class="card-title">HTTP Monitoring</h4>
 
-                    {{-- // add action based on route --}}
+        
                     <form id="monitoringForm" method="POST" action="{{ route('monitoring.http.store') }}">
                         @csrf
                         <input type="hidden" name="form_type" value="http"> <!-- Add this hidden input -->
@@ -131,6 +133,8 @@
                                 @enderror
                             @endif
                         </div>
+
+        
                         <div class="mb-3">
                             <label for="retries" class="form-label">Retries</label>
                             <input id="retries" class="form-control" name="retries" type="number" value="3"
@@ -141,6 +145,7 @@
                                 @enderror
                             @endif
                         </div>
+
                         <div class="mb-3">
                             <label for="interval" class="form-label">Interval (in minutes)</label>
                             <input 
@@ -227,6 +232,7 @@
                             @enderror
                         @endif
                     </div>
+
                     <div class="mb-3">
                         <label for="retries" class="form-label">Retries</label>
                         <input id="retries" class="form-control" name="retries" type="number" value="3"  >
@@ -236,6 +242,7 @@
                             @enderror
                         @endif
                     </div>
+
                    <div class="mb-3">
                             <label for="interval" class="form-label">Interval (in minutes)</label>
                             <input 
@@ -255,6 +262,7 @@
                                 </small>
                             @endif
                         </div>
+                    </div>
                     
                     <h5 class="card-title">Notification</h5>
                     <div class="mb-3">

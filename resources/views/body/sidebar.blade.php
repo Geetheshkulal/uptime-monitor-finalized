@@ -203,6 +203,22 @@
     
 }
 
+  /* Hide Scrollbar but Allow Scrolling */
+        #accordionSidebar {
+            /* position: -webkit-sticky; */
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            z-index: 1040;
+            overflow-y: scroll; 
+            overflow-x: hidden; 
+            background-color: #4e73df;
+            
+        }
+
+        #accordionSidebar::-webkit-scrollbar {
+            display: none; /* Hides the scrollbar */
+        }
 
 .sidebar {
     background-color: #4e73df; /* Light */
@@ -216,15 +232,51 @@
 }
 
 
-@media (max-width: 430px) {
+ /* @media (max-width: 430px) {
 
      .sidebar{
             width:116px;
         }
-}
+
+     #accordionSidebar {
+        position: fixed;
+        top: 0;
+        width: 87px;
+        z-index: 2000;
+        transition: left 0.3s ease-in-out;
+    }
+    #sidebarToggleTop {
+        position: relative;
+        z-index: 2000; 
+        transition: margin-left 0.3s ease;
+    }
+    .ml-accordion-open {
+        margin-left: 75px !important;
+    }
+}    */
+
+@media (max-width: 430px) {
+
+     #accordionSidebar {
+        position: fixed;
+        top: 0; 
+        width: 96px;
+        z-index: 2000;
+        /* transition: left 0.3s ease-in-out; */
+    }
+
+    #sidebarToggleTop {
+        position: relative;
+        /* z-index: 2000;  */
+        /* transition: margin-left 0.3s ease; */
+    }
+} 
+
+
+
 </style>
 
-<ul class="navbar-nav sidebar sidebar-dark accordion d-flex flex-column"  id="accordionSidebar">
+<ul class="navbar-nav sidebar sidebar-dark accordion d-flex flex-column" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center " href="/">
@@ -233,6 +285,7 @@
         </div>
          <div class="sidebar-brand-text mx-2">DRISHTI PULSE</div>
     </a>
+
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">

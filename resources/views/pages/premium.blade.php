@@ -294,26 +294,29 @@
         }
     }
 
-.card-horizontal-layout {
+/* .card-horizontal-layout {
     display: flex;
     flex-direction: row; 
 }
 .premium-header{
     margin-top:68px;
-}
+} */
 
-    @media (max-width: 430px) {
-     .features-list {
-        margin-top:15px;
+     @media (max-width: 430px) {
+    .card-header {
+        padding: 0.5rem;
     }
-     .card-horizontal-layout {
-        display: flex;
-        flex-direction: column-reverse; /* Stack vertically on mobile */
+      .card-body {
+        padding: 0.5rem;
     }
-    .premium-header{
-    margin-top:0px;
+  .features-list {
+    margin-top: 18px;  
+    
+} 
+.coupon-btn{
+    margin-top: 20px;
 }
-}
+     }
 </style>
 @endpush
 
@@ -367,8 +370,7 @@
         @foreach($plans as $plan)
         <!-- Premium Plan -->
         <div class="pricing-card premium h-100 premium-highlight" data-subscription-id="{{ $plan->id }}">
-            <div class="card-horizontal-layout">
-            <div class="card-header premium-header">
+            <div class="card-header">
                 <h5>{{ $plan->name }}</h5>
                 <div class="price" data-original="{{ $plan->amount }}">
                     @php
@@ -427,7 +429,6 @@
                 </form>
             </div>
             </div>
-        </div>
         @endforeach
     </div>
 </div>

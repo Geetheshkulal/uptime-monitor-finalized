@@ -135,7 +135,7 @@
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
  <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3 white-color">
                         <i class="fa fa-bars"></i>
-                    </button>
+            </button>
  
 
   <!-- Topbar Navbar -->
@@ -263,6 +263,66 @@
 @push('scripts')
 
 <script>
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    const toggleBtn = document.getElementById('sidebarToggleTop');
+    const sidebar = document.getElementById('accordionSidebar');
+
+    // if (localStorage.getItem('sidebarToggled') === 'true') {
+    //     toggleBtn.classList.add('ml-accordion-open');
+    // }
+
+    // toggleBtn?.addEventListener('click', function (e) {
+    //     e.stopPropagation();
+
+    //     const isToggled = toggleBtn.classList.contains('ml-accordion-open');
+
+    //     if (isToggled) {
+    //         toggleBtn.classList.remove('ml-accordion-open');
+    //         localStorage.setItem('sidebarToggled', 'false');
+    //     } else {
+    //         toggleBtn.classList.add('ml-accordion-open');
+    //         localStorage.setItem('sidebarToggled', 'true');
+    //     }
+    // });
+
+// Track outside click
+    document.addEventListener('click', function (e) {
+        const isVisible = !sidebar.classList.contains('toggled'); // sidebar is visible if 'toggled' is NOT present
+        const clickedOutsideSidebar = !sidebar.contains(e.target);
+        const clickedOutsideToggle = !toggleBtn.contains(e.target);
+
+        if (isVisible && clickedOutsideSidebar && clickedOutsideToggle) {
+            toggleBtn.click(); // trigger the sidebar toggle behavior without directly modifying class
+        }
+    });
+
+    // Prevent the toggle click from closing immediately
+    toggleBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+    });
+
+});
+
+
+// document.addEventListener('DOMContentLoaded', function () {
+//         const toggleBtn = document.getElementById('sidebarToggleTop');
+//         const sidebar = document.getElementById('accordionSidebar');
+
+//         toggleBtn?.addEventListener('click', function (e) {
+//             e.stopPropagation(); 
+//             // sidebar.classList.toggle('active');
+
+//            if (sidebar.classList.contains('toggled')) {
+//              toggleBtn.classList.remove('ml-accordion-open');
+//             } else {
+//              toggleBtn.classList.add('ml-accordion-open');
+//         }
+//         });
+
+//     });
+
     document.addEventListener('DOMContentLoaded', function () {
 
         const toggleBtn = document.getElementById('darkModeToggle');
@@ -321,6 +381,7 @@
 </script>
 
 <script>
+    
     document.addEventListener('DOMContentLoaded', function () {
 
         const bell = document.getElementById('alertsDropdown');

@@ -48,24 +48,6 @@
         * {
             font-family: "Nunito", sans-serif;
         }
-        /* Hide Scrollbar but Allow Scrolling */
-        #accordionSidebar {
-            position: -webkit-sticky;
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            z-index: 100;
-            overflow-y: scroll; /* Enable vertical scrolling */
-            overflow-x: hidden; /* Prevent horizontal scrolling */
-            background-color: #4e73df;
-            /* Sidebar background color */
-            
-        }
-
-        #accordionSidebar::-webkit-scrollbar {
-            display: none; /* Hides the scrollbar */
-        }
-
 
 
         .scroll-to-top {
