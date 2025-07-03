@@ -64,6 +64,16 @@
     .is-invalid {
         border-color: #dc3545;
     }
+
+    @media (max-width: 430px) {
+    .dataTables_length {
+        text-align: left !important;
+        margin-left: 2px;
+        margin-bottom: 10px;
+    }
+   
+}
+
 </style>
 @endpush
 

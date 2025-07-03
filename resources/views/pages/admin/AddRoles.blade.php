@@ -7,14 +7,25 @@
     * {
         border-radius: 0 !important;
     }
+    .page-content {
+        margin-bottom: 342px;
+}
+
+@media (max-width: 430px) {
+    .RoleBack{
+         margin-bottom: 18px;
+        padding-top: 15px;
+    }
+   
+}
 </style>
 @endpush
 <div class="page-content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 RoleBack">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="mb-0">Add New Role</h4>
+                    <h4 class="h3 mb-0 text-gray-800">Add New Role</h4>
                     <a href="{{ route('display.roles') }}" class="btn btn-secondary">
                         <i class="fas fa-arrow-left"></i> Back
                     </a>

@@ -8,6 +8,19 @@
     * {
         border-radius: 0 !important;
     }
+
+    @media (max-width: 430px) {
+    .dataTables_length {
+        text-align: left !important;
+        margin-left: 2px;
+        margin-bottom: 10px;
+    }
+    .dataTables_filter{
+            margin-left: -8px;
+    }
+   
+}
+
 </style>
 @endpush
 <div id="content-wrapper" class="d-flex flex-column">

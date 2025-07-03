@@ -93,10 +93,10 @@
         }
        
  
-
+/* 
         #content {
             overflow-y: hidden; 
-        }
+        } */
       
     </style>
 

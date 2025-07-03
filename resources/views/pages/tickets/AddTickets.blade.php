@@ -136,6 +136,26 @@
         .select2-container--default .select2-selection--single .select2-selection__rendered {
             line-height: 24px;
         }
+        
+    .custom-col-md {
+        max-width: 20.33333%;
+    }
+    #userSelect {
+        width: 300px;
+    }
+
+    @media (max-width: 430px) {
+      .ForUser {
+        margin-top: 14px;
+    }
+    .custom-select{
+        width: 17rem;
+    }
+    #userSelect {
+        width: 270px;
+    }
+   
+}
 
     </style>
 @endpush
@@ -144,7 +164,7 @@
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800 white-color">Create New Ticket</h1>
+        <h1 class="h3 mb-3 text-gray-800 white-color">Create New Ticket</h1>
          <a href="{{(!(auth()->user()->hasRole('user') || auth()->user()->hasRole('subuser')))?route('tickets'):route('display.tickets') }}" class="btn btn-primary">
             <i class="fas fa-arrow-left mr-1"></i> Back
         </a>
@@ -179,7 +199,7 @@
                 <!-- Priority -->
                 <div class="form-group row">
                         <label for="priority" class="col-md-2 col-form-label">Priority*</label>
-                        <div class="col-md-4">
+                        <div class="col-md-4 custom-col-md">
                             <select class="custom-select @error('priority') is-invalid @enderror " id="priority" name="priority">
                                 <option value="" selected disabled>Select priority</option>
                                 <option value="low" {{ old('priority') == 'low' ? 'selected' : '' }}>Low</option>
@@ -192,9 +212,9 @@
                         </div>
                         <!-- To select user -->
                         @if(!(auth()->user()->hasRole('user') || auth()->user()->hasRole('subuser')))
-                            <label for="userSelect">For User*</label>
+                            <label for="userSelect"class="col-md-1 col-form-label ForUser">For User*</label>
                             <div class="col-md-4">
-                                <select class="js-example-basic-single form-control" id="userSelect" name="forUser" style="width: 300px;">
+                                <select class="js-example-basic-single form-control" id="userSelect" name="forUser">
                                     <option value="">All Users</option>
                                     @foreach($allUsers as $user)
                                         <option value="{{ $user->id }}">{{ $user->name }} | {{$user->email}} | {{$user->phone}}</option>

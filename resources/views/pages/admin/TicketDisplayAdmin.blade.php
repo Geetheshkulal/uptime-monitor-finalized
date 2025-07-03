@@ -46,88 +46,28 @@
    
     border-radius: 50% !important;
 }
+   @media (max-width: 430px) {
+      .dataTables_length {
+        text-align: left !important;
+        margin-left: 2px;
+        margin-bottom: 10px;
+    }
+     .dataTables_filter{
+            margin-left: -8px;
+    }
+   
+}
 </style>
 
 
 <div class="container-fluid">
     <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <div class="d-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Tickets</h1>
         <a class="btn btn-primary" href="{{route('raise.tickets')}}">
             <i class="fas fa-plus fa-sm"></i> Raise Ticket
         </a>
     </div>
-
-  <!-- Ticket Card -->
-  {{-- <div class="row ml-4 d-flex justify-content-center">
-  <div class="col-xl-2 col-md-6 mb-4 ">
-    <div class="card card-counter border-left-primary shadow h-100 py-2 rounded">
-        <div class="card-body">
-            <div class="row no-gutters align-items-center">
-                <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                        Total Tickets</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">10</div>
-                </div>
-                <div class="col-auto">
-                    <i class="fas fa-ticket-alt text-primary fa-2x"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="col-xl-2 col-md-6 mb-4">
-    <div class="card card-counter border-left-success shadow h-100 py-2 rounded">
-        <div class="card-body">
-            <div class="row no-gutters align-items-center">
-                <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                        Open Tickets</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">10</div>
-                </div>
-                <div class="col-auto">
-                    <i class="fas fa-folder-open text-success fa-2x"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="col-xl-2 col-md-6 mb-4">
-    <div class="card card-counter border-left-danger shadow h-100 py-2 rounded">
-        <div class="card-body">
-            <div class="row no-gutters align-items-center">
-                <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                        Closed Tickets</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">10</div>
-                </div>
-                <div class="col-auto">
-                    <i class="fas fa-check-circle text-danger fa-2x"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="col-xl-2 col-md-6 mb-4">
-    <div class="card card-counter border-left-warning shadow h-100 py-2 rounded">
-        <div class="card-body">
-            <div class="row no-gutters align-items-center">
-                <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                        On HoldTickets</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">10</div>
-                </div>
-                <div class="col-auto">
-                    <i class="fas fa-pause-circle text-warning fa-2x"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-  </div> --}}
 
 
   <!-- Ticket Card -->

@@ -113,6 +113,15 @@
         animation: spin 0.5s linear infinite;
         display: inline-block;
     }
+
+@media (max-width: 430px) {
+    
+   .whatsapp-container{
+      width: 317px;
+      margin-top: 40px;
+      margin-bottom:93px;
+   }
+}
 </style>
 
 

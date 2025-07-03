@@ -99,7 +99,7 @@ body.dark-mode .select2-container--default .select2-results__option[aria-selecte
 }
   
 
-    @media (max-width: 430px) {
+@media (max-width: 430px) {
     .dataTables_length {
         text-align: left !important;
         margin-left: 11px;
@@ -109,6 +109,15 @@ body.dark-mode .select2-container--default .select2-results__option[aria-selecte
         margin-left: 11px;
         overflow:hidden;
     }
+     .dataTables_wrapper .paginate_button .page-link {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.8rem;
+        
+    }
+    .pagination {
+    padding-left: 23px;
+}
+
 }
 
 
