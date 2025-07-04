@@ -45,7 +45,7 @@
     font-size: 14px;
 }
 
-        @media (max-width: 430px) {
+    @media (max-width: 430px) {
            .notification-title{
             margin-top:65px;
            }
@@ -55,6 +55,10 @@
           .box{
              width: 93% !important;
           }
+          .SendNotification{
+            padding: 9px;
+            margin-bottom: 152px;
+          }
   }
 
 </style>
@@ -62,7 +66,7 @@
 @endpush
 
 
-<form method="POST" action="{{ route('admin.send.notification') }}">
+<form method="POST" class="SendNotification" action="{{ route('admin.send.notification') }}">
     @csrf
     <h1 class="h3 mb-2 text-gray-800 ml-3 notification-title">Send Notification to All Users</h1>
     <div class="form-group ml-3">

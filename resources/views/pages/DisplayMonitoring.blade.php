@@ -16,6 +16,13 @@
             margin-left:-45px;
             margin-right: -11px;
         }
+        #status-heartbeat
+        {
+        display: inline-block;
+        width: 36px;
+        height: 22px;
+        margin-right: 8px;
+        }
         .btn {
             border-radius: 0.35rem;
             font-weight: 600;

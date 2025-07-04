@@ -98,17 +98,20 @@
         margin-bottom: 1rem;
     }
      .custom-spacing {
-        margin-left: 1.5rem; /* Or whatever matches your existing spacing */
+        margin-left: 1.5rem; 
         margin-right: 1.5rem;
     }
     
-    /* Responsive adjustments */
+    body.dark-mode .skeleton{
+        background-color: #1e1e2f !important;
+    }
+
     @media (max-width: 768px) {
         .table-responsive {
             border: 0;
         }
     .custom-spacing {
-        margin-left: 1.5rem; /* Or whatever matches your existing spacing */
+        margin-left: 1.5rem; 
         margin-right: 1.5rem;
     } 
     }
@@ -128,7 +131,7 @@
             <div class="card shadow mb-4">
                 
                 <!-- Card Body -->
-                <div class="card-body skeleton">
+                <div class="card-body skeleton" data-aos="fade-up" data-aos-duration="400">
                     <div class="table-responsive ">
                         <table class="table" id="dataTable" width="100%" cellspacing="0">
                             <thead>

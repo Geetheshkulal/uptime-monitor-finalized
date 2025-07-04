@@ -8,15 +8,15 @@
         font-family: "Nunito", sans-serif;
     }
 
-    html {
+    body {
         font-family: "Montserrat", sans-serif;
         background-color: #fff;
         transition: background 0.2s linear;
     }
 
     /* DARK MODE SETUP */
-    html.dark,
-    .dark-mode html,
+    body.dark,
+    .dark-mode body,
     .dark-mode #content-wrapper {
         background-color: #181818 !important;
         color: #e0e0e0 !important;
@@ -26,34 +26,34 @@
     .dark-mode .modal-content,
     .dark-mode .dropdown-menu,
     .dark-mode .bg-white,
-    html.dark .navbar,
-    html.dark .card,
-    html.dark .dropdown-menu {
+    body.dark .navbar,
+    body.dark .card,
+    body.dark .dropdown-menu {
         background-color: #2b2b2b !important;
         color: #ffffff !important;
     }
 
     .dark-mode .btn-primary,
-    html.dark .btn-primary {
+    body.dark .btn-primary {
         background-color: #3a3f51 !important;
         border-color: #3a3f51 !important;
     }
 
-    html.dark .btn-secondary {
+    body.dark .btn-secondary {
         background-color: #6c757d !important;
         border-color: #545b62 !important;
     }
 
     .dark-mode .form-control,
-    html.dark input,
-    html.dark textarea,
-    html.dark select {
+    body.dark input,
+    body.dark textarea,
+    body.dark select {
         background-color: #2e2e2e !important;
         color: white !important;
         border-color: #444 !important;
     }
 
-    html.dark a,
+    body.dark a,
     .dark-mode a {
         color: #ffffff !important;
     }
@@ -64,21 +64,21 @@
         background-color: #4e73df;
     }
 
-    html.dark-mode #accordionSidebar {
+    body.dark-mode #accordionSidebar {
         background-color: #1e1e2f;
         box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
         border-right: 1px solid #333;
     }
 
-    html.dark-mode #accordionSidebar .nav-link,
-    html.dark-mode #accordionSidebar .nav-link i,
-    html.dark-mode #accordionSidebar .sidebar-heading,
-    html.dark-mode .sidebar-brand-text {
+    body.dark-mode #accordionSidebar .nav-link,
+    body.dark-mode #accordionSidebar .nav-link i,
+    body.dark-mode #accordionSidebar .sidebar-heading,
+    body.dark-mode .sidebar-brand-text {
         color: #ffffff;
     }
 
     /* navbar hamburger */
-html.dark-mode .topbar #sidebarToggleTop:hover {
+body.dark-mode .topbar #sidebarToggleTop:hover {
     background-color: transparent !important;
     border: none !important;
 }
@@ -86,106 +86,106 @@ html.dark-mode .topbar #sidebarToggleTop:hover {
  
 
 /* DROPDOWNS */
-    html.dark .dropdown-menu {
+    body.dark .dropdown-menu {
         background-color: #ff0000 !important;
         border-color: #555 !important;
     }
 
-    html.dark .dropdown-item {
+    body.dark .dropdown-item {
         color: rgb(28, 16, 16) !important;
     }
 
-    html.dark-mode .navbar a:hover {
+    body.dark-mode .navbar a:hover {
     color: #1c0505 !important;
 }
 
-html.dark-mode .navbar .fa-caret-down{
+body.dark-mode .navbar .fa-caret-down{
     color: #ffffff;
 }
 /* 
-    html.dark .dropdown-item:hover {
+    body.dark .dropdown-item:hover {
         background-color: #d4c8c8 !important;
         color: rgb(28, 16, 16) !important;
     } */
 
     /* NAVBAR ELEMENTS */
-    html.dark .navbar * {
+    body.dark .navbar * {
         color: white !important;
     }
 
-    html.dark .topbar-divider {
+    body.dark .topbar-divider {
         border-color: #555 !important;
     }
 
    
-   html.dark-mode .notification-bell,
-   html.dark-mode .white-color {
+   body.dark-mode .notification-bell,
+   body.dark-mode .white-color {
     color: #ffffff !important;
 }
 
 /* TABLES */
 
-html.dark-mode .table {
+body.dark-mode .table {
     border-collapse: collapse !important;
     border: none !important;
 }
 
-html.dark-mode .table td, 
-html.dark-mode .table th {
+body.dark-mode .table td, 
+body.dark-mode .table th {
     border: none !important;
 }
 
 /* Keep your existing table styles */
-html.dark-mode .table thead th {
+body.dark-mode .table thead th {
     background-color: #1e1e2f !important;
     color: #ffffff !important;
 }
 
-html.dark-mode .table td {
+body.dark-mode .table td {
     color: #e0e0e0 !important;
 }
 
 /* Your pagination styles */
-html.dark-mode .pagination .page-item .page-link {
+body.dark-mode .pagination .page-item .page-link {
     background-color: #1e1e2f !important;
     border-color: #333 !important;
     color: #ffffff !important;
 }
 
-html.dark-mode .pagination .page-item.active .page-link {
+body.dark-mode .pagination .page-item.active .page-link {
     background-color: #000000 !important;
     border-color: #000000 !important;
     color: #ffffff !important;
 }
 
-html.dark-mode .pagination .page-item:hover .page-link {
+body.dark-mode .pagination .page-item:hover .page-link {
     background-color: #333 !important;
     color: #ffffff !important;
 }
 
     
 /* SSL History Table - Dark Mode */
-html.dark-mode #sslChecksTable {
+body.dark-mode #sslChecksTable {
     border: none !important;
 }
 
-html.dark-mode #sslChecksTable.table-bordered thead th,
-html.dark-mode #sslChecksTable.table-bordered thtml td {
+body.dark-mode #sslChecksTable.table-bordered thead th,
+body.dark-mode #sslChecksTable.table-bordered tbody td {
     border: none !important;
     background-color: #1e1e2f !important;
     color: #e0e0e0 !important;
 }
 
-html.dark-mode #sslChecksTable.table-bordered {
+body.dark-mode #sslChecksTable.table-bordered {
     border-collapse: separate !important;
     border-spacing: 0 !important;
 }
 
-html.dark-mode .card {
+body.dark-mode .card {
     background-color: #1e1e2f !important;
     border: none !important;
 }
-html.dark-mode #historyDropdownBtn{
+body.dark-mode #historyDropdownBtn{
       color: #e0e0e0 !important;
     border: 1px solid #e0e0e0; 
      background-color: #1e1e2f !important;
@@ -193,113 +193,113 @@ html.dark-mode #historyDropdownBtn{
 
 
 /* Monitors Section - Dark Mode */
-html.dark-mode .monitor-card {
+body.dark-mode .monitor-card {
     background-color: #1e1e2f !important;
     border: 1px solid #2d2d42 !important;
     color: #e0e0e0 !important;
 }
 
-html.dark-mode .monitor-card:hover {
+body.dark-mode .monitor-card:hover {
     box-shadow: 0 0.15rem 1.75rem 0 rgba(0, 0, 0, 0.3) !important;
 }
 
-html.dark-mode .monitor-name {
+body.dark-mode .monitor-name {
     color: #ffffff !important;
 }
 
-html.dark-mode .monitor-url {
+body.dark-mode .monitor-url {
     color: #a0a0c0 !important;
 }
 
-html.dark-mode .status-indicator-up {
+body.dark-mode .status-indicator-up {
     background-color: #28a745 !important;
     box-shadow: 0 0 0 2px #1e1e2f, 0 0 0 4px #28a745 !important;
 }
 
-html.dark-mode .status-indicator-down {
+body.dark-mode .status-indicator-down {
     background-color: #dc3545 !important;
     box-shadow: 0 0 0 2px #1e1e2f, 0 0 0 4px #dc3545 !important;
 }
 
-html.dark-mode .status-indicator-paused {
+body.dark-mode .status-indicator-paused {
     background-color: #ffc107 !important;
     box-shadow: 0 0 0 2px #1e1e2f, 0 0 0 4px #ffc107 !important;
 }
 
 
-html.dark-mode .status-badge {
+body.dark-mode .status-badge {
     border-radius: 0.375rem !important;
     padding: 0.25rem 0.5rem !important;
     font-weight: 600 !important;
 }
 
-html.dark-mode .bg-success-100 {
+body.dark-mode .bg-success-100 {
     background-color: rgba(40, 167, 69, 0.2) !important;
 }
 
-html.dark-mode .text-success-800 {
+body.dark-mode .text-success-800 {
     color: #28a745 !important;
 }
 
-html.dark-mode .bg-danger-100 {
+body.dark-mode .bg-danger-100 {
     background-color: rgba(220, 53, 69, 0.2) !important;
 }
 
-html.dark-mode .text-danger-800 {
+body.dark-mode .text-danger-800 {
     color: #dc3545 !important;
 }
 
-html.dark-mode .bg-warning-100 {
+body.dark-mode .bg-warning-100 {
     background-color: rgba(255, 193, 7, 0.2) !important;
 }
 
-html.dark-mode .text-warning-800 {
+body.dark-mode .text-warning-800 {
     color: #ffc107 !important;
 }
 
 
-html.dark-mode .bars-container {
+body.dark-mode .bars-container {
     background-color: #1a1a27 !important;
     border: 1px solid #2d2d42 !important;
 }
 
-html.dark-mode .bar-segment-wrapper:hover .bar-segment {
+body.dark-mode .bar-segment-wrapper:hover .bar-segment {
     opacity: 0.8 !important;
 }
 
-html.dark-mode .uptime-legend {
+body.dark-mode .uptime-legend {
     border-top: 1px solid #2d2d42 !important;
     color: #a0a0c0 !important;
 }
 
-html.dark-mode .legend-item span {
+body.dark-mode .legend-item span {
     color: #e0e0e0 !important;
 }
 
 /* Monitor stats */
-html.dark-mode .monitor-stats {
+body.dark-mode .monitor-stats {
     color: #a0a0c0 !important;
      background-color: #1a1a27 !important;
      border: none !important;
 }
 
-html.dark-mode .stat-value {
+body.dark-mode .stat-value {
     color: #ffffff !important;
     font-weight: 600 !important;
 }
 
 
-html.dark-mode .card {
+body.dark-mode .card {
     background-color: #1a1a27 !important;
     border: none !important;
 }
 
-html.dark-mode .card-header {
+body.dark-mode .card-header {
     background-color: #1a1a27 !important;
     /* border-bottom: 1px solid #2d2d42 !important; */
 }
 
-html.dark-mode .text-primary {
+body.dark-mode .text-primary {
     color: #6cb2eb !important;
 }
 
@@ -394,23 +394,23 @@ html.dark-mode .text-primary {
 }
 
 /* raise ticket file input */
-html.dark-mode .custom-file-label {
+body.dark-mode .custom-file-label {
     background-color: #2a2a2a;
     color: #ffffff;
     border-color: #555;
 }
 
-html.dark-mode .custom-file-input:focus ~ .custom-file-label {
+body.dark-mode .custom-file-input:focus ~ .custom-file-label {
     border-color: #888;
     box-shadow: 0 0 0 0.1rem rgba(255, 255, 255, 0.25);
 }
 
-html.dark-mode .custom-file-input {
+body.dark-mode .custom-file-input {
     background-color: #2a2a2a;
     color: #ffffff;
     border-color: #555;
 }
-html.dark-mode .custom-file-label::after {
+body.dark-mode .custom-file-label::after {
     background-color: #444;
     color: #fff;
     border-left: 1px solid #555;
@@ -418,42 +418,42 @@ html.dark-mode .custom-file-label::after {
 /* raise ticket file input ends */
 
 /* dark mode for quill editor */
-html.dark-mode .ql-toolbar.ql-snow {
+body.dark-mode .ql-toolbar.ql-snow {
     background-color: #1a1a27 ;
     border-color: #444;
     color: #fff;
 }
 
-html.dark-mode .ql-toolbar.ql-snow .ql-picker,
-html.dark-mode .ql-toolbar.ql-snow .ql-picker-label,
-html.dark-mode .ql-toolbar.ql-snow .ql-picker-item {
+body.dark-mode .ql-toolbar.ql-snow .ql-picker,
+body.dark-mode .ql-toolbar.ql-snow .ql-picker-label,
+body.dark-mode .ql-toolbar.ql-snow .ql-picker-item {
     color: #fff;
 }
 
-html.dark-mode .ql-toolbar.ql-snow button {
+body.dark-mode .ql-toolbar.ql-snow button {
     color: #fff;
     border: none;
 }
 
-html.dark-mode .ql-toolbar.ql-snow .ql-stroke {
+body.dark-mode .ql-toolbar.ql-snow .ql-stroke {
     stroke: #ffffff;
 }
 
-html.dark-mode .ql-toolbar.ql-snow .ql-fill {
+body.dark-mode .ql-toolbar.ql-snow .ql-fill {
     fill: #ffffff;
 }
 
-html.dark-mode .ql-toolbar.ql-snow .ql-picker-options {
+body.dark-mode .ql-toolbar.ql-snow .ql-picker-options {
     background-color: #3a3a3a;
     color: #fff;
 }
 
-html.dark-mode .ql-container.ql-snow {
+body.dark-mode .ql-container.ql-snow {
     background-color: #1e1e1e;
     color: #e0e0e0;
     border-color: #444;
 }
-html.dark-mode .ql-editor::before {
+body.dark-mode .ql-editor::before {
     color: #aaa;
 }
 
@@ -461,27 +461,27 @@ html.dark-mode .ql-editor::before {
 
 
 /* quill editor for adding comment */
-html.dark-mode .comment{
+body.dark-mode .comment{
     background-color: #1a1a27 !important;
     color: #e0e0e0;
     border:'none';
 }
 
-html.dark-mode .comment-header{
+body.dark-mode .comment-header{
     background-color: #1a1a27 !important;
     color: #e0e0e0;
 }
-html.dark-mode .new-comment-header{
+body.dark-mode .new-comment-header{
        background-color: #1a1a27 !important;
     color: #e0e0e0;
 }
 
-html.dark-mode .ql-editor {
+body.dark-mode .ql-editor {
     background-color: #1a1a27 !important;
     color: #f0f0f0 !important;
 }
 
-html.dark-mode .commment-black{
+body.dark-mode .commment-black{
     color:  #1a1a27 !important;
 }
 
@@ -532,17 +532,9 @@ html.dark-mode .commment-black{
         transition: color 0.3s ease;
     }
 
-    html.dark #darkModeToggle i {
+    body.dark #darkModeToggle i {
         color: white !important;
         border: 'none' !important;
     }
     
-    /* Skeleton background in dark mode */
-html.dark-mode .card-body.skeleton {
-    background-color: #1a1a27 !important;
-    border-radius: 0.4rem;
-}
-
-
-
 </style>

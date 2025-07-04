@@ -23,22 +23,23 @@
         }
     </script>
 
+<script>
+        
+    (function () {
+        const theme = localStorage.getItem('theme');
+        if (theme === 'dark') {
+            // document.body.classList.add('dark-mode');
+            document.documentElement.classList.add('dark-mode');
+        }
+    })();
+    
+</script>
+
     <!-- Fonts and styles -->
     <link href="{{ asset('frontend/assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet">
 
-
-    <script>
-        
-        (function () {
-            const theme = localStorage.getItem('theme');
-            if (theme === 'dark') {
-                document.documentElement.classList.add('dark-mode');
-            }
-        })();
-        
-    </script>
     
     <!-- Skeleton Loader Styles -->
     <style>
