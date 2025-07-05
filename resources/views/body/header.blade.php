@@ -376,15 +376,16 @@ document.addEventListener('DOMContentLoaded', function () {
         function updateNotificationUI(notification) {
 
             const counter = document.getElementById('notificationCounter');
+            const notificationList = document.getElementById('notificationList');
 
             const currentCount = parseInt(counter.textContent) || 0;
             counter.textContent = currentCount + 1;
+
+            counter.classList.remove('d-none');
             counter.style.display = 'inline-block';
             counter.classList.add('pulse');
             setTimeout(() => counter.classList.remove('pulse'), 1000);
 
-
-            const notificationList = document.getElementById('notificationList');
             const emptyMessage = notificationList.querySelector('.text-muted');
             if (emptyMessage) {
                 notificationList.removeChild(emptyMessage);
