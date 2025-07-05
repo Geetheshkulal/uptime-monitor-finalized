@@ -7,6 +7,21 @@
     * {
         border-radius: 0 !important;
     }
+
+     @media (max-width: 430px) {
+      .dataTables_length {
+        text-align: left !important;
+        margin-left: 2px;
+        margin-bottom: 10px;
+    }
+     .dataTables_filter{
+            margin-left: -8px;
+    }
+     .page-content {
+        margin-bottom: 175px;
+}
+   
+}
     </style>    
 @endpush
 

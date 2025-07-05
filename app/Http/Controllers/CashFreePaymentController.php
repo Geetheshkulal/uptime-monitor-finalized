@@ -46,8 +46,8 @@ class CashFreePaymentController extends Controller
 
         $orderAmount = $subscription->amount;
 
-        // $url = "https://sandbox.cashfree.com/pg/orders";
-        $url = "https://api.cashfree.com/pg/orders";
+        $url = "https://sandbox.cashfree.com/pg/orders";
+        // $url = "https://api.cashfree.com/pg/orders";
 
         $couponCode = CouponUser::with(['coupon' => function ($query) {
                     $now = now();
@@ -170,14 +170,22 @@ class CashFreePaymentController extends Controller
         $headers = [
             "Content-Type: application/json",
             "x-api-version: 2022-01-01",
-            "x-client-id: " .env('CASHFREE_API_KEY'),
-            "x-client-secret: ".env('CASHFREE_API_SECRET'),
+            "x-client-id" => config('services.cashfree.key'),
+            "x-client-secret" => config('services.cashfree.secret'),
+            // "x-client-id: " .env('CASHFREE_API_KEY'),
+            // "x-client-secret: ".env('CASHFREE_API_SECRET'),
         ];
 
-        // First get order details to verify status
-        // $curl = curl_init("https://sandbox.cashfree.com/pg/orders/{$orderId}");
+        Log::info('Cashfree Verification Credentials:', [
+    'client_id' => config('services.cashfree.key'),
+    'client_secret' => config('services.cashfree.secret'),
+]);
 
-        $curl = curl_init("https://api.cashfree.com/pg/orders/{$orderId}");
+
+        // First get order details to verify status
+        $curl = curl_init("https://sandbox.cashfree.com/pg/orders/{$orderId}");
+
+        // $curl = curl_init("https://api.cashfree.com/pg/orders/{$orderId}");
 
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
@@ -192,9 +200,9 @@ class CashFreePaymentController extends Controller
         }
 
         // Now get payment details to get payment method
-        // $curl = curl_init("https://sandbox.cashfree.com/pg/orders/{$orderId}/payments");
+        $curl = curl_init("https://sandbox.cashfree.com/pg/orders/{$orderId}/payments");
 
-         $curl = curl_init("https://api.cashfree.com/pg/orders/{$orderId}/payments");
+        //  $curl = curl_init("https://api.cashfree.com/pg/orders/{$orderId}/payments");
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         $paymentResponse = curl_exec($curl);

@@ -129,6 +129,33 @@
             padding: 15px;
             border-radius: 5px;
         }
+        .template-select{
+            margin-left:-19px;
+        }
+    @media (max-width: 430px) {
+         .template-select{
+            margin-left: 2px;
+        }
+        .preview-column{
+            border: none;
+            padding-left: 2px;
+        }
+        .preview-content{
+            padding:0px;
+            min-height:160px;
+        }
+        .whatsapp-message{
+            margin-bottom: -2px;
+        }
+        .editor-column{
+            margin-top: -27px;
+            margin-bottom: 24px;
+        }
+    .editor-container {
+        flex-direction: column-reverse;
+        flex-wrap: wrap;
+    }
+}
     </style>
 @endpush
 
@@ -143,7 +170,7 @@
 
             <div class="form-group row">
                 <label for="templateSelector" class="col-sm-2 col-form-label font-weight-bold">Template Type</label>
-                <div class="col-sm-6">
+                <div class="col-sm-4 template-select">
                     <select class="form-control custom-select" id="templateSelector" name="template_type" onchange="SetEditorAndVariables(this.value)">
                         @foreach($templates as $template)
                             <option value="{{ $template->template_name }}"
@@ -162,8 +189,7 @@
                     <textarea name="content" id="template-content" hidden></textarea>
                     
                     <div class="mt-3">Template Variables</div>
-                    <div class="d-flex gap-3 flex-wrap mb-4 mt-2 buttons-container" id="variablesContainer"> 
-                    </div>
+                    <div class="d-flex gap-3 flex-wrap mb-4 mt-2 buttons-container" id="variablesContainer"></div>
                     <button type="submit" class="btn btn-primary">Save Template</button>
                 </div>
                 

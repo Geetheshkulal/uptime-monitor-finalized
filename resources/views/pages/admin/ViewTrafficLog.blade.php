@@ -137,7 +137,11 @@
     .traffic-list {
         min-height: 300px; 
     }
-
+    label {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    }
     
     @media (max-width: 768px) {
         .client-row, .request-row {
@@ -156,15 +160,41 @@
             gap: 0.5rem;
         }
     }
+
+    @media (max-width: 430px) {
+        .FilterButton{
+            margin-top:12px;
+        }
+         .pagination {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        width: 308px;
+    }
+
+    .pagination::-webkit-scrollbar {
+        display: none; 
+    }
+
+    .pagination .page-item {
+        flex: 0 0 auto; 
+        white-space: nowrap;
+    }
+
+    .pagination .page-link {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+    }
+}
 </style>
 @endpush
 
 <div class="container-fluid">
     <h1 class="h3 mb-0 text-gray-800">Visitor Traffic Logs</h1><br>
     <div class="search-header">
-        
     
-                <!-- Filter Section -->
+            <!-- Filter Section -->
             <div class="card filter-card">
                 <div class="card-body">
                     <form method="GET" action="">
@@ -191,7 +221,7 @@
                                     value="{{ request('to_date') }}">
                             </div>
                              <div class="col-md-2 d-flex flex-column align-items-stretch">
-                                <button type="submit" class="btn btn-primary w-100 mb-2">
+                                <button type="submit" class="btn btn-primary w-100 mb-2 FilterButton">
                                     <i class="fas fa-filter"></i> Filter
                                 </button>
                                 <a href="{{ url()->current() }}" class="btn btn-secondary w-100">
@@ -207,7 +237,7 @@
     <!-- Logs List -->
                 <div class="traffic-list">
                    @forelse($trafficLogs as $log)
-                    <div class="traffic-card">
+                    <div class="traffic-card mt-4">
                     <!-- New Header with IP and Time -->
                     <div class="traffic-header">
                         <div class="ip-display">

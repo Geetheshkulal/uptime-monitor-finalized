@@ -16,6 +16,25 @@
     gap: 10px;
 }
 
+.nav-tabs {
+     border-bottom: none ;
+}
+
+.responsive-tabs .nav-link.active {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    /* background-color: #456eb6 !important; */
+    background-color: rgb(20, 62, 133) !important;
+
+}
+
+.responsive-tabs .nav-link:focus,
+.responsive-tabs .nav-link:focus-visible {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
 
 @media screen and (max-width: 430px) {
     .responsive-tabs {

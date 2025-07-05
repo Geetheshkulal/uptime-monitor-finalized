@@ -19,11 +19,12 @@
          * {
     border-radius: 0 !important;
 }
+
 button.btn-light {
-    box-shadow: none !important; /* Remove shadow */
-    border: none !important; /* Remove border */
-    background-color: transparent !important; /* Make background transparent */
-    color:blue !important; /* Change text color */
+    box-shadow: none !important;
+    border: none !important; 
+    background-color: transparent !important;
+    color:blue !important; 
 }
     </style>
 @endpush

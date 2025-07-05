@@ -16,6 +16,13 @@
             margin-left:-45px;
             margin-right: -11px;
         }
+        #status-heartbeat
+        {
+        display: inline-block;
+        width: 36px;
+        height: 22px;
+        margin-right: 8px;
+        }
         .btn {
             border-radius: 0.35rem;
             font-weight: 600;
@@ -104,8 +111,7 @@
         <div class="row">
             <div class="col-xl-12">
                 <h5 class="text-gray-800 font-weight-bold mb-3">
-                    {{-- <span class="text-secondary">URL:</span> --}}
-
+            
                     <span id="status-heartbeat">
                         @if($details->status === 'up')
                         <svg xmlns="http://www.w3.org/2000/svg">

@@ -103,6 +103,17 @@
   border-color:#F8F8FF;
 }
 
+@media (max-width: 430px) {
+      .dataTables_length {
+        text-align: left !important;
+        margin-left: 2px;
+        margin-bottom: 10px;
+    }
+     .dataTables_filter{
+            margin-left: -8px;
+    }
+   
+}
 
 </style>
 @endpush
@@ -111,13 +122,13 @@
     <div id="content">
         <div class="container-fluid">
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-gray-800">Manage Coupon Codes</h1>
+                <h1 class="h3 mb-3 text-gray-800">Manage Coupon Codes</h1>
                 <button class="btn btn-primary" data-toggle="modal" data-target="#addCouponModal">
                     Create Coupon Codes
                 </button>
             </div>
             
-            <div class="card shadow mb-4">
+            <div class="card shadow mb-5">
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered" id="couponTable" width="100%" cellspacing="0">
@@ -196,7 +207,7 @@
         <form class="modal-content" method="POST" action="{{ route('coupons.store') }}">
             @csrf
             <div class="modal-header">
-                <h5 class="modal-title" id="addCouponModalLabel">Create Coupon</h5>
+                <h5 class="modal-title text-gray-900" id="addCouponModalLabel">Create Coupon</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

@@ -579,7 +579,8 @@
                 <li><strong>Get Your Telegram ID:</strong>
                   <ul>
                     <li>Search for <code>@userinfobot</code> in Telegram</li>
-                    <li>Start the bot and it will show your ID</li>
+                    <li>Send <code>/start</code> command</li>
+                    <li>It will show your  Telegram ID</li>
                   </ul>
                 </li>
                 <li><strong>Create a Bot Token:</strong>

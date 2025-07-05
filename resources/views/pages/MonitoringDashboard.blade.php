@@ -197,6 +197,20 @@
         padding: 1px;
         height: 50px;
         }
+
+    .dataTables_length {
+        text-align: left !important;
+        margin-left: 2px;
+        margin-bottom: 10px;
+    }
+     .dataTables_filter{
+            margin-left: -8px;
+    }
+     .page-content {
+        margin-bottom: 175px;
+}
+   
+
 }
     </style>
     @endpush
@@ -446,8 +460,8 @@
             "info": true,
             "order": [[4, "desc"]],
             "language": {
-                "search": "_INPUT_",
-                "searchPlaceholder": "Search monitors...",
+                "search": "Search:",
+                "searchPlaceholder": "monitors, type, status",
                 "lengthMenu": "Show _MENU_",
                 "info": "Showing _START_ to _END_ of _TOTAL_"
             }

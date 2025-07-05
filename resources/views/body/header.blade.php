@@ -56,12 +56,6 @@
     font-size: 1.2rem;
 }
 
-#helpDropdown .fa-caret-down {
-    font-size: 0.9rem;
-    margin-left: 5px;
-}
-
-
 </style>
 
 <style>
@@ -117,6 +111,16 @@
     .flex-grow-1 {
         flex-grow: 1;
     }
+    /* .auth-name:hover{
+        text-decoration: none !important;
+        color: #084bbf;
+    } */
+
+#helpDropdown .fa-caret-down {
+    font-size: 0.9rem;
+    margin-left: 5px;
+    color: #090a19 !important;
+}
 
 @media (max-width: 430px) {
 
@@ -146,13 +150,13 @@
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding: 10px 15px; font-size: 1rem; font-weight: 600;">
               <i class="fas fa-question-circle mr-2 white-color" style="font-size: 1.2rem; color:#555879;"></i>
               <span class="text-gray-600">Help</span>
-              <i class="fas fa-caret-down ml-1" style="font-size: 0.9rem;"></i> 
+              {{-- <i class="fas fa-caret-down ml-1  text-gray-600" style="font-size: 0.9rem;"></i>  --}}
           </a>
           <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="helpDropdown">
               @if (request()->is('dashboard*') || request()->is('ssl-check*') || request()->is('monitoring/add*'))
-                  <a class="dropdown-item" id="startTourBtn">
+                  <a class="dropdown-item" id="startTourBtn" style="cursor: pointer;">
                       <i class="fas fa-play mr-2"></i> Start Tour
-  </a>
+                </a>
               @endif
               <a class="dropdown-item" href="{{url('/raise/tickets')}}">
                   <i class="fas fa-bug mr-2"></i> Report an Issue
@@ -242,8 +246,8 @@
 
       <!--User profile-->
       <li class="nav-item">
-          <a class="d-flex align-items-center" href="{{ url('/profile') }}" role="button" aria-haspopup="true" aria-expanded="false">
-              <span class="mr-2 d-none d-lg-inline text-gray-600 small white-color auth-name">{{ Auth::user()->name }}</span>
+          <a class="d-flex align-items-center text-decoration-none auth-name" href="{{ url('/profile') }}" role="button" aria-haspopup="true" aria-expanded="false">
+              <span class="mr-2 d-lg-inline text-gray-600 small white-color">{{ Auth::user()->name }}</span>
               <img class="img-profile rounded-circle profile"
                   src="{{ Avatar::create(auth()->user()->name)->toBase64() }}" style="width: 35px !important; height: 35px !important; object-fit: cover; border-radius: 50%;">
           </a>
@@ -269,32 +273,17 @@ document.addEventListener('DOMContentLoaded', function () {
     const toggleBtn = document.getElementById('sidebarToggleTop');
     const sidebar = document.getElementById('accordionSidebar');
 
-    // if (localStorage.getItem('sidebarToggled') === 'true') {
-    //     toggleBtn.classList.add('ml-accordion-open');
-    // }
-
-    // toggleBtn?.addEventListener('click', function (e) {
-    //     e.stopPropagation();
-
-    //     const isToggled = toggleBtn.classList.contains('ml-accordion-open');
-
-    //     if (isToggled) {
-    //         toggleBtn.classList.remove('ml-accordion-open');
-    //         localStorage.setItem('sidebarToggled', 'false');
-    //     } else {
-    //         toggleBtn.classList.add('ml-accordion-open');
-    //         localStorage.setItem('sidebarToggled', 'true');
-    //     }
-    // });
-
 // Track outside click
     document.addEventListener('click', function (e) {
-        const isVisible = !sidebar.classList.contains('toggled'); // sidebar is visible if 'toggled' is NOT present
+        const isVisible = !sidebar.classList.contains('toggled'); 
         const clickedOutsideSidebar = !sidebar.contains(e.target);
         const clickedOutsideToggle = !toggleBtn.contains(e.target);
 
-        if (isVisible && clickedOutsideSidebar && clickedOutsideToggle) {
-            toggleBtn.click(); // trigger the sidebar toggle behavior without directly modifying class
+        // if (isVisible && clickedOutsideSidebar && clickedOutsideToggle) {
+        //     toggleBtn.click(); 
+        // }
+        if (window.innerWidth < 768 && isVisible && clickedOutsideSidebar && clickedOutsideToggle) {
+            toggleBtn.click();
         }
     });
 
@@ -306,28 +295,12 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-// document.addEventListener('DOMContentLoaded', function () {
-//         const toggleBtn = document.getElementById('sidebarToggleTop');
-//         const sidebar = document.getElementById('accordionSidebar');
-
-//         toggleBtn?.addEventListener('click', function (e) {
-//             e.stopPropagation(); 
-//             // sidebar.classList.toggle('active');
-
-//            if (sidebar.classList.contains('toggled')) {
-//              toggleBtn.classList.remove('ml-accordion-open');
-//             } else {
-//              toggleBtn.classList.add('ml-accordion-open');
-//         }
-//         });
-
-//     });
-
     document.addEventListener('DOMContentLoaded', function () {
 
         const toggleBtn = document.getElementById('darkModeToggle');
         const themeIcon = document.getElementById('themeIcon');
-        const root = document.body;
+        // const root = document.body;
+        const root = document.documentElement;
 
         function setTheme(isDark) {
             if (isDark) {
@@ -403,15 +376,16 @@ document.addEventListener('DOMContentLoaded', function () {
         function updateNotificationUI(notification) {
 
             const counter = document.getElementById('notificationCounter');
+            const notificationList = document.getElementById('notificationList');
 
             const currentCount = parseInt(counter.textContent) || 0;
             counter.textContent = currentCount + 1;
+
+            counter.classList.remove('d-none');
             counter.style.display = 'inline-block';
             counter.classList.add('pulse');
             setTimeout(() => counter.classList.remove('pulse'), 1000);
 
-
-            const notificationList = document.getElementById('notificationList');
             const emptyMessage = notificationList.querySelector('.text-muted');
             if (emptyMessage) {
                 notificationList.removeChild(emptyMessage);

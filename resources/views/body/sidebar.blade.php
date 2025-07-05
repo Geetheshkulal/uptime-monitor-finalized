@@ -10,13 +10,13 @@
     
 
 
-    .nav-item.active {
+    .sidebar .nav-item.active {
         background-color: rgba(255, 255, 255, 0.1) !important;
         border-left: 3px solid #fff !important;
         box-shadow: 0 0.15rem 0.5rem rgba(0, 0, 0, 0.15);
     }
 
-    .nav-item:hover:not(.active) {
+    .sidebar .nav-item:hover:not(.active) {
         background-color: rgba(255, 255, 255, 0.05);
     }
 

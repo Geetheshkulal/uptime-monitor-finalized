@@ -45,16 +45,19 @@
     font-size: 14px;
 }
 
-   /* for mobile devices */
-        @media (max-width: 400px) {
+    @media (max-width: 430px) {
            .notification-title{
             margin-top:65px;
            }
            #notificationToggle{
-            margin-top:-17px;
+            margin-top:-4px;
            }
           .box{
              width: 93% !important;
+          }
+          .SendNotification{
+            padding: 9px;
+            margin-bottom: 152px;
           }
   }
 
@@ -63,7 +66,7 @@
 @endpush
 
 
-<form method="POST" action="{{ route('admin.send.notification') }}">
+<form method="POST" class="SendNotification" action="{{ route('admin.send.notification') }}">
     @csrf
     <h1 class="h3 mb-2 text-gray-800 ml-3 notification-title">Send Notification to All Users</h1>
     <div class="form-group ml-3">
