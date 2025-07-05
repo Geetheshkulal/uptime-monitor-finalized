@@ -56,6 +56,9 @@
     font-size: 1.2rem;
 }
 
+#darkModeToggle:hover{
+    cursor: pointer !important;
+}
 </style>
 
 <style>
@@ -116,6 +119,8 @@
         color: #084bbf;
     } */
 
+
+
 #helpDropdown .fa-caret-down {
     font-size: 0.9rem;
     margin-left: 5px;
@@ -133,7 +138,8 @@
 </style>
 @endpush
 
-@vite(['resources/css/app.css', 'resources/js/app.js'])
+{{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+<script type="module" src="{{ asset('build/assets/app-I5UB65z4.js') }}"></script>
 
 
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -169,9 +175,9 @@
 
        <!-- dark mode button  -->
 
-       <button id="darkModeToggle" class="ml-2 mr-3" title="Toggle Dark Mode">
+       <div id="darkModeToggle" class="ml-2 mr-3 " style="cursor: pointer;" title="Toggle Dark Mode">
         <i id="themeIcon" class="fas fa-moon"></i>
-    </button> 
+    </div> 
 
 
 <!-- Alerts -->
