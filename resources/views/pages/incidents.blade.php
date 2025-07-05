@@ -115,6 +115,23 @@
         margin-right: 1.5rem;
     } 
     }
+
+    @media (max-width: 430px) {
+
+.dataTables_length {
+   text-align: left !important;
+   margin-left: 2px;
+   margin-bottom: 10px;
+}
+.dataTables_filter{
+       margin-left: -40px;
+}
+.page-content {
+   margin-bottom: 175px;
+}
+
+
+}
 </style>
 @endpush
 
@@ -231,8 +248,8 @@
             "info": true,
             "order": [[2, "desc"]], // Sort by start time by default
             "language": {
-                "search": "_INPUT_",
-                "searchPlaceholder": "Search incidents...",
+                "search": "Search",
+                "searchPlaceholder": "incidents",
                 "lengthMenu": "Show _MENU_",
                 "info": "Showing _START_ to _END_ of _TOTAL_"
             }

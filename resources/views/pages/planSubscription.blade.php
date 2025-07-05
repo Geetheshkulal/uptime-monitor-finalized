@@ -237,12 +237,22 @@
     body.dark-mode .skeleton{
         background-color: #1e1e2f !important;
     }
-    @media (max-width: 430px) {
-    .dataTables_length {
-        text-align: left !important;
-        margin-left: 16px;
-        margin-bottom: 10px;
-    }
+
+@media (max-width: 430px) {
+
+.dataTables_length {
+   text-align: left !important;
+   margin-left: 2px;
+   margin-bottom: 10px;
+}
+.dataTables_filter{
+       margin-left: -50px;
+}
+.page-content {
+   margin-bottom: 175px;
+}
+
+
 }
 
 

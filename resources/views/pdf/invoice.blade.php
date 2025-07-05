@@ -279,7 +279,7 @@
                     Customer Signature
                 </td>
                 <td style="border-top: 1px solid #ccc; width: 200px; padding-top: 5px; text-align: center;font-size: 12px;">
-                    For CheckMySite
+                    For Drishti Pulse
                 </td>
             </tr>
         </table>

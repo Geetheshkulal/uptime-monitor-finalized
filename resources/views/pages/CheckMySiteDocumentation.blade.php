@@ -332,7 +332,7 @@
   <!-- Sidebar Navigation -->
   <div class="sidebar">
     <div class="sidebar-header">
-        <h4><i class="fas fa-heartbeat me-2"></i>CheckMySite</h4>
+        <h4><i class="fas fa-heartbeat me-2"></i>Drishti Pulse</h4>
     </div>
     <div class="nav-menu">
       <a href="#" onclick="showTab('tab1')" class="active">
@@ -470,7 +470,7 @@
         </div>
         
       
-      <p>CheckMySite is a comprehensive solution for tracking the availability and performance of your websites and online services in real-time. Get instant notifications when issues arise and maintain optimal uptime for your digital assets.</p>
+      <p>Drishti Pulse is a comprehensive solution for tracking the availability and performance of your websites and online services in real-time. Get instant notifications when issues arise and maintain optimal uptime for your digital assets.</p>
       
       <div class="highlight">
         <h5>Key Features:</h5>
@@ -492,7 +492,7 @@
             <!-- Title Section -->
             <div class="doc-header">
                 <h2>Monitor Module</h2>
-                <p>This section describes the functionality of the Monitor Module in the CheckMySite application, covering monitor creation, management, and response handling for different monitor types (Ping, Port, HTTP, and DNS).</p>
+                <p>This section describes the functionality of the Monitor Module in the Drishti Pulse application, covering monitor creation, management, and response handling for different monitor types (Ping, Port, HTTP, and DNS).</p>
             </div>
 
             <!-- Monitor Creation Section -->
@@ -797,7 +797,7 @@ public function MonitorEdit(Request $request, $id)
             <!-- Conclusion Section -->
             <div class="doc-footer">
                 <h4>Conclusion</h4>
-                <p>The Monitor Module in CheckMySite provides a comprehensive solution for tracking the status of various services using Ping, Port, HTTP, and DNS monitors. Each type of monitor is handled with specific logic tailored to its purpose, ensuring accurate monitoring and reliable alerting.</p>
+                <p>The Monitor Module in Drishti Pulse provides a comprehensive solution for tracking the status of various services using Ping, Port, HTTP, and DNS monitors. Each type of monitor is handled with specific logic tailored to its purpose, ensuring accurate monitoring and reliable alerting.</p>
             </div>
         </div>
     </div>
@@ -809,7 +809,7 @@ public function MonitorEdit(Request $request, $id)
             <!-- Title Section -->
             <div class="doc-header">
                 <h2>SSL Module</h2>
-                <p>This section describes the functionality of the SSL Module in the CheckMySite application which is a Premium feature, covering SSL Checks and additonally how each check is stored aand displayed in history tab</p>
+                <p>This section describes the functionality of the SSL Module in the Drishti Pulse application which is a Premium feature, covering SSL Checks and additonally how each check is stored aand displayed in history tab</p>
             </div>
     
             <!-- SSL Check  -->
@@ -950,7 +950,7 @@ public function history()
             <!-- Title Section -->
             <div class="doc-header">
                 <h2>Incident Module</h2>
-                <p>This section describes the functionality of the Incident Module in the CheckMySite application. This feature covers the monitoring and tracking of incidents related to your monitored websites and servers, allowing you to stay updated on any potential issues with your online services.</p>
+                <p>This section describes the functionality of the Incident Module in the Drishti Pulse application. This feature covers the monitoring and tracking of incidents related to your monitored websites and servers, allowing you to stay updated on any potential issues with your online services.</p>
             </div>
     
             <!-- Incident Check -->
@@ -1092,7 +1092,7 @@ public function fetchIncidents()
             <!-- Title Section -->
             <div class="doc-header">
                 <h2>Alert and Notification Module</h2>
-                <p>This section describes the functionality of the Alert and Notification Module in the CheckMySite application. It covers how alerts are triggered when a monitor goes down, and how notifications are sent through different channels such as Email, Telegram, and PWA Push Notifications.</p>
+                <p>This section describes the functionality of the Alert and Notification Module in the Drishti Pulse application. It covers how alerts are triggered when a monitor goes down, and how notifications are sent through different channels such as Email, Telegram, and PWA Push Notifications.</p>
             </div>
     
             <!-- Alert Triggering -->
@@ -1197,7 +1197,7 @@ private function sendPwaNotification(Monitors $monitor)
     
             <div class="doc-footer">
                 <h4>Conclusion</h4>
-                <p>The Alert and Notification Module in CheckMySite ensures that users are notified promptly whenever a monitor goes down. It supports multiple notification channels, including email, Telegram, and PWA push notifications, to keep users informed and allow them to take action quickly. The system is flexible and can be extended to support additional alert channels or features based on user preferences.</p>
+                <p>The Alert and Notification Module in Drishti Pulse ensures that users are notified promptly whenever a monitor goes down. It supports multiple notification channels, including email, Telegram, and PWA push notifications, to keep users informed and allow them to take action quickly. The system is flexible and can be extended to support additional alert channels or features based on user preferences.</p>
             </div>
         </div>
     </div>
@@ -1209,7 +1209,7 @@ private function sendPwaNotification(Monitors $monitor)
             <!-- Title Section -->
             <div class="doc-header">
                 <h2>Plan and Subsribtion Module</h2>
-                <p>This section describes the Plan and Subsribtion functionaly in the CheckMySite application.</p>
+                <p>This section describes the Plan and Subsribtion functionaly in the Drishti Pulse application.</p>
             </div>
     
             <!-- premium middleware -->
@@ -1295,8 +1295,8 @@ public function fetchIncidents()
         <div class="monitor-module-doc">
             <!-- Title Section -->
             <div class="doc-header">
-                <h2>User Creation Flow in the CheckMySite Application</h2>
-                <p>This section explains the process of user creation in the CheckMySite application, including how permissions are validated, how user data is stored, and how roles are assigned.</p>
+                <h2>User Creation Flow in the Drishti Pulse Application</h2>
+                <p>This section explains the process of user creation in the Drishti Pulse application, including how permissions are validated, how user data is stored, and how roles are assigned.</p>
             </div>
     
             <!-- Blade View Section -->
@@ -1629,7 +1629,7 @@ public function EditUsers($id)
             <!-- Footer Section -->
             <div class="doc-footer">
                 <h4>Conclusion</h4>
-                <p>The user creation flow in the CheckMySite application ensures that only authorized users (with the correct permissions) can create new users. The process involves checking permissions via middleware, validating input in the controller, and handling user creation, role assignment, and activity logging. This approach provides a secure and traceable way of managing user accounts.</p>
+                <p>The user creation flow in the Drishti Pulse application ensures that only authorized users (with the correct permissions) can create new users. The process involves checking permissions via middleware, validating input in the controller, and handling user creation, role assignment, and activity logging. This approach provides a secure and traceable way of managing user accounts.</p>
             </div>
             </div>
         </div>
@@ -1640,7 +1640,7 @@ public function EditUsers($id)
             <!-- Title Section -->
             <div class="doc-header">
                 <h2>Subuser Management Module</h2>
-                <p>This section describes the functionality of the Subuser Management Module in the CheckMySite application. It covers how subusers are created, managed, and assigned permissions.</p> 
+                <p>This section describes the functionality of the Subuser Management Module in the Drishti Pulse application. It covers how subusers are created, managed, and assigned permissions.</p> 
             </div>
             <!-- Subuser Creation -->
             <div class="doc-section">
@@ -1792,7 +1792,7 @@ public function UpdateSubUserPermissions(Request $request, $id)
             </div>
              <div class="doc-footer">
             <h4>Conclusion</h4>
-         <p>The user creation flow in the CheckMySite application ensures that only authorized users (with the correct permissions) can create new users. The process involves checking permissions via middleware, validating input in the controller, and handling user creation, role assignment, and activity logging. This approach provides a secure and traceable way of managing user accounts,manages all user-related actions in the application. It includes the creation, viewing, updating, and deletion of users, while also ensuring that permissions and roles are properly handled, and user activities are logged for audit purposes.</p>
+         <p>The user creation flow in the Drishti Pulse application ensures that only authorized users (with the correct permissions) can create new users. The process involves checking permissions via middleware, validating input in the controller, and handling user creation, role assignment, and activity logging. This approach provides a secure and traceable way of managing user accounts,manages all user-related actions in the application. It includes the creation, viewing, updating, and deletion of users, while also ensuring that permissions and roles are properly handled, and user activities are logged for audit purposes.</p>
             </div>
         </div>
     </div>
@@ -1802,7 +1802,7 @@ public function UpdateSubUserPermissions(Request $request, $id)
             <!-- Title Section -->
             <div class="doc-header">
                 <h2>Activity logging</h2>
-                <p>This section describes the functionality of the Activity logging Module in the CheckMySite application. It covers how activity logs are created, managed, and displayed.</p>
+                <p>This section describes the functionality of the Activity logging Module in the Drishti Pulse application. It covers how activity logs are created, managed, and displayed.</p>
                 </div>
             <!-- Activity Logging -->
             <div class="doc-section">
@@ -1874,7 +1874,7 @@ public function DisplayActivityLogs()
             <!-- Title Section -->
             <div class="doc-header">
                 <h2>Ticketing Module</h2>
-    <p>This section describes the functionality of the Ticketing Module in the CheckMySite application. It covers how tickets are created, managed, and displayed.</p>
+    <p>This section describes the functionality of the Ticketing Module in the Drishti Pulse application. It covers how tickets are created, managed, and displayed.</p>
     <div class="doc-section">
         <h3>Functionality</h3>
         <ul>

@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/introjs.min.css"/>
 
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap4.min.css">
+
+
     <style>
         /* ========== GLOBAL STYLES ========== */
         :root {
@@ -204,7 +207,7 @@
         margin-bottom: 10px;
     }
      .dataTables_filter{
-            margin-left: -8px;
+            margin-left: -28px;
     }
      .page-content {
         margin-bottom: 175px;
@@ -357,7 +360,7 @@
                     <br>
                     <div class="card-body p-0">
                         <div class="table-responsive"style="min-width: 100%;">
-                            <table class="table mb-0" id="dataTable">
+                            <table class="table mb-0" id="dataTable" class="dt-responsive nowrap" style="width:100%;">
                                 <thead>
                                     <tr>
                                         <th>Name</th>
@@ -441,6 +444,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 
 
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap4.min.js"></script>
+
+
 
 <script>
     // Initialize animations
@@ -458,6 +465,8 @@
             "searching": true,
             "ordering": true,
             "info": true,
+            "responsive": true,
+            "scrollX": false,
             "order": [[4, "desc"]],
             "language": {
                 "search": "Search:",

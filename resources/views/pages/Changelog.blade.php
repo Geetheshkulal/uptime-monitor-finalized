@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Changelog - CheckMySite</title>
+  <title>Changelog - Drishti Pulse</title>
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -156,7 +156,7 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
     <div class="container">
       <a class="navbar-brand text-primary fw-bold d-flex align-items-center" href="/">
-        <i class="fas fa-heartbeat me-2"></i>CheckMySite
+        <i class="fas fa-heartbeat me-2"></i>Drishti Pulse
       </a>
     </div>
   </nav>
@@ -176,7 +176,7 @@
       </div>
 
       <div class="text-center mb-5">
-        <h2 class="page-title animate__animated animate__fadeInDown">CheckMySite Changelog</h2>
+        <h2 class="page-title animate__animated animate__fadeInDown">Drishti Pulse Changelog</h2>
         <p class="text-muted animate__animated animate__fadeInUp">Track all updates and improvements</p>
       </div>
 

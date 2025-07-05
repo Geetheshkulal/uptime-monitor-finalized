@@ -70,6 +70,7 @@
         gap: 2rem;
         perspective: 1000px;
         position: relative;
+        margin-bottom: 53px;
     }
     
     .pricing-card {

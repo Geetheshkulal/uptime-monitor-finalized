@@ -7,28 +7,30 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/introjs.min.css"/>
 
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap4.min.css">
+
 <!-- Styling -->
 <style>
-    /* History Button Styling */
+   
 #historyDropdownBtn {
-    font-size: 1rem; /* Adjust font size */
-    font-weight: 600; /* Make the text bold */
-    color: #4e73df /* Primary color */
-    text-decoration: none; /* Remove underline */
-    padding: 0.5rem 1rem; /* Add padding for better spacing */
-    border: 1px solid #4e73df; /* Add a border */
-    border-radius: 25px; /* Rounded corners */
-    background-color: #ffffff; /* White background */
-    transition: all 0.3s ease; /* Smooth hover effect */
-    display: inline-flex; /* Align icon and text */
-    align-items: center; /* Center-align icon and text */
-    gap: 0.5rem; /* Add spacing between icon and text */
+    font-size: 1rem; 
+    font-weight: 600; 
+    color: #4e73df 
+    text-decoration: none; 
+    padding: 0.5rem 1rem; 
+    border: 1px solid #4e73df; 
+    border-radius: 25px; 
+    background-color: #ffffff; 
+    transition: all 0.3s ease; 
+    display: inline-flex; 
+    align-items: center; 
+    gap: 0.5rem; 
 }
 
 #historyDropdownBtn:hover {
-    background-color: #4e73df; /* Change background on hover */
-    color: #ffffff; /* Change text color on hover */
-    text-decoration: none; /* Ensure no underline on hover */
+    background-color: #4e73df; 
+    color: #ffffff; 
+    text-decoration: none;
 }
     body {
         background: linear-gradient(135deg, #c3eaff, #f6f8ff);
@@ -100,16 +102,45 @@
         z-index: 1001;
         }
 
+    .dataTables_wrapper {
+    overflow-x: hidden !important;
+}
+
+@media (max-width: 430px) {
+    .container .card-body {
+    padding: 23px !important;
+}
+.p-4 {
+    padding: .5rem !important;
+}
+
+#sslDetailsContainer .card-body{
+    padding: 1rem !important;
+}
+.custom-mobile{
+    margin-left: -0.5rem !important;
+    margin-right: -0.5rem !important;
+
+}
+
+.dataTables_length {
+   text-align: left !important;
+   /* margin-left: 2px;
+   margin-bottom: 10px; */
+}
+.dataTables_filter{
+       /* margin-left: -28px; */
+}
+
+}
 </style>
 
-<div class="container my-5">
-    <!-- Right aligned button -->
-
+<div class="container" style="margin-bottom: 138px;">
     
     <div class="row justify-content-center ">
         <div class="col-lg-6 col-md-8 ">
             <div class="card shadow-lg border-0 rounded-4">
-                <div class="card-body p-5 text-center SslBox ">
+                <div class="card-body p-5 text-center SslBox p-xs-3">
 
                     <!-- Title -->
                     <h2 class="fw-bold mb-4 text-primary">
@@ -167,67 +198,79 @@
 <br>
 
 
+
 <!-- SSL History Table -->
-<div id="historyTable" class="row mx-3" style="display: none;">
-    <div class="col-12">
-        <div class="card shadow mb-4">
-            <!-- Card Header with padding -->
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-white px-4">
-                <h6 class="m-0 font-weight-bold text-primary SslCheck">SSL Certificate Records</h6>
-            </div>
-            
-            <!-- Card Body with consistent padding -->
-            <div class="card-body px-4 py-4">
-                @if($sslChecks->count())
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="sslChecksTable" width="100%" cellspacing="0">
-                        <thead class="thead-light">
-                            <tr>
-                                <th>#</th>
-                                <th>Domain</th>
-                                <th>Issuer</th>
-                                <th>Valid From</th>
-                                <th>Valid To</th>
-                                <th>Status</th>
-                                <th>Checked At</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($sslChecks as $key => $ssl)
-                            <tr>
-                                <td>{{ $key + 1 }}</td>
-                                <td>{{ $ssl->url }}</td>
-                                <td>{{ $ssl->issuer }}</td>
-                                <td>{{ $ssl->valid_from }}</td>
-                                <td>{{ $ssl->valid_to }}</td>
-                                <td>
-                                    @if(str_contains($ssl->status, 'Expired'))
-                                        <span class="badge custom-bg-danger">{{ $ssl->status }}</span>
-                                    @elseif(str_contains($ssl->status, 'Soon'))
-                                        <span class="badge custom-bg-warning text-dark">{{ $ssl->status }}</span>
-                                    @else
-                                        <span class="badge custom-bg-success">{{ $ssl->status }}</span>
-                                    @endif
-                                </td>
-                                <td>{{ $ssl->created_at->format('Y-m-d H:i') }}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+<div class="my-4">
+    <div id="historyTable" class="row mx-3 custom-mobile" style="display: none;">
+        <div class="">
+            <div class="card shadow mb-4">
+                <!-- Card Header with padding -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-white px-4">
+                    <h6 class="m-0 font-weight-bold text-primary SslCheck">SSL Certificate Records</h6>
                 </div>
-                @else
-                    <p class="text-center">No SSL history available yet.</p>
-                @endif
+                
+                <!-- Card Body with consistent padding -->
+                <div class="card-body px-4 py-4">
+                    @if($sslChecks->count())
+                    <div class="table-responsive">
+                        <table class="table table-bordered dt-responsive nowrap" id="sslChecksTable" width="100%" cellspacing="0">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Domain</th>
+                                    <th>Issuer</th>
+                                    <th>Valid From</th>
+                                    <th>Valid To</th>
+                                    <th>Status</th>
+                                    <th>Checked At</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($sslChecks as $key => $ssl)
+                                <tr>
+                                    <td>{{ $key + 1 }}</td>
+                                    <td>{{ $ssl->url }}</td>
+                                    <td>{{ $ssl->issuer }}</td>
+                                    <td>{{ $ssl->valid_from }}</td>
+                                    <td>{{ $ssl->valid_to }}</td>
+                                    <td>
+                                        @if(str_contains($ssl->status, 'Expired'))
+                                            <span class="badge custom-bg-danger">{{ $ssl->status }}</span>
+                                        @elseif(str_contains($ssl->status, 'Soon'))
+                                            <span class="badge custom-bg-warning text-dark">{{ $ssl->status }}</span>
+                                        @else
+                                            <span class="badge custom-bg-success">{{ $ssl->status }}</span>
+                                        @endif
+                                    </td>
+                                    <td>{{ $ssl->created_at->format('Y-m-d H:i') }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    @else
+                        <p class="text-center">No SSL history available yet.</p>
+                    @endif
+                </div>
             </div>
         </div>
     </div>
-</div>
+    </div>
+    
 </div>
 
+
 @push('scripts')
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/intro.min.js"></script>
+
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap4.min.js"></script>
+
 <script>
     $(document).ready(function() {
         $('#sslChecksTable').DataTable({
@@ -235,9 +278,11 @@
             "searching": true,
             "ordering": true,
             "info": true,
+            "responsive": true,
+            "scrollX": false,
             "order": [[0, "asc"]],
             "columnDefs": [
-                { "orderable": false, "targets": [6] } // Disable sorting for status column if needed
+                { "orderable": false, "targets": [6] }
             ]
         });
     });
@@ -252,10 +297,6 @@
 </script>
 @endpush
 
-<!-- Toastr JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/intro.min.js"></script>
 
 <script>
     document.getElementById('sslCheckForm').addEventListener('submit', function(e) {
@@ -329,7 +370,7 @@
 </script>
 
 <script>
-      // Initialize tour(tool tip)
+      // Initialize Intro.js when the DOM is fully loaded
       document.addEventListener("DOMContentLoaded", function () {
         const intro = introJs();
         const savedStep=localStorage.getItem("introCurrentStep");
