@@ -2,16 +2,34 @@
 
 @section('content')
 
+<head>
+@push('styles')
 <!-- Toastr CSS -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/introjs.min.css"/>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/introjs.min.css"/>
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap4.min.css">
 
 <!-- Styling -->
 <style>
-   
+      html, body {
+    height: 100%;
+    margin: 0;
+}
+
+#content-wrapper {
+    min-height: 100vh; 
+    display: flex;
+    flex-direction: column;
+}
+
+#content {
+    flex: 1; 
+}
+
+
 #historyDropdownBtn {
     font-size: 1rem; 
     font-weight: 600; 
@@ -62,8 +80,15 @@
     border-radius: 0.25rem; 
     display: inline-block; 
 }
+#sslDetailsContainer .custom-li{
+    background-color: #f8f9fa;
+}
 
-     /* ========== INTROJS TOUR ========== */
+.btn:focus{
+    box-shadow: none !important;
+}
+
+/* ========== INTROJS TOUR ========== */
      .introjs-tooltip {
             background-color: white;
             color: var(--dark-gray);
@@ -115,8 +140,9 @@
 }
 
 #sslDetailsContainer .card-body{
-    padding: 1rem !important;
+    padding: 15px !important;
 }
+
 .custom-mobile{
     margin-left: -0.5rem !important;
     margin-right: -0.5rem !important;
@@ -129,11 +155,14 @@
    margin-bottom: 10px; */
 }
 .dataTables_filter{
-       /* margin-left: -28px; */
+    margin-top: 10px;
+    margin-left: -46px;
 }
 
 }
 </style>
+@endpush
+</head>
 
 <div class="container" style="margin-bottom: 138px;">
     
@@ -197,8 +226,6 @@
 <br>
 <br>
 
-
-
 <!-- SSL History Table -->
 <div class="my-4">
     <div id="historyTable" class="row mx-3 custom-mobile" style="display: none;">
@@ -213,7 +240,7 @@
                 <div class="card-body px-4 py-4">
                     @if($sslChecks->count())
                     <div class="table-responsive">
-                        <table class="table table-bordered dt-responsive nowrap" id="sslChecksTable" width="100%" cellspacing="0">
+                        <table class="table table-bordered"  id="sslChecksTable" style="width:100%;" cellspacing="0">
                             <thead class="thead-light">
                                 <tr>
                                     <th>#</th>
@@ -256,8 +283,12 @@
         </div>
     </div>
     </div>
-    
+
 </div>
+
+
+
+    
 
 
 @push('scripts')
@@ -280,10 +311,11 @@
             "info": true,
             "responsive": true,
             "scrollX": false,
+            stateSave: true,
             "order": [[0, "asc"]],
             "columnDefs": [
-                { "orderable": false, "targets": [6] }
-            ]
+                 { "orderable": false, "targets": [6] }
+             ]
         });
     });
 
@@ -334,13 +366,13 @@
                                     ${data.ssl_details.status}
                                 </span>
                             </li>
-                            <li class="list-group-item bg-light">
+                            <li class="list-group-item custom-li">
                                 <strong>🌍 Domain:</strong> ${data.ssl_details.domain}
                             </li>
                             <li class="list-group-item">
                                 <strong>🏅 Issuer:</strong> ${data.ssl_details.issuer}
                             </li>
-                            <li class="list-group-item bg-light">
+                            <li class="list-group-item custom-li">
                                 <strong>📆 Valid From:</strong> ${data.ssl_details.valid_from}
                             </li>
                             <li class="list-group-item">
@@ -445,7 +477,9 @@
         intro.start();
     });
 </script>
+
 <script>
+
     document.getElementById('historyDropdownBtn').addEventListener('click', function() {
         const historyTable = document.getElementById('historyTable');
         this.classList.toggle('active');
@@ -453,6 +487,22 @@
         if (historyTable.style.display === 'none') {
             historyTable.style.display = 'block';
             this.innerHTML = '<i class="fas fa-history mr-2"></i>Hide history';
+
+             // Wait for DOM to update before initializing/resizing DataTable
+             setTimeout(() => {
+                if (!$.fn.DataTable.isDataTable('#sslChecksTable')) { // prevents initializing DataTable
+                    $('#sslChecksTable').DataTable({
+                        responsive: true,
+                        scrollX: false,
+                        ordering: true,
+                        pageLength: 10,
+                        lengthChange: false
+                    });
+                } else {
+                    $('#sslChecksTable').DataTable().columns.adjust().responsive.recalc();
+                }
+            }, 100); 
+
         } else {
             historyTable.style.display = 'none';
             this.innerHTML = '<i class="fas fa-history mr-2"></i>View history';

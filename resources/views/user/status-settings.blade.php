@@ -2,6 +2,21 @@
 @section('content')
 @push('styles')
 <style>
+       html, body {
+    height: 100%;
+    margin: 0;
+}
+
+#content-wrapper {
+    min-height: 100vh; 
+    display: flex;
+    flex-direction: column;
+}
+
+#content {
+    flex: 1; 
+}
+
     .tag {
       display: inline-flex;
       align-items: center;
@@ -41,7 +56,7 @@
         height: auto;
     }
     .title-status-setting{
-        margin-top: 25px;
+        margin-top: 47px;
     }
 }
 
@@ -139,6 +154,8 @@
             </form>
         </div>
     </div>
+
+
 </div>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">

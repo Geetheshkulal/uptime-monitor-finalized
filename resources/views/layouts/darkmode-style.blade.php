@@ -543,6 +543,9 @@ html.dark-mode .card-body.skeleton {
     border-radius: 0.4rem;
 }
 
+html.dark-mode #sslDetailsContainer .list-group-item{
+    background-color: #1a1a27 ;
+}
 
 
 </style>

@@ -40,6 +40,7 @@
     <link href="{{ asset('frontend/assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet">
 
+
     
     <!-- Skeleton Loader Styles -->
     <style>
@@ -93,17 +94,18 @@
             100% { left: 100%; }
         }
        
- 
-/* 
-        #content {
+
+        /* #content {
             overflow-y: hidden; 
-        } */
+        }  */
       
     </style>
 
 
 @include('layouts.darkmode-style')
+
 @stack('styles')
+
 </head>
 
 <body id="page-top" class="loading">
@@ -155,6 +157,11 @@
     <script src="{{ asset('frontend/assets/js/demo/chart-area-demo.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
+
+{{-- 
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script> --}}
+    
 
     @stack('scripts')
 

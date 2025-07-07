@@ -202,8 +202,8 @@ class MonitorJob
         ]);
 
         $duration=microtime(true)-$start;
-        Log::info('Telegram API Response Time: ' . round($duration * 1000, 2) . ' ms');
-        Log::info('Telegram API Response: ', $response->json());
+        // Log::info('Telegram API Response Time: ' . round($duration * 1000, 2) . ' ms');
+        // Log::info('Telegram API Response: ', $response->json());
     }
 
     
@@ -286,7 +286,7 @@ class MonitorJob
                 $statusCode = $response->status();
                 $responseTime = round(($endTime - $startTime) * 1000, 2);
 
-                Log::info("HTTP Response ({$monitor->id}): Status $statusCode, Time {$responseTime}ms");
+                // Log::info("HTTP Response ({$monitor->id}): Status $statusCode, Time {$responseTime}ms");
 
                 // Determine status based on status code
                 if ($response->successful()) {
@@ -426,7 +426,7 @@ class MonitorJob
         $timeout = 5; // Timeout in seconds
     
         // Log the start of the check
-        Log::info("Checking port {$monitor->port} on {$monitor->host} with {$retries} retries.");
+        // Log::info("Checking port {$monitor->port} on {$monitor->host} with {$retries} retries.");
     
         while ($attempt < $retries) {
             try {
@@ -527,10 +527,7 @@ class MonitorJob
                 Log::error($e->getMessage());
             }
 
-           
-
-   
-   
+    
     
             return $status === 'up';
     

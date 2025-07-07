@@ -8,6 +8,20 @@
 
     <!-- Custom Styles -->
     <style>
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+#content-wrapper {
+    min-height: 100vh; 
+    display: flex;
+    flex-direction: column;
+}
+
+#content {
+    flex: 1; 
+}
         :root {
             --primary: #4e73df;
             --success: #1cc88a;

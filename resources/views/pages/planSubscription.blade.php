@@ -3,9 +3,13 @@
 
 @push('styles')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap4.min.css">
     <style>
         /* Table styles */
         .table {
@@ -269,7 +273,7 @@
             <div class="card shadow mb-4 skeleton" data-aos="fade-up" data-aos-duration="400">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table" id="paymentsTable" width="100%" cellspacing="0">
+                        <table class="table dt-responsive nowrap" id="paymentsTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>Sl No.</th>                               
@@ -467,6 +471,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
+
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap4.min.js"></script>
+
 <script>
     $(document).ready(function() {
         // Initialize DataTable
@@ -477,6 +485,7 @@
             "ordering": true,
             "info": true,
             "responsive": true,
+            "scrollX": false,
             "columnDefs": [
                 { "orderable": false, "targets": [2, 3, 8] }
             ]

@@ -6,6 +6,9 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 
+
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap4.min.css">
+
 <style>
     /* Consistent with your monitor table styling */
     .card {
@@ -150,7 +153,7 @@
                 <!-- Card Body -->
                 <div class="card-body skeleton" data-aos="fade-up" data-aos-duration="400">
                     <div class="table-responsive ">
-                        <table class="table" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table dt-responsive nowrap" id="dataTable"  width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>Status</th>
@@ -230,6 +233,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap4.min.js"></script>
+
 
 <script>
     $(document).ready(function () {
@@ -246,6 +252,8 @@
             "searching": true,
             "ordering": true,
             "info": true,
+            "responsive": true,
+            "scrollX": false,
             "order": [[2, "desc"]], // Sort by start time by default
             "language": {
                 "search": "Search",

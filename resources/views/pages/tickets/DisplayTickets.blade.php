@@ -7,7 +7,23 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap4.min.css">
+
     <style>
+        html, body {
+    height: 100%;
+    margin: 0;
+}
+
+#content-wrapper {
+    min-height: 100vh; 
+    display: flex;
+    flex-direction: column;
+}
+
+#content {
+    flex: 1; 
+}
         /* ========== GLOBAL STYLES ========== */
         :root {
             --primary: #4e73df;
@@ -161,6 +177,14 @@
        margin-left: -11px;
 
     }
+
+
+.dataTables_filter{
+    margin-top: 10px;
+    margin-left: -18px;
+}
+
+
 }
     </style>
 </head>
@@ -170,11 +194,13 @@
     <div id="content">
         <div class="container-fluid">
             <!-- Page Header -->
-            <div class="d-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-gray-800 white-color">Support Tickets</h1>
-                <a class="btn btn-primary" href="{{route('raise.tickets')}}">
-                    <i class="fas fa-plus fa-sm"></i> Raise Ticket
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-3 text-gray-800 white-color">Support Tickets</h1>
+                <a class="btn btn-primary d-inline-flex align-items-center" href="{{route('raise.tickets')}}">
+                    <i class="fas fa-plus fa-sm mr-2"></i>
+                    <span>Raise Ticket </span>
                 </a>
+               
             </div>
 
             <!-- Tickets Table -->
@@ -183,7 +209,7 @@
                     <br>
                     <div class="card-body p-0">
                         <div class="table-responsive">
-                            <table class="table table-bordered" id="ticketsTable" width="100%" cellspacing="0">
+                            <table class="table table-bordered dt-responsive nowrap" id="ticketsTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
                                         <th>Ticket ID</th>
@@ -256,6 +282,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap4.min.js"></script>
+
 <script>
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
@@ -276,6 +305,8 @@
             "searching": true,
             "ordering": true,
             "info": true,
+            "responsive": true,
+            "scrollX": false,
             "order": [[4, "desc"]], // Default sort by Created date
             "language": {
                 "search": "Search : _INPUT_",

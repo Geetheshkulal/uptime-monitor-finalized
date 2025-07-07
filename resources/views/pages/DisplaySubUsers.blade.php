@@ -4,10 +4,28 @@
     @push('styles')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap4.min.css">
     <style>
         * {
     border-radius: 0 !important;
     }
+
+    html, body {
+    height: 100%;
+    margin: 0;
+}
+
+#content-wrapper {
+    min-height: 100vh; 
+    display: flex;
+    flex-direction: column;
+}
+
+#content {
+    flex: 1; 
+}
+
      .form-group {
             margin-bottom: 1rem;
             position: relative;
@@ -36,6 +54,22 @@
             display: inline-block;
             margin-bottom: 0.5rem;
         }
+    #content {
+    flex: 1;
+}
+@media (max-width: 430px) {
+
+.dataTables_length {
+   text-align: left !important;
+   margin-left: 2px;
+   margin-bottom: 10px;
+}
+.dataTables_filter{
+    margin-top: 5px;
+    margin-left: -9px;
+}
+
+}
     </style>
     @endpush
 </head>
@@ -59,7 +93,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered" id="usersTable" width="100%" cellspacing="0">
+                        <table class="table table-bordered dt-responsive nowrap" id="usersTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>Name</th>
@@ -166,6 +200,10 @@
 @push('scripts')
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap4.min.js"></script>
+
 <script>
     $(document).ready(function() {
         $('#usersTable').DataTable({
@@ -173,6 +211,8 @@
             "searching": true,
             "ordering": true,
             "info": false,
+            "responsive": true,
+            "scrollX": false,
             "order": [[0, "asc"]],
             "columnDefs": [
                 { "orderable": false, "targets": [3] } // Disable sorting for action column
@@ -197,4 +237,5 @@
 </script>
 @endif
 @endpush
+
 @endsection

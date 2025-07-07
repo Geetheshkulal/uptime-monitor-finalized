@@ -5,8 +5,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap4.min.css">
     
     <style>
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+#content-wrapper {
+    min-height: 100vh; 
+    display: flex;
+    flex-direction: column;
+}
+
+#content {
+    flex: 1; 
+}
         .select2-container--default .select2-selection--single {
             height: 38px;
             border: 1px solid #d1d3e2;
@@ -118,6 +135,13 @@ html.dark-mode .select2-container--default .select2-results__option[aria-selecte
     .pagination {
     padding-left: 23px;
 }
+.page-content{
+    margin-bottom: 78px;
+}
+.dataTables_filter{
+    margin-top: 10px;
+    margin-left: -14px;
+}
 
 }
 
@@ -141,7 +165,7 @@ html.dark-mode .select2-container--default .select2-results__option[aria-selecte
                 </div>
                 
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="activityTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered dt-responsive nowrap" id="activityTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -194,6 +218,9 @@ html.dark-mode .select2-container--default .select2-results__option[aria-selecte
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> 
+
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap4.min.js"></script>
 
 
 <script>
