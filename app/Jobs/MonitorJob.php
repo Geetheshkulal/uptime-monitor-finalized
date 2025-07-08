@@ -605,10 +605,12 @@ class MonitorJob
                         // Only send PWA notification if it's been at least 5 minutes since last notification
                         $lastNotifiedAt = $notification->last_notified_at ? Carbon::parse($notification->last_notified_at) : null;
                         
-                        if (!$lastNotifiedAt || $lastNotifiedAt->diffInMinutes(Carbon::now()) >= 5) {
+                        // if (!$lastNotifiedAt || $lastNotifiedAt->diffInMinutes(Carbon::now()) >= 5)
+                        if (!$lastNotifiedAt || $lastNotifiedAt->diffInSeconds(Carbon::now()) >= 300){ // 300 seconds = 5 minutes
                             $this->SendPwaNotification($notification->monitor->user_id, $notification->token);
                             $notification->last_notified_at = Carbon::now();
-                            $notification->touch();
+                            // $notification->touch();
+                            $notification->save();
                             Log::info('PWA Notification Triggered');
                         }
                         break;
