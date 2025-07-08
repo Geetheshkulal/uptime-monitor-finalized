@@ -78,7 +78,7 @@ self.addEventListener("fetch", function(event) {
         fetch(event.request).then(function(response) {
             if (response && response.status === 200) {
                 return caches.open("offline").then(function(cache) {
-                    return cache.put(event.request, response);
+                    return cache.put(event.request, response.clone());
                 });
             }
         }).catch(() => {})

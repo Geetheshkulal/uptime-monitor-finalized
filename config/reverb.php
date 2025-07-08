@@ -15,6 +15,8 @@ return [
 
     'default' => env('REVERB_SERVER', 'reverb'),
 
+    'debug' => true,
+
     /*
     |--------------------------------------------------------------------------
     | Reverb Servers
@@ -73,7 +75,7 @@ return [
 
         'apps' => [
             [
-                'id' => env('REVERB_APP_ID'),
+                'id' => env('REVERB_APP_KEY'),
                 'key' => env('REVERB_APP_KEY'),
                 'secret' => env('REVERB_APP_SECRET'),
                 'app_id' => env('REVERB_APP_ID'),
@@ -82,6 +84,7 @@ return [
                     'port' => env('REVERB_PORT', 443),
                     'scheme' => env('REVERB_SCHEME', 'https'),
                     'useTLS' => env('REVERB_SCHEME', 'https') === 'https',
+                    // 'path' => env('REVERB_SERVER_PATH', '/'),
                 ],
                 'allowed_origins' => ['*'],
                 'ping_interval' => env('REVERB_APP_PING_INTERVAL', 60),

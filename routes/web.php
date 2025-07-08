@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BillingController;
@@ -46,61 +47,60 @@ Route::get('/Product_documentation', function () {
 })->name('product.documentation')->middleware('blockIp');
 
 
-Route::get('/status',[StatusPageController::class,'index'])->middleware('role:user|subuser')->middleware('permission:see.statuspage')->middleware('blockIp')->name('status');
+Route::get('/status', [StatusPageController::class, 'index'])->middleware('role:user|subuser')->middleware('permission:see.statuspage')->middleware('blockIp')->name('status');
 
-Route::get('/status-page/{hash}', [PublicStatusPageController::class, 'show'])->middleware('blockIp')  
-     ->name('public.status');
-     Route::prefix('user')->group(function () {
-        Route::get('/status-settings', [UserController::class, 'statusPageSettings'])
-             ->name('user.status-settings');
-        Route::post('/status-settings', [UserController::class, 'updateStatusPageSettings'])
-             ->name('user.status-settings.update');
-    });
-Route::middleware(['auth','blockIp'])->group(function () {
+Route::get('/status-page/{hash}', [PublicStatusPageController::class, 'show'])->middleware('blockIp')
+    ->name('public.status');
+Route::prefix('user')->group(function () {
+    Route::get('/status-settings', [UserController::class, 'statusPageSettings'])
+        ->name('user.status-settings');
+    Route::post('/status-settings', [UserController::class, 'updateStatusPageSettings'])
+        ->name('user.status-settings.update');
+});
+Route::middleware(['auth', 'blockIp'])->group(function () {
     Route::get('verify-email', EmailVerificationPromptController::class)
-                ->name('verification.notice');
+        ->name('verification.notice');
 
     Route::post('email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
-                ->middleware('throttle:6,1')
-                ->name('verification.send');
-
+        ->middleware('throttle:6,1')
+        ->name('verification.send');
 });
 
-Route::get('/', function()
-{
+Route::get('/', function () {
     $plans = Subscriptions::all();
     return view('welcome', compact('plans'));
-})->middleware('blockIp','log.traffic');
+})->middleware('blockIp', 'log.traffic');
 
-Route::get('latestUpdates',function(){return view('pages.latestUpdates');})->name('latest.page')->middleware('blockIp');
+Route::get('latestUpdates', function () {
+    return view('pages.latestUpdates');
+})->name('latest.page')->middleware('blockIp');
 
-Route::get('documentation',function()
-{
+Route::get('documentation', function () {
     $plans = Subscriptions::all();
     return view('pages.documentation', compact('plans'));
 })->middleware('blockIp')->name('documentation.page');
 
 
 // email verify and register route
-Route::post('/email/verification-notification',function (Request $request) {
+Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
 
-    return back()->with('message','Verification Email Sent.');
-})->middleware(['auth','throttle:6,1'])->name('verification.send');
+    return back()->with('message', 'Verification Email Sent.');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 // end
 
 
 
-Route::get('/changelog',[ChangelogController::class,'ChangelogPage'])->middleware('blockIp');
+Route::get('/changelog', [ChangelogController::class, 'ChangelogPage'])->middleware('blockIp');
 
-Route::middleware(['auth','verified','CheckUserSession','blockIp'])->group(function () {
-    
+Route::middleware(['auth', 'verified', 'CheckUserSession', 'blockIp'])->group(function () {
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->middleware('role:user')->name('profile.destroy');
 
     Route::get('/dashboard', [MonitoringController::class, 'MonitoringDashboard'])->middleware('role:user|subuser')->middleware('permission:see.monitors')->name('monitoring.dashboard');
-    Route::get('/dashboard/{id}',[TrackingController::class,'NotificationTracker']);
+    Route::get('/dashboard/{id}', [TrackingController::class, 'NotificationTracker']);
     Route::get('/monitoring/dashboard/update', [MonitoringController::class, 'MonitoringDashboardUpdate'])->name('monitoring.dashboard.update');
 
 
@@ -109,15 +109,15 @@ Route::middleware(['auth','verified','CheckUserSession','blockIp'])->group(funct
     Route::get('/monitoring/chart/update/{id}/{type}', [MonitoringController::class, 'MonitoringChartUpdate'])->name('display.chart.update');
 
     // for delete and edit monitoring
-    Route::get('/monitoring/delete/{id}',[MonitoringController::class,'MonitorDelete'])->middleware('permission:delete.monitor')->name('monitoring.delete');
-    Route::post('/monitoring/edit/{id}', [MonitoringController::class,'MonitorEdit'])->middleware('permission:edit.monitor')->name('monitoring.update');
+    Route::get('/monitoring/delete/{id}', [MonitoringController::class, 'MonitorDelete'])->middleware('permission:delete.monitor')->name('monitoring.delete');
+    Route::post('/monitoring/edit/{id}', [MonitoringController::class, 'MonitorEdit'])->middleware('permission:edit.monitor')->name('monitoring.update');
     Route::post('/monitor/pause/{id}', [MonitoringController::class, 'pauseMonitor'])->name('monitor.pause');
-    
-    
+
+
     Route::patch('/user/update/billing', [UserController::class, 'UpdateBillingInfo'])->name('update.billing.info');
 });
 
-Route::middleware(['auth','verified','CheckUserSession','blockIp'])->group(function () {
+Route::middleware(['auth', 'verified', 'CheckUserSession', 'blockIp'])->group(function () {
 
     Route::get('/ssl-check', [SslCheckController::class, 'index'])->middleware('premium_middleware')->name('ssl.check');
     Route::get('/ssl/history', [SslCheckController::class, 'history'])->middleware('premium_middleware')->name('ssl.history');
@@ -127,12 +127,12 @@ Route::middleware(['auth','verified','CheckUserSession','blockIp'])->group(funct
     Route::get('/incidents/fetch', [IncidentController::class, 'fetchIncidents'])->name('incidents.fetch'); // Add this for AJAX
     Route::get('/plan-subscription', [PlanSubscriptionController::class, 'planSubscription'])->name('planSubscription');
     Route::post('/dns-check', [DnsController::class, 'checkDnsRecords']);
-    Route::post('/add/dns', [DnsController::class,'AddDNS'])->name('add.dns');
+    Route::post('/add/dns', [DnsController::class, 'AddDNS'])->name('add.dns');
     Route::post('/monitoring/ping', [PingMonitoringController::class, 'store'])->name('ping.monitoring.store');
 
 
     // for port 
-    Route::post('/monitor/port',[PortMonitorController::class,'PortStore'])->name('monitor.port');
+    Route::post('/monitor/port', [PortMonitorController::class, 'PortStore'])->name('monitor.port');
     Route::post('/monitoring/http', [HttpMonitoringController::class, 'store'])->name('monitoring.http.store');
 
     Route::get('cashfree/payments/create', [CashFreePaymentController::class, 'create'])->name('callback');
@@ -143,7 +143,7 @@ Route::middleware(['auth','verified','CheckUserSession','blockIp'])->group(funct
 
     Route::post('/apply-coupon', [CouponController::class, 'apply']);
     Route::post('/remove-coupon', [CouponController::class, 'remove'])->name('coupon.remove');
-    
+
 
     // for super admin coupon
     Route::get('/coupons', [CouponController::class, 'DisplayCoupons'])->middleware('permission:manage.coupons')->name('display.coupons');
@@ -151,7 +151,7 @@ Route::middleware(['auth','verified','CheckUserSession','blockIp'])->group(funct
     Route::put('/coupons/{id}', [CouponController::class, 'CouponUpdate'])->middleware('permission:manage.coupons')->name('coupons.update');
     Route::delete('/coupons/{id}', [CouponController::class, 'destroy'])->middleware('permission:manage.coupons')->name('coupons.destroy');
     Route::get('/claimed-users/{coupon_id}', [CouponController::class, 'showClaimedUsers'])->middleware('permission:manage.coupons')->name('view.claimed.users');
-    Route::get('premium',[PremiumPageController::class,'PremiumPage'])->middleware('premium_middleware')->middleware('role:user')->name('premium.page');
+    Route::get('premium', [PremiumPageController::class, 'PremiumPage'])->middleware('premium_middleware')->middleware('role:user')->name('premium.page');
 
 
     // Test route to trigger PropertyTypeAdded event
@@ -162,27 +162,25 @@ Route::middleware(['auth','verified','CheckUserSession','blockIp'])->group(funct
         ]));
         return 'Broadcast event triggered!';
     });
-
-    
 });
 
 
 
-Route::group(['middleware' => ['auth','blockIp']], function () {
+Route::group(['middleware' => ['auth', 'blockIp']], function () {
     // Routes accessible only by superadmin
-    Route::get('/admin/dashboard',[AdminController::class,'AdminDashboard'])->middleware('role:superadmin')->name('admin.dashboard');
-    Route::get('/admin/display/users', action: [UserController::class,'DisplayCustomers'])->middleware('permission:see.users')->name('display.users');
-    Route::get('/admin/display/roles', action: [RoleController::class,'DisplayRoles'])->middleware('permission:see.roles')->name('display.roles');
+    Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->middleware('role:superadmin')->name('admin.dashboard');
+    Route::get('/admin/display/users', action: [UserController::class, 'DisplayCustomers'])->middleware('permission:see.users')->name('display.users');
+    Route::get('/admin/display/roles', action: [RoleController::class, 'DisplayRoles'])->middleware('permission:see.roles')->name('display.roles');
     Route::get('/admin/display/permissions', [PermissionController::class, 'DisplayPermissions'])->middleware('role:superadmin')->name('display.permissions');
-    Route::get('/admin/display/user/{id}', action: [UserController::class,'ShowUser'])->middleware('permission:see.users')->name('show.user');
-   
+    Route::get('/admin/display/user/{id}', action: [UserController::class, 'ShowUser'])->middleware('permission:see.users')->name('show.user');
+
 
     // Route::get('/admin/users', [AdminController::class, 'AddUser'])->name('add.user.form');
     Route::post('/admin/add/users', [UserController::class, 'storeUser'])->middleware('permission:add.user')->name('add.user');
     Route::get('/admin/edit/user/{id}', [UserController::class, 'EditUsers'])->middleware('permission:edit.user')->name('edit.user');
     Route::put('/admin/edit/user/{id}', [UserController::class, 'UpdateUsers'])->middleware('permission:edit.user')->name('update.user');
-    Route::delete('/admin/delete/user/{id}', [UserController::class, 'DeleteUser'])->middleware('permission:delete.user')->name('delete.user'); 
-    Route::post('/admin/restore/user/{id}',[UserController::class, 'RestoreUser'])->name('restore.user');
+    Route::delete('/admin/delete/user/{id}', [UserController::class, 'DeleteUser'])->middleware('permission:delete.user')->name('delete.user');
+    Route::post('/admin/restore/user/{id}', [UserController::class, 'RestoreUser'])->name('restore.user');
 
     Route::get('/admin/add/roles', [RoleController::class, 'AddRole'])->middleware(middleware: 'permission:add.role')->name('add.role');
     Route::post('/roles', [RoleController::class, 'StoreRole'])->middleware('permission:add.role')->name('store.role');
@@ -196,12 +194,12 @@ Route::group(['middleware' => ['auth','blockIp']], function () {
     Route::post('admin/store/permission', [PermissionController::class, 'StorePermission'])->middleware('role:superadmin')->name('store.permission');
 
     Route::get('/admin/delete/permission/{id}', [PermissionController::class, 'DeletePermission'])->middleware('role:superadmin')->name('delete.permission');
-    Route::get('/admin/display/activity', [ActivityController::class,'DisplayActivity'])
+    Route::get('/admin/display/activity', [ActivityController::class, 'DisplayActivity'])
         ->middleware('permission:see.activity')
         ->name('display.activity');
-    
+
     Route::get('/activity/users/search', [ActivityController::class, 'UserSearch'])->name('activity.users.search');
-    
+
     Route::get('/coupon/users/search', [CouponController::class, 'UserSearch'])->name('coupon.users.search');
 
 
@@ -217,19 +215,19 @@ Route::group(['middleware' => ['auth','blockIp']], function () {
     Route::post('/roles/{id}/permissions', [RolePermissionController::class, 'UpdateRolePermissions'])->middleware('permission:edit.role.permissions')->name('update.role.permissions');
 
 
-    Route::get('/billing',[BillingController::class,'Billing'])->middleware('role:superadmin')->name('billing');
-    Route::post('/edit/billing/{id}',[BillingController::class,'EditBilling'])->middleware('role:superadmin')->name('edit.billing');
+    Route::get('/billing', [BillingController::class, 'Billing'])->middleware('role:superadmin')->name('billing');
+    Route::post('/edit/billing/{id}', [BillingController::class, 'EditBilling'])->middleware('role:superadmin')->name('edit.billing');
 
-    Route::get('/display/tickets',[TicketController::class,'ViewTicketsUser'])->name('display.tickets');
-    Route::get('/raise/tickets',[TicketController::class,'RaiseTicketsPage'])->name('raise.tickets');
-    Route::post('/store/tickets',[TicketController::class,'StoreTicket'])->name('store.tickets');
+    Route::get('/display/tickets', [TicketController::class, 'ViewTicketsUser'])->name('display.tickets');
+    Route::get('/raise/tickets', [TicketController::class, 'RaiseTicketsPage'])->name('raise.tickets');
+    Route::post('/store/tickets', [TicketController::class, 'StoreTicket'])->name('store.tickets');
 
-    Route::get('/admin/tickets',[TicketController::class,'TicketsView'])->middleware('role:superadmin')->name('tickets');
+    Route::get('/admin/tickets', [TicketController::class, 'TicketsView'])->middleware('role:superadmin')->name('tickets');
     Route::get('/display/tickets/{id}', [TicketController::class, 'ShowTicket'])->name('display.tickets.show');
     Route::put('/display/tickets/{id}', [TicketController::class, 'UpdateTicket'])->name('tickets.update');
     Route::post('/admin/comments', [TicketController::class, 'CommentStore'])->name('admin.comments.store');
     Route::get('/tickets/comments/update/{id}', [TicketController::class, 'CommentPageUpdate'])->name('tickets.comments.update');
-    Route::post('/delete/comment/{id}',[TicketController::class,'DeleteComment'])->name('delete.comment');
+    Route::post('/delete/comment/{id}', [TicketController::class, 'DeleteComment'])->name('delete.comment');
 
     Route::get('/display/subsusers', [UserController::class, 'DisplaySubUsers'])->middleware('premium_middleware')->name('display.sub.users');
 
@@ -243,17 +241,17 @@ Route::group(['middleware' => ['auth','blockIp']], function () {
     Route::get('/sub-user/{id}/edit-permissions', [UserController::class, 'EditSubUserPermissions'])->name('edit.sub.user.permissions');
     Route::post('/sub-user/{id}/update-permissions', [UserController::class, 'UpdateSubUserPermissions'])->name('update.sub.user.permissions');
 
-    Route::post('add/changelog',[ChangelogController::class,'AddChangelog'])->name('add.changelog');
+    Route::post('add/changelog', [ChangelogController::class, 'AddChangelog'])->name('add.changelog');
     Route::delete('/changelog/{id}', [ChangelogController::class, 'destroy'])->name('changelog.destroy');
     Route::put('/changelogs/{changelog}', [ChangelogController::class, 'update'])->name('changelog.update');
 
-    Route::get('/admin/trafficLog',[TrafficLogController::class,'TrafficLogView'])->middleware('role:superadmin')->name('display.trafficLog');
-    
+    Route::get('/admin/trafficLog', [TrafficLogController::class, 'TrafficLogView'])->middleware('role:superadmin')->name('display.trafficLog');
+
 
     Route::get('/changelog', [ChangelogController::class, 'ChangelogPage'])->name('changelog.page');
 
-    Route::post('block/ip/${ip}',[BlockController::class,'BlockIP'])->name('block.ip');
-    Route::post('unblock/ip/${ip}',[BlockController::class,'UnblockIP'])->name('unblock.ip');
+    Route::post('block/ip/${ip}', [BlockController::class, 'BlockIP'])->name('block.ip');
+    Route::post('unblock/ip/${ip}', [BlockController::class, 'UnblockIP'])->name('unblock.ip');
 
 
     //WHATSAPP ROUTES
@@ -264,23 +262,23 @@ Route::group(['middleware' => ['auth','blockIp']], function () {
     Route::post('/admin/whatsapp/retry', [AdminWhatsAppController::class, 'retryWhatsApp'])->name('admin.whatsapp.retry');
 
     // Template Routes
-    Route::get('/admin/edit/template',[EditTemplateController::class,'EditTemplatePage'])->name('edit.template.page');
+    Route::get('/admin/edit/template', [EditTemplateController::class, 'EditTemplatePage'])->name('edit.template.page');
     Route::post('/templates/store', [EditTemplateController::class, 'store'])->name('templates.store');
     Route::get('/admin/whatsapp/profile-image', [AdminWhatsappController::class, 'serveProfileImage'])->name('admin.whatsapp.profileImage');
 
-    Route::get('/admin/send-notification',[AppNotificationController::class,'ViewAppNotification'])->name('notification.page')->middleware('role:superadmin');
-    Route::post('/admin/app-notification',[AppNotificationController::class,'sendNotificationToUsers'])->name('admin.send.notification')->middleware('role:superadmin');
+    Route::get('/admin/send-notification', [AppNotificationController::class, 'ViewAppNotification'])->name('notification.page')->middleware('role:superadmin');
+    Route::post('/admin/app-notification', [AppNotificationController::class, 'sendNotificationToUsers'])->name('admin.send.notification')->middleware('role:superadmin');
 
-    Route::post('/admin/notifications/mark-read', [AppNotificationController::class,'markNotificationsAsRead'])->name('admin.notifications.mark-read');
-
-
+    Route::post('/admin/notifications/mark-read', [AppNotificationController::class, 'markNotificationsAsRead'])->name('admin.notifications.mark-read');
 });
 
 
-Route::post('/subscribe', [PushNotificationController::class , 'subscribe']);
+Route::post('/subscribe', [PushNotificationController::class, 'subscribe']);
 
 
 Route::get('/track/{token}.png', [TrackingController::class, 'pixel'])->withoutMiddleware(['web', 'verified', 'auth', \App\Http\Middleware\VerifyCsrfToken::class]);
 
-require __DIR__.'/auth.php';
+Route::get('/reverb-apps', fn() => config('reverb.apps.apps'));
 
+
+require __DIR__ . '/auth.php';
