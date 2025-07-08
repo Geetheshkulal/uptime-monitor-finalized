@@ -242,6 +242,11 @@
         background-color: #1e1e2f !important;
     }
 
+    .table-responsive {
+    scrollbar-width: none;       /* Firefox */
+    -ms-overflow-style: none;    /* IE 10+ */
+    overflow-x: auto;            /* Still scrollable */
+}
 
 
 

@@ -358,6 +358,10 @@ html.dark-mode .text-primary {
     color: #fff;
 }
 
+.dark-mode .current-plan {
+    background-color: #2980b9;
+    color: #fff;
+}
 
 .dark-mode .btn-warning {
     background-color: #d4a017;
@@ -546,6 +550,8 @@ html.dark-mode .card-body.skeleton {
 html.dark-mode #sslDetailsContainer .list-group-item{
     background-color: #1a1a27 ;
 }
+
+
 
 
 </style>

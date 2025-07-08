@@ -7,14 +7,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
 
-<style>
-    * {
-        border-radius: 0 !important;
-    }
-    </style>    
-    
-@endpush
-</style>
+
 
 <style>
     .tippy-box[data-theme~='custom'] {
@@ -58,6 +51,7 @@
    
 }
 </style>
+@endpush
 
 
 <div class="container-fluid">

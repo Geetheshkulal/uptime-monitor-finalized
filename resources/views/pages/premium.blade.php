@@ -360,7 +360,7 @@
                     <li><i class="fas fa-times text-danger"></i>SSL expiry check unavailable</li>
                     <li><i class="fas fa-times text-danger"></i>Create and manage team members unavailable</li>
                 </ul>
-                <button class="btn btn-primary btn-disabled d-block w-100" disabled>Current Plan</button>
+                <button class="btn btn-primary btn-disabled d-block w-100 current-plan" disabled>Current Plan</button>
             </div>
         </div>
         
