@@ -41,7 +41,7 @@ class PortMonitorController extends Controller
         //Create Monitor
         $monitor=Monitors::create([
             'name'=>$request->name,
-            'status'=>null,
+            'status' => 'waiting',
             'user_id'=>$user->id,
             'url'=>$request->url,
             'type'=>'port',

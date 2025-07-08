@@ -43,13 +43,23 @@
             border-radius: 0.25rem;
             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
         }
-        .password-toggle {
+        /* .password-toggle {
             position: absolute;
             right: 10px;
             top: 40px;
             cursor: pointer;
             color: #6c757d;
-        }
+        } */
+
+        .password-toggle {
+    position: absolute;
+    top: 45px;
+    right: 16px; /* 👈 your requested margin-right */
+    transform: translateX(-80%);
+    cursor: pointer;
+    color: #6c757d;
+    z-index: 2;
+}
         label {
             display: inline-block;
             margin-bottom: 0.5rem;
@@ -179,11 +189,17 @@
                     <div class="form-group">
                         <label for="password">Password*</label>
                         <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password">
-                        <span class="fas fa-eye password-toggle" id="togglePassword"></span>
+                        {{-- <span class="fas fa-eye password-toggle" id="togglePassword"></span> --}}
                         @error('password')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
+
+                        <div class="form-check mt-2">
+                            <input type="checkbox" class="form-check-input" id="showPasswordCheckbox">
+                            <label class="form-check-label" for="showPasswordCheckbox">Show Password</label>
+                        </div>
                     </div>
+
                 </div>
                 
                 <div class="modal-footer">
@@ -220,15 +236,13 @@
         });
     });
 
-    document.getElementById('togglePassword').addEventListener('click', function() {
-            const passwordInput = document.getElementById('password');
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-            
-            // Toggle the eye icon
-            this.classList.toggle('fa-eye');
-            this.classList.toggle('fa-eye-slash');
-        });
+  
+    document.getElementById('showPasswordCheckbox').addEventListener('change', function () {
+        const passwordInput = document.getElementById('password');
+        passwordInput.type = this.checked ? 'text' : 'password';
+    });
+
+
 </script>
 
 @if(session('success'))

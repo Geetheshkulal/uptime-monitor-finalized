@@ -39,6 +39,7 @@ class HttpMonitoringController extends Controller
         $monitor = Monitors::create([
             'user_id' => $user->id,
             'name' => $request->name,
+            'status' => 'waiting',
             'url' => $request->url,
             'type' => 'http',
             'retries' => $request->retries,

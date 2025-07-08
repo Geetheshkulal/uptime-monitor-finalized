@@ -77,6 +77,10 @@
             background-color: rgba(230, 0, 255, 0.1);
             color: var(--info);
         }
+        .badge-loading{
+            background-color: rgba(255, 226, 80, 0.268);
+            color: var(--warning);
+        }
 
          .status-dot {
             width: 6px;
@@ -191,6 +195,25 @@
         .introjs-helperLayer {
             pointer-events: none;
         }
+
+    .spinner-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--warning); /* or a custom color */
+    animation: pulse 1s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.4;
+        transform: scale(0.9);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
 
         /* for mobile devices */
     @media (max-width: 430px) {
@@ -394,9 +417,13 @@
                                             <span class="status-badge badge-up">
                                                 Up
                                             </span>
-                                            @else
+                                            @elseif ($monitor->status === 'down')
                                             <span class="status-badge badge-down">
                                                 Down
+                                            </span>
+                                            @else
+                                            <span class="status-badge badge-loading">
+                                                Loading..
                                             </span>
                                             @endif
                                         </td>
@@ -404,13 +431,19 @@
                                         <td>                    
                                             @if ($monitor->latestResponses->isNotEmpty())  
                                                 @foreach ($monitor->latestResponses as $response)
-                                                <span class="status-dot d-inline-block mr-1" 
-                                                      style="background: {{ $response->status === 'up' ? 'var(--success)' : 'var(--danger)' }};"></span>
+                                                    @if ($response->status === 'up')
+                                                        <span class="status-dot d-inline-block mr-1" style="background: var(--success);"></span>
+                                                    @elseif ($response->status === 'down')
+                                                        <span class="status-dot d-inline-block mr-1" style="background: var(--danger);"></span>
+                                                    @elseif ($response->status === 'waiting')
+                                                        <span class="status-dot d-inline-block mr-1 spinner-dot"></span>
+                                                    @endif
                                                 @endforeach
                                             @else
-                                                <span class="status-dot d-inline-block" style="background: var(--danger);"></span>
+                                            <span class="status-dot d-inline-block mr-1 spinner-dot"></span>
                                             @endif
                                         </td>
+                                        
                                         @can('see.monitor.details')
                                             <td>
                                                 <a href="{{ route('display.monitoring', ['id'=>$monitor->id, 'type'=>$monitor->type]) }}" 

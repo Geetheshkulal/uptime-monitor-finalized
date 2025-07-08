@@ -123,7 +123,7 @@
                             </circle>
                         </svg>
 
-                        @else
+                        @elseif($details->status === 'down')
 
                         <svg xmlns="http://www.w3.org/2000/svg">
 
@@ -131,6 +131,16 @@
                             <animate attributeName="opacity" dur="1s" values="0;0.5;0" repeatCount="indefinite" begin="0s" />
                             </circle>
                             <circle fill="#ff0000" stroke="none" cx="60" cy="60" r="9">
+                            <animate attributeName="opacity" dur="2s" values="0;1;0" repeatCount="indefinite" begin="2s"/>
+                            </circle>
+                        </svg>
+
+                        @else
+                        <svg xmlns="http://www.w3.org/2000/svg">
+                            <circle fill="#ff8c00" stroke="none" cx="60" cy="60" r="17" opacity="0.5">
+                            <animate attributeName="opacity" dur="1s" values="0;0.5;0" repeatCount="indefinite" begin="0s" />
+                            </circle>
+                            <circle fill="#ff8c00" stroke="none" cx="60" cy="60" r="9">
                             <animate attributeName="opacity" dur="2s" values="0;1;0" repeatCount="indefinite" begin="2s"/>
                             </circle>
                         </svg>

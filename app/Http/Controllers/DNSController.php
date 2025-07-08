@@ -35,7 +35,7 @@ class DNSController extends Controller
         // Create a new DNS monitor entry
         $monitor = Monitors::create([
             'name'=> $request->name,
-            'status'=>'down',
+            'status'=>'waiting',
             'user_id' => $user->id,
             'url' => $request->domain, // Store domain as the target
             'type' => 'dns',
