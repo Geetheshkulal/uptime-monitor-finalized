@@ -23,6 +23,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     <style>
+         * {
+    border-radius: 3px !important;
+}
         .card {
             border: 0;
             border-radius: 1rem;
@@ -59,7 +62,9 @@
         }
         
         .form-control-user:focus {
-            box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+            border-color: #2e59d9 !important;
+            box-shadow: none !important;
+            /* box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25); */
         }
         
         .register-text {
@@ -194,9 +199,7 @@
                 gap: 0;
             }
         }
-        * {
-    border-radius: 0 !important;
-}
+       
 
 @media (max-width: 430px) {
     .register-text{

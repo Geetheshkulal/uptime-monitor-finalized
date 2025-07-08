@@ -73,7 +73,9 @@
         }
         
         .form-control-user:focus {
-            box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+            /* box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25); */
+            border-color: #2e59d9 !important;
+            box-shadow: none !important;
         }
         
         .login-text {
@@ -171,7 +173,7 @@
             justify-content: center;
         }
         *{
-            border-radius: 0 !important;
+            border-radius: 3px !important;
         }
 
         @media (max-width: 768px) {
@@ -287,14 +289,13 @@
         padding: 1.5rem !important;
     }
     
-    /* Ensure the checkbox and forgot password align properly */
     .form-group.d-flex {
-        flex-direction: column;
+        /* flex-direction: column; */
         align-items: flex-start;
     }
     
     .forgot-password-link {
-        margin-top: 10px;
+        /* margin-top: px; */
         margin-left: 0 !important;
     }
 }

@@ -145,7 +145,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="addUserModalLabel">Add New Sub-User</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close white-color" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -154,7 +154,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="name">Full Name*</label>
-                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}">
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" placeholder="eg: John">
                         @error('name')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -162,7 +162,7 @@
                     
                     <div class="form-group">
                         <label for="email">Email Address*</label>
-                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}">
+                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" placeholder="eg: John@gmail.com">
                         @error('email')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -170,7 +170,7 @@
 
                     <div class="form-group">
                         <label for="phone">Phone*</label>
-                        <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" value="{{ old('phone') }}">
+                        <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" value="{{ old('phone') }}" placeholder="eg: 97xxxxxx99">
                         @error('phone')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -207,7 +207,7 @@
 <script>
     $(document).ready(function() {
         $('#usersTable').DataTable({
-            "paging": true, // Disable DataTables pagination (using Laravel pagination)
+            "paging": true, 
             "searching": true,
             "ordering": true,
             "info": false,
@@ -236,6 +236,15 @@
     toastr.success("{{ session('success') }}");
 </script>
 @endif
+
+@if ($errors->any())
+    <script>
+        $(document).ready(function () {
+            $('#addUserModal').modal('show');
+        });
+    </script>
+@endif
+
 @endpush
 
 @endsection

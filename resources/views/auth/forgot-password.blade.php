@@ -24,6 +24,9 @@
     <link rel="apple-touch-icon" href="{{ asset('mainlogo.png') }}">
 
     <style>
+        *{
+             border-radius: 3px !important;
+        }
         .bg-password-image {
             /* background: url('{{ asset('frontend/assets/img/login-bg.jpg') }}'); */
             background-size: cover;
@@ -64,7 +67,9 @@
         }
         
         .form-control-user:focus {
-            box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+            border-color: #2e59d9 !important;
+            box-shadow: none !important;
+            /* box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25); */
         }
         
         .password-text {
@@ -173,7 +178,7 @@
                                     <form class="user" method="POST" action="{{ route('password.email') }}">
                                         @csrf
                                         <div class="form-group">
-                                            <input type="email" style="border-radius: 0%" class="form-control form-control-user" 
+                                            <input type="email" class="form-control form-control-user" 
                                                 id="email" name="email" placeholder="Email Address" 
                                                 value="{{ old('email') }}" required autofocus>
                                             @error('email')
@@ -181,7 +186,7 @@
                                             @enderror
                                         </div>
 
-                                        <button type="submit" style="border-radius: 0%" class="btn btn-primary btn-user btn-block mt-4" id="reset-btn">
+                                        <button type="submit"  class="btn btn-primary btn-user btn-block mt-4" id="reset-btn">
                                             <span class="spinner-border spinner-border-sm d-none" id="reset-spinner"></span>
                                             <span id="reset-text">Send Reset Link</span>
                                         </button>

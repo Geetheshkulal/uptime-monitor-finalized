@@ -242,6 +242,10 @@
         background-color: #1e1e2f !important;
     }
 
+
+
+
+
 @media (max-width: 430px) {
 
 .dataTables_length {
@@ -249,13 +253,14 @@
    margin-left: 2px;
    margin-bottom: 10px;
 }
+
 .dataTables_filter{
        margin-left: -50px;
 }
+
 .page-content {
    margin-bottom: 175px;
 }
-
 
 }
 
@@ -273,7 +278,7 @@
             <div class="card shadow mb-4 skeleton" data-aos="fade-up" data-aos-duration="400">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table dt-responsive nowrap" id="paymentsTable" width="100%" cellspacing="0">
+                        <table class="table table-striped dt-responsive  nowrap" id="paymentsTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>Sl No.</th>                               
@@ -476,20 +481,55 @@
 <script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap4.min.js"></script>
 
 <script>
-    $(document).ready(function() {
-        // Initialize DataTable
-        $('#paymentsTable').DataTable({
-            "order": [[6, "desc"]],
-            "paging": true,
-            "searching": true,
-            "ordering": true,
-            "info": true,
-            "responsive": true,
-            "scrollX": false,
-            "columnDefs": [
-                { "orderable": false, "targets": [2, 3, 8] }
-            ]
-        });
+
+let dataTable;
+
+function initDataTable() {
+  // Destroy existing instance if any
+  if ($.fn.DataTable.isDataTable('#paymentsTable')) {
+    dataTable.destroy();
+  }
+
+  const isMobile = window.innerWidth < 768;
+
+  dataTable = $('#paymentsTable').DataTable({
+    "order": [[6, "desc"]],
+    "paging": true,
+    "searching": true,
+    "ordering": true,
+    "info": true,
+    responsive: isMobile, 
+    scrollX: false,
+    stateSave: true,
+    columnDefs: [
+      { className: 'dtr-control', targets: 0 },
+      { responsivePriority: 1, targets: '_all' }
+    ]
+  });
+}
+
+$(document).ready(function() {
+
+    initDataTable();
+
+    $(window).on('resize', function () {
+      clearTimeout(window.resizeTimer);
+      window.resizeTimer = setTimeout(function () {
+        initDataTable();
+      }, 300);
+    });
+
+        // $('#paymentsTable').DataTable({
+        //     "order": [[6, "desc"]],
+        //     "paging": true,
+        //     "searching": true,
+        //     "ordering": true,
+        //     "info": true,
+        //     responsive: true,
+        //     scrollX: false,
+        //     stateSave: true
+            
+        // });
 
         // Print Bill Functionality
         $(document).on('click', '.print-bill', function() {
