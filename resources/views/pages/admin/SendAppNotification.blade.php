@@ -86,9 +86,9 @@
 </form>
 
 <!-- Notification Toggle Button (fixed on right) -->
-<div id="notificationToggle">
+{{-- <div id="notificationToggle">
     🔔 Recent 5 Notification
-</div>
+</div> --}}
 
 <!-- Notification Sidebar (initially collapsed) -->
 <div id="notificationSidebar">
