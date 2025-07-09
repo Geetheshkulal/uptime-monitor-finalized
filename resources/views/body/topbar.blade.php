@@ -1,3 +1,14 @@
+
+@push('styles')
+    <style>
+    
+    .dropdown-item{
+        border-bottom: none !important;
+    }
+    </style>
+    
+@endpush
+
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3 white-color">
         <i class="fa fa-bars"></i>
@@ -31,7 +42,7 @@
 
             <!-- dark mode button  -->
 
-            <button id="darkModeToggle" class="ml-2 mr-3" title="Toggle Dark Mode">
+            <button id="darkModeToggle" class="ml-2 mr-2">
                 <i id="themeIcon" class="fas fa-moon"></i>
             </button>
 
@@ -60,8 +71,8 @@
                     </h6>
                     <div id="notificationList">
                         @forelse(auth()->user()->notifications->take(4) as $notification)
-                            <a class="dropdown-item d-flex align-items-start"
-                                href="{{ $notification->data['url'] ?? '#' }}">
+                            <a class="dropdown-item d-flex align-items-start" 
+                                href="{{ $notification->data['url'] ?? '#' }}" style="border: none;">
                                 <div class="mr-3">
 
                                     @php
@@ -80,7 +91,7 @@
                                     </div>
                                 </div>
                                 <div class="flex-grow-1">
-                                    <div class="small text-gray-500">{{ $notification->created_at->diffForHumans() }}</div>
+                                    <div class="small text-gray-700">{{ $notification->created_at->diffForHumans() }}</div>
                                     <span class="font-weight-bold">{{ $notification->data['message'] }}</span>
                                     @if (isset($notification->data['type']) && $notification->data['type'] !== 'info')
                                         <span
@@ -102,7 +113,7 @@
         <li class="nav-item">
             <a class="d-flex align-items-center text-decoration-none auth-name" href="{{ url('/profile') }}"
                 role="button" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-lg-inline text-gray-600 small white-color">{{ Auth::user()->name }}</span>
+                <span class="mr-2 d-lg-inline text-gray-600 small white-color" style="cursor: default;">{{ Auth::user()->name }}</span>
                 <img class="img-profile rounded-circle profile"
                     src="{{ Avatar::create(auth()->user()->name)->toBase64() }}"
                     style="width: 35px !important; height: 35px !important; object-fit: cover; border-radius: 50%;">

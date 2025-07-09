@@ -167,21 +167,17 @@
     padding: 3px 6px;
     border-radius: 50% !important;
 }
-   @media (max-width: 430px) {
+
+@media (max-width: 430px) {
     .dataTables_length {
         text-align: left !important;
         margin-left: 3px;
         margin-bottom: 10px;
     }
-    .dataTables_filter{
-       margin-left: -11px;
-
-    }
-
-
+    
 .dataTables_filter{
     margin-top: 10px;
-    margin-left: -18px;
+    margin-left: -10px;
 }
 
 

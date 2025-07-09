@@ -35,7 +35,8 @@
 
     .dark-mode .btn-primary,
     html.dark .btn-primary {
-        background-color: #3a3f51 !important;
+        background-color: #4e73df;
+        /* background-color: #3a3f51 !important; */
         border-color: #3a3f51 !important;
     }
 
@@ -86,10 +87,10 @@ html.dark-mode .topbar #sidebarToggleTop:hover {
  
 
 /* DROPDOWNS */
-    html.dark .dropdown-menu {
+    /* html.dark .dropdown-menu {
         background-color: #ff0000 !important;
         border-color: #555 !important;
-    }
+    } */
 
     html.dark .dropdown-item {
         color: rgb(28, 16, 16) !important;
@@ -102,9 +103,8 @@ html.dark-mode .topbar #sidebarToggleTop:hover {
 html.dark-mode .navbar .fa-caret-down{
     color: #ffffff;
 }
-/* 
-    html.dark .dropdown-item:hover {
-        background-color: #d4c8c8 !important;
+
+    /* html.dark-mode .text-gray-500 {
         color: rgb(28, 16, 16) !important;
     } */
 

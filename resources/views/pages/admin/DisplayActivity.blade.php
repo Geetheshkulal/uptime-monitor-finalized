@@ -127,11 +127,11 @@ html.dark-mode .select2-container--default .select2-results__option[aria-selecte
         margin-left: 11px;
         overflow:hidden;
     }
-     .dataTables_wrapper .paginate_button .page-link {
+     /* .dataTables_wrapper .paginate_button .page-link {
         padding: 0.25rem 0.5rem;
         font-size: 0.8rem;
         
-    }
+    } */
     .pagination {
     padding-left: 23px;
 }
@@ -140,7 +140,7 @@ html.dark-mode .select2-container--default .select2-results__option[aria-selecte
 }
 .dataTables_filter{
     margin-top: 10px;
-    margin-left: -14px;
+    margin-right: -5px;
 }
 
 }

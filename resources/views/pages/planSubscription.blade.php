@@ -260,7 +260,7 @@
 }
 
 .dataTables_filter{
-       margin-left: -50px;
+       margin-left: -10px;
 }
 
 .page-content {

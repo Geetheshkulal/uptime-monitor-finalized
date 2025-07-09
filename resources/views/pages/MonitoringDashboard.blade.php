@@ -230,7 +230,7 @@
         margin-bottom: 10px;
     }
      .dataTables_filter{
-            margin-left: -28px;
+            margin-left: -11px;
     }
      .page-content {
         margin-bottom: 175px;
@@ -238,10 +238,9 @@
    
 
 }
-    </style>
-    @endpush
 
-   
+</style>
+@endpush   
     
 </head>
 
