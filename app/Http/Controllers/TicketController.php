@@ -10,6 +10,7 @@ use Laravolt\Avatar\Avatar;
 use App\Models\User;
 
 use App\Mail\TicketAssignedMail;
+use App\Mail\TicketRaisedMail;
 use App\Mail\CommentAddMail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -237,8 +238,31 @@ class TicketController extends Controller
             }
         }
 
+        $datePrefix = now()->format('Ymd');
+        $maxAttempts = 10;
+
+        $uniqueSuffix = null;
+
+        for ($i = 0; $i < $maxAttempts; $i++) {
+            $random = mt_rand(10, 999); // Generates a 2-3 digit number
+            $ticketId = $datePrefix . $random;
+        
+            if (!Ticket::where('ticket_id', $ticketId)->exists()) {
+                $uniqueSuffix = $random;
+                break;
+            }
+        }
+        
+        if (!$uniqueSuffix) {
+            return response()->json(['error' => 'Could not generate unique ticket ID'], 500);
+        }
+        
+        $finalTicketId = $datePrefix . $uniqueSuffix;
+        
+
         $ticket = Ticket::create([
-            'ticket_id'=>'TKT-' . strtoupper(Str::random(10)),
+            // 'ticket_id'=>'TKT-' . strtoupper(Str::random(10)),
+            'ticket_id' => $finalTicketId,
             'title' => $request->subject,
             'message' => $request->description,
             'priority' => $request->priority,
@@ -247,6 +271,9 @@ class TicketController extends Controller
             'user_id' => $request->forUser??auth()->id(), // If you have user association
         ]);
 
+    
+        Mail::to($ticket->user->email)->queue(new TicketRaisedMail($ticket));
+        
         $user = auth()->user();
         if($user->hasRole('superadmin'))
             return redirect()->route('tickets')->with('success', 'Ticket created successfully');

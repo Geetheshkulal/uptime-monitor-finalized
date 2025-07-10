@@ -8,8 +8,22 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+
 @stack('scripts')
 
+{{-- <script>
+
+$(function () {
+    $('.notification-bell').tooltip({
+        placement: 'bottom',
+        trigger: 'hover',
+        boundary: 'window',
+        offset: '0, 9'
+    });
+});
+
+</script> --}}
 <!-- Remove skeletons after load -->
 <script>
     window.addEventListener('load', () => {
@@ -108,6 +122,15 @@
         // const root = document.body;
         const root = document.documentElement;
 
+        const $tooltip = $(toggleBtn).tooltip({ trigger: 'hover', placement: 'top', boundary: 'window' });
+
+    //      function updateTooltip(text) {
+    //     $(toggleBtn)
+    //         .attr('data-original-title', text)
+    //         .tooltip('dispose') 
+    //         .tooltip({ trigger: 'hover', placement: 'top' , boundary:'window'}); 
+    // }
+
         function setTheme(isDark) {
             if (isDark) {
                 root.classList.add('dark-mode');
@@ -115,7 +138,8 @@
                 if (themeIcon) {
                     themeIcon.classList.remove('fa-sun');
                     themeIcon.classList.add('fa-moon');
-                    themeIcon.title = "Switch to Light Mode";
+                    // themeIcon.title = "Switch to Light Mode";
+                    // updateTooltip('Light Mode');
                 }
             } else {
                 root.classList.remove('dark-mode');
@@ -123,7 +147,8 @@
                 if (themeIcon) {
                     themeIcon.classList.remove('fa-moon');
                     themeIcon.classList.add('fa-sun');
-                    themeIcon.title = "Switch to Dark Mode";
+                    // themeIcon.title = "Switch to Dark Mode";
+                    // updateTooltip('Dark Mode');
                 }
             }
 

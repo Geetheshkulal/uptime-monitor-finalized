@@ -3,6 +3,18 @@
     @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700;800;900&display=swap");
     @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 
+
+    /* admin page darm mode styles */
+
+    /* Fix dropdown item hover color in dark mode */
+/* html.dark-mode .dropdown-menu .dropdown-item:hover {
+    background-color: #2a2a2a !important;
+    color: #ffffff !important;          
+} */
+  html.dark-mode .nav-tabs {
+    border-bottom: none;
+  }
+
     * {
         box-sizing: border-box;
         font-family: "Nunito", sans-serif;
@@ -35,7 +47,8 @@
 
     .dark-mode .btn-primary,
     html.dark .btn-primary {
-        background-color: #3a3f51 !important;
+        background-color: #4e73df;
+        /* background-color: #3a3f51 !important; */
         border-color: #3a3f51 !important;
     }
 
@@ -86,10 +99,10 @@ html.dark-mode .topbar #sidebarToggleTop:hover {
  
 
 /* DROPDOWNS */
-    html.dark .dropdown-menu {
+    /* html.dark .dropdown-menu {
         background-color: #ff0000 !important;
         border-color: #555 !important;
-    }
+    } */
 
     html.dark .dropdown-item {
         color: rgb(28, 16, 16) !important;
@@ -102,9 +115,8 @@ html.dark-mode .topbar #sidebarToggleTop:hover {
 html.dark-mode .navbar .fa-caret-down{
     color: #ffffff;
 }
-/* 
-    html.dark .dropdown-item:hover {
-        background-color: #d4c8c8 !important;
+
+    /* html.dark-mode .text-gray-500 {
         color: rgb(28, 16, 16) !important;
     } */
 

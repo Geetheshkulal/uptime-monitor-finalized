@@ -42,9 +42,24 @@
     <!-- Skeleton Loader Styles -->
     <style>
         *:not(.status-dot):not(.status-badge, .status-indicator, .bar-segment, .badge, .whatsapp-bubble, .telegram-bubble):not(#login-spinner):not(#profile-photo):not(.icon-circle) {
-            border-radius: 0 !important;
+            border-radius: 3px !important;
         }
 
+
+        html, body {
+    height: 100%;
+    margin: 0;
+}
+
+#content-wrapper {
+    min-height: 100vh; 
+    display: flex;
+    flex-direction: column;
+}
+
+#content {
+    flex: 1; 
+}
 
         .scroll-to-top {
             width: 40px;

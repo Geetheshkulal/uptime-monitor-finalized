@@ -119,7 +119,7 @@
     } 
     }
 
-    @media (max-width: 430px) {
+@media (max-width: 430px) {
 
 .dataTables_length {
    text-align: left !important;
@@ -127,7 +127,7 @@
    margin-bottom: 10px;
 }
 .dataTables_filter{
-       margin-left: -40px;
+       margin-left: -10px;
 }
 .page-content {
    margin-bottom: 175px;
