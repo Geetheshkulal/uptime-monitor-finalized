@@ -572,49 +572,107 @@ class MonitorJob
     }
 
     public function sendFollowUpEmail()
-    {
-        try {
+ {
+    try {
+        $fiveMinutesAgo = Carbon::now()->subMinutes(5);
 
-            $fiveMinutesAgo = Carbon::now()->subMinutes(5);
+        // Group unread notifications by monitor
+        $notifications = Notification::where('created_at', '<=', $fiveMinutesAgo)
+            ->whereHas('monitor')
+            ->with('monitor.user')
+            ->where('status', 'unread')
+            ->get()
+            ->groupBy('monitor_id');
 
-            $notifications = Notification::where('created_at', '<=', $fiveMinutesAgo)
-                ->with('monitor.user')
-                ->get();
+        foreach ($notifications as $groupedNotifications) {
+        
+            $notification = $groupedNotifications->first();
 
-            foreach ($notifications as $notification) {
-
-                // Send follow-up email only once
-                if (!$notification->follow_up_sent) {
-                    Mail::to($notification->monitor->email)
-                        ->send(new FollowUpMail($notification->monitor));
-                    $notification->follow_up_sent = true;
-                    $notification->save();
-                    Log::info("Follow-up email sent to: {$notification->monitor->email}");
-                }
-
-                // Handle PWA notification separately
-                switch ($notification->status) {
-                    case 'unread':
-                        // Only send PWA notification if it's been at least 5 minutes since last notification
-                        $lastNotifiedAt = $notification->last_notified_at ? Carbon::parse($notification->last_notified_at) : null;
-
-                        // if (!$lastNotifiedAt || $lastNotifiedAt->diffInMinutes(Carbon::now()) >= 5)
-                        if (!$lastNotifiedAt || $lastNotifiedAt->diffInSeconds(Carbon::now()) >= 300) { // 300 seconds = 5 minutes
-                            $this->SendPwaNotification($notification->monitor->user_id, $notification->token,$notification->monitor->name);
-                            $notification->last_notified_at = Carbon::now();
-                            // $notification->touch();
-                            $notification->save();
-                            Log::info('PWA Notification Triggered');
-                        }
-                        break;
-                    default:
-                        $notification->delete();
-                }
+            // ✅ Follow-up email (only once)
+            if (!$notification->follow_up_sent) {
+                Mail::to($notification->monitor->email)
+                    ->send(new FollowUpMail($notification->monitor));
+                $notification->follow_up_sent = true;
+                $notification->save();
+                Log::info("Follow-up email sent to: {$notification->monitor->email}");
             }
-        } catch (\Exception $e) {
-            Log::error("sendFollowUpEmail failed: " . $e->getMessage());
+
+            // ✅ PWA Notification logic
+            if ($notification->status === 'unread') {
+                $lastNotifiedAt = $notification->last_notified_at
+                    ? Carbon::parse($notification->last_notified_at)
+                    : null;
+
+                if (!$lastNotifiedAt || $lastNotifiedAt->diffInSeconds(now()) >= 180) { // 180 seconds = 3 minutes
+                    $this->SendPwaNotification(
+                        $notification->monitor->user_id,
+                        $notification->token,
+                        $notification->monitor->name
+                    );
+                    $notification->last_notified_at = now();
+                    $notification->save();
+                    Log::info("PWA Notification Triggered for monitor ID {$notification->monitor_id}");
+                } else {
+                    Log::info("Skipped PWA Notification (waiting period) for monitor ID {$notification->monitor_id}");
+                }
+            } else {
+                $notification->delete();
+            }
         }
+    } catch (\Exception $e) {
+        Log::error("sendFollowUpEmail failed: " . $e->getMessage());
     }
+}
+
+    // public function sendFollowUpEmail()
+    // {
+    //     try {
+
+    //         $fiveMinutesAgo = Carbon::now()->subMinutes(5);
+
+    //         // $notifications = Notification::where('created_at', '<=', $fiveMinutesAgo)
+    //         //     ->with('monitor.user')
+    //         //     ->get();
+
+    //         $notifications = Notification::where('created_at', '<=', $fiveMinutesAgo)
+    //             ->whereHas('monitor')
+    //             ->with('monitor.user')
+    //             ->where('status', 'unread')
+    //             ->get()
+    //             ->groupBy('monitor_id');
+
+    //         foreach ($notifications as $notification) {
+
+    //             if (!$notification->follow_up_sent) {
+    //                 Mail::to($notification->monitor->email)
+    //                     ->send(new FollowUpMail($notification->monitor));
+    //                 $notification->follow_up_sent = true;
+    //                 $notification->save();
+    //                 Log::info("Follow-up email sent to: {$notification->monitor->email}");
+    //             }
+
+    //             switch ($notification->status) {
+    //                 case 'unread':
+    //                     // Only send PWA notification if it's been at least 5 minutes since last notification
+    //                     $lastNotifiedAt = $notification->last_notified_at ? Carbon::parse($notification->last_notified_at) : null;
+
+    //                     // if (!$lastNotifiedAt || $lastNotifiedAt->diffInMinutes(Carbon::now()) >= 5)
+    //                     if (!$lastNotifiedAt || $lastNotifiedAt->diffInSeconds(Carbon::now()) >= 300) { // 300 seconds = 5 minutes
+    //                         $this->SendPwaNotification($notification->monitor->user_id, $notification->token,$notification->monitor->name);
+    //                         $notification->last_notified_at = Carbon::now();
+    //                         // $notification->touch();
+    //                         $notification->save();
+    //                         Log::info('PWA Notification Triggered');
+    //                     }
+    //                     break;
+    //                 default:
+    //                     $notification->delete();
+    //             }
+    //         }
+    //     } catch (\Exception $e) {
+    //         Log::error("sendFollowUpEmail failed: " . $e->getMessage());
+    //     }
+    // }
 
     public function handle(): void
     {
