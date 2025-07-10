@@ -13,11 +13,11 @@
 
                 <!-- Page Content -->
                 @yield('content')
-                
+
             </div>
             {{-- @if (!request()->routeIs('premium.page')) --}}
-                @include('body.footer')
-                {{-- @endif --}}
+            @include('body.footer')
+            {{-- @endif --}}
         </div>
     </div>
 
