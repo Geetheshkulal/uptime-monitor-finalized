@@ -3,6 +3,18 @@
     @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700;800;900&display=swap");
     @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 
+
+    /* admin page darm mode styles */
+
+    /* Fix dropdown item hover color in dark mode */
+/* html.dark-mode .dropdown-menu .dropdown-item:hover {
+    background-color: #2a2a2a !important;
+    color: #ffffff !important;          
+} */
+  html.dark-mode .nav-tabs {
+    border-bottom: none;
+  }
+
     * {
         box-sizing: border-box;
         font-family: "Nunito", sans-serif;

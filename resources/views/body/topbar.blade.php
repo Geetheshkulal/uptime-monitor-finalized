@@ -2,9 +2,9 @@
 @push('styles')
     <style>
     
-    .dropdown-item{
+    /* .dropdown-item{
         border-bottom: none !important;
-    }
+    } */
     </style>
     
 @endpush
@@ -40,12 +40,13 @@
                 </div>
             </li>
 
+
+
             <!-- dark mode button  -->
 
             <button id="darkModeToggle" class="ml-2 mr-2">
                 <i id="themeIcon" class="fas fa-moon"></i>
             </button>
-
 
             <!-- Alerts -->
             <li class="nav-item dropdown no-arrow mx-1">
@@ -108,6 +109,9 @@
                 </div>
             </li>
         @endhasanyrole
+
+        
+            
 
         <!--User profile-->
         <li class="nav-item">

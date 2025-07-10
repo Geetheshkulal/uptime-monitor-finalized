@@ -204,7 +204,7 @@ class MonitorJob
     }
 
 
-    public function SendPwaNotification($userId, $notificationToken = null)
+    public function SendPwaNotification($userId, $notificationToken = null, $monitorName)
     {
         try {
             $subscriptions = PushSubscription::where('user_id', $userId)->get();
@@ -237,7 +237,7 @@ class MonitorJob
 
             $payload = json_encode([
                 'title' => 'Monitor Alert',
-                'body' => 'Your Monitor is still down',
+                'body' => "Your Monitor {$monitorName} is still down",
                 'icon' => '/logo.png',
                 'url' => "/dashboard/" . $notificationToken // Add the URL here
             ]);
@@ -574,6 +574,7 @@ class MonitorJob
     public function sendFollowUpEmail()
     {
         try {
+
             $fiveMinutesAgo = Carbon::now()->subMinutes(5);
 
             $notifications = Notification::where('created_at', '<=', $fiveMinutesAgo)
@@ -581,6 +582,7 @@ class MonitorJob
                 ->get();
 
             foreach ($notifications as $notification) {
+
                 // Send follow-up email only once
                 if (!$notification->follow_up_sent) {
                     Mail::to($notification->monitor->email)
@@ -598,7 +600,7 @@ class MonitorJob
 
                         // if (!$lastNotifiedAt || $lastNotifiedAt->diffInMinutes(Carbon::now()) >= 5)
                         if (!$lastNotifiedAt || $lastNotifiedAt->diffInSeconds(Carbon::now()) >= 300) { // 300 seconds = 5 minutes
-                            $this->SendPwaNotification($notification->monitor->user_id, $notification->token);
+                            $this->SendPwaNotification($notification->monitor->user_id, $notification->token,$notification->monitor->name);
                             $notification->last_notified_at = Carbon::now();
                             // $notification->touch();
                             $notification->save();

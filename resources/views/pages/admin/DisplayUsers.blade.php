@@ -82,7 +82,7 @@
         <div class="container-fluid">
             <div x-data="tabHandler()" x-init="initActiveTab()">
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800" 
+                    <h1 class="h3 mb-0 text-gray-800 white-color" 
                         x-text="activeTab === 'customers' ? 'Customers (Total: {{ $customerCount }})' : 'Users (Total: {{ $userCount }})'">
                     </h1>
                     <div x-show="activeTab === 'users'">

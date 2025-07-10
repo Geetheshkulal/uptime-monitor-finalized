@@ -16,9 +16,9 @@
             font-size: 2.5rem;
             opacity: 0.3;
         }
-         * {
+         /* * {
     border-radius: 0 !important;
-}
+} */
 
 button.btn-light {
     box-shadow: none !important;
@@ -26,13 +26,20 @@ button.btn-light {
     background-color: transparent !important;
     color:blue !important; 
 }
+
+/* dark mode css */
+
+html.dark-mode  ul.dropdown-menu .dropdown-item:hover {
+    background-color: #4f4cde !important;
+    color: #cbcbcb !important;          
+}
     </style>
 @endpush
 
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Admin Dashboard</h1>
+        <h1 class="h3 mb-0 text-gray-800 white-color">Admin Dashboard</h1>
     </div>
 
     <!-- Cards Row -->
@@ -45,7 +52,7 @@ button.btn-light {
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Total Users</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $total_user_count }}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800 white-color">{{ $total_user_count }}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-users text-primary"></i>
@@ -63,7 +70,7 @@ button.btn-light {
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                 Paid Users</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $paid_user_count }}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800 white-color">{{ $paid_user_count }}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-user-check text-success"></i>
@@ -81,7 +88,7 @@ button.btn-light {
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                                 Total Monitors</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $monitor_count }}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800 white-color">{{ $monitor_count }}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-server text-info"></i>
@@ -99,7 +106,7 @@ button.btn-light {
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                 Total Revenue</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">₹ {{$total_revenue}}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800 white-color">₹ {{$total_revenue}}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-rupee-sign text-warning"></i>
@@ -117,7 +124,7 @@ button.btn-light {
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
                                 Active Users (30d)</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $active_users }}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800 white-color">{{ $active_users }}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-user-clock text-danger"></i>
@@ -135,7 +142,7 @@ button.btn-light {
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
                                 Server Health</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$cpuPercent}}%</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800 white-color">{{$cpuPercent}}%</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-heartbeat text-secondary"></i>
@@ -181,7 +188,7 @@ button.btn-light {
     <button class="btn btn-sm btn-light " type="button" id="revenueGrowthMenu" data-bs-toggle="dropdown" aria-expanded="false">
         <i class="fas fa-ellipsis-v"></i>
     </button>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="revenueGrowthMenu">
+    <ul class="dropdown-menu dropdown-menu-end animated--grow-in" aria-labelledby="revenueGrowthMenu">
         <li><a class="dropdown-item" href="#" data-value="12">Last 12 Months</a></li>
         <li><a class="dropdown-item" href="#" data-value="6">Last 6 Months</a></li>
         <li><a class="dropdown-item" href="#" data-value="3">Last 3 Months</a></li>
