@@ -278,7 +278,5 @@ Route::post('/subscribe', [PushNotificationController::class, 'subscribe']);
 
 Route::get('/track/{token}.png', [TrackingController::class, 'pixel'])->withoutMiddleware(['web', 'verified', 'auth', \App\Http\Middleware\VerifyCsrfToken::class]);
 
-Route::get('/reverb-apps', fn() => config('reverb.apps.apps'));
-
 
 require __DIR__ . '/auth.php';
