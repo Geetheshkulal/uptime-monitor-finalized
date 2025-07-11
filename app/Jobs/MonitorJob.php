@@ -111,76 +111,173 @@ class MonitorJob
 
         return trim($text);
     }
+
+
     private function sendAlert(Monitors $monitor, string $status)
-    {
+{
+    $shouldAlert =
+        ($status === 'down' && ($monitor->status === 'up' || $monitor->status === null)) ||
+        ($status === 'up' && ($monitor->status === 'down' || $monitor->status === null));
 
+    if ($shouldAlert) {
+        try {
+            $monitor->update([
+                'last_checked_at' => now(),
+                'status' => $status,
+            ]);
+        } catch (\Exception $e) {
+            Log::error("Failed to update monitor status for {$monitor->id}: " . $e->getMessage());
+        }
 
-        if (($status === 'down' && ($monitor->status === 'up' || $monitor->status === null)) ||
-            ($status === 'up' && ($monitor->status === 'down' || $monitor->status === null))
-
-        ) {
-
-            try {
-                $monitor->update([
-                    'last_checked_at' => now(),
-                    'status' => $status,
-                ]);
-            } catch (\Exception $e) {
-                Log::error("Failed to update monitor status for {$monitor->id}: " . $e->getMessage());
-            }
-
+        if ($status === 'down') {
             $token = Str::random(32);
+
             Notification::create([
                 'monitor_id' => $monitor->id,
                 'status' => 'unread',
                 'token' => $token
             ]);
 
-            if ($status === 'down') {
-                Mail::to($monitor->email)->send(new MonitorDownAlert($monitor, $token));
-            } else {
-                Mail::to($monitor->email)->send(new MonitorUpAlert($monitor, $token));
-            }
+            // Only for DOWN monitor
+            Mail::to($monitor->email)->send(new MonitorDownAlert($monitor, $token));
 
             if ($monitor->telegram_bot_token && $monitor->telegram_id && $monitor->user->status !== 'free') {
                 $this->sendTelegramNotification($monitor);
             }
 
             if ($monitor->user->phone) {
+                Storage::disk('local')->put('whatsapp-payload.json', json_encode([
+                    'monitor_id' => $monitor->id,
+                    'template_used' => 'whatsap_monitor_down',
+                ]));
 
-                // Add +91 if number is 10 digits and doesn't already start with it
-
-                Storage::disk('local')->put('whatsapp-payload.json', json_encode(
-                    [
-                        'monitor_id' => $monitor->id,
-                        'template_used' => $status === 'down' ? 'whatsap_monitor_down' : 'whatsapp_monitor_up',
-                    ]
-                ));
-
-                $process = new Process([
-                    'php',
-                    'artisan',
-                    'dusk',
-                    'tests/Browser/WhatsAppBotTest.php'
-                ]);
-
+                $process = new Process(['php', 'artisan', 'dusk', 'tests/Browser/WhatsAppBotTest.php']);
                 $process->run();
+
                 Log::info('Job whatsapp output:' . Artisan::output());
-                // Optional: Cleanup file if needed
                 Storage::delete('whatsapp-details.json');
             }
+
         } else {
-            // Update monitor status
-            try {
-                $monitor->update([
-                    'last_checked_at' => now(),
-                    'status' => $status,
-                ]);
-            } catch (\Exception $e) {
-                Log::error("Failed to update monitor status for {$monitor->id}: " . $e->getMessage());
+
+            $token = Str::random(32);
+            // Monitor UP — send only once directly
+            Mail::to($monitor->email)->send(new MonitorUpAlert($monitor, $token));
+
+            Log::info('only once mail send and pwa :' . Artisan::output());
+
+            if ($monitor->telegram_bot_token && $monitor->telegram_id && $monitor->user->status !== 'free') {
+                $this->sendTelegramNotification($monitor);
             }
+
+            if ($monitor->user->phone) {
+                Storage::disk('local')->put('whatsapp-payload.json', json_encode([
+                    'monitor_id' => $monitor->id,
+                    'template_used' => 'whatsapp_monitor_up',
+                ]));
+
+                $process = new Process(['php', 'artisan', 'dusk', 'tests/Browser/WhatsAppBotTest.php']);
+                $process->run();
+
+                Log::info('Job whatsapp output:' . Artisan::output());
+                Storage::delete('whatsapp-details.json');
+            }
+
+            Notification::where('monitor_id', $monitor->id)
+                ->where('status', 'unread')
+                ->delete(); 
+
+            
+            Notification::create([
+                'monitor_id' => $monitor->id,
+                'status' => 'read',
+                'token' => $token,
+                'follow_up_sent' => true,
+                'last_notified_at' => now(),
+            ]);
+            
+            // PWA Notification (direct)
+            $this->SendPwaNotification($monitor->user_id, $token, $monitor->name, $status);
         }
+
+    } else {
+        // Just update status without alerts
+        $monitor->update([
+            'last_checked_at' => now(),
+            'status' => $status,
+        ]);
     }
+}
+
+    // private function sendAlert(Monitors $monitor, string $status)
+    // {
+
+
+    //     if (($status === 'down' && ($monitor->status === 'up' || $monitor->status === null)) ||
+    //         ($status === 'up' && ($monitor->status === 'down' || $monitor->status === null))
+
+    //     ) {
+
+    //         try {
+    //             $monitor->update([
+    //                 'last_checked_at' => now(),
+    //                 'status' => $status,
+    //             ]);
+    //         } catch (\Exception $e) {
+    //             Log::error("Failed to update monitor status for {$monitor->id}: " . $e->getMessage());
+    //         }
+
+    //         $token = Str::random(32);
+    //         Notification::create([
+    //             'monitor_id' => $monitor->id,
+    //             'status' => 'unread',
+    //             'token' => $token
+    //         ]);
+
+    //         if ($status === 'down') {
+    //             Mail::to($monitor->email)->send(new MonitorDownAlert($monitor, $token));
+    //         } else {
+    //             Mail::to($monitor->email)->send(new MonitorUpAlert($monitor, $token));
+    //         }
+
+    //         if ($monitor->telegram_bot_token && $monitor->telegram_id && $monitor->user->status !== 'free') {
+    //             $this->sendTelegramNotification($monitor);
+    //         }
+
+    //         if ($monitor->user->phone) {
+
+    //             Storage::disk('local')->put('whatsapp-payload.json', json_encode(
+    //                 [
+    //                     'monitor_id' => $monitor->id,
+    //                     'template_used' => $status === 'down' ? 'whatsap_monitor_down' : 'whatsapp_monitor_up',
+    //                 ]
+    //             ));
+
+    //             $process = new Process([
+    //                 'php',
+    //                 'artisan',
+    //                 'dusk',
+    //                 'tests/Browser/WhatsAppBotTest.php'
+    //             ]);
+
+    //             $process->run();
+    //             Log::info('Job whatsapp output:' . Artisan::output());
+    
+    //             Storage::delete('whatsapp-details.json');
+    //         }
+    //     } else {
+
+    //         try {
+    //             $monitor->update([
+    //                 'last_checked_at' => now(),
+    //                 'status' => $status,
+    //             ]);
+    //         } catch (\Exception $e) {
+    //             Log::error("Failed to update monitor status for {$monitor->id}: " . $e->getMessage());
+    //         }
+    //     }
+    // }
+
 
     private function sendTelegramNotification(Monitors $monitor)
     {
@@ -204,7 +301,7 @@ class MonitorJob
     }
 
 
-    public function SendPwaNotification($userId, $notificationToken = null, $monitorName)
+    public function SendPwaNotification($userId, $notificationToken = null, $monitorName, $status)
     {
         try {
             $subscriptions = PushSubscription::where('user_id', $userId)->get();
@@ -214,19 +311,6 @@ class MonitorJob
                 return;
             }
 
-            // $webPush = new WebPush([
-            //     'VAPID' => [
-            //         'subject' => 'mailto:'.env('MAIL_FROM_ADDRESS', 'notifications@example.com'),
-            //         'publicKey' => env('VAPID_PUBLIC_KEY'),
-            //         'privateKey' => env('VAPID_PRIVATE_KEY'),
-            //     ]
-            // ]);
-
-            // Log::info('DEBUG VAPID KEYS:', [
-            //     'from_config_public' => config('webpush.vapid.public_key'),
-            //     'from_config_private' => config('webpush.vapid.private_key'),
-            // ]);
-
             $webPush = new WebPush([
                 'VAPID' => [
                     'subject' => config('webpush.vapid.subject'),
@@ -235,9 +319,14 @@ class MonitorJob
                 ]
             ]);
 
+            $bodyMessage = $status === 'down'
+                ? "Your Monitor {$monitorName} is DOWN"
+                : "Your Monitor {$monitorName} is now UP";
+
             $payload = json_encode([
                 'title' => 'Monitor Alert',
-                'body' => "Your Monitor {$monitorName} is still down",
+                // 'body' => "Your Monitor {$monitorName} is still down",
+                'body' => $bodyMessage,
                 'icon' => '/logo.png',
                 'url' => "/dashboard/" . $notificationToken // Add the URL here
             ]);
@@ -283,8 +372,6 @@ class MonitorJob
                 $responseTime = round(($endTime - $startTime) * 1000, 2);
 
                 // Log::info("HTTP Response ({$monitor->id}): Status $statusCode, Time {$responseTime}ms");
-
-                // Determine status based on status code
                 if ($response->successful()) {
                     $status = 'up';
                 } else {
@@ -402,8 +489,6 @@ class MonitorJob
         } catch (\Exception $e) {
             Log::error('' . $e->getMessage());
         }
-
-
 
 
         return $records ?: null;
@@ -574,10 +659,10 @@ class MonitorJob
     public function sendFollowUpEmail()
  {
     try {
-        $fiveMinutesAgo = Carbon::now()->subMinutes(5);
+        $threeMinutesAgo = Carbon::now()->subMinutes(3);
 
         // Group unread notifications by monitor
-        $notifications = Notification::where('created_at', '<=', $fiveMinutesAgo)
+        $notifications = Notification::where('created_at', '<=', $threeMinutesAgo)
             ->whereHas('monitor')
             ->with('monitor.user')
             ->where('status', 'unread')
@@ -607,7 +692,7 @@ class MonitorJob
                     $this->SendPwaNotification(
                         $notification->monitor->user_id,
                         $notification->token,
-                        $notification->monitor->name
+                        $notification->monitor->name, $status = 'down'
                     );
                     $notification->last_notified_at = now();
                     $notification->save();

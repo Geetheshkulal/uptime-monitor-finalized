@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monitor Up Alert - DRISHTI PULSE</title>
+    <title>Monitor UP Alert - DRISHTI PULSE</title>
 </head>
 <body style="font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f5f7fa; margin: 0; padding: 0; color: #333333; -webkit-font-smoothing: antialiased;">
     <!-- Tracking Pixel -->
@@ -31,7 +32,7 @@
                                                     <img src="https://i.ibb.co/Fq8LgD9s/mainlogo.png" alt="Logo" style="height: 40px; display: inline-block;">
                                                 </td>
                                                 <td style="vertical-align: middle; padding-left: 10px;">
-                                                    <span style="color: white; font-size: 24px; font-weight: 600; display: inline-block;">DRISHTI PULSE</span>
+                                                    <span style="color: white; font-size: 24px; font-weight: 600; display: inline-block;">Drishti Pulse</span>
                                                 </td>
                                             </tr>
                                         </table>
@@ -62,7 +63,7 @@
                             <table width="100%" cellpadding="0" cellspacing="0" border="0">
                                 <tr>
                                     <td colspan="3" style="text-align: center; padding-bottom: 20px;">
-                                        <h3 style="margin: 0; color: #333; font-size: 18px;">What You Can Do With Drishti Pulse</h3>
+                                        <h3 style="margin: 0; color: #333; font-size: 18px;">What You Can Do With DRISHTI PULSE</h3>
                                     </td>
                                 </tr>
                                 <tr>
@@ -105,7 +106,7 @@
                             </p>
 
                             <p style="font-size: 13px; color: #999; margin: 0;">
-                                &copy; {{ now()->year }} Drishti Pulse. All rights reserved.
+                                &copy; 2025 DRISHTI PULSE. All rights reserved.
                             </p>
 
                             <p style="font-size: 12px; color: #999; margin-top: 15px;">

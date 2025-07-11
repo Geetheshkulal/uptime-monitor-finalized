@@ -122,7 +122,7 @@ $(function () {
         // const root = document.body;
         const root = document.documentElement;
 
-        const $tooltip = $(toggleBtn).tooltip({ trigger: 'hover', placement: 'top', boundary: 'window' });
+        // const $tooltip = $(toggleBtn).tooltip({ trigger: 'hover', placement: 'top', boundary: 'window' });
 
     //      function updateTooltip(text) {
     //     $(toggleBtn)

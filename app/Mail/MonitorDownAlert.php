@@ -25,7 +25,7 @@ class MonitorDownAlert extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Monitor Down Alert',
+            subject: 'Monitor Down Alert - ' . $this->monitor->name,
         );
     }
 
