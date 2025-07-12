@@ -526,6 +526,18 @@
             $availableCoupons = \App\Helpers\CouponHelper::getAvailableCouponsForUser();
             @endphp
 
+             {{-- for progress bar --}}
+                @php
+                $trialStart = auth()->user()->created_at;
+                $trialEnd = $trialStart->copy()->addDays(10);
+                $totalTrialDays = 10;
+
+                $daysUsed = now()->diffInDays($trialStart);
+                $daysUsed = min($daysUsed, $totalTrialDays); // cap at 10 days
+
+                $progressPercent = ($daysUsed / $totalTrialDays) * 100;
+                @endphp
+
             @hasrole('user')
                 {{-- @if ($trialDaysLeft >= 0) --}}
                 @if ($stillInTrial && auth()->user()->hasRole('user'))
@@ -550,7 +562,7 @@
                                 @endif
 
                                 <a href="{{ route('premium.page') }}" class="upgrade-btn">Upgrade To Premium</a>
-                                <div class="progress w-100 mt-1" style="height: 3px;">    
+                                {{-- <div class="progress w-100 mt-1" style="height: 3px;">    
                                     <div class="progress-bar bg-white" role="progressbar" 
                                         style="width: {{ 100 - ($stillInTrial * 10) }}%" 
                                         aria-valuenow="{{ 100 - ($stillInTrial * 10) }}" 
@@ -558,9 +570,15 @@
                                         aria-valuemax="100">
                                     </div>
                                 
-                                </div>
-                                
-                                
+                                </div> --}}
+                                <div class="progress w-100 mt-1" style="height: 3px;">
+                                    <div class="progress-bar bg-white" role="progressbar" 
+                                         style="width: {{ $progressPercent }}%" 
+                                         aria-valuenow="{{ $progressPercent }}" 
+                                         aria-valuemin="0" 
+                                         aria-valuemax="100">
+                                    </div>
+                                </div>             
                             </div>
                         </div>
                     </li>
