@@ -351,7 +351,7 @@ html.dark-mode .text-primary {
 
 /* Dark mode for premium blade */
 .dark-mode .upgrade-container {
-    background-color: #1a1a1a;
+    /* background-color: #1a1a1a; */
     color: #e0e0e0;
 }
 

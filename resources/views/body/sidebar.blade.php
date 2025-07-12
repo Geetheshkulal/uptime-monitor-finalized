@@ -513,8 +513,13 @@
         @endhasrole
 
         @if ((auth()->user()->status === 'free' || auth()->user()->status === 'free_trial') && auth()->user()->hasRole('user'))
-            @php
+            {{-- @php
                 $trialDaysLeft = now()->diffInDays(auth()->user()->created_at->addDays(10), false);
+            @endphp --}}
+            
+            @php
+                $trialEndDate = auth()->user()->created_at->copy()->addDays(10);
+                $stillInTrial = now()->lt($trialEndDate); 
             @endphp
 
             @php
@@ -522,7 +527,8 @@
             @endphp
 
             @hasrole('user')
-                @if ($trialDaysLeft > 0)
+                {{-- @if ($trialDaysLeft >= 0) --}}
+                @if ($stillInTrial && auth()->user()->hasRole('user'))
                     <li class="nav-item trial-notice mt-2 mb-2">
                         <div class="trial-banner p-2 text-center position-relative" style="border-radius: 6px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
                             <div class="trial-badge bg-warning text-dark px-2 py-1 rounded-pill d-inline-block" style="font-size: 0.6rem; position: absolute; top: -8px; left: 50%; transform: translateX(-50%); white-space: nowrap;">
@@ -533,27 +539,38 @@
                                     <i class="fas fa-gift" style="font-size: 1rem; color: #e2fb65;"></i>
                                 </div>
                                 <span class="text-white fw-bold" style="font-size: 0.8rem; line-height: 1.2;">Premium Trial Active!</span>
-                                <span class="text-white-50" style="font-size: 0.7rem;">{{ $trialDaysLeft }} days left</span>
+                                {{-- <span class="text-white-50" style="font-size: 0.7rem;">{{ $trialDaysLeft }} days left</span> --}}
+                                
+                                @if (now()->diffInDays($trialEndDate, false) > 0)
+                                    <span class="text-white-50" style="font-size: 0.7rem;">
+                                        {{ now()->diffInDays($trialEndDate) }} days left
+                                    </span>
+                                @else
+                                    <span id="trial-hours-left" class="text-white-50" style="font-size: 0.7rem;">Trial ends in -- hours</span>
+                                @endif
+
                                 <a href="{{ route('premium.page') }}" class="upgrade-btn">Upgrade To Premium</a>
                                 <div class="progress w-100 mt-1" style="height: 3px;">    
                                     <div class="progress-bar bg-white" role="progressbar" 
-                                        style="width: {{ 100 - ($trialDaysLeft * 10) }}%" 
-                                        aria-valuenow="{{ 100 - ($trialDaysLeft * 10) }}" 
+                                        style="width: {{ 100 - ($stillInTrial * 10) }}%" 
+                                        aria-valuenow="{{ 100 - ($stillInTrial * 10) }}" 
                                         aria-valuemin="0" 
                                         aria-valuemax="100">
                                     </div>
                                 
                                 </div>
-                                @if($availableCoupons->count())
-                                    <div class="alert alert-info">
-                                        🎁 New Coupon: <strong>{{ $availableCoupons->first()->code }}</strong> available for you!
-                                    </div>
-                              @endif
+                                
                                 
                             </div>
                         </div>
                     </li>
                     @endif
+
+                    {{-- @if($availableCoupons->count())
+                                    <div class="alert alert-info">
+                                        🎁 New Coupon: <strong>{{ $availableCoupons->first()->code }}</strong> available for you!
+                                    </div>
+                   @endif --}}
                 @endif
             @endhasrole
         <!-- Divider -->
