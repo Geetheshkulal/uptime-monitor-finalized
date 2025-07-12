@@ -157,7 +157,10 @@ html, body {
     #userSelect {
         width: 300px;
     }
-
+.select2-search--dropdown
+{
+    padding: 0px !important;
+}
     @media (max-width: 430px) {
       .ForUser {
         margin-top: 14px;

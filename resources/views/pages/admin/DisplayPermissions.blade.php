@@ -5,9 +5,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
 <style>
-    * {
+    /* * {
         border-radius: 0 !important;
-    }
+    } */
     @media (max-width: 430px) {
     .RoleBack{
          margin-bottom: 11px;
@@ -29,7 +29,7 @@
        <div class="container-fluid">
     <!-- Page Heading with proper margins -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Permissions Management</h1>
+        <h1 class="h3 mb-0 text-gray-800 white-color">Permissions Management</h1>
         @can('add.permission')
             <a href="{{ route('add.permission') }}" class="d-sm-inline-block btn btn-primary shadow-sm mt-2 mt-md-0 RoleBack">
                 <i class="fas fa-plus fa-sm text-white-50 mr-1"></i> Add Permission

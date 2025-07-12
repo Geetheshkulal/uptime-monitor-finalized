@@ -17,7 +17,7 @@ class WhatsAppLogin implements ShouldQueue
 
     
     public  $tries = 1; // Number of attempts before failing the job'
-    public $timeout = 200; 
+    // public $timeout = 200; 
     /**
      * Create a new job instance.
      */
@@ -43,6 +43,7 @@ class WhatsAppLogin implements ShouldQueue
                 'tests/Browser/WhatsAppLoginTest.php'
             ]);
             
+            $process->setTimeout(300);
             $process->run();
 
             Log::info('WhatsAppLoginTest completed successfully.');

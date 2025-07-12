@@ -4,9 +4,9 @@
 @push('styles')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <style>
-    * {
+    /* * {
         border-radius: 0 !important;
-    }
+    } */
     .page-content {
         margin-bottom: 342px;
 }
@@ -25,7 +25,7 @@
         <div class="row">
             <div class="col-12 RoleBack">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="h3 mb-0 text-gray-800">Add New Role</h4>
+                    <h4 class="h3 mb-0 text-gray-800 white-color">Add New Role</h4>
                     <a href="{{ route('display.roles') }}" class="btn btn-secondary">
                         <i class="fas fa-arrow-left"></i> Back
                     </a>

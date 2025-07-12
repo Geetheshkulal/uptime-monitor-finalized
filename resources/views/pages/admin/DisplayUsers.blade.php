@@ -6,9 +6,9 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <style>
-    * {
+    /* * {
         border-radius: 0 !important;
-    }
+    } */
     .form-group {
         margin-bottom: 1rem;
         position: relative;
@@ -64,6 +64,8 @@
     .is-invalid {
         border-color: #dc3545;
     }
+
+ 
 
     @media (max-width: 430px) {
     .dataTables_length {

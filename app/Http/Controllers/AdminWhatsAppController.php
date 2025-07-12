@@ -64,6 +64,7 @@ class AdminWhatsAppController extends Controller
         try {
         // Safer: use Process to run Artisan Dusk (non-blocking)
                 WhatsAppLogin::dispatch();
+                
                 activity()
                 ->causedBy(auth()->user())
                 ->inLog('Whatsapp Login') 

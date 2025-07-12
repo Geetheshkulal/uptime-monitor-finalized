@@ -57,9 +57,9 @@
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Tickets</h1>
+        <h1 class="h3 mb-0 text-gray-800 white-color">Tickets</h1>
         <a class="btn btn-primary" href="{{route('raise.tickets')}}">
-            <i class="fas fa-plus fa-sm"></i> Raise Ticket
+            <i class="fas fa-plus fa-sm white-color"></i> Raise Ticket
         </a>
     </div>
 
@@ -71,9 +71,9 @@
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1 ">
                             Total Tickets</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{$TotalTickets}}</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800 white-color">{{$TotalTickets}}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-ticket-alt text-primary fa-2x"></i>
@@ -90,7 +90,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                             Open Tickets</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{$OpenTickets}}</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800 white-color">{{$OpenTickets}}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-folder-open text-success fa-2x"></i>
@@ -107,7 +107,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
                             Closed Tickets</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{$ClosedTickets}}</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800 white-color">{{$ClosedTickets}}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-check-circle text-danger fa-2x"></i>
@@ -124,7 +124,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                             On Hold Tickets</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{$OnHoldTickets}}</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800 white-color">{{$OnHoldTickets}}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-pause-circle text-warning fa-2x"></i>
@@ -141,7 +141,7 @@
             <div class="card shadow mb-4">
                 <!-- Card Header -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-white px-4">
-                    <h6 class="m-0 font-weight-bold text-primary">All Tickets</h6>
+                    <h6 class="m-0 font-weight-bold text-primary white-color white-color">All Tickets</h6>
                     
                 </div>
                 

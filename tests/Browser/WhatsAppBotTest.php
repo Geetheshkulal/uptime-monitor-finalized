@@ -116,7 +116,6 @@ class WhatsAppBotTest extends DuskTestCase
             $browser->visit($url)->pause(8000);
             
                 // Wait for pop up appears
-
                 try {
                     $continueButton = $browser->driver->findElement(
                         WebDriverBy::xpath("//*[contains(text(), 'Continue')]")
@@ -143,7 +142,7 @@ class WhatsAppBotTest extends DuskTestCase
         });
 
         // Optional: delete payload after test to prevent stale data reuse
-        // @unlink($payloadPath);
+        @unlink($payloadPath);
     }
 }
 

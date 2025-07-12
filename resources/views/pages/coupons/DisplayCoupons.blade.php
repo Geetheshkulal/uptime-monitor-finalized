@@ -8,9 +8,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 
     <style>
-        * {
+        /* * {
             border-radius: 0 !important;
-        }
+        } */
 
         .filter-container {
             display: flex;
@@ -122,7 +122,7 @@
     <div id="content">
         <div class="container-fluid">
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-3 text-gray-800">Manage Coupon Codes</h1>
+                <h1 class="h3 mb-3 text-gray-800 white-color">Manage Coupon Codes</h1>
                 <button class="btn btn-primary" data-toggle="modal" data-target="#addCouponModal">
                     Create Coupon Codes
                 </button>

@@ -148,7 +148,7 @@ class MonitorJob
             if ($monitor->user->phone) {
                 Storage::disk('local')->put('whatsapp-payload.json', json_encode([
                     'monitor_id' => $monitor->id,
-                    'template_used' => 'whatsap_monitor_down',
+                    'template_used' => 'whatsapp_monitor_down',
                 ]));
 
                 $process = new Process(['php', 'artisan', 'dusk', 'tests/Browser/WhatsAppBotTest.php']);
@@ -170,6 +170,7 @@ class MonitorJob
                 $this->sendTelegramNotification($monitor);
             }
 
+            // whatsapp alert for up monitor
             if ($monitor->user->phone) {
                 Storage::disk('local')->put('whatsapp-payload.json', json_encode([
                     'monitor_id' => $monitor->id,

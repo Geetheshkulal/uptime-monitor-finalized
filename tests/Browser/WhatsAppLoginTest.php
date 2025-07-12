@@ -145,6 +145,9 @@ class WhatsAppLoginTest extends DuskTestCase
             // (Optional) delete original file
             unlink($filePath);
 
+            // while (true) {
+            //     sleep(10);
+            // }
         });
 
     }

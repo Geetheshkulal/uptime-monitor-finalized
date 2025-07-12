@@ -11,6 +11,14 @@
     background-color: #2a2a2a !important;
     color: #ffffff !important;          
 } */
+
+.dark-mode .nav-link:focus,
+.dark-mode .nav-link:focus-visible {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
   html.dark-mode .nav-tabs {
     border-bottom: none;
   }
@@ -135,6 +143,29 @@ html.dark-mode .navbar .fa-caret-down{
     color: #ffffff !important;
 }
 
+html.dark-mode .dark-bg {
+    background-color: #1e1e2f !important;
+}
+
+html.dark-mode .select2-results__option--selectable{
+    background-color: #1e1e2f !important;
+    color: #ffffff !important;
+}
+html.dark-mode .select2-results__option--highlighted {
+    background-color: #1e1e2f !important;
+    color: #ffffff !important;
+}
+html.dark-mode .select2-container--default .select2-search--dropdown .select2-search__field{
+    background-color: #1e1e2f !important;
+    color: #ffffff !important;
+}
+html.dark-mode .select2-container--default .select2-selection--single{
+    background-color:  #333 !important;
+    color: #ffffff !important;
+}
+html.dark-mode .select2-container--default .select2-selection--single .select2-selection__rendered{
+    color: #ffffff !important;
+}
 /* TABLES */
 
 html.dark-mode .table {
@@ -388,6 +419,15 @@ html.dark-mode .text-primary {
 .dark-mode .modal-content {
     background-color: #2d2d2d;
     color: #e0e0e0;
+}
+html.dark-mode .modal-header {
+    border-bottom: 1px solid #444;
+}
+html.dark-mode .modal-footer {
+    border-top: 1px solid #444;
+}
+html.dark-mode .modal-header .close {
+    color: #ffffff;
 }
 
 .dark-mode .form-control {

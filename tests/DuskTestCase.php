@@ -1,5 +1,65 @@
 <?php
 
+
+// namespace Tests;
+
+// use Facebook\WebDriver\Chrome\ChromeOptions;
+// use Facebook\WebDriver\Remote\DesiredCapabilities;
+// use Facebook\WebDriver\Remote\RemoteWebDriver;
+// use Illuminate\Support\Collection;
+// use Laravel\Dusk\TestCase as BaseTestCase;
+// use PHPUnit\Framework\Attributes\BeforeClass;
+
+// abstract class DuskTestCase extends BaseTestCase
+// {
+//     use CreatesApplication;
+
+//     /**
+//      * Prepare for Dusk test execution.
+//      */
+//     #[BeforeClass]
+//     public static function prepare(): void
+//     {
+//         if (! static::runningInSail()) {
+//             static::startChromeDriver(['--port=9515']);
+//         }
+//     }
+
+//     protected function baseUrl(): string
+//     {
+//         return env('APP_URL', 'http://localhost:8000');
+//     }
+
+  
+//     protected function driver(): RemoteWebDriver
+//     {
+//         $userDataDir = base_path('storage/whatsapp-session');
+
+//         $options = (new ChromeOptions)->addArguments(collect([
+//             $this->shouldStartMaximized() ? '--start-maximized' : '--window-size=1920,1080',
+//                 '--no-sandbox',
+//                 '--disable-dev-shm-usage',
+//                 '--window-size=1920,1080',
+//                 '--user-data-dir=' . $userDataDir,
+//                 // 'user-data-dir=' . storage_path('whatsapp-session'),
+//         ])->unless($this->hasHeadlessDisabled(), function (Collection $items) {
+//             return $items->merge([
+//                 '--disable-gpu',
+//             //    '--headless=new',
+//             ]);
+//         })->all());
+
+//         return RemoteWebDriver::create(
+//             $_ENV['DUSK_DRIVER_URL'] ?? env('DUSK_DRIVER_URL') ?? 'http://localhost:9515',
+//             DesiredCapabilities::chrome()->setCapability(
+//                 ChromeOptions::CAPABILITY, $options
+//             )
+//         );
+//     }
+// }
+  
+
+
 namespace Tests;
 
 use Facebook\WebDriver\Chrome\ChromeOptions;
@@ -13,9 +73,6 @@ abstract class DuskTestCase extends BaseTestCase
 {
     use CreatesApplication;
 
-    /**
-     * Prepare for Dusk test execution.
-     */
     #[BeforeClass]
     public static function prepare(): void
     {
@@ -26,7 +83,7 @@ abstract class DuskTestCase extends BaseTestCase
 
     protected function driver(): RemoteWebDriver
     {
-        $userDataDir = storage_path('whatsapp-session');
+        $userDataDir = base_path('storage/whatsapp-session');
 
         $options = (new ChromeOptions)->addArguments([
             '--start-maximized',
@@ -34,7 +91,7 @@ abstract class DuskTestCase extends BaseTestCase
             '--disable-smooth-scrolling',
             '--user-data-dir=' . $userDataDir,
             '--profile-directory=Default',
-            '--headless'
+            '--headless=new',
     ]);
 
     return RemoteWebDriver::create(
@@ -51,42 +108,7 @@ abstract class DuskTestCase extends BaseTestCase
                 // Do not close the browser
                 // parent::tearDown(); ← COMMENT or REMOVE this
         }
-
 }
-
-
-    /**
-     * Create the RemoteWebDriver instance.
-     */
-    // protected function driver(): RemoteWebDriver
-    // {
-    //     $userDataDir = storage_path('whatsapp-session');
-
-    //     $options = (new ChromeOptions)->addArguments(collect([
-    //         $this->shouldStartMaximized() ? '--start-maximized' : '--window-size=1920,1080',
-    //         '--disable-search-engine-choice-screen',
-    //         '--disable-smooth-scrolling',
-    //         '--user-data-dir=' . $userDataDir, // Persist session
-    //         '--profile-directory=Default', 
-
-    //     ])->unless($this->hasHeadlessDisabled(), function (Collection $items) {
-    //         return $items->merge([
-    //             '--disable-gpu',
-    //             //'--headless=new',
-    //         ]);
-    //     })->all());
-
-    //     return RemoteWebDriver::create( 
-    //         $_ENV['DUSK_DRIVER_URL'] ?? env('DUSK_DRIVER_URL') ?? 'http://localhost:9515',
-    //         DesiredCapabilities::chrome()->setCapability(
-    //             ChromeOptions::CAPABILITY, $options
-    //         )
-    //     );
-    // }
-
-
-
-
 
 
 

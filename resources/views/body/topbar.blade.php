@@ -40,14 +40,13 @@
                 </div>
             </li>
 
-
-
             <!-- dark mode button  -->
 
-            <button id="darkModeToggle" class="ml-2 mr-2">
-                <i id="themeIcon" class="fas fa-moon"></i>
-            </button>
+         <button id="darkModeToggle" class="ml-2 mr-2">
+            <i id="themeIcon" class="fas fa-moon"></i>
+        </button>
 
+           
             <!-- Alerts -->
             <li class="nav-item dropdown no-arrow mx-1">
                 <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
@@ -110,8 +109,7 @@
             </li>
         @endhasanyrole
 
-        
-            
+         
 
         <!--User profile-->
         <li class="nav-item">

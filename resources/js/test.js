@@ -24,7 +24,7 @@ window.Echo = new Echo({
   wsHost: import.meta.env.VITE_REVERB_HOST,
   wsPort: import.meta.env.VITE_REVERB_PORT,
   wssPort: import.meta.env.VITE_REVERB_PORT,
-  // wsPath: import.meta.env.VITE_REVERB_PATH || '/reverb',
+  wsPath: import.meta.env.VITE_REVERB_PATH || '/reverb',
   wsPath: '',
   forceTLS: import.meta.env.VITE_REVERB_SCHEME === 'https',
   enabledTransports: ['ws', 'wss'],

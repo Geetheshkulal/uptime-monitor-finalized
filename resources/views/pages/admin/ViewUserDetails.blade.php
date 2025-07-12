@@ -6,8 +6,12 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap4.min.css">
 <style>
-    * {
+    /* * {
         border-radius: 0 !important;
+    } */
+
+    html.dark-mode .card-header{
+        border: none;
     }
 </style>
 @endpush
@@ -15,7 +19,7 @@
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">User Details</h1>
+        <h1 class="h3 mb-0 text-gray-800 white-color">User Details</h1>
         <div>
             <a href="{{ route('display.users') }}" class="btn btn-primary">
                 <i class="fas fa-arrow-left"></i> Back to Users

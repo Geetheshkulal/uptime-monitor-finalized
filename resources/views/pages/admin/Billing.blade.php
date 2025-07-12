@@ -4,9 +4,9 @@
 @push('styles')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
 <style>
-    * {
+    /* * {
         border-radius: 0 !important;
-    }
+    } */
 
      @media (max-width: 430px) {
       .dataTables_length {
@@ -29,7 +29,7 @@
       <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Subscription Plans</h1>
+        <h1 class="h3 mb-0 text-gray-800 white-color">Subscription Plans</h1>
     </div>
 
     <!-- Content Row -->
