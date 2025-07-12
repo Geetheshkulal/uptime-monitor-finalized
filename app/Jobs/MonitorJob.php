@@ -764,6 +764,7 @@ class MonitorJob
     {
         try {
             $monitors = Monitors::where('paused', false)
+                ->where('pause_on_expire', false)
                 ->where(function ($query) {
                     $query->whereRaw(
                         'DATE_FORMAT(NOW(), "%Y-%m-%d %H:%i") >= DATE_FORMAT(DATE_ADD(last_checked_at, INTERVAL `interval` MINUTE), "%Y-%m-%d %H:%i")'
@@ -771,7 +772,8 @@ class MonitorJob
                 })
                 ->get();
 
-            // Log::info('number of monitors:' . $monitors->count());
+
+            Log::info('number of monitors:' . $monitors->count());
 
             foreach ($monitors as $monitor) {
                 switch ($monitor->type) {

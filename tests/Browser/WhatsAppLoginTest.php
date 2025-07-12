@@ -132,6 +132,7 @@ class WhatsAppLoginTest extends DuskTestCase
                 let viewPhoto = [...document.querySelectorAll('li._aj-r')].find(el => el.textContent.includes('View photo'));
                 if(viewPhoto) viewPhoto.click();
             ");
+            
             Log::info('👁️ Clicked View photo');
 
             // $browser->pause(3000)->screenshot('whatsapp/profile_photo');

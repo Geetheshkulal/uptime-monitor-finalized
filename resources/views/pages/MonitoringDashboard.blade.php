@@ -219,9 +219,12 @@
     @media (max-width: 430px) {
 
      .AddMonitor{
-        width: 92px;
+        /* width: 92px;
         padding: 1px;
-        height: 50px;
+        height: 50px; */
+        width: 144px;
+        padding: 8px;
+        height: 41px;
         }
 
     .dataTables_length {
@@ -239,6 +242,23 @@
 
 }
 
+/* .custom-crown{
+    margin-left: -155px;
+} */
+/* Responsive fix for better layout */
+@media (max-width: 430px) {
+    .upgrade-banner {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .upgrade-banner .col-md-2 {
+        text-align: center !important;
+    }
+}
+
+
 </style>
 @endpush   
     
@@ -249,7 +269,7 @@
     <div id="content">
         <div class="container-fluid">
             <!-- Page Header -->
-            <div data-aos="fade-up" class="d-flex align-items-center justify-content-between mb-4 fade-in">
+            <div data-aos="fade-up" class="d-flex align-items-center justify-content-between mb-4 mt-3 fade-in">
                 <h1 class="h3 mb-0 text-gray-800 font-300 white-color">Overview</h1>
                 
                 @if($totalMonitors>=5 && auth()->user()->status=='free')
@@ -343,24 +363,25 @@
                 </div>
 
                 @if(auth()->user()->status === 'free' && $hasMoreMonitors && auth()->user()->hasRole('user'))
-                    <div  class="card bg-primary text-white mb-4">
-                        <div class="card-body py-3">
-                            <div class="d-flex align-items-center">
-                                <div class="mr-3">
-                                    <i class="fas fa-crown fa-2x"></i>
-                                </div>
-                                <div>
-                                    <h4 class="mb-1">Upgrade to Premium</h4>
-                                    <p class="mb-0">Monitor all your services without limitations</p>
-                                </div>
-                                <div class="ml-auto">
-                                    <a href="{{ route('premium.page') }}" class="btn btn-light">
-                                        Upgrade Now
-                                    </a>
-                                </div>
+                <div class="card bg-primary text-white mb-4">
+                    <div class="card-body py-3">
+                        <div class="row align-items-center text-center text-md-left upgrade-banner">
+                            <div class="col-12 col-md-1 mb-2 mb-md-0 custom-crown">
+                                <i class="fas fa-crown fa-2x" style="color: yellow;"></i>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <h5 class="mb-1 font-weight-bold">Upgrade to Premium</h5>
+                                <p class="mb-0 small">You have more than 5 monitors. <br class="d-md-none">Some are hidden. Upgrade to Premium to view all.</p>
+                            </div>
+                            <div class="col-12 col-md-2 mt-3 mt-md-0 text-md-right">
+                                <a href="{{ route('premium.page') }}" class="btn btn-light btn-sm font-weight-bold">
+                                    Upgrade Now
+                                </a>
                             </div>
                         </div>
                     </div>
+                </div>
+                
                 @elseif(auth()->user()->hasRole('subuser') && $hasMoreMonitors && auth()->user()->parentUser->status==='free')
                     <div data-aos="fade-up" class="card bg-primary text-white mb-4">
                         <div class="card-body py-3">
@@ -370,7 +391,7 @@
                                 </div>
                                 <div>
                                     <h4 class="mb-1">Upgrade to Premium</h4>
-                                    <p class="mb-0">Limited Monitors accessible. Parent user is not a premium user.</p>
+                                    <p class="mb-0">Your parent account is on Free plan. Some monitors are hidden. Ask the owner to upgrade.</p>
                                 </div>
                             </div>
                         </div>

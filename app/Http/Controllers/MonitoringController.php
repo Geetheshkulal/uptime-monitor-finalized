@@ -50,20 +50,23 @@ class MonitoringController extends Controller
       $user = ($user->hasRole('subuser'))?$user->parentUser:auth()->user();
       
       // Get all monitors for the user
-      $monitors = Monitors::where('user_id', $user->id)->get();
+      $monitorsQuery = Monitors::where('user_id', $user->id)->orderBy('created_at','asc');
   
+      $totalMonitors = $monitorsQuery->count();
       // Check if user has more than 5 monitors
-      $hasMoreMonitors = $monitors->count() > 5;
+      $hasMoreMonitors = $monitorsQuery->count() > 5;
   
       // If user is free, limit to 5 monitors
-      if ($user->status === 'free') {
-          $monitors = $monitors->take(5);
-      }
+    //   if ($user->status === 'free') {
+    //       $monitors = $monitors->take(5);
+    //   }
   
+        $monitors = $user->status === 'free' ? $monitorsQuery->take(5)->get() : $monitorsQuery->get();
+
       //Get Metrics for dashboard.
       $upCount = $monitors->where('status', 'up')->where('paused',0)->count();
       $downCount = $monitors->where('status', 'down')->where('paused',0)->count();
-      $totalMonitors = $monitors->count();
+    //   $totalMonitors = $monitors->count();
       $pausedCount = Monitors::where('user_id',auth()->id())->where('paused', 1)->count();
   
       // Attach latest responses

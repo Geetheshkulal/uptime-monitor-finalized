@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Models\User;
 use Carbon\Carbon;
+use App\Models\Monitors;
 
 
 class FreeTrialCheck extends Command
@@ -42,6 +43,26 @@ class FreeTrialCheck extends Command
                 $user->save();
 
                 $this->info("Updated user ID: {$user->id} to status 'free' after free trial expired.");
+
+                $monitors = Monitors::where('user_id', $user->id)
+                            ->orderBy('created_at','asc')
+                            ->get();
+                
+                $monitorsToKeep = $monitors->take(5);
+
+                $monitorsToPause = $monitors->slice(5);
+
+                foreach ($monitorsToKeep as $monitor) {
+                    $monitor->pause_on_expire = false;
+                    $monitor->save();
+                }
+
+                foreach ($monitorsToPause as $monitor) {
+                    $monitor->pause_on_expire = true;
+                    $monitor->save();
+                }
+                $this->info("Paused monitors for user ID: {$user->id} after free trial expired.");
+
             }
 
             return 0;
