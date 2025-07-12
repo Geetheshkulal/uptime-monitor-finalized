@@ -126,7 +126,7 @@ class MonitorJob
                 'status' => $status,
             ]);
         } catch (\Exception $e) {
-            Log::error("Failed to update monitor status for {$monitor->id}: " . $e->getMessage());
+            // Log::error("Failed to update monitor status for {$monitor->id}: " . $e->getMessage());
         }
 
         if ($status === 'down') {
@@ -154,7 +154,7 @@ class MonitorJob
                 $process = new Process(['php', 'artisan', 'dusk', 'tests/Browser/WhatsAppBotTest.php']);
                 $process->run();
 
-                Log::info('Job whatsapp output:' . Artisan::output());
+                // Log::info('Job whatsapp output:' . Artisan::output());
                 Storage::delete('whatsapp-details.json');
             }
 
@@ -164,7 +164,7 @@ class MonitorJob
             // Monitor UP — send only once directly
             Mail::to($monitor->email)->send(new MonitorUpAlert($monitor, $token));
 
-            Log::info('only once mail send and pwa :' . Artisan::output());
+            // Log::info('only once mail send and pwa :' . Artisan::output());
 
             if ($monitor->telegram_bot_token && $monitor->telegram_id && $monitor->user->status !== 'free') {
                 $this->sendTelegramNotification($monitor);
@@ -180,7 +180,7 @@ class MonitorJob
                 $process = new Process(['php', 'artisan', 'dusk', 'tests/Browser/WhatsAppBotTest.php']);
                 $process->run();
 
-                Log::info('Job whatsapp output:' . Artisan::output());
+                // Log::info('Job whatsapp output:' . Artisan::output());
                 Storage::delete('whatsapp-details.json');
             }
 
@@ -308,7 +308,7 @@ class MonitorJob
             $subscriptions = PushSubscription::where('user_id', $userId)->get();
 
             if ($subscriptions->isEmpty()) {
-                Log::info("No PWA subscriptions found for user {$userId}");
+                // Log::info("No PWA subscriptions found for user {$userId}");
                 return;
             }
 
@@ -383,7 +383,7 @@ class MonitorJob
                 break; // Exit retry loop on success
 
             } catch (RequestException $e) {
-                Log::error("HTTP RequestException (Monitor ID: {$monitor->id}): " . $e->getMessage());
+                // Log::error("HTTP RequestException (Monitor ID: {$monitor->id}): " . $e->getMessage());
                 $statusCode = $e->response ? $e->response->status() : 0;
 
                 // Handle specific HTTP errors
@@ -391,7 +391,7 @@ class MonitorJob
                     Log::warning("HTTP Monitor {$monitor->id} returned 403 (Forbidden).");
                 }
             } catch (\Exception $e) {
-                Log::error("General HTTP Exception (Monitor ID: {$monitor->id}): " . $e->getMessage());
+                // Log::error("General HTTP Exception (Monitor ID: {$monitor->id}): " . $e->getMessage());
 
                 // Handle timeouts and SSL errors
                 if (strpos($e->getMessage(), 'timed out') !== false) {
@@ -418,7 +418,7 @@ class MonitorJob
                 'updated_at' => now(),
             ]);
         } catch (\Exception $e) {
-            Log::error("Failed to insert HTTP response for {$monitor->id}: " . $e->getMessage());
+            // Log::error("Failed to insert HTTP response for {$monitor->id}: " . $e->getMessage());
         }
 
 
@@ -479,7 +479,7 @@ class MonitorJob
                 'response_time' => $responseTime
             ]);
         } catch (\Exception $e) {
-            Log::error("Failed to insert DNS response for {$monitor->url}: " . $e->getMessage());
+            // Log::error("Failed to insert DNS response for {$monitor->url}: " . $e->getMessage());
         }
 
         $this->createIncident($monitor, $status, 'DNS');
@@ -488,7 +488,7 @@ class MonitorJob
         try {
             $this->sendAlert($monitor, $status);
         } catch (\Exception $e) {
-            Log::error('' . $e->getMessage());
+            // Log::error('' . $e->getMessage());
         }
 
 
@@ -521,16 +521,16 @@ class MonitorJob
                     fclose($connection);
                     break;
                 } else {
-                    Log::warning("Port check attempt $attempt failed: {$monitor->host}:{$monitor->port} - Error: $errstr ($errno)");
+                    // Log::warning("Port check attempt $attempt failed: {$monitor->host}:{$monitor->port} - Error: $errstr ($errno)");
                 }
             } catch (\Exception $e) {
-                Log::error("Exception during port check attempt $attempt: " . $e->getMessage());
+                // Log::error("Exception during port check attempt $attempt: " . $e->getMessage());
             }
 
             $attempt++;
             if ($attempt < $retries) {
                 $waitTime = min(pow(2, $attempt), 5); // Exponential backoff with a max wait of 5s
-                Log::info("Waiting {$waitTime} seconds before next attempt.");
+                // Log::info("Waiting {$waitTime} seconds before next attempt.");
                 sleep($waitTime);
             }
         }
@@ -543,7 +543,7 @@ class MonitorJob
                 'response_time' => $status === 'up' ? $responseTime : 0
             ]);
         } catch (\Exception $e) {
-            Log::error("Failed to store port response: " . $e->getMessage());
+            // Log::error("Failed to store port response: " . $e->getMessage());
         }
 
         //Create an incident.
@@ -554,12 +554,12 @@ class MonitorJob
         try {
             $this->sendAlert($monitor, $status);
         } catch (\Exception $e) {
-            Log::error("Failed to send alert: " . $e->getMessage());
+            // Log::error("Failed to send alert: " . $e->getMessage());
         }
 
 
 
-        Log::info("Port check completed: {$monitor->host}:{$monitor->port} is $status.");
+        // Log::info("Port check completed: {$monitor->host}:{$monitor->port} is $status.");
 
         return $status;
     }
@@ -602,7 +602,7 @@ class MonitorJob
             try {
                 $this->sendAlert($monitor, $status);
             } catch (\Exception $e) {
-                Log::error($e->getMessage());
+                // Log::error($e->getMessage());
             }
 
 
@@ -699,14 +699,14 @@ class MonitorJob
                     $notification->save();
                     Log::info("PWA Notification Triggered for monitor ID {$notification->monitor_id}");
                 } else {
-                    Log::info("Skipped PWA Notification (waiting period) for monitor ID {$notification->monitor_id}");
+                    // Log::info("Skipped PWA Notification (waiting period) for monitor ID {$notification->monitor_id}");
                 }
             } else {
                 $notification->delete();
             }
         }
     } catch (\Exception $e) {
-        Log::error("sendFollowUpEmail failed: " . $e->getMessage());
+        // Log::error("sendFollowUpEmail failed: " . $e->getMessage());
     }
 }
 
@@ -771,7 +771,7 @@ class MonitorJob
                 })
                 ->get();
 
-            Log::info('number of monitors:' . $monitors->count());
+            // Log::info('number of monitors:' . $monitors->count());
 
             foreach ($monitors as $monitor) {
                 switch ($monitor->type) {
@@ -791,7 +791,7 @@ class MonitorJob
                 $this->sendFollowUpEmail();
             }
         } catch (\Exception $e) {
-            Log::error("MonitorJob failed: " . $e->getMessage());
+            // Log::error("MonitorJob failed: " . $e->getMessage());
         }
     }
 }
