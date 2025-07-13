@@ -12,7 +12,14 @@
     color: #ffffff !important;          
 } */
 
-.dark-mode .nav-link:focus,
+.dark-mode .upgrade-gradient-card {
+    background: linear-gradient(90deg, #1e1e2f, #2e2e4d, #3f3f6b);
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.dark-mode .nav-link:focus, 
 .dark-mode .nav-link:focus-visible {
     border: none !important;
     outline: none !important;
@@ -79,6 +86,9 @@
         color: #ffffff !important;
     }
 
+    html.dark-mode .custom-gold{
+        color:yellow !important;
+    }
   
     /* SIDEBAR */
     #accordionSidebar {

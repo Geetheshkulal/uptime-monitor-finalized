@@ -242,20 +242,12 @@
 
 }
 
-/* .custom-crown{
-    margin-left: -155px;
-} */
-/* Responsive fix for better layout */
-@media (max-width: 430px) {
-    .upgrade-banner {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
+.upgrade-gradient {
+    background: linear-gradient(90deg, #3B71CA, #2c6fdc, #a1a1e9);
+}
 
-    .upgrade-banner .col-md-2 {
-        text-align: center !important;
-    }
+@media (max-width: 430px) {
+    
 }
 
 
@@ -273,7 +265,7 @@
                 <h1 class="h3 mb-0 text-gray-800 font-300 white-color">Overview</h1>
                 
                 @if($totalMonitors>=5 && auth()->user()->status=='free')
-                <a class="btn btn-primary AddMonitor" style="color:yellow;" href="{{ route('premium.page') }}">
+                <a class="btn btn-primary AddMonitor custom-gold" style="color:yellow;" href="{{ route('premium.page') }}">
                     <i class="fas fa-crown fa-sm mr-2"></i>Upgrade Plan
                 </a>
                 @else
@@ -363,33 +355,34 @@
                 </div>
 
                 @if(auth()->user()->status === 'free' && $hasMoreMonitors && auth()->user()->hasRole('user'))
-                <div class="card bg-primary text-white mb-4">
+                <div class="card upgrade-gradient-card upgrade-gradient text-white mb-4">
                     <div class="card-body py-3">
-                        <div class="row align-items-center text-center text-md-left upgrade-banner">
-                            <div class="col-12 col-md-1 mb-2 mb-md-0 custom-crown">
-                                <i class="fas fa-crown fa-2x" style="color: yellow;"></i>
+                        <div class="d-flex flex-column flex-md-row align-items-center">
+                            <div class="mr-md-3 mb-3 mb-md-0">
+                                <i class="fas fa-crown fa-2x" style="color:yellow;"></i>
                             </div>
-                            <div class="col-12 col-md-9">
-                                <h5 class="mb-1 font-weight-bold">Upgrade to Premium</h5>
-                                <p class="mb-0 small">You have more than 5 monitors. <br class="d-md-none">Some are hidden. Upgrade to Premium to view all.</p>
+                            <div class="text-center text-md-left mb-3 mb-md-0">
+                                <h4 class="mb-1" style="color:yellow;">Upgrade to Premium</h4>
+                                <p class="mb-0">You have more than 5 monitors. Some are hidden. Upgrade to Premium to view all</p>
                             </div>
-                            <div class="col-12 col-md-2 mt-3 mt-md-0 text-md-right">
-                                <a href="{{ route('premium.page') }}" class="btn btn-light btn-sm font-weight-bold">
+                            {{-- <div class="mt-md-0 mt-2 ml-md-auto">
+                                <a href="{{ route('premium.page') }}" class="btn btn-primary AddMonitor" style="color:yellow;">
                                     Upgrade Now
                                 </a>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
+
                 
                 @elseif(auth()->user()->hasRole('subuser') && $hasMoreMonitors && auth()->user()->parentUser->status==='free')
                     <div data-aos="fade-up" class="card bg-primary text-white mb-4">
                         <div class="card-body py-3">
-                            <div class="d-flex align-items-center">
-                                <div class="mr-3">
-                                    <i class="fas fa-crown fa-2x"></i>
+                            <div class="d-flex flex-column flex-md-row align-items-center">
+                                <div class="mr-md-3 mb-3 mb-md-0">
+                                    <i class="fas fa-crown fa-2x" style="color:yellow;"></i>
                                 </div>
-                                <div>
+                                <div class="text-center text-md-left mb-3 mb-md-0">
                                     <h4 class="mb-1">Upgrade to Premium</h4>
                                     <p class="mb-0">Your parent account is on Free plan. Some monitors are hidden. Ask the owner to upgrade.</p>
                                 </div>
