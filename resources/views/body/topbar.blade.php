@@ -40,11 +40,7 @@
                 </div>
             </li>
 
-            <!-- dark mode button  -->
-
-         <button id="darkModeToggle" class="ml-2 mr-2">
-            <i id="themeIcon" class="fas fa-moon"></i>
-        </button>
+           
 
            
             <!-- Alerts -->
@@ -109,7 +105,11 @@
             </li>
         @endhasanyrole
 
-         
+          <!-- dark mode button  -->
+
+          <button id="darkModeToggle" class="ml-2 mr-2" style="padding-right: 30px;">
+            <i id="themeIcon" class="fas fa-moon"></i>
+        </button>
 
         <!--User profile-->
         <li class="nav-item">

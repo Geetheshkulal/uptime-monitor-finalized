@@ -40,19 +40,19 @@ class AuthenticatedSessionController extends Controller
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
-            'g-recaptcha-response' => ['required', function ($attribute, $value, $fail) {
-                $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
-                    'secret' => config('services.recaptcha.secret'),
-                    'response' => $value,
-                    'remoteip' => request()->ip(),
-                ]);
+            // 'g-recaptcha-response' => ['required', function ($attribute, $value, $fail) {
+            //     $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+            //         'secret' => config('services.recaptcha.secret'),
+            //         'response' => $value,
+            //         'remoteip' => request()->ip(),
+            //     ]);
 
-                $responseBody = $response->json();
+            //     $responseBody = $response->json();
 
-                if (!($responseBody['success'] ?? false)) {
-                    $fail('reCAPTCHA verification failed.');
-                }
-            }],
+            //     if (!($responseBody['success'] ?? false)) {
+            //         $fail('reCAPTCHA verification failed.');
+            //     }
+            // }],
         ]);
 
         $user = User::where('email', $request->email)->first();

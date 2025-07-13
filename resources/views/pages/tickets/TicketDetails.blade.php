@@ -141,7 +141,7 @@
         }
 
         .new-comment-body {
-            padding: 16px;
+            padding: 8px;
         }
 
         #editor-container {

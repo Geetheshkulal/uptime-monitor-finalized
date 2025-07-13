@@ -68,7 +68,7 @@
 
 <form method="POST" class="SendNotification" action="{{ route('admin.send.notification') }}">
     @csrf
-    <h1 class="h3 mb-2 text-gray-800 ml-3 notification-title">Send Notification to All Users</h1>
+    <h1 class="h3 mb-2 text-gray-800 ml-3 notification-title white-color">Send Notification to All Users</h1>
     <div class="form-group ml-3">
         <label for="message">Message</label>
         <textarea class="form-control w-25 box" name="message" placeholder="Enter your notification message" required rows="3"></textarea>

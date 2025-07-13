@@ -176,6 +176,34 @@ html.dark-mode .select2-container--default .select2-selection--single{
 html.dark-mode .select2-container--default .select2-selection--single .select2-selection__rendered{
     color: #ffffff !important;
 }
+
+
+html.dark-mode .select2-dropdown{
+    background-color: #1e1e2f !important;
+    border: none !important;
+}
+html.dark-mode .select2-container--default .select2-selection--single,
+html.dark-mode .select2-container--default .select2-selection--multiple {
+    background-color: #333 !important;
+    color: #ffffff !important;
+    border-color: #444 !important;
+}
+
+html.dark-mode .select2-container--default .select2-selection--single .select2-selection__rendered,
+html.dark-mode .select2-container--default .select2-selection--multiple .select2-selection__rendered {
+    color: #ffffff !important;
+}
+
+html.dark-mode .select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #555 !important;
+    border: 1px solid #777 !important;
+    color: #fff !important;
+}
+
+html.dark-mode .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    color: #ddd !important;
+}
+
 /* TABLES */
 
 html.dark-mode .table {
@@ -613,7 +641,27 @@ html.dark-mode #sslDetailsContainer .list-group-item{
     background-color: #1a1a27 ;
 }
 
-
-
+/* admin page dark mode */
+html.dark-mode .timeline-item{
+    border-bottom: none;
+}
+html.dark-mode .comment{
+    border: none;
+}
+html.dark-mode .comment-header{
+    border-bottom: none;
+}
+html.dark-mode .new-comment-header{
+    border-bottom: none;
+}
+html.dark-mode .new-comment{
+    border: none;
+}
+html.dark-mode #editor-container{
+    border: none;
+}
+html.dark-mode .ql-toolbar.ql-snow{
+    border: none;
+}
 
 </style>

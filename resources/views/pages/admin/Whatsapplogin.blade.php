@@ -126,7 +126,7 @@
 
 
 
-<div class="whatsapp-container">
+<div class="whatsapp-container dark-bg">
 
     <h3 class="mb-4">
         <i class="fab fa-whatsapp text-success"></i> WhatsApp Connection
@@ -143,7 +143,7 @@
   
 
     <!-- QR Code Container -->
-    <div id="qr-box" class="qr-container" style="display: none;">
+    <div id="qr-box" class="qr-container dark-bg" style="display: none;">
         <h5 class="mb-3">Scan this QR code with your phone</h5>
         <span id="qr-code-container">
             

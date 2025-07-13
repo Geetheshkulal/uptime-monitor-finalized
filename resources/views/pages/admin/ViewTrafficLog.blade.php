@@ -191,7 +191,7 @@
 @endpush
 
 <div class="container-fluid">
-    <h1 class="h3 mb-0 text-gray-800">Visitor Traffic Logs</h1><br>
+    <h1 class="h3 mb-0 text-gray-800 white-color">Visitor Traffic Logs</h1><br>
     <div class="search-header">
     
             <!-- Filter Section -->
@@ -200,9 +200,9 @@
                     <form method="GET" action="">
                         <div class="row g-2">
                             <div class="col-md-4">
-                                <label class="form-label small text-muted">Search</label>
+                                <label class="form-label small text-muted white-color">Search</label>
                                 <div class="input-group input-group-sm">
-                                    <span class="input-group-text bg-white border-end-0">
+                                    <span class="input-group-text bg-white border-end-0" style="border: none;">
                                         <i class="fas fa-search fa-xs"></i>
                                     </span>
                                     <input type="text" name="search" class="form-control form-control-sm" 
@@ -211,21 +211,21 @@
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <label class="form-label small text-muted">From Date</label>
+                                <label class="form-label small text-muted white-color">From Date</label>
                                 <input type="date" name="from_date" class="form-control form-control-sm" 
                                     value="{{ request('from_date') }}">
                             </div>
                             <div class="col-md-3">
-                                <label class="form-label small text-muted">To Date</label>
+                                <label class="form-label small text-muted white-color">To Date</label>
                                 <input type="date" name="to_date" class="form-control form-control-sm" 
                                     value="{{ request('to_date') }}">
                             </div>
                              <div class="col-md-2 d-flex flex-column align-items-stretch">
                                 <button type="submit" class="btn btn-primary w-100 mb-2 FilterButton">
-                                    <i class="fas fa-filter"></i> Filter
+                                    <i class="fas fa-filter white-color"></i> Filter
                                 </button>
                                 <a href="{{ url()->current() }}" class="btn btn-secondary w-100">
-                                    <i class="fas fa-times"></i> Clear
+                                    <i class="fas fa-times white-color"></i> Clear
                                 </a>
                             </div>
                             </div>
@@ -237,18 +237,18 @@
     <!-- Logs List -->
                 <div class="traffic-list">
                    @forelse($trafficLogs as $log)
-                    <div class="traffic-card mt-4">
+                    <div class="traffic-card mt-4 dark-bg">
                     <!-- New Header with IP and Time -->
-                    <div class="traffic-header">
+                    <div class="traffic-header dark-bg">
                         <div class="ip-display">
-                            <span class="detail-label">IP:</span>
+                            <span class="detail-label white-color">IP:</span>
                             <span class="ip-address">{{ $log->ip }}</span>
                             @if($log->country !== 'Unknown')
                             <img src="https://flagcdn.com/16x12/{{ strtolower($log->country) }}.png" class="flag">
                         @endif
                         
                     </div>
-                    <div class="header-time">
+                    <div class="header-time white-color">
                         {{ $log->created_at->format('M j, Y H:i:s') }}
                     </div>
                     </div>
@@ -257,32 +257,32 @@
                 <!-- First Row: Browser, Platform, ISP -->
                 <div class="client-row">
                     <div class="detail-group">
-                        <span class="detail-label">Browser:</span>
-                        <span class="detail-value">{{ $log->browser }}</span>
+                        <span class="detail-label white-color">Browser:</span>
+                        <span class="detail-value white-color">{{ $log->browser }}</span>
                     </div>
                     <div class="detail-group">
-                        <span class="detail-label">Platform:</span>
-                        <span class="detail-value">{{ $log->platform }}</span>
+                        <span class="detail-label white-color">Platform:</span>
+                        <span class="detail-value white-color">{{ $log->platform }}</span>
                     </div>
                     <div class="detail-group">
-                        <span class="detail-label">ISP:</span>
-                        <span class="detail-value">{{ $log->isp ?? 'Unknown' }}</span>
+                        <span class="detail-label white-color">ISP:</span>
+                        <span class="detail-value white-color">{{ $log->isp ?? 'Unknown' }}</span>
                     </div>
                     <div class="detail-group">
                         @if (!empty($log->email))
-                                        <strong class="detail-label">User email :</strong> 
-                                        <span class="detail-value">{{ $log->email }}</span>
+                                        <strong class="detail-label white-color">User email :</strong> 
+                                        <span class="detail-value white-color">{{ $log->email }}</span>
                                         @endif
                     </div>
                     <div class="detail-group">
                         @if (!empty($log->status))
-                                        <strong class="detail-label">Status :</strong> 
-                                        <span class="detail-value">{{ $log->status }}</span>
+                                        <strong class="detail-label white-color">Status :</strong> 
+                                        <span class="detail-value white-color">{{ $log->status }}</span>
                                         @endif
                     </div>
                     <div class="detail-group">
                         @if (!empty($log->reason))
-                                        <strong class="detail-label">Reason:</strong><span class="detail-value"> {{ $log->reason }}</span>
+                                        <strong class="detail-label white-color">Reason:</strong><span class="detail-value white-color"> {{ $log->reason }}</span>
                                         @endif
             
                     </div>
@@ -291,20 +291,20 @@
                 <!-- Second Row: URL and Referrer -->
                 <div class="request-row">
                     <div class="url-group">
-                        <span class="detail-label">URL:</span>
-                        <div class="url-value">{{ $log->url }}</div>
+                        <span class="detail-label white-color">URL:</span>
+                        <div class="url-value dark-bg">{{ $log->url }}</div>
                     </div>
                     <div class="referrer-group">
-                        <span class="detail-label">Referrer:</span>
-                        <div class="referrer-value">{{ $log->referrer ?? 'Direct access' }}</div>
+                        <span class="detail-label white-color">Referrer:</span>
+                        <div class="referrer-value dark-bg">{{ $log->referrer ?? 'Direct access' }}</div>
                     </div>
                 </div>
 
                
                 <!-- Third Row: User Agent -->
                 <div class="user-agent-row">
-                    <span class="detail-label">User Agent:</span>
-                    <div class="user-agent">{{ $log->user_agent }}</div>
+                    <span class="detail-label white-color">User Agent:</span>
+                    <div class="user-agent dark-bg">{{ $log->user_agent }}</div>
                 </div>
                 
                 <!-- Action Buttons -->

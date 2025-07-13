@@ -3,9 +3,10 @@
 
 @push('styles')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" /> --}}
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <style>
         /* * {
@@ -51,8 +52,8 @@
   padding: 6px 8px;
   background-color: #fff;
   box-shadow: none;
-  margin-left: 14px;
-  margin-right: 14px;
+  margin-left: 1px;
+  margin-right: 1px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -84,7 +85,7 @@
 
 
 .select2-container--default .select2-selection--multiple .select2-search__field {
-  padding: 5px;
+  /* padding: 5px; */
   margin-top: 4px;
   width: auto !important;
   min-width: 150px;
@@ -206,8 +207,8 @@
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <form class="modal-content" method="POST" action="{{ route('coupons.store') }}">
             @csrf
-            <div class="modal-header">
-                <h5 class="modal-title text-gray-900" id="addCouponModalLabel">Create Coupon</h5>
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="addCouponModalLabel">Create Coupon</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -273,11 +274,12 @@
 
                         <div class="form-group">
                             <label for="user_ids">Assign to Users (optional)</label>
-                            <select id="user_ids" name="user_ids[]" class="form-control select2" multiple="multiple">
+                             <select id="user_ids" name="user_ids[]" class="form-control select2" multiple="multiple">
                                 @foreach($users as $user)
                                     <option value="{{ $user->id }}">{{ $user->name }} ({{ $user->email }})</option>
                                 @endforeach
                             </select>
+
                         </div>
                     </div>
                 </div>
@@ -391,7 +393,9 @@
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script> --}}
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> 
 
 <script>
 $(document).ready(function() {
@@ -415,8 +419,10 @@ $(document).ready(function() {
         placeholder: "Select users",
         allowClear: true,
         dropdownParent: $('#addCouponModal'),
-        width: '100%'
+        // width: '100%'
+        width: 'resolve'
     });
+
 
     // Set minimum date for valid_until based on valid_from
     $('#valid_from').on('change', function() {
