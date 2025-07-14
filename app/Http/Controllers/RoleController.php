@@ -16,7 +16,7 @@ class RoleController extends Controller
             $roles = Role::whereNot('name', 'superadmin')->orderBy('name')->get();
 
             activity()
-            ->causedBy(auth()->user())       // who deleted    
+            ->causedBy(auth()->user())      
             ->inLog('role_management')     
             ->event('viewed')
             ->withProperties([

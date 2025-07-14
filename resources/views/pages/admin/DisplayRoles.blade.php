@@ -57,7 +57,6 @@
                             </thead>
                             <tbody>
                                 @foreach($roles as $key => $role)
-                                @if(in_array($role->name,['support','admin']))
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>
@@ -76,21 +75,24 @@
                                         @canany(['edit.role','delete.role'])
                                             <td class="text-center">
                                                 @can('edit.role')
-                                                    <a href="{{ route('edit.role',$role->id) }}" class="btn btn-sm btn-primary px-3 py-1 mr-1">
-                                                        <i class="fas fa-edit"></i>
+                                                    <a href="{{ route('edit.role',$role->id) }}" class="ml-2">
+                                                        <i class="fas fa-edit" style="color: #2653d4; cursor: pointer;"></i>
                                                     </a>
                                                 @endcan
 
                                                 @can('delete.role')
-                                                    <a href="{{ route('delete.role',$role->id) }}" class="btn btn-sm btn-danger px-3 py-1" onclick="return confirm('Are you sure?')">
+                                                    {{-- <a href="{{ route('delete.role',$role->id) }}" class="btn btn-sm btn-danger px-3 py-1" onclick="return confirm('Are you sure?')">
                                                         <i class="fas fa-trash"></i>
+                                                    </a> --}}
+
+                                                    <a href="#" data-toggle="modal" data-target="#roleDeleteModal{{ $role->id }}" class="ml-2">
+                                                        <i class="fas fa-trash" style="color: #e74a3b; cursor: pointer;"></i>
                                                     </a>
                                                 @endcan
                                         </td>
                                         @endcanany
                                     @endif
                                 </tr>
-                                @endif 
                                 @endforeach
                             </tbody>
                         </table>
@@ -102,6 +104,38 @@
 
 </div>
 </div>
+
+
+<!-- Delete Coupon Modal -->
+
+@foreach($roles as $role)
+<div class="modal fade" id="roleDeleteModal{{ $role->id }}" tabindex="-1" role="dialog" aria-labelledby="roleDeleteModalLabel{{ $role->id }}" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form class="modal-content" method="POST" action="{{ route('delete.role',$role->id) }}">
+            @csrf
+            @method('DELETE')
+            <div class="modal-header">
+                <h5 class="modal-title" id="roleDeleteModalLabel{{ $role->id }}">Delete Role</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+    
+            <div class="modal-body">
+                <p>Are you sure you want to delete this Role : <strong>{{ $role->name }}</strong> ? </p>
+                <p>This action cannot be undone.</p>
+            </div>
+    
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-danger">Delete Role</button>
+            </div>
+        </form>
+    </div>
+</div>
+@endforeach
+
+
 @push('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -115,7 +149,8 @@
             "info": true,
             "order": [[0, "asc"]],
             "columnDefs": [
-                { "orderable": false, "targets": [2, 3] } // Disable sorting for permissions and action columns
+                { "orderable": false, "targets": [2, 3] },
+                { "searchable": false, "targets": [2] }
             ]
         });
     });

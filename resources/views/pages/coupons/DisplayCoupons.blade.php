@@ -9,10 +9,17 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <style>
-        /* * {
-            border-radius: 0 !important;
-        } */
+      
 
+      .tooltip-inner {
+    background-color: #0e55e1 !important; 
+    color: #ffffff !important;           
+}
+
+.tooltip.bs-tooltip-top .arrow::before,
+.tooltip.bs-tooltip-auto[x-placement^="top"] .arrow::before {
+    border-top-color: #0e55e1 !important;
+}
         .filter-container {
             display: flex;
             align-items: center;
@@ -154,7 +161,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>
                                         {{ $coupon->code }}
-                                        <i class="fas fa-copy ml-2 text-primary" style="cursor: pointer;" onclick="copyToClipboard('{{$coupon->code}}')" title="Copy code"></i>
+                                        <i class="fas fa-copy ml-2 text-primary" style="cursor: pointer;" onclick="copyToClipboard('{{$coupon->code}}')" data-toggle="tooltip" data-placement="top" title="Copy code"></i>
                                     </td>
                                     <td>{{ $coupon->discount_type }}</td>
                                     <td>
@@ -385,6 +392,7 @@
         </form>
     </div>
 </div>
+
 @endforeach
 
 @push('scripts')
@@ -397,7 +405,18 @@
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script> --}}
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> 
 
+<!-- Load Tippy.js after Bootstrap -->
+<script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
+<script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
+
+
 <script>
+
+    $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+
+
 $(document).ready(function() {
     // Initialize DataTable
     $('#couponTable').DataTable({
@@ -419,8 +438,7 @@ $(document).ready(function() {
         placeholder: "Select users",
         allowClear: true,
         dropdownParent: $('#addCouponModal'),
-        // width: '100%'
-        width: 'resolve'
+        width: '100%'
     });
 
 

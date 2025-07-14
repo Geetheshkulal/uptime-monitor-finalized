@@ -494,17 +494,17 @@ class MonitorJob
 
         return $records ?: null;
     }
+
     private function checkPort(Monitors $monitor)
     {
         $attempt = 0;
         $status = 'down';
         $responseTime = 0;
         $startTime = microtime(true);
-        $retries = $monitor->retries ?? 3; // Default to 3 retries if not set
-        $timeout = 5; // Timeout in seconds
+        $retries = $monitor->retries ?? 3; 
+        $timeout = 5; 
 
-        // Log the start of the check
-        // Log::info("Checking port {$monitor->port} on {$monitor->host} with {$retries} retries.");
+        Log::info("Checking port {$monitor->port} on {$monitor->host} with {$retries} retries.");
 
         while ($attempt < $retries) {
             try {
@@ -521,10 +521,10 @@ class MonitorJob
                     fclose($connection);
                     break;
                 } else {
-                    // Log::warning("Port check attempt $attempt failed: {$monitor->host}:{$monitor->port} - Error: $errstr ($errno)");
+                    Log::warning("Port check attempt $attempt failed: {$monitor->host}:{$monitor->port} - Error: $errstr ($errno)");
                 }
             } catch (\Exception $e) {
-                // Log::error("Exception during port check attempt $attempt: " . $e->getMessage());
+                Log::error("Exception during port check attempt $attempt: " . $e->getMessage());
             }
 
             $attempt++;
@@ -550,14 +550,11 @@ class MonitorJob
 
         $this->createIncident($monitor, $status, 'PORT');
 
-        // Send alert if necessary
         try {
             $this->sendAlert($monitor, $status);
         } catch (\Exception $e) {
             // Log::error("Failed to send alert: " . $e->getMessage());
         }
-
-
 
         // Log::info("Port check completed: {$monitor->host}:{$monitor->port} is $status.");
 

@@ -91,14 +91,26 @@ class AdminController extends Controller
         $active_users = $activeUserIds->count();
 
         // Run shell command to get cpu load percentage.
-        $cpuRaw = shell_exec('wmic cpu get loadpercentage /value');
-        preg_match('/LoadPercentage=(\d+)/', $cpuRaw, $cpuMatches);
-        $cpuPercent = $cpuMatches[1] ?? 'N/A';
+        if (PHP_OS_FAMILY === 'Windows') {
+            $cpuRaw = shell_exec('wmic cpu get loadpercentage /value');
+            preg_match('/LoadPercentage=(\d+)/', $cpuRaw, $cpuMatches);
+            $cpuPercent = $cpuMatches[1] ?? 'N/A';
+        } else {
+            $cpuRaw = shell_exec("top -bn1 | grep 'Cpu(s)'");
+            preg_match('/(\d+\.\d+)\s*id/', $cpuRaw, $matches);
+            if (isset($matches[1])) {
+                $idle = (float) $matches[1];
+                $cpuPercent = round(100 - $idle, 2); // usage = 100 - idle
+            } else {
+                $cpuPercent = 'N/A';
+            }
+        }
+        
 
     
         return view('pages.admin.AdminDashboard', compact(
-            'total_user_count',
-            'paid_user_count',
+        'total_user_count',
+        'paid_user_count',
             'monitor_count',
             'total_revenue',
             'month_labels',

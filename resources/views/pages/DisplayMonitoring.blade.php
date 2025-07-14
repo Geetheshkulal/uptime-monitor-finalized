@@ -44,20 +44,21 @@
     </style>
     <!-- Page Heading -->
     <div class="container-fluid">
+        
         <div class="row  p-2">
             <div class="d-flex  flex-md-row justify-content-between align-items-start align-items-md-center w-100">
-                <!-- Name and buttons container -->
+            
                 <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center w-100 ">
 
-                    <!-- monitor Name -->
+                  
                     <div class="mb-2 mb-md-0 mr-md-3">
                         <span class="h4 text-gray-800 font-weight-bold white-color">{{ strtoupper($details->name) }}</span>
                     </div>
 
-                    <!-- Buttons - will wrap under name on small screens -->
+                  
                     @hasanyrole(['user','subuser'])
                         <div class="d-flex flex-wrap flex-md-nowrap">
-                            {{-- edit buttons for monitor --}}
+                         
                             @can('edit.monitor')
                                 <button type="button" class="btn btn-primary mr-2 mb-2" data-toggle="modal" data-target="#editModal"
                                     onclick="setEditUrl({{ $details->id }})">
@@ -65,7 +66,6 @@
                                 </button>
                             @endcan
 
-                            {{-- delete buttons for monitor --}}
                             @can('delete.monitor')
                                 <button type="button" class="btn btn-danger mr-2 mb-2" data-toggle="modal"
                                     data-target="#deleteModal" onclick="setDeleteUrl({{ $details->id }})">
@@ -73,7 +73,6 @@
                                 </button>
                             @endcan
 
-                            {{-- checking the conditions and toggles --}}
                             @if ($details->paused)
                                 <button type="button" class="btn btn-warning mr-2 mb-2"
                                     onclick="pauseMonitor({{ $details->id }}, this)">
@@ -89,7 +88,6 @@
                     @endhasanyrole
                 </div>
 
-                {{-- back button --}}
                 @hasrole('superadmin')
                     <div class="ml-md-auto ">
                         <a href="{{ route('admin.dashboard') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm text-nowrap">
@@ -102,6 +100,10 @@
                         <a href="{{ route('monitoring.dashboard') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm text-nowrap">
                             <i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to Dashboard
                         </a>
+                        {{-- <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-secondary rounded-pill shadow-sm text-nowrap">
+                            <i class="fas fa-arrow-left fa-sm"></i>
+                            <span>Back to Dashboard</span>
+                        </a> --}}
                     </div>
                 @endif
             </div>

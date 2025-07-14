@@ -10,18 +10,16 @@
 
 
 <style>
-    .tippy-box[data-theme~='custom'] {
-        background-color: #0e55e1 !important; 
-        color: #fff; 
-        font-size: 14px; 
-        border-radius: 5px !important; 
-        padding: 7px !important; 
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1) !important; 
-    }
+    .tooltip-inner {
+    background-color: #0e55e1 !important; 
+    color: #ffffff !important;           
+}
 
-    .tippy-box[data-theme~='custom'] .tippy-arrow {
-        color: #0e55e1; 
-    }
+.tooltip.bs-tooltip-top .arrow::before,
+.tooltip.bs-tooltip-auto[x-placement^="top"] .arrow::before {
+    border-top-color: #0e55e1 !important;
+}
+
     .card-counter {
             box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
@@ -187,10 +185,11 @@
                                         <td>{{ $ticket->created_by_user->name}}</td>
                                         <td>{{$ticket->created_at}}</td>
                                         <td>
+
                                             <div class="d-flex align-items-center">
                                                 <div class="position-relative">
                                                     <a href="{{ route('display.tickets.show', $ticket->id) }}" class="text-decoration-none">
-                                                        <i id="myComment" class="far fa-comment-alt" style="color: #0e55e1; font-size: 1.5rem; padding: 8px;"></i>
+                                                        <i id="myComment" class="far fa-comment-alt" style="color: #0e55e1; font-size: 1.5rem; padding: 8px;"  data-toggle="tooltip" data-placement="top" title="View Comment"></i>
                                                         @if ($ticket->unread_comments_count > 0)
                                                             <span class="badge badge-success position-absolute" style="top: 0; right: 0; font-size: 10px; padding: 3px 6px; transform: translate(50%, -50%);">
                                                                 {{ $ticket->unread_comments_count }}
@@ -266,23 +265,11 @@
 
 
 <script>
-    tippy('#myComment', {
-    content: 'View Comment',
-    theme: 'custom', 
-    animation: 'scale', 
-    arrow: true, 
-    placement: 'top', 
-    animation: 'fade',
-    duration: [150, 250]
-});
 
-tippy('#myClosed', {
-    content: 'Closed',
-    theme: 'custom', 
-    animation: 'scale', 
-    arrow: true, 
-    placement: 'top', 
-});
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+
 
 document.addEventListener("DOMContentLoaded", function() {
         @if(session('success'))

@@ -495,7 +495,6 @@
 <script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap4.min.js"></script>
 
 
-
 <script>
     // Initialize animations
     AOS.init({

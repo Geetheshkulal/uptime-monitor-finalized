@@ -767,15 +767,21 @@
                   <i class="fas fa-times-circle" style="color: #ea230d;"></i>  Create and manage team members unavailable
                 </li>
             </ul>
-              @if(auth()->check())
-                <a href="{{ route('monitoring.dashboard') }}" class="btn btn-outline-primary d-block">
-                  Get Started
-                </a>
-              @else
-                <a href="{{ route('login') }}" class="btn btn-outline-primary d-block">
-                  Get Started
-                </a>
-              @endif
+            @if(auth()->check())
+            @hasrole('superadmin')
+              <a href="{{ route('admin.dashboard') }}" class="btn btn-primary d-block">
+                Get Started
+              </a>
+            @else
+            <a href="{{ route('monitoring.dashboard') }}" class="btn btn-outline-primary d-block">
+              Get Started
+            </a>
+            @endhasrole
+          @else
+            <a href="{{ route('login') }}" class="btn btn-outline-primary d-block">
+              Get Started
+            </a>
+          @endif
             </div>
           </div>
         </div>
@@ -801,7 +807,22 @@
                   <i class="fas fa-check-circle" style="color: #065bef;"></i>  Create and manage team members
                 </li>
               </ul>
-              <a href="#" class="btn btn-primary d-block">Get Started</a>
+              {{-- <a href="#" class="btn btn-primary d-block">Get Started</a> --}}
+              @if(auth()->check())
+                @hasrole('superadmin')
+                  <a href="{{ route('admin.dashboard') }}" class="btn btn-primary d-block">
+                    Get Started
+                  </a>
+                @else
+                <a href="{{ route('monitoring.dashboard') }}" class="btn btn-outline-primary d-block">
+                  Get Started
+                </a>
+                @endhasrole
+              @else
+                <a href="{{ route('login') }}" class="btn btn-outline-primary d-block">
+                  Get Started
+                </a>
+              @endif
             </div>
           </div>
         </div>

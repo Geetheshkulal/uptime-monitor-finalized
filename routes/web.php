@@ -185,7 +185,7 @@ Route::group(['middleware' => ['auth', 'blockIp']], function () {
     Route::get('/admin/add/roles', [RoleController::class, 'AddRole'])->middleware(middleware: 'permission:add.role')->name('add.role');
     Route::post('/roles', [RoleController::class, 'StoreRole'])->middleware('permission:add.role')->name('store.role');
 
-    Route::get('/admin/delete/role/{id}', [RoleController::class, 'DeleteRole'])->middleware('permission:delete.role')->name('delete.role');
+    Route::delete('/admin/delete/role/{id}', [RoleController::class, 'DeleteRole'])->middleware('permission:delete.role')->name('delete.role');
     Route::get('/admin/edit/role/{id}', [RoleController::class, 'EditRole'])->middleware('permission:edit.role')->name('edit.role');
     Route::put('/admin/update/role/{id}', [RoleController::class, 'UpdateRole'])->middleware('permission:edit.role')->name('update.role');
 

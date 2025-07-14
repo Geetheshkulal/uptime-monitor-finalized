@@ -9,6 +9,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Intervention\Image\Drivers\Gd\Modifiers\RotateModifier;
 
 class CommentAddMail extends Mailable implements ShouldQueue
 {
@@ -24,16 +25,19 @@ class CommentAddMail extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'You have been assigned a new ticket',
+            subject: 'New Comment Added to Your Ticket',
         );
     }
 
     public function content(): Content
     {
+        $url = route('display.tickets.show', $this->ticket->id);
+
         return new Content(
             view: 'emails.comment-added',
             with: [
                 'ticket' => $this->ticket,
+                'url' => $url,
             ],
         );
     }

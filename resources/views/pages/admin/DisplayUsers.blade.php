@@ -9,6 +9,10 @@
     /* * {
         border-radius: 0 !important;
     } */
+
+    .nav-tabs{
+        border-bottom: none;
+    }
     .form-group {
         margin-bottom: 1rem;
         position: relative;
@@ -224,6 +228,7 @@ function tabHandler() {
                         ordering: true,
                         info: true,
                         responsive: true,
+                        scrollX: false,
                         order: [[0, 'asc']],
                         columnDefs: [{ orderable: false, targets: -1 }]
                     });
@@ -236,6 +241,7 @@ function tabHandler() {
                         ordering: true,
                         info: true,
                         responsive: true,
+                        scrollX: false,
                         order: [[0, 'asc']],
                         columnDefs: [{ orderable: false, targets: -1 }]
                     });
@@ -251,6 +257,7 @@ function tabHandler() {
                         ordering: true,
                         info: true,
                         responsive: true,
+                        scrollX: false,
                         order: [[0, 'asc']],
                         columnDefs: [{ orderable: false, targets: -1 }]
                     });

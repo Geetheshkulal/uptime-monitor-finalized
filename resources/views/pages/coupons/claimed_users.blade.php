@@ -12,7 +12,7 @@
 
     <style>
            * {
-            border-radius: 0 !important;
+            border-radius: 3px !important;
         }
 
         .filter-container {
@@ -31,9 +31,9 @@
 @endpush
 
 <div id="content-wrapper" class="d-flex flex-column">
-    <h2 class="m-3">Users who claimed coupon: {{ $coupon->code }}</h2>
     <div id="content">
         <div class="container-fluid">
+            <h1 class="h3 mb-3 text-gray-800 white-color">Users who claimed coupon: {{ $coupon->code }}</h1>
             <!-- Activity Log Table -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex justify-content-between align-items-center">

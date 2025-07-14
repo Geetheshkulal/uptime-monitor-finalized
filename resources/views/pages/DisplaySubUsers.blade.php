@@ -120,19 +120,16 @@
                                     <td>{{ $user->phone ?? 'N/A' }}</td>
                                     <td>
                                         <div class="btn-group" role="group">
-                                            <a href="{{ route('edit.sub.user.permissions', $user->id) }}" class="btn btn-sm btn-primary" title="View">
-                                                <i class="fas fa-eye"></i>
+                                            <a href="{{ route('edit.sub.user.permissions', $user->id) }}" class="ml-2" title="View">
+                                                <i class="fas fa-eye" style="color: #2c4ee5; cursor: pointer;"></i>
                                             </a>
                                         </div>
                                         <div class="btn-group" role="group">
-                                            <form action="{{ route('delete.sub.user', $user->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this user?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger" title="Delete">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                            </form>
+
+                                            <a href="#" data-toggle="modal" data-target="#deleteSubUserModal{{ $user->id }}" class="ml-2">
+                                                <i class="fas fa-trash" style="color: #e74a3b; cursor: pointer;"></i></a>
                                         </div>
+                                        
                                     </td>
                                 </tr>
                                 @empty
@@ -148,6 +145,37 @@
         </div>
     </div>
 </div>
+
+
+<!-- Delete Coupon Modal -->
+ 
+@foreach ($subUsers as $user)
+<div class="modal fade" id="deleteSubUserModal{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteSubUserModalLabel{{ $user->id }}" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form class="modal-content" method="POST" action="{{ route('delete.sub.user', $user->id) }}">
+            @csrf
+            @method('DELETE')
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteSubUserModalLabel{{ $user->id }}">Delete Sub User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+    
+            <div class="modal-body">
+                <p>Are you sure you want to delete Sub User</p>
+                <p>This action cannot be undone.</p>
+            </div>
+    
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-danger">Delete Sub User</button>
+            </div>
+        </form>
+    </div>
+</div>
+@endforeach
+
 
  <!-- Add User Modal -->
  <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">

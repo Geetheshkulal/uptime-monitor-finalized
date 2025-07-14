@@ -556,7 +556,7 @@
 </div>
 
 <!-- Image Modal -->
-<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="imageModal" tabindex="-1"   role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -645,6 +645,12 @@
         });
 
 
+        // ${comment.user_id == {{ auth()->id() }} ? `
+        //   <div class="ml-auto">
+        //   <button class="btn btn-sm btn-outline delete-comment-btn"><i class="fas fa-trash"></i></button>
+        //   </div>` : ''}
+
+
         // Function to fetch and update comments
         function fetchComments() {
             $.ajax({
@@ -675,16 +681,13 @@
                                 const commentHtml = `
                                     <div class="timeline-item comment-item" data-comment-id="${comment.id}">
                                         <div class="comment">
-                                            <div class="comment-header">
-                                                <img src="${comment.user.avatar_url}" class="comment-avatar" alt="${comment.user.name}">
-                                                <span class="comment-author">${comment.user.name}${comment.user.roles.map(role => role.name).includes('support')?'(Support)':''}</span>
-                                                <span class="comment-meta">commented on ${formattedDate}</span>
-                                                ${comment.user_id == {{ auth()->id() }} ? `
-                                                    <div class="ml-auto">
-                                                        <button class="btn btn-sm btn-outline delete-comment-btn"><i class="fas fa-trash"></i></button>
-                                                    </div>` : ''}
+                                            <div class="comment-header white-color">
+                                                <img src="${comment.user.avatar_url}" class="comment-avatar white-color" alt="${comment.user.name}">
+                                                <span class="comment-author white-color">${comment.user.name}${comment.user.roles.map(role => role.name).includes('support')?'(Support)':''}</span>
+                                                <span class="comment-meta white-color">commented on ${formattedDate}</span>
+                                              
                                             </div>
-                                            <div class="comment-body markdown-body">
+                                            <div class="comment-body markdown-body white-color">
                                                 ${comment.comment_message}
                                             </div>
                                         </div>
@@ -712,7 +715,7 @@
         }
 
         // Initialize comment fetching every 3 seconds
-        setInterval(fetchComments, 3000);
+        setInterval(fetchComments, 1000);
 
         // AJAX form submission for comments
         $('#ticketForm').on('submit', function(event) {
