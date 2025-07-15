@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Mail\TicketClosedMail;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -81,6 +82,7 @@ class TicketController extends Controller
 
 
         $previousAssignedUserId = $ticket->assigned_user_id;
+        $previousStatus = $ticket->status;
 
         $ticket->update([
             'title' => $request->title,
@@ -90,6 +92,10 @@ class TicketController extends Controller
             'assigned_user_id' => $request->assigned_user_id, // Update assigned user
         ]);
 
+        if($previousStatus !== 'closed' && $request->status === 'closed') {
+            Mail::to($ticket->user->email)->queue(new TicketClosedMail($ticket));
+        }
+        
         // Send email if the assigned user has changed
         if ($previousAssignedUserId !== $request->assigned_user_id && $request->assigned_user_id) {
             $assignedUser = User::find($request->assigned_user_id);
@@ -268,7 +274,7 @@ class TicketController extends Controller
             'priority' => $request->priority,
             'created_by'=>auth()->id(),
             'attachments' => $attachmentPaths,
-            'user_id' => $request->forUser??auth()->id(), // If you have user association
+            'user_id' => $request->forUser??auth()->id(), 
         ]);
 
     

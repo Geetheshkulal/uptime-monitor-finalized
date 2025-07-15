@@ -61,7 +61,7 @@ class MonitoringController extends Controller
     //       $monitors = $monitors->take(5);
     //   }
   
-        $monitors = $user->status === 'free' ? $monitorsQuery->take(5)->get() : $monitorsQuery->get();
+        $monitors = $monitorsQuery->get();
 
       //Get Metrics for dashboard.
       $upCount = $monitors->where('status', 'up')->where('paused',0)->count();

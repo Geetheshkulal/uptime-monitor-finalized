@@ -459,12 +459,13 @@
     </div>
 </div>
 
+
 <!-- Edit Ticket Modal -->
 <div class="modal fade @if(session()->has('errors')) show @endif" id="editTicketModal" tabindex="-1" role="dialog" aria-labelledby="editTicketModalLabel" aria-hidden="true" @if(session()->has('errors')) style="display: block;" @endif>
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header bg-primary text-white">
-                <h5 class="modal-title" id="editTicketModalLabel">Edit Ticket #{{ $ticket->id }}</h5>
+                <h5 class="modal-title" id="editTicketModalLabel">Edit Ticket # {{ $ticket->ticket_id }}</h5>
                 <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

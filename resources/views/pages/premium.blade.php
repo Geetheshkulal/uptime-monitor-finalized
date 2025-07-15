@@ -295,6 +295,12 @@
         }
     }
 
+    .btn-close:focus {
+    box-shadow: none;
+    outline: none;
+    border: none;
+}
+
 /* .card-horizontal-layout {
     display: flex;
     flex-direction: row; 
@@ -444,7 +450,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <input type="text" name="coupon_code" class="form-control" placeholder="Enter code" required>
+                    <input type="text" name="coupon_code" class="form-control white-color" placeholder="Enter code" required>
                     <div id="couponMessage" class="text-danger mt-2"></div>
                 </div>
                 <div class="modal-footer">

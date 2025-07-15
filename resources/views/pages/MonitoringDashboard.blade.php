@@ -56,12 +56,14 @@
             align-items: center;       /* vertically center */
             justify-content: center;  /* horizontally center */ 
             align-items: center;
-            padding: 0.35rem 0.65rem;
             border-radius: 0.35rem;
             font-size: 0.75rem;
-            font-weight: 600;
             text-transform: capitalize;
+            padding: 4px 35px;
+
+            font-weight: 600 ;
         }
+       
 
         .badge-up {
             background-color: rgba(28, 200, 138, 0.1);
@@ -76,7 +78,19 @@
         .badge-paused {
             background-color: rgba(230, 0, 255, 0.1);
             color: var(--info);
+            
         }
+
+        .dark-mode .badge-paused {
+        background-color: rgba(199, 146, 234, 0.15);
+        color: #d6bcfa; 
+}
+
+.badge-paused i.fa-crown {
+    color: gold;
+    margin-left: 4px;
+}
+
         .badge-loading{
             background-color: rgba(255, 226, 80, 0.268);
             color: var(--warning);
@@ -265,8 +279,11 @@
                 <h1 class="h3 mb-0 text-gray-800 font-300 white-color">Overview</h1>
                 
                 @if($totalMonitors>=5 && auth()->user()->status=='free')
-                <a class="btn btn-primary AddMonitor custom-gold" style="color:yellow;" href="{{ route('premium.page') }}">
+                {{-- <a class="btn btn-primary AddMonitor custom-gold" style="color:yellow;" href="{{ route('premium.page') }}">
                     <i class="fas fa-crown fa-sm mr-2"></i>Upgrade Plan
+                </a> --}}
+                <a class="btn btn-primary AddMonitor" href="{{ route('premium.page') }}">
+                    <i class="fas fa-plus fa-sm"></i> Add Monitor
                 </a>
                 @else
                     @can('add.monitor')
@@ -363,7 +380,7 @@
                             </div>
                             <div class="text-center text-md-left mb-3 mb-md-0">
                                 <h4 class="mb-1" style="color:yellow;">Upgrade to Premium</h4>
-                                <p class="mb-0">You have more than 5 monitors. Some are hidden. Upgrade to Premium to view all</p>
+                                <p class="mb-0">Some of your monitors are paused due to plan limits. Upgrade to Premium to activate all monitors.</p>
                             </div>
                             {{-- <div class="mt-md-0 mt-2 ml-md-auto">
                                 <a href="{{ route('premium.page') }}" class="btn btn-primary AddMonitor" style="color:yellow;">
@@ -422,9 +439,12 @@
                                         </td>
                                         <td>{{ ucfirst($monitor->type) }}{{ $monitor->type === 'port' ? ':'.$monitor->port : '' }}</td>
                                         <td>
-                                            @if ($monitor->paused == 1)
+                                            @if ($monitor->paused == 1 || $monitor->pause_on_expire == 1)
                                             <span class="status-badge badge-paused">
                                                 Paused
+                                                @if($monitor->pause_on_expire == 1)
+                                                <i class="fas fa-crown text-warning ml-1" title="Paused on Expiry"></i>
+                                                @endif
                                             </span>
                                             @elseif ($monitor->status === 'up')
                                             <span class="status-badge badge-up">

@@ -346,11 +346,11 @@ class MonitorJob
             $results = $webPush->flush();
             foreach ($results as $report) {
                 if (!$report->isSuccess()) {
-                    Log::error("PWA notification failed for user {$userId}: " . $report->getReason());
+                    // Log::error("PWA notification failed for user {$userId}: " . $report->getReason());
                 }
             }
         } catch (\Exception $e) {
-            Log::error("PWA notification error for user {$userId}: " . $e->getMessage());
+            // Log::error("PWA notification error for user {$userId}: " . $e->getMessage());
         }
     }
 
@@ -377,7 +377,7 @@ class MonitorJob
                     $status = 'up';
                 } else {
                     $status = 'down';
-                    Log::warning("HTTP Monitor {$monitor->id} returned non-success status: {$statusCode}");
+                    // Log::warning("HTTP Monitor {$monitor->id} returned non-success status: {$statusCode}");
                 }
 
                 break; // Exit retry loop on success
@@ -388,7 +388,7 @@ class MonitorJob
 
                 // Handle specific HTTP errors
                 if ($statusCode === 403) {
-                    Log::warning("HTTP Monitor {$monitor->id} returned 403 (Forbidden).");
+                    // Log::warning("HTTP Monitor {$monitor->id} returned 403 (Forbidden).");
                 }
             } catch (\Exception $e) {
                 // Log::error("General HTTP Exception (Monitor ID: {$monitor->id}): " . $e->getMessage());
@@ -428,7 +428,7 @@ class MonitorJob
         try {
             $this->sendAlert($monitor, $status);
         } catch (\Exception $e) {
-            Log::error('' . $e->getMessage());
+            // Log::error('' . $e->getMessage());
         }
     }
 
@@ -460,7 +460,7 @@ class MonitorJob
                     break; // Exit retry loop if records are found
                 }
             } catch (\Exception $e) {
-                Log::error("DNS check failed for {$monitor->url}: " . $e->getMessage());
+                // Log::error("DNS check failed for {$monitor->url}: " . $e->getMessage());
                 break; // Exit on failure
             }
 
@@ -504,12 +504,12 @@ class MonitorJob
         $retries = $monitor->retries ?? 3; 
         $timeout = 5; 
 
-        Log::info("Checking port {$monitor->port} on {$monitor->host} with {$retries} retries.");
+        // Log::info("Checking port {$monitor->port} on {$monitor->url} with {$retries} retries.");
 
         while ($attempt < $retries) {
             try {
                 // Attempt to open the socket connection
-                $connection = @fsockopen($monitor->host, $monitor->port, $errno, $errstr, $timeout);
+                $connection = @fsockopen($monitor->url, $monitor->port, $errno, $errstr, $timeout);
 
                 if ($connection) {
                     // Set a timeout for the socket
@@ -521,7 +521,7 @@ class MonitorJob
                     fclose($connection);
                     break;
                 } else {
-                    Log::warning("Port check attempt $attempt failed: {$monitor->host}:{$monitor->port} - Error: $errstr ($errno)");
+                    Log::warning("Port check attempt $attempt failed: {$monitor->url}:{$monitor->port} - Error: $errstr ($errno)");
                 }
             } catch (\Exception $e) {
                 Log::error("Exception during port check attempt $attempt: " . $e->getMessage());
@@ -606,7 +606,7 @@ class MonitorJob
 
             return $status === 'up';
         } catch (\Exception $e) {
-            Log::error('Error occurreed: ' . $e);
+            // Log::error('Error occurreed: ' . $e);
             return false;
         }
     }
@@ -677,7 +677,7 @@ class MonitorJob
                     ->send(new FollowUpMail($notification->monitor));
                 $notification->follow_up_sent = true;
                 $notification->save();
-                Log::info("Follow-up email sent to: {$notification->monitor->email}");
+                // Log::info("Follow-up email sent to: {$notification->monitor->email}");
             }
 
             // ✅ PWA Notification logic
@@ -694,7 +694,7 @@ class MonitorJob
                     );
                     $notification->last_notified_at = now();
                     $notification->save();
-                    Log::info("PWA Notification Triggered for monitor ID {$notification->monitor_id}");
+                    // Log::info("PWA Notification Triggered for monitor ID {$notification->monitor_id}");
                 } else {
                     // Log::info("Skipped PWA Notification (waiting period) for monitor ID {$notification->monitor_id}");
                 }
@@ -770,7 +770,7 @@ class MonitorJob
                 ->get();
 
 
-            Log::info('number of monitors:' . $monitors->count());
+            // Log::info('number of monitors:' . $monitors->count());
 
             foreach ($monitors as $monitor) {
                 switch ($monitor->type) {

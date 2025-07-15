@@ -264,7 +264,7 @@ html.dark-mode #sslChecksTable.table-bordered {
 
 html.dark-mode .card {
     background-color: #1e1e2f !important;
-    border: none !important;
+    /* border: none !important; */
 }
 html.dark-mode #historyDropdownBtn{
       color: #e0e0e0 !important;
@@ -310,7 +310,7 @@ html.dark-mode .status-indicator-paused {
 
 html.dark-mode .status-badge {
     border-radius: 0.375rem !important;
-    padding: 0.25rem 0.5rem !important;
+    padding: 4px 35px !important;
     font-weight: 600 !important;
 }
 
@@ -372,7 +372,7 @@ html.dark-mode .stat-value {
 
 html.dark-mode .card {
     background-color: #1a1a27 !important;
-    border: none !important;
+    border: none;
 }
 
 html.dark-mode .card-header {
@@ -468,6 +468,15 @@ html.dark-mode .modal-header .close {
     color: #ffffff;
 }
 
+.dark-mode input::placeholder {
+    color: #ffffff !important;
+    opacity: 0.7;
+}
+
+.dark-mode .btn-close {
+    filter: invert(1); /* makes close button white */
+    border: none;
+}
 .dark-mode .form-control {
     background-color: #3a3a3a;
     border-color: #555;
