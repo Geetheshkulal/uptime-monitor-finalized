@@ -467,7 +467,7 @@
                     <span>Raise Issue</span>
                     @if($unreadComments > 0)
                         <span class="badge badge-success ml-2" style="font-size: 10px; padding: 2px 5px;">comments {{$unreadComments}}</span>
-                        @endif
+                    @endif
                 </a>
             </li>
         @endhasrole

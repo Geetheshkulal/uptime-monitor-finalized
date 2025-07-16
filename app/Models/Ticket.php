@@ -28,6 +28,7 @@ class Ticket extends Model
     public function comments(){
         return $this->hasMany(Comment::class);
     }  
+    
     public function created_by_user(){
         return $this->belongsTo(User::class,'created_by');
     }
