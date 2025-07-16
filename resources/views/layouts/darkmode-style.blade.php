@@ -453,6 +453,10 @@ html.dark-mode .text-primary {
     background-color: #3a3a3a !important;
     color: #777 !important;
 }
+.dark-mode .pricing-card .btn-disabled{
+    background-color: #0d6efd !important;
+    color: #ffffff !important;
+}
 
 .dark-mode .modal-content {
     background-color: #2d2d2d;

@@ -192,7 +192,7 @@ html, body {
         @endif
     </div>
 
-    @if ($canCreateTicket)
+    
         <!-- Show the form for users who can create tickets OR superadmins -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -291,8 +291,8 @@ html, body {
             </form>
         </div>
     </div>
-    @else 
-        <div class="card shadow mb-4">
+
+        {{-- <div class="card shadow mb-4">
             <div class="card-body text-center py-5">
                 <i class="fas fa-exclamation-circle fa-3x text-warning mb-3"></i>
                 <h4>You cannot create a new ticket</h4>
@@ -301,8 +301,8 @@ html, body {
                     <i class="fas fa-ticket-alt mr-2"></i> View My Tickets
                 </a>
             </div>
-        </div>
-    @endif
+        </div> --}}
+
 </div>
 
 @push('scripts')

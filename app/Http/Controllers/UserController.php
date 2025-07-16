@@ -383,21 +383,31 @@ class UserController extends Controller
     {
         $request->validate([
             // Billing info validation
-            'address' => [ 'string', 'max:255'],
-            'city' => [ 'string', 'max:100'],
-            'state' => [ 'string', 'max:100'],
-            'pincode' => [ 'string', 'max:20'],
-            'country' => [ 'string', 'max:100'],
+            'address_1' => ['required', 'string', 'max:255'],
+            'address_2' => ['nullable', 'string', 'max:255'],
+            'place'     => ['required', 'string', 'max:100'],
+            'district'  => ['required', 'string', 'max:100'],
+            'state'     => ['required', 'string', 'max:100'],
+            'pincode' => ['required', 'digits:6'],
+            'country'   => ['required', 'string', 'max:100'],
+            'gstin'     => ['nullable', 'string', 'max:25'],
+        ],
+        [
+            'pincode.digits' => 'The pincode must be exactly 6 digits.',
+            'pincode.required' => 'The pincode field is required.',
         ]);
 
         $user = auth()->user();
 
         $user->update([
-            'address' => $request->address,
-            'city' => $request->city,
-            'state' => $request->state,
-            'pincode' => $request->pincode,
-            'country' => $request->country,
+            'address_1' => $request->address_1,
+            'address_2' => $request->address_2,
+            'place'      => $request->place,
+            'district'  => $request->district,
+            'state'     => $request->state,
+            'pincode'   => $request->pincode,
+            'country'   => $request->country,
+            'gstin'     => $request->gstin,
         ]);
 
         return redirect()->back()->with('success', 'Billing info updated successfully!');

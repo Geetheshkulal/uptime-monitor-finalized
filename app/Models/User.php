@@ -45,11 +45,14 @@ class User extends Authenticatable implements MustVerifyEmail
         'parent_user_id',
         'status_page_hash',
         'enable_public_status',       
-        'address',        
-        'city', 
+        'address_1',
+        'address_2',
+        'district',        
+        'place', 
         'state', 
         'pincode', 
         'country',
+        'gstin',
     ];
 
     /**

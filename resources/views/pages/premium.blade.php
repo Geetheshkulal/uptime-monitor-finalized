@@ -324,6 +324,7 @@
     margin-top: 20px;
 }
      }
+
 </style>
 @endpush
 
@@ -338,6 +339,7 @@
             @else
                 <i class="fas fa-tag me-2"></i>Apply Coupon
             @endif
+
         </button>
     </div>
     
@@ -643,10 +645,16 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const user = @json($user);
 
-            if(user.address===null||user.city===null||user.state===null||user.pincode===null||user.country===null){
+            if(user.address_1===null||user.place===null||user.state===null||user.pincode===null||user.country===null){
                 toastr.warning('You must fill the billing details in your profile section first');
+
+                setTimeout(() => {
+                    window.location.href = "{{ route('profile.update') }}?tab=billing";
+                }, 2000);
+
                 return false;
             }
+
             const paymentWindow = window.open('', 'paymentWindow', 'width=600,height=800');
             
             fetch(form.action, {

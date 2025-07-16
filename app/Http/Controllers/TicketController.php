@@ -197,13 +197,13 @@ class TicketController extends Controller
         
         
         // Check if user has any open/on-hold tickets
-        $existingTickets = Ticket::where('user_id', $user->id)
-                                ->whereIn('status', ['open', 'on hold'])
-                                ->exists();
+        // $existingTickets = Ticket::where('user_id', $user->id)
+        //                         ->whereIn('status', ['open', 'on hold'])
+        //                         ->exists();
 
         return view('pages.tickets.AddTickets', 
             [
-                'canCreateTicket' => !$existingTickets,
+                // 'canCreateTicket' => !$existingTickets,
                 'allUsers'=>$allUsers
             ]
         );

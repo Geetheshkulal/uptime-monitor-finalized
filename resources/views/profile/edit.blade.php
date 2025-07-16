@@ -77,7 +77,7 @@ body.dark-mode .responsive-tabs .nav-link.active {
             
             <div class="d-flex align-items-center mb-3">
             <h6 class="mb-1 text-gray-800 white-color">Last login IP address : </h6>
-            <p class="mb-0 text-gray-900 white-color">{{ $user->last_login_ip }}</p>
+            <p class="mb-0 text-gray-900 white-color"> {{ $user->last_login_ip }} </p>
             </div>
 
             <div x-data="{
@@ -123,7 +123,7 @@ body.dark-mode .responsive-tabs .nav-link.active {
                     @include('profile.partials.update-password-form')
                 </div>
                 @hasrole('user')
-                    <div  x-show="tab === 'billing'" class="mt-4">
+                    <div  x-show="tab === 'billing'" class="mt-4" x-init="initPincodeScript()" >
                         @include('profile.partials.billing-details-form')   
                     </div>
                 @endhasrole

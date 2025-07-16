@@ -172,6 +172,11 @@
                                     @else
                                         {{ $details->status }}
                                     @endif --}}
+                                    <div id="statusLoading">
+                                    {{-- <div class="spinner-border spinner-border-sm text-primary" role="status"> --}}
+                                        <span class="visually-hidden">Loading...</span>
+                                    {{-- </div> --}}
+                                </div>
 
                                 </div>
                             </div>
@@ -419,6 +424,7 @@
         initializeCurrentResponse();
 
               setInterval(function() {
+                
                 if(!isPaused) {
                     $.ajax({
                         url: "{{ route('display.chart.update', [$details->id, $details->type]) }}",
@@ -490,6 +496,14 @@
             let isPaused = false;
 
             function pauseMonitor(monitorId, button) {
+
+                const statusElement = document.getElementById('statusElement');
+                    if (statusElement) {
+                        statusElement.innerHTML = `
+                                <span class="visually-hidden">Loading...</span>
+                        `;
+                  }
+
                 // Send AJAX request to toggle pause/resume
                 fetch(`/monitor/pause/${monitorId}`, {
                         method: 'POST',
@@ -501,7 +515,7 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            // Update button classes and icon
+                        
                             button.innerHTML = data.paused ?
                                 '<i class="fas fa-play fa-1x"></i> Resume' :
                                 '<i class="fas fa-pause fa-1x"></i> Pause';
@@ -510,14 +524,13 @@
                             button.classList.toggle('btn-success', !data.paused);
                             button.classList.toggle('btn-warning', data.paused);
 
-                            // Update the "Current Status" dynamically
                     const statusElement = document.getElementById('statusElement');
                     if (statusElement) {
                         statusElement.textContent = data.paused ? 'Paused' : data.status;
                     }
 
                         isPaused=data.paused;
-                            // Show success message
+                         
                             toastr.success(data.message);
                         } else {
                             toastr.error('Failed to update monitor status.');
