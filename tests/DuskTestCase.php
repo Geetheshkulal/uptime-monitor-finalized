@@ -1,6 +1,74 @@
 <?php
 
 
+namespace Tests;
+
+use Facebook\WebDriver\Chrome\ChromeOptions;
+use Facebook\WebDriver\Remote\DesiredCapabilities;
+use Facebook\WebDriver\Remote\RemoteWebDriver;
+use Illuminate\Support\Collection;
+use Laravel\Dusk\TestCase as BaseTestCase;
+use PHPUnit\Framework\Attributes\BeforeClass;
+
+abstract class DuskTestCase extends BaseTestCase
+{
+    use CreatesApplication;
+
+    #[BeforeClass]
+    public static function prepare(): void
+    {
+        if (! static::runningInSail()) {
+            static::startChromeDriver(['--port=9515']);
+        }
+    }
+
+    protected function driver(): RemoteWebDriver
+    {
+        $userDataDir = base_path('storage/whatsapp-session');
+
+        $options = (new ChromeOptions)
+            ->setBinary(env('CHROMIUM_BINARY'))
+            ->addArguments([
+                // '--start-maximized',
+                // '--disable-search-engine-choice-screen',
+                // '--disable-smooth-scrolling',
+                // '--user-data-dir=' . $userDataDir,
+                // '--profile-directory=Default',
+                // '--headless=new',
+
+                '--headless=new',
+                '--disable-gpu',
+                '--window-size=1920,1080',
+                '--no-sandbox',
+                '--disable-dev-shm-usage',
+                '--user-data-dir=' . $userDataDir,
+                '--use-gl=angle',
+                '--enable-webgl',
+                '--use-angle=swiftshader',
+                '--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+
+    ]);
+
+    return RemoteWebDriver::create(
+        env('DUSK_DRIVER_URL', 'http://localhost:9515'),
+        DesiredCapabilities::chrome()->setCapability(
+            ChromeOptions::CAPABILITY, $options
+        )
+    );
+    
+}
+
+        protected function tearDown(): void
+        {
+                // Do not close the browser
+                // parent::tearDown(); ← COMMENT or REMOVE this
+        }
+}
+
+
+
+
+
 // namespace Tests;
 
 // use Facebook\WebDriver\Chrome\ChromeOptions;
@@ -58,58 +126,4 @@
 //     }
 // }
   
-
-
-namespace Tests;
-
-use Facebook\WebDriver\Chrome\ChromeOptions;
-use Facebook\WebDriver\Remote\DesiredCapabilities;
-use Facebook\WebDriver\Remote\RemoteWebDriver;
-use Illuminate\Support\Collection;
-use Laravel\Dusk\TestCase as BaseTestCase;
-use PHPUnit\Framework\Attributes\BeforeClass;
-
-abstract class DuskTestCase extends BaseTestCase
-{
-    use CreatesApplication;
-
-    #[BeforeClass]
-    public static function prepare(): void
-    {
-        if (! static::runningInSail()) {
-            static::startChromeDriver(['--port=9515']);
-        }
-    }
-
-    protected function driver(): RemoteWebDriver
-    {
-        $userDataDir = base_path('storage/whatsapp-session');
-
-        $options = (new ChromeOptions)->addArguments([
-            '--start-maximized',
-            '--disable-search-engine-choice-screen',
-            '--disable-smooth-scrolling',
-            '--user-data-dir=' . $userDataDir,
-            '--profile-directory=Default',
-            '--headless=new',
-    ]);
-
-    return RemoteWebDriver::create(
-        env('DUSK_DRIVER_URL', 'http://localhost:9515'),
-        DesiredCapabilities::chrome()->setCapability(
-            ChromeOptions::CAPABILITY, $options
-        )
-    );
-    
-}
-
-        protected function tearDown(): void
-        {
-                // Do not close the browser
-                // parent::tearDown(); ← COMMENT or REMOVE this
-        }
-}
-
-
-
 
