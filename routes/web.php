@@ -179,6 +179,7 @@ Route::group(['middleware' => ['auth', 'blockIp']], function () {
     Route::post('/admin/add/users', [UserController::class, 'storeUser'])->middleware('permission:add.user')->name('add.user');
     Route::get('/admin/edit/user/{id}', [UserController::class, 'EditUsers'])->middleware('permission:edit.user')->name('edit.user');
     Route::put('/admin/edit/user/{id}', [UserController::class, 'UpdateUsers'])->middleware('permission:edit.user')->name('update.user');
+    Route::put('/admin/edit/userStatus/{id}', [UserController::class, 'UpdateStatusUsers'])->middleware('permission:edit.user')->name('update.status.user');
     Route::delete('/admin/delete/user/{id}', [UserController::class, 'DeleteUser'])->middleware('permission:delete.user')->name('delete.user');
     Route::post('/admin/restore/user/{id}', [UserController::class, 'RestoreUser'])->name('restore.user');
 

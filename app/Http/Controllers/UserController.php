@@ -148,13 +148,17 @@ class UserController extends Controller
                 'email' => $user->email,
                 'phone' => $user->phone,
                 'role' => $user->roles->pluck('name')->first() ?? 'none',
+                'status' => $user->status,
+                'premium_end_date' => $user->premium_end_date ? $user->premium_end_date->format('Y-m-d') : null
             ];
 
             $validated = $request->validate([
                 'name' => 'required|string|max:255',
                 'email' => 'required|email|unique:users,email,'.$user->id,
                 'phone' => 'nullable|string|max:20|unique:users,phone',
-                'role' => 'required|exists:roles,id'
+                'role' => 'required|exists:roles,id',
+                'status' => 'nullable|in:free,free_trial,paid',
+                'premium_end_date' => 'nullable|date|after_or_equal:today'
             ]);
         
             try {
@@ -162,7 +166,9 @@ class UserController extends Controller
                 $user->update([
                     'name' => $validated['name'],
                     'email' => strtolower($request->email),
-                    'phone' => $validated['phone']
+                    'phone' => $validated['phone'],
+                    'status' => $request->status ?? $user->status,
+                    'premium_end_date' => $request->premium_end_date ?? $user->premium_end_date,
                 ]);
         
                 // Update role
@@ -174,6 +180,8 @@ class UserController extends Controller
                     'email' => $user->email,
                     'phone' => $user->phone,
                     'role' => $role->name,
+                    'status' => $user->status,
+                    'premium_end_date' => $user->premium_end_date ? $user->premium_end_date->format('Y-m-d') : null
                 ];
 
                 activity()
@@ -196,6 +204,59 @@ class UserController extends Controller
                 return back()->with('error', 'Error updating user: '.$e->getMessage());
             }
         }
+
+       
+        public function  UpdateStatusUsers(Request $request, $id)
+        {
+            $user = User::findOrFail($id);
+
+            $oldValues = [
+                'status' => $user->status,
+                'premium_end_date' => $user->premium_end_date ? $user->premium_end_date : null
+            ];
+
+            $validated = $request->validate([
+                'status' => 'nullable|in:free,free_trial,paid',
+                'premium_end_date' => 'nullable|date|after_or_equal:today'
+            ]);
+        
+            try {
+
+                $newStatus = $request->status ?? $user->status;
+
+                $premiumEndDate = in_array($newStatus, ['free','free_trial']) ? null : $request->premium_end_date;
+                // Update basic user info
+                $user->update([
+                    'status' => $newStatus,
+                    'premium_end_date' => $premiumEndDate,
+                ]);
+        
+                $newValues = [
+                    'status' => $newStatus,
+                    'premium_end_date' => $premiumEndDate,
+                ];
+
+                activity()
+                ->causedBy(auth()->user()) 
+                ->performedOn($user)       
+                ->inLog('user_update')
+                ->event('user updated')
+                ->withProperties([
+                    'edited_by' => auth()->user()->name,
+                    'edited_by_email'=>auth()->user()->email,
+                    'old' => $oldValues,
+                    'new' => $newValues,
+                ])
+                ->log('User status details updated');
+        
+                return redirect()->route('display.users', $user->id)
+                    ->with('success', 'User updated successfully!');
+                    
+            } catch (\Exception $e) {
+                return back()->with('error', 'Error updating user: '.$e->getMessage());
+            }
+        }
+
 
         //Disable (soft delete) a particular user
         public function DeleteUser($id)
