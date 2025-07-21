@@ -521,10 +521,10 @@ class MonitorJob
                     fclose($connection);
                     break;
                 } else {
-                    Log::warning("Port check attempt $attempt failed: {$monitor->url}:{$monitor->port} - Error: $errstr ($errno)");
+                    // Log::warning("Port check attempt $attempt failed: {$monitor->url}:{$monitor->port} - Error: $errstr ($errno)");
                 }
             } catch (\Exception $e) {
-                Log::error("Exception during port check attempt $attempt: " . $e->getMessage());
+                // Log::error("Exception during port check attempt $attempt: " . $e->getMessage());
             }
 
             $attempt++;

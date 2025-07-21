@@ -23,6 +23,7 @@
     min-height: 100vh; 
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 #content {
@@ -160,12 +161,51 @@
 }
 
 }
+
+
+.blur-content {
+    filter: blur(3px);
+    opacity: 0.8;
+    pointer-events: none; 
+    user-select: none; 
+}
+
+
+.premium-modal {
+    position: fixed;
+    top: 76%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    z-index: 1050;
+    width: 400px;
+    max-width: 90%;
+}
+
+.modal-content {
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+
+    
+    .text-gold {
+        color: #ffc107;
+    }
+    
+    .btn-gold {
+        background-color: #ffc107;
+        color: #000;
+    }
+
 </style>
 @endpush
 </head>
 
+@if(session('showPremiumModal'))
+<div class="container blur-content" style="margin-bottom: 138px;">
+@else
 <div class="container" style="margin-bottom: 138px;">
-    
+@endif
     <div class="row justify-content-center ">
         <div class="col-lg-6 col-md-8 ">
             <div class="card shadow-lg border-0 rounded-4">
@@ -284,13 +324,38 @@
     </div>
     </div>
 
-</div>
+</div> 
 
+
+@if(session('showPremiumModal'))
+
+<div class="blur-overlay"></div>
+   
+<div class="modal premium-modal show" tabindex="-1" role="dialog" style="display: block;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-gold">Premium Feature</h5>
+            </div>
+            <div class="modal-body">
+                <p>SSL Check is a premium feature. Upgrade your plan to access this tool.</p>
+                <div class="text-center mb-3">
+                    <i class="fas fa-lock fa-3x text-gold"></i>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="window.history.back()">Close</button>
+                <a href="{{ route('premium.page') }}" class="btn btn-gold">
+                    <i class="fas fa-crown"></i> Upgrade Plan
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
 
 
     
-
-
 @push('scripts')
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -301,6 +366,9 @@
 
 <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap4.min.js"></script>
+
+
+
 
 <script>
     $(document).ready(function() {
@@ -327,7 +395,7 @@
         toastr.error("{{ Session::get('error') }}");
     @endif
 </script>
-@endpush
+
 
 
 <script>
@@ -509,6 +577,6 @@
         }
     });
 </script>
-
+@endpush
 
 @endsection

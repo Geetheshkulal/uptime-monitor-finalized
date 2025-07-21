@@ -42,8 +42,8 @@
 
     <!-- Skeleton Loader Styles -->
     <style>
-        *:not(.status-dot):not(.status-badge, .status-indicator, .bar-segment, .badge, .whatsapp-bubble, .telegram-bubble):not(#login-spinner):not(#profile-photo):not(.icon-circle) {
-            border-radius: 3px !important;
+        *:not(.status-dot):not(.status-badge, .status-indicator, .bar-segment, .badge, .whatsapp-bubble, .telegram-bubble):not(#profile-photo) {
+            border-radius: 3px;
         }
 
 

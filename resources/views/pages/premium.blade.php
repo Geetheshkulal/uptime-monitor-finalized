@@ -7,25 +7,44 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
+
 <style>
     :root {
-        --primary: #3498db;
-        --secondary: #2c3e50;
-        --warning: #f39c12;
-        --success: #28a745;
-        --danger: #e74c3c;
-        --light: #f8f9fa;
-        --dark: #343a40;
-    }
+    /* Colors */
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --secondary: #8b5cf6;
+    --accent: #ec4899;
+    --text-dark: #1f2937;
+    --text-light: #4b5563;
+    --bg-light: #f8f9fa;
+    --white: #ffffff;
+    --black: #000000;
     
-    body {
-        background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
-        color: #333;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        line-height: 1.6;
-    }
+    /* Shadows */
+    --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.3);
     
-    .upgrade-container {
+    /* Transitions */
+    --transition: all 0.3s ease;
+    --transition-slow: all 0.5s ease;
+    
+    /* Border Radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+}
+
+.upgrade-container {
         max-width: 1200px;
         margin: -3rem auto;
         padding: 2rem 1rem;
@@ -62,170 +81,11 @@
         max-width: 600px;
         margin: 0 auto;
     }
-    
-    .pricing-cards {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 2rem;
-        perspective: 1000px;
-        position: relative;
-        margin-bottom: 53px;
-    }
-    
-    .pricing-card {
-        background: white;
-        border-radius: 12px !important;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-        width: 100%;
-        max-width: 500px;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-        border: none;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    
-    .pricing-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
-    }
-    
-    .pricing-card.basic {
-        border-top: 4px solid var(--primary);
-    }
-    
-    .pricing-card.premium {
-        border-top: 4px solid var(--warning);
-    }
-    
-    .card-badge {
-        position: absolute;
-        top: 26px;
-        right: -39px;
-        width: 163px;
-        padding: 5px 0;
-        background: var(--primary);
-        color: white;
-        text-align: center;
-        transform: rotate(45deg);
-        font-size: 0.8rem;
-        font-weight: bold;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-    
-    .card-header {
-        padding: 1.5rem;
-        text-align: center;
-        background: transparent;
-    }
-    
-    .card-header h5 {
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-    }
-    
-    .basic .card-header h5 {
-        color: var(--primary);
-    }
-    
-    .premium .card-header h5 {
-        color: var(--warning);
-    }
-    
-    .price {
-        font-size: 2.5rem;
-        font-weight: 700;
-        margin: 1rem 0;
-    }
-    
-    .basic .price {
-        color: var(--primary);
-    }
-    
-    .premium .price {
-        color: var(--warning);
-    }
-    
-    .price small {
-        font-size: 1rem;
-        font-weight: normal;
-        color: #6c757d;
-    }
-    
-    .price del {
-        font-size: 1.5rem;
-        color: #6c757d;
-        margin-right: 0.5rem;
-    }
-    
-    .card-body {
-        padding: 1.5rem;
-    }
-    
-    .features-list {
-        list-style: none;
-        padding: 0;
-        margin-bottom: 2rem;
-    }
-    
-    .features-list li {
-        padding: 0.25rem 0;
-        display: flex;
-        align-items: flex-start;
-    }
-    
-    .features-list i {
-        margin-right: 0.75rem;
-        margin-top: 3px;
-    }
-    
-    .text-success {
-        color: var(--success);
-    }
-    
-    .text-danger {
-        color: var(--danger);
-    }
-    
-    .btn {
-        border-radius: 6px !important;
-        padding: 0.75rem 1.5rem;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        border: none;
-    }
-    
-    .btn-primary {
-        background: var(--primary);
-    }
-    
-    .btn-primary:hover {
-        background: #2980b9;
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(41, 128, 185, 0.3);
-    }
-    
-    .btn-warning {
-        background: var(--warning);
-    }
-    
-    .btn-warning:hover {
-        background: #e67e22;
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(230, 126, 34, 0.3);
-    }
-    
-    .btn-disabled {
-        background: #95a5a6;
-        cursor: not-allowed;
-    }
-    
     .coupon-section {
         text-align: right;
         margin-bottom: 2rem;
+        margin-top: 1rem;
+
     }
     
     .coupon-btn {
@@ -240,7 +100,182 @@
         color: white;
     }
     
-    .applied-coupon-msg {
+
+
+
+.title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-sm);
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: var(--text-light);
+    margin-bottom: var(--spacing-lg);
+}
+
+/* Pricing Toggle */
+.pricing-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+    margin-top:  var(--spacing-lg);
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: var(--transition);
+    border-radius: 34px !important;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: var(--transition);
+    border-radius: 50% !important;
+}
+
+input:checked + .slider {
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.discount {
+    background: var(--accent);
+    color: var(--white);
+    padding: 2px 8px;
+    border-radius: 20px !important;
+    font-size: 0.8rem;
+    margin-left: var(--spacing-xs);
+}
+
+/* Pricing Cards */
+.pricing-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+    padding-bottom: var(--spacing-xl);
+    /* border-bottom: 1px solid rgba(0, 0, 0, 0.1); */
+    margin-left: 100px;
+}
+
+.card {
+    position: relative;
+    transition: var(--transition);
+    width: 75%;
+    border-radius: 15px !important;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-glow);
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: var(--transition);
+}
+
+.card-front, .card-back {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-lg) !important;
+    background: var(--white);
+    box-shadow: var(--shadow-lg);
+    transition: var(--transition);
+}
+
+.card-content {
+    height: 100%;
+    padding: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+}
+
+.card-back {
+    display: none;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: var(--white);
+}
+
+.card-back .card-content {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.card-back h3 {
+    font-size: 2rem;
+    margin-bottom: var(--spacing-md);
+}
+
+.card-back p {
+    margin-bottom: var(--spacing-lg);
+    opacity: 0.9;
+}
+
+.popular-badge {
+    position: absolute;
+    top: -12px;
+    right: 20px;
+    background: var(--accent);
+    color: var(--white);
+    padding: 5px 15px;
+    border-radius: 20px !important;
+    font-size: 0.9rem;
+    font-weight: 500;
+    z-index: 1;
+    box-shadow: var(--shadow-sm);
+}
+
+.card-header-premium {
+    text-align: center;
+    /* margin-bottom: var(--spacing-lg); */
+}
+
+.card-header-premium h2 {
+    font-size: 2rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.applied-coupon-msg {
         background: rgba(40, 167, 69, 0.1);
         border: 1px dashed var(--success);
         padding: 0.75rem;
@@ -253,79 +288,228 @@
         box-sizing: content-box;
     }
     
-    .premium-highlight {
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .premium-highlight::before {
-        content: "POPULAR";
-        position: absolute;
-        top: 15px;
-        right: -30px;
-        width: 120px;
-        padding: 5px 0;
-        background: var(--warning);
-        color: white;
-        text-align: center;
-        transform: rotate(45deg);
-        font-size: 0.8rem;
-        font-weight: bold;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        z-index: 1;
-    }
-    
-    @keyframes pulse {
-        0% { transform: scale(1) rotate(15deg); }
-        50% { transform: scale(1.1) rotate(15deg); }
-        100% { transform: scale(1) rotate(15deg); }
-    }
-    
-    @media (max-width: 768px) {
-        .pricing-cards {
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .page-header h2 {
-            font-size: 2rem;
-        }
-        .page-header{
-            top:0;
-        }
-    }
-
-    .btn-close:focus {
-    box-shadow: none;
-    outline: none;
-    border: none;
+.price {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--primary);
 }
 
-/* .card-horizontal-layout {
+.currency {
+    font-size: 1.5rem;
+    vertical-align: super;
+}
+
+.period {
+    font-size: 1rem;
+    color: var(--text-light);
+}
+
+.features {
+    list-style: none;
+    margin: var(--spacing-lg) 0;
+    flex-grow: 1;
+}
+
+.features li {
     display: flex;
-    flex-direction: row; 
+    align-items: flex-start;
+    margin-bottom: var(--spacing-md);
+    /* padding: var(--spacing-sm); */
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
 }
-.premium-header{
-    margin-top:68px;
+
+.features li:hover {
+    /* background: rgba(99, 102, 241, 0.05); */
+    transform: translateX(5px);
+}
+
+/* .features li.featured {
+    background: rgba(99, 102, 241, 0.1);
+    border-left: 3px solid var(--primary);
 } */
 
-     @media (max-width: 430px) {
-    .card-header {
-        padding: 0.5rem;
-    }
-      .card-body {
-        padding: 0.5rem;
-    }
-  .features-list {
-    margin-top: 18px;  
-    
-} 
-.coupon-btn{
-    margin-top: 20px;
+.feature-content {
+    display: flex;
+    flex-direction: column;
+    margin-left: var(--spacing-sm);
 }
-     }
 
-</style>
+.feature-title {
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 2px;
+}
+
+.feature-description {
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.feature-icon {
+    color: var(--primary);
+    font-size: 1.2rem;
+    margin-top: 2px;
+}
+
+.features li.featured .feature-icon {
+    color: var(--accent);
+}
+
+.select-plan {
+    width: 100%;
+    padding: var(--spacing-md);
+    border: none;
+    border-radius: var(--radius-md) !important;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    color: var(--white);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-top: auto;
+}
+
+.select-plan:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow);
+}
+
+/* Feature Comparison */
+.feature-comparison {
+    margin: var(--spacing-xl) 0;
+    padding-top: var(--spacing-xl);
+}
+
+.feature-comparison h2 {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+    font-size: 2.5rem;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.comparison-table {
+    overflow-x: auto;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    margin: 0 auto;
+    max-width: 1000px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: var(--spacing-md);
+    text-align: left;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+th {
+    background: var(--bg-light);
+    font-weight: 600;
+}
+
+/* FAQ Section */
+.faq-section {
+    margin-bottom: var(--spacing-xl);
+}
+
+.faq-section h2 {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    background: var(--white);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-sm);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+
+.faq-question {
+    padding: var(--spacing-md);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.faq-question h3 {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.toggle-icon {
+    font-size: 1.5rem;
+    transition: var(--transition);
+}
+
+.faq-answer {
+    padding: 0 var(--spacing-md);
+    max-height: 0;
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.faq-item.active .faq-answer {
+    padding: var(--spacing-md);
+    max-height: 200px;
+}
+
+.faq-item.active .toggle-icon {
+    transform: rotate(45deg);
+}
+
+.select-plan.basic-price {
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+
+.dark-mode .card-front{
+    background-color: #1a1a27 !important;
+    
+}
+.dark-mode .feature-title{
+    color: #e0e0e0;
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: var(--spacing-md);
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+
+    .pricing-cards {
+        grid-template-columns: 1fr;
+        margin-left: 0;
+    }
+
+    .card {
+        min-height: auto;
+        width: auto;
+    }
+
+    .popular-badge {
+        top: 10px;
+        right: 10px;
+    }
+} 
+    </style>
 @endpush
 
 <div class="upgrade-container">
@@ -347,41 +531,99 @@
     <div class="page-header">
         <h2>Upgrade to Premium <i class="fas fa-crown crown-icon"></i></h2>
         <p>Unlock advanced monitoring features and take full control of your website's uptime.</p>
+
+        <div class="pricing-toggle">
+            <span>Monthly</span>
+            <label class="switch">
+                <input type="checkbox" id="pricing-toggle">
+                <span class="slider"></span>
+            </label>
+            <span>Yearly <span class="discount">Save 20%</span></span>
+        </div>
     </div>
     
-    <!-- Pricing Cards -->
+    
     <div class="pricing-cards">
         <!-- Basic Plan -->
-        <div class="pricing-card basic h-100">
-            <div class="card-badge">Your Current Plan</div>
-            <div class="card-header">
-                <h5>Basic</h5>
-                <div class="price">₹0 <small>/month</small></div>
-            </div>
-            <div class="card-body">
-                <ul class="features-list">
-                    <li><i class="fas fa-check text-success"></i>Monitor 5 websites</li>
-                    <li><i class="fas fa-check text-success"></i>5-minute check</li>
-                    <li><i class="fas fa-check text-success"></i>Email alerts</li>
-                    <li><i class="fas fa-check text-success"></i>1-Month history</li>
-                    <li><i class="fas fa-times text-danger"></i>Telegram bot alert unavailable</li>
-                    <li><i class="fas fa-times text-danger"></i>SSL expiry check unavailable</li>
-                    <li><i class="fas fa-times text-danger"></i>Create and manage team members unavailable</li>
-                </ul>
-                <button class="btn btn-primary btn-disabled d-block w-100 current-plan" disabled>Current Plan</button>
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="card-content">
+                        <div class="card-header-premium">
+                            <h2 class="white-color">Basic</h2>
+                            <div class="price basic-price">₹0<span class="currency">/</span><span class="period">mo</span></div>
+                        </div>
+                        <ul class="features">
+                            <li>
+                                <span class="feature-icon">✓</span>
+                                <div class="feature-content">
+                                    <span class="feature-title">Monitor 5 websites</span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon">✓</span>
+                                <div class="feature-content">
+                                    <span class="feature-title">5-minute check</span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon">✓</span>
+                                <div class="feature-content">
+                                    <span class="feature-title">Email alerts</span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon">✓</span>
+                                <div class="feature-content">
+                                    <span class="feature-title ">1-Month history</span>
+                                </div>
+                            </li>
+                            <li class="featured">
+                                <span class="feature-icon">x</span>
+                                <div class="feature-content">
+                                    <span class="feature-title ">Telegram bot alert unavailable</span>
+                                </div>
+                            </li>
+                            <li class="featured">
+                                <span class="feature-icon">x</span>
+                                <div class="feature-content">
+                                    <span class="feature-title ">SSL expiry check unavailable</span>
+                                </div>
+                            </li>
+                            <li  class="featured">
+                                <span class="feature-icon">x</span>
+                                <div class="feature-content">
+                                    <span class="feature-title ">Create and manage team members unavailable</span>
+                                </div>
+                            </li>
+                        </ul>
+                        <button class="select-plan basic-price">Current Plan</button>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div class="card-content">
+                        <h3>Basic Plan</h3>
+                        <p>Ideal for small businesses and startup projects</p>
+                        <button class="select-plan">Get Started</button>
+                    </div>
+                </div>
             </div>
         </div>
-        
+
         @php
-            $appliedCoupon = session('applied_coupon');
+        $appliedCoupon = session('applied_coupon');
         @endphp
-        
+
+        <!-- Pro Plan -->
         @foreach($plans as $plan)
-        <!-- Premium Plan -->
-        <div class="pricing-card premium h-100 premium-highlight" data-subscription-id="{{ $plan->id }}">
-            <div class="card-header">
-                <h5>{{ $plan->name }}</h5>
-                <div class="price" data-original="{{ $plan->amount }}">
+        <div class="card pricing-card" data-subscription-id="{{ $plan->id }}">
+            <div class="popular-badge">Most Popular</div>
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="card-content">
+                        <div class="card-header-premium">
+                            <h2 class="white-color">{{ $plan->name }}</h2>
+                            <div class="price" data-original="{{ $plan->amount }}" data-id="{{ $plan->id }}">
                     @php
                         $originalPrice = $plan->amount;
                         $discount = ($appliedCoupon && $appliedCoupon['subscription'] == $plan->id) 
@@ -397,49 +639,99 @@
                     @else
                         ₹{{ number_format($originalPrice, 2) }}
                     @endif
-                    <small>/month</small>
-                </div>
-                @if($appliedCoupon && $appliedCoupon['subscription'] == $plan->id)
-                    <div class="applied-coupon-msg">
-                        <i class="fas fa-check-circle me-2"></i>Coupon "{{ $appliedCoupon['code'] }}" applied!
+                        <span class="currency">/</span><span class="period">mo</span></div>
+
+                        </div>
+
+                        @if($appliedCoupon && $appliedCoupon['subscription'] == $plan->id)
+                        <div class="applied-coupon-msg">
+                            <i class="fas fa-check-circle me-2"></i>Coupon "{{ $appliedCoupon['code'] }}" applied!
+                        </div>
+                        @if($appliedCoupon['discount_type'] && $appliedCoupon['discount_type']==='percentage')
+                            <div class="applied-coupon-msg">
+                                <i class="fas fa-tag"></i> {{$appliedCoupon['discount']}}% OFF
+                            </div>
+                        @elseif($appliedCoupon['discount_type'] && $appliedCoupon['discount_type']==='flat')
+                            <div class="applied-coupon-msg">
+                                <i class="fas fa-tag"></i>FLAT {{$appliedCoupon['discount']}} OFF
+                            </div>
+                        @endif
+                        @endif
+                        <ul class="features">
+                            <li>
+                                <span class="feature-icon">✓</span>
+                                <div class="feature-content">
+                                    <span class="feature-title">All Basic features</span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon">✓</span>
+                                <div class="feature-content">
+                                    <span class="feature-title">Unlimited website monitoring</span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon">✓</span>
+                                <div class="feature-content">
+                                    <span class="feature-title">1-minute check</span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon">✓</span>
+                                <div class="feature-content">
+                                    <span class="feature-title">Telegram bot alerts</span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon">✓</span>
+                                <div class="feature-content">
+                                    <span class="feature-title">4-Month history</span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon">✓</span>
+                                <div class="feature-content">
+                                    <span class="feature-title">SSL expiry check</span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon">✓</span>
+                                <div class="feature-content">
+                                    <span class="feature-title">SSL expiry check</span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon">✓</span>
+                                <div class="feature-content">
+                                    <span class="feature-title">Create and manage team members</span>
+                                </div>
+                            </li>
+                        </ul>
+                        <form id="paymentForm_{{ $plan->id }}" action="{{ route('store') }}" method="POST" target="_blank">
+                            @csrf
+                            <input type="hidden" name="name" value="{{ auth()->user()->name }}">
+                            <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                            <input type="hidden" name="mobile" value="{{ auth()->user()->phone }}">
+                            <input type="hidden" name="subscription_id" value="{{ $plan->id }}">
+                            
+                            <button class="select-plan">Choose Plan</button>
+                        </form>
                     </div>
-                    @if($appliedCoupon['discount_type'] && $appliedCoupon['discount_type']==='percentage')
-                        <div class="applied-coupon-msg">
-                            <i class="fas fa-tag"></i> {{$appliedCoupon['discount']}}% OFF
-                        </div>
-                    @elseif($appliedCoupon['discount_type'] && $appliedCoupon['discount_type']==='flat')
-                        <div class="applied-coupon-msg">
-                            <i class="fas fa-tag"></i>FLAT {{$appliedCoupon['discount']}} OFF
-                        </div>
-                    @endif
-                @endif
+                </div>
+                <div class="card-back">
+                    <div class="card-content">
+                        <h3>Pro Plan</h3>
+                        <p>Professional solutions for growing businesses</p>
+                        <button class="select-plan">Get Started</button>
+                    </div>
+                </div>
             </div>
-            <div class="card-body">          
-                <ul class="features-list">
-                    <li><i class="fas fa-check text-success"></i>All Basic features</li>
-                    <li><i class="fas fa-check text-success"></i>Unlimited website monitoring</li>
-                    <li><i class="fas fa-check text-success"></i>1-minute check</li>
-                    <li><i class="fas fa-check text-success"></i>Telegram bot alerts</li>
-                    <li><i class="fas fa-check text-success"></i>4-Month history</li>
-                    <li><i class="fas fa-check text-success"></i>SSL expiry check</li>
-                    <li><i class="fas fa-check text-success"></i>Create and manage team members</li>
-                </ul>
-                
-                <form id="paymentForm_{{ $plan->id }}" action="{{ route('store') }}" method="POST" target="_blank">
-                    @csrf
-                    <input type="hidden" name="name" value="{{ auth()->user()->name }}">
-                    <input type="hidden" name="email" value="{{ auth()->user()->email }}">
-                    <input type="hidden" name="mobile" value="{{ auth()->user()->phone }}">
-                    <input type="hidden" name="subscription_id" value="{{ $plan->id }}">
-                    
-                    <button type="submit" class="btn btn-warning d-block w-100">
-                        <i class="fas fa-arrow-up me-2"></i>Upgrade Now
-                    </button>
-                </form>
-            </div>
-            </div>
+        </div>
         @endforeach
+
+       
     </div>
+
 </div>
 
 <!-- Coupon Modal -->
@@ -695,6 +987,162 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Pricing toggle
+        const toggle = document.querySelector('.switch input');
+        const prices = document.querySelectorAll('.price');
+        const periods = document.querySelectorAll('.period');
+        const discount = document.querySelector('.discount');
+
+        // Fetch prices dynamically from the backend
+        const pricingData = @json($plans->map(function($plan) {
+            return [
+                'id' => $plan->id,
+                'monthly' => $plan->amount,
+                'yearly' => round($plan->amount * 12 * 0.8) 
+            ];
+        }));
+
+        toggle.addEventListener('change', () => {
+    prices.forEach((priceEl) => {
+        // Skip Basic plan
+        if (priceEl.classList.contains('basic-price')) return;
+
+        const planId = priceEl.getAttribute('data-id');
+        const planData = pricingData.find(p => p.id == planId);
+        const periodSpan = priceEl.querySelector('.period');
+
+        if (planData && periodSpan) {
+            // ✅ Update price text, keeping the currency and period intact
+            // Keep currency and update just the number
+            const currencySpan = priceEl.querySelector('.currency');
+            const currencyText = currencySpan ? currencySpan.textContent : '/';
+            
+            // Update only the number (first text node)
+            const newPrice = toggle.checked ? planData.yearly : planData.monthly;
+            priceEl.childNodes[0].nodeValue = `₹${newPrice.toFixed(2)}`;
+
+            // ✅ Update period span
+            periodSpan.textContent = toggle.checked ? 'year' : 'mo';
+        }
+    });
+
+    // ✅ Show/hide "Save 20%" badge
+    discount.style.display = toggle.checked ? 'inline-block' : 'none';
+});
+
+
+        // FAQ Accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                
+                // Close all other items
+                faqItems.forEach(otherItem => {
+                    otherItem.classList.remove('active');
+                });
+
+                // Toggle current item
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Card hover effects
+        const cards = document.querySelectorAll('.card');
+
+      
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.card, .faq-item, .comparison-table').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Price calculation based on features
+        const featureCheckboxes = document.querySelectorAll('.feature-checkbox');
+        const totalPrice = document.querySelector('.total-price');
+
+        function updateTotalPrice() {
+            let total = 0;
+            featureCheckboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    total += parseInt(checkbox.dataset.price);
+                }
+            });
+            totalPrice.textContent = `$${total}`;
+        }
+
+        featureCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', updateTotalPrice);
+        });
+
+        // Local storage for user preferences
+        const savePreferences = () => {
+            const preferences = {
+                pricingType: toggle.checked ? 'yearly' : 'monthly',
+                selectedFeatures: Array.from(featureCheckboxes)
+                    .filter(cb => cb.checked)
+                    .map(cb => cb.id)
+            };
+            localStorage.setItem('pricingPreferences', JSON.stringify(preferences));
+        };
+
+        const loadPreferences = () => {
+            const saved = localStorage.getItem('pricingPreferences');
+            if (saved) {
+                const preferences = JSON.parse(saved);
+                toggle.checked = preferences.pricingType === 'yearly';
+                preferences.selectedFeatures.forEach(featureId => {
+                    const checkbox = document.getElementById(featureId);
+                    if (checkbox) checkbox.checked = true;
+                });
+                updateTotalPrice();
+            }
+        };
+
+        toggle.addEventListener('change', savePreferences);
+        featureCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', savePreferences);
+        });
+
+        loadPreferences();
+    });
 </script>
 @endpush
 

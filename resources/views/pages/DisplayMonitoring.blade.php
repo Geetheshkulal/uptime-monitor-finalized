@@ -39,7 +39,9 @@
             border-color: #2653d4;
         }  
 
-
+        #dropdownMenuLink {
+    display: none !important;
+}
        
     </style>
     <!-- Page Heading -->
@@ -173,10 +175,8 @@
                                         {{ $details->status }}
                                     @endif --}}
                                     <div id="statusLoading">
-                                    {{-- <div class="spinner-border spinner-border-sm text-primary" role="status"> --}}
                                         <span class="visually-hidden">Loading...</span>
-                                    {{-- </div> --}}
-                                </div>
+                                    </div>
 
                                 </div>
                             </div>
@@ -526,7 +526,8 @@
 
                     const statusElement = document.getElementById('statusElement');
                     if (statusElement) {
-                        statusElement.textContent = data.paused ? 'Paused' : data.status;
+                        // statusElement.textContent = data.paused ? 'Paused' : 'Active';
+                        statusElement.textContent = data.status;
                     }
 
                         isPaused=data.paused;
@@ -544,6 +545,8 @@
 
         </script>
     @endpush
+
+   
 
     <!-- Delete Confirmation Modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">

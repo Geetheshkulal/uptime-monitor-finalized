@@ -119,9 +119,9 @@ Route::middleware(['auth', 'verified', 'CheckUserSession', 'blockIp'])->group(fu
 
 Route::middleware(['auth', 'verified', 'CheckUserSession', 'blockIp'])->group(function () {
 
-    Route::get('/ssl-check', [SslCheckController::class, 'index'])->middleware('premium_middleware')->name('ssl.check');
-    Route::get('/ssl/history', [SslCheckController::class, 'history'])->middleware('premium_middleware')->name('ssl.history');
-    Route::post('/ssl-check', [SslCheckController::class, 'check'])->middleware('premium_middleware')->name('ssl.check.domain');
+    Route::get('/ssl-check', [SslCheckController::class, 'index'])->name('ssl.check');
+    Route::get('/ssl/history', [SslCheckController::class, 'history'])->name('ssl.history');
+    Route::post('/ssl-check', [SslCheckController::class, 'check'])->name('ssl.check.domain');
 
     Route::get('/incidents', [IncidentController::class, 'incidents'])->middleware('role:user|subuser')->middleware('permission:see.incidents')->name('incidents');
     Route::get('/incidents/fetch', [IncidentController::class, 'fetchIncidents'])->name('incidents.fetch'); // Add this for AJAX
@@ -230,7 +230,7 @@ Route::group(['middleware' => ['auth', 'blockIp']], function () {
     Route::get('/tickets/comments/update/{id}', [TicketController::class, 'CommentPageUpdate'])->name('tickets.comments.update');
     Route::post('/delete/comment/{id}', [TicketController::class, 'DeleteComment'])->name('delete.comment');
 
-    Route::get('/display/subsusers', [UserController::class, 'DisplaySubUsers'])->middleware('premium_middleware')->name('display.sub.users');
+    Route::get('/display/subsusers', [UserController::class, 'DisplaySubUsers'])->name('display.sub.users');
 
     Route::post('/add/subsusers', [UserController::class, 'StoreSubUser'])->middleware('premium_middleware')->name('add.sub.user');
     Route::delete('/delete/subsuser/${id}', [UserController::class, 'DeleteSubUser'])->middleware('premium_middleware')->name('delete.sub.user');

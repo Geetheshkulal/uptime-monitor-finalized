@@ -7,9 +7,9 @@
 
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap4.min.css">
     <style>
-        * {
+        /* * {
     border-radius: 0 !important;
-    }
+    } */
 
     html, body {
     height: 100%;
@@ -20,6 +20,7 @@
     min-height: 100vh; 
     display: flex;
     flex-direction: column;
+    
 }
 
 #content {
@@ -43,18 +44,12 @@
             border-radius: 0.25rem;
             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
         }
-        /* .password-toggle {
-            position: absolute;
-            right: 10px;
-            top: 40px;
-            cursor: pointer;
-            color: #6c757d;
-        } */
+      
 
-        .password-toggle {
+    .password-toggle {
     position: absolute;
     top: 45px;
-    right: 16px; /* 👈 your requested margin-right */
+    right: 16px; 
     transform: translateX(-80%);
     cursor: pointer;
     color: #6c757d;
@@ -80,11 +75,54 @@
 }
 
 }
-    </style>
-    @endpush
+
+
+.blur-content {
+    filter: blur(3px);
+    opacity: 0.8;
+    pointer-events: none; 
+    user-select: none; 
+}
+
+
+.premium-modal {
+    position: fixed;
+    top: 80%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    z-index: 1050;
+    width: 400px;
+    max-width: 90%;
+}
+
+.modal-content {
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+
+    
+    .text-gold {
+        color: #ffc107;
+    }
+    
+    .btn-gold {
+        background-color: #ffc107;
+        color: #000;
+    }
+
+
+
+</style>
+@endpush
 </head>
 
+
+@if(session('showPremiumModal'))
+<div id="content-wrapper" class="d-flex flex-column blur-content">
+@else
 <div id="content-wrapper" class="d-flex flex-column">
+@endif
     <!-- Main Content -->
     <div id="content">
         <div class="container-fluid">
@@ -143,8 +181,39 @@
                 </div>
             </div>
         </div>
+
+
     </div>
+
 </div>
+
+
+@if(session('showPremiumModal'))
+    <!-- Premium Feature Modal (outside content wrapper) -->
+    <div class="modal premium-modal show" tabindex="-1" role="dialog" style="display: block;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-gold">Premium Feature</h5>
+                </div>
+                <div class="modal-body">
+                    <p>SSL Check is a premium feature. Upgrade your plan to access this tool.</p>
+                    <div class="text-center mb-3">
+                        <i class="fas fa-lock fa-3x text-gold"></i>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="window.history.back()">Close</button>
+                    <a href="{{ route('premium.page') }}" class="btn btn-gold">
+                        <i class="fas fa-crown"></i> Upgrade Plan
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
+
+
 
 
 <!-- Delete Coupon Modal -->
@@ -238,7 +307,6 @@
         </div>
     </div>
 </div>
-
 
 
 @push('scripts')

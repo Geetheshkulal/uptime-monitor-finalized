@@ -15,6 +15,12 @@ class SslCheckController extends Controller
     public function index()
     {
         $sslChecks = Ssl::where('user_id', Auth::id())->latest()->get();
+        
+
+        if (auth()->user()->status === 'free') {
+            session()->flash('showPremiumModal', true);
+        }
+        
         return view('ssl.index', compact('sslChecks'));
     }
   public function history()

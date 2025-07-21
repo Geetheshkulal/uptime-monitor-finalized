@@ -66,7 +66,7 @@ class UserController extends Controller
                 ])
                 ->log(" {$user->name} created a new user");
 
-            Log::info("User created successfully: ", $user->toArray()); //Log the activity
+            // Log::info("User created successfully: ", $user->toArray());
 
             return redirect()->route('display.users')->with('success', 'User created successfully');
         } catch (\Exception $e) {
@@ -319,6 +319,10 @@ class UserController extends Controller
 
             $subUsers = User::withTrashed()->where('parent_user_id', $user->id)->get();
 
+            if (auth()->user()->status === 'free') {
+                session()->flash('showPremiumModal', true);
+            }
+            
             return view('pages.DisplaySubUsers', compact('subUsers'));
         }
 

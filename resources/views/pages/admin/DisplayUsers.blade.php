@@ -90,10 +90,17 @@
 </style>
 @endpush
 
+
+
 <div id="content-wrapper" class="d-flex flex-column">
     <div id="content">
         <div class="container-fluid">
-            <div x-data="tabHandler()" x-init="initActiveTab()">
+
+            @php
+                $defaultTab = $errors->any() ? 'users' : 'customers';
+            @endphp
+
+            <div x-data="tabHandler({{ json_encode($defaultTab) }})" x-init="initActiveTab()">
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-gray-800 white-color" 
                         x-text="activeTab === 'customers' ? 'Customers (Total: {{ $customerCount }})' : 'Users (Total: {{ $userCount }})'">
@@ -170,10 +177,15 @@
                             <div class="form-group">
                                 <label for="password">Password*</label>
                                 <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password">
-                                <span class="fas fa-eye password-toggle" id="togglePassword"></span>
+                                {{-- <span class="fas fa-eye password-toggle" id="togglePassword"></span> --}}
                                 @error('password')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
+
+                                <div class="form-check mt-2">
+                                    <input type="checkbox" class="form-check-input" id="showPasswordCheckbox">
+                                    <label class="form-check-label" for="showPasswordCheckbox">Show Password</label>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -215,6 +227,7 @@
     </div>
 </div>
 
+
 @push('scripts')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -226,9 +239,17 @@
 <script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap4.min.js"></script>
 
 <script>
-function tabHandler() {
+    toastr.options = {
+        "closeButton": true,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "timeOut": "5000"
+    };
+
+
+function tabHandler(defaultTab) {
     return {
-        activeTab: 'customers',
+        activeTab: defaultTab || 'customers',
         customersInitialized: false,
         usersInitialized: false,
         initActiveTab() {
@@ -280,21 +301,30 @@ function tabHandler() {
     };
 }
 
-$(document).ready(function() {
-    // Password toggle
-    $('#togglePassword').on('click', function() {
-        const passwordInput = $('#password');
-        const type = passwordInput.attr('type') === 'password' ? 'text' : 'password';
-        passwordInput.attr('type', type);
-        $(this).toggleClass('fa-eye fa-eye-slash');
+
+document.getElementById('showPasswordCheckbox').addEventListener('change', function () {
+        const passwordInput = document.getElementById('password');
+        passwordInput.type = this.checked ? 'text' : 'password';
     });
-});
+
 
 @if(session('success'))
 $(document).ready(function() {
     toastr.success("{{ session('success') }}");
 });
 @endif
+
+@if($errors->any())
+
+    $(document).ready(function() {
+        @foreach ($errors->all() as $error)
+            toastr.error("{{ $error }}");
+        @endforeach
+    });
+
+@endif
+
+
 </script>
 @endpush
 @endsection

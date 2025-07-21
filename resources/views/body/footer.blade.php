@@ -1,8 +1,8 @@
-<style>
+{{-- <style>
     .sticky-footer{
         margin-top: 10px !important;
     }
-    </style>
+    </style> --}}
 <footer class="sticky-footer bg-white">
     <div class="container my-auto">
         <div class="copyright text-center my-auto">

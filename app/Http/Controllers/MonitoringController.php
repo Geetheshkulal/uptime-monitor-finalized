@@ -294,7 +294,9 @@ class MonitoringController extends Controller
         $monitor->save();
 
         //set monitor status
-        $status = $monitor->paused ? 'paused' : 'resumed';
+        // $status = $monitor->paused ? 'paused' : 'resumed';
+
+        $status = $monitor->paused ? 'paused' : $monitor->status;
 
         //Log activity.
         activity()
@@ -314,6 +316,7 @@ class MonitoringController extends Controller
             'success' => true,
             'message' => "Monitor has been {$status} successfully.",
             'paused' => $monitor->paused,
+            'status' => $status,
         ]);
     }
 
