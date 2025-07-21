@@ -465,6 +465,49 @@
     .auth-buttons i {
       font-size: 10px;
     }
+
+   .status-bar {
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap;
+    margin-bottom: 0px;
+  }
+
+  .status-bar.marquee::before,
+  .status-bar.marquee::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 50px;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .status-bar.marquee {
+    display: inline-block;
+    animation: scroll-left 10s linear infinite;
+  }
+
+  @keyframes scroll-left {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  .status-item {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 2rem;
+  }
+
+  .status-indicator {
+    margin-right: 5px;
+  }
+
   }
 
 </style>
@@ -581,7 +624,8 @@
           <div class="monitor-illustration animate__animated animate__fadeInRight animate__delay-1s floating">
             <div class="monitor-screen">
               <div class="screen-content">
-                <div class="status-bar">
+                <div class="status-bar marquee">
+                  
                   <div class="status-item">
                     <div class="status-indicator up"></div>
                     <small>drishtipulse.in</small>
@@ -756,7 +800,7 @@
                 <span class="display-6 fw-bold">₹0</span>
                 <span class="text-muted">/month</span>
               </div>
-              <ul style="text-align: left; list-style: none; padding-left: 2cm;">
+              <ul style="text-align: left; list-style: none;">
                 <li class="mb-3"><i class="fas fa-check-circle" style="color: #065bef;"></i> Monitor 5 websites</li>
                 <li class="mb-3"><i class="fas fa-check-circle" style="color: #065bef;"></i> 5-minute check</li>
                 <li class="mb-3"><i class="fas fa-check-circle" style="color: #065bef;"></i> Email alerts</li>
@@ -796,7 +840,7 @@
                   <span class="text-muted">/month</span>
                 </div>
               @endforeach
-               <ul style="text-align: left; list-style: none; padding-left: 2cm;">
+               <ul style="text-align: left; list-style: none;">
                 <li class="mb-3"><i class="fas fa-check-circle" style="color: #065bef;"></i>  All basic features</li>
                 <li class="mb-3"><i class="fas fa-check-circle" style="color: #065bef;"></i>  Monitor unlimited websites</li>
                 <li class="mb-3"><i class="fas fa-check-circle" style="color: #065bef;"></i>  1-minute check</li>
