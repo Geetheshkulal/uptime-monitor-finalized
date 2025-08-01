@@ -15,7 +15,7 @@ class WhatsAppLogin implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    
+
     public  $tries = 1; // Number of attempts before failing the job'
     // public $timeout = 200; 
     /**
@@ -32,24 +32,28 @@ class WhatsAppLogin implements ShouldQueue
     public function handle(): void
     {
         try {
-            Log::info('Starting WhatsAppLoginTest via queue job.');
+            Log::info('[WHATSAPP LOGIN] Starting WhatsAppLoginTest via shell script.');
 
-            // Ensure ChromeDriver is running before this
-            // Artisan::call('dusk', ['test' => 'tests/Browser/WhatsAppLoginTest.php']);
-            $process = new Process([
-                'php',
-                'artisan',
-                'dusk',
-                'tests/Browser/WhatsAppLoginTest.php'
-            ]);
-            
+            // Path to the shell script
+            $scriptPath = base_path('scripts/run-dusk.sh');
+            Log::info('[WHATSAPP LOGIN] Running: bash ' . $scriptPath);
+
+            // Run the shell script using bash
+            $process = new Process(['bash', $scriptPath]);
             $process->setTimeout(300);
-            $process->run();
+            $process->run(); // Don't use disableOutput here if you want logs below
 
-            Log::info('WhatsAppLoginTest completed successfully.');
-            // Log::info('Output: ' . Artisan::output());
+            Log::info('[WHATSAPP LOGIN] Exit Code: ' . $process->getExitCode());
+            Log::info('[WHATSAPP LOGIN] STDOUT: ' . $process->getOutput());
+
+            if (!$process->isSuccessful()) {
+                Log::error('[WHATSAPP LOGIN] STDERR: ' . $process->getErrorOutput());
+                Log::error('[WHATSAPP LOGIN] Process failed.');
+            } else {
+                Log::info('[WHATSAPP LOGIN] WhatsAppLoginTest completed successfully.');
+            }
         } catch (\Exception $e) {
-            Log::error('WhatsAppLoginTest failed in queue job: ' . $e->getMessage());
+            Log::error('[WHATSAPP LOGIN] Exception: ' . $e->getMessage());
         }
     }
 }
