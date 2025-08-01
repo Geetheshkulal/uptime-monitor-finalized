@@ -29,13 +29,6 @@ abstract class DuskTestCase extends BaseTestCase
         $options = (new ChromeOptions)
             ->setBinary(env('CHROMIUM_BINARY'))
             ->addArguments([
-                // '--start-maximized',
-                // '--disable-search-engine-choice-screen',
-                // '--disable-smooth-scrolling',
-                // '--user-data-dir=' . $userDataDir,
-                // '--profile-directory=Default',
-                // '--headless=new',
-
                 '--headless=new',
                 '--disable-gpu',
                 '--window-size=1920,1080',
@@ -47,22 +40,22 @@ abstract class DuskTestCase extends BaseTestCase
                 '--use-angle=swiftshader',
                 '--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
 
-    ]);
+            ]);
 
-    return RemoteWebDriver::create(
-        env('DUSK_DRIVER_URL', 'http://localhost:9515'),
-        DesiredCapabilities::chrome()->setCapability(
-            ChromeOptions::CAPABILITY, $options
-        )
-    );
-    
-}
+        return RemoteWebDriver::create(
+            env('DUSK_DRIVER_URL', 'http://localhost:9515'),
+            DesiredCapabilities::chrome()->setCapability(
+                ChromeOptions::CAPABILITY,
+                $options
+            )
+        );
+    }
 
-        protected function tearDown(): void
-        {
-                // Do not close the browser
-                // parent::tearDown(); ← COMMENT or REMOVE this
-        }
+    protected function tearDown(): void
+    {
+        // Do not close the browser
+        // parent::tearDown(); ← COMMENT or REMOVE this
+    }
 }
 
 
@@ -125,5 +118,3 @@ abstract class DuskTestCase extends BaseTestCase
 //         );
 //     }
 // }
-  
-

@@ -22,6 +22,7 @@
         "symfony/process": "^6.4"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^3.1",
         "fakerphp/faker": "^1.9.1",
         "ladumor/laravel-pwa": "^0.0.4",
         "laravel/breeze": "^1.29",
