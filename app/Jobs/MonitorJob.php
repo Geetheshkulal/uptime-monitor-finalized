@@ -2,33 +2,33 @@
 
 namespace App\Jobs;
 
+use Carbon\Carbon;
 use App\Models\Incident;
+use App\Models\Monitors;
+use App\Models\Template;
+use App\Mail\FollowUpMail;
+use App\Models\DnsResponse;
+use Illuminate\Support\Str;
+use App\Mail\MonitorUpAlert;
 use App\Models\HttpResponse;
 use App\Models\Notification;
+use App\Models\PingResponse;
 use App\Models\PortResponse;
-use App\Models\PushSubscription;
-use App\Models\Template;
-use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
-use App\Models\Monitors;
-use App\Models\DnsResponse;
 use App\Mail\MonitorDownAlert;
-use App\Mail\MonitorUpAlert;
-use Illuminate\Support\Facades\Mail;
+use Minishlink\WebPush\WebPush;
+use App\Models\PushSubscription;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Http\Client\RequestException;
-use App\Models\PingResponse;
-use App\Mail\FollowUpMail;
+use Illuminate\Support\Facades\Mail;
 use Minishlink\WebPush\Subscription;
-use Minishlink\WebPush\WebPush;
-use Str;
+use Illuminate\Queue\SerializesModels;
+use Symfony\Component\Process\Process;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
-use Symfony\Component\Process\Process;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Http\Client\RequestException;
 
 
 class MonitorJob
@@ -508,8 +508,10 @@ class MonitorJob
 
         while ($attempt < $retries) {
             try {
+                $host = parse_url($monitor->url, PHP_URL_HOST) ?? $monitor->url;
                 // Attempt to open the socket connection
-                $connection = @fsockopen($monitor->url, $monitor->port, $errno, $errstr, $timeout);
+                // $connection = @fsockopen("ssl://$host", $monitor->port, $errno, $errstr, $timeout);
+                $connection = @fsockopen($host, $monitor->port, $errno, $errstr, $timeout);
 
                 if ($connection) {
                     // Set a timeout for the socket
