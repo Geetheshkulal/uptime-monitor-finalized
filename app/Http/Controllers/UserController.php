@@ -25,7 +25,7 @@ class UserController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required|min:3',
             'phone' => 'nullable|string|digits:10|unique:users,phone',
-            'role' => 'required|exists:roles,id',  // Ensure role exists
+            'role' => 'required|exists:roles,id', 
             'premium_end_date' => 'nullable|date',
         ]);
 
@@ -355,6 +355,8 @@ class UserController extends Controller
 
             // Assign role using Spatie
             $subUser->assignRole('subuser');
+
+            $subUser->givePermissionTo('see.monitors');
 
             return redirect()->back()->with('success', 'Sub-user added successfully.');
         }

@@ -21,7 +21,7 @@
     }
 
     .nav-link {
-        color: rgba(255, 255, 255, 0.8) !important;
+        /* color: rgba(255, 255, 255, 0.8) !important; */
         font-size: 0.85rem;
         font-weight: 500;
        
@@ -34,9 +34,9 @@
         text-align: center;
     }
 
-    .nav-link:hover {
+    /* .nav-link:hover {
         color: #fff !important;
-    }
+    } */
 
     .sidebar-card {
         background: rgba(0, 0, 0, 0.1);
@@ -232,37 +232,13 @@
 }
 
 
- /* @media (max-width: 430px) {
-
-     .sidebar{
-            width:116px;
-        }
-
-     #accordionSidebar {
-        position: fixed;
-        top: 0;
-        width: 87px;
-        z-index: 2000;
-        transition: left 0.3s ease-in-out;
-    }
-    #sidebarToggleTop {
-        position: relative;
-        z-index: 2000; 
-        transition: margin-left 0.3s ease;
-    }
-    .ml-accordion-open {
-        margin-left: 75px !important;
-    }
-}    */
-
 @media (max-width: 430px) {
 
      #accordionSidebar {
         position: fixed;
         top: 0; 
         width: 96px;
-        z-index: 2000;
-        /* transition: left 0.3s ease-in-out; */
+        z-index: 2000; 
     }
 
     #sidebarToggleTop {
@@ -303,8 +279,8 @@
             @endcan 
 
             @can('see.incidents')
-                <li class="nav-item {{ request()->routeIs('incidents') ? 'active' : '' }}">
-                    <a class="nav-link incident" href="{{ route('incidents') }}">
+                <li class="nav-item incident {{ request()->routeIs('incidents') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('incidents') }}">
                         <i class="fas fa-exclamation-triangle"></i>
                         <span>Incidents</span>
                     </a>
@@ -312,7 +288,7 @@
             @endcan
 
             @can('see.statuspage')
-                <li class="nav-item {{ request()->routeIs('status') ? 'active' : '' }}"> 
+                <li class="nav-item statusPage {{ request()->routeIs('status') ? 'active' : '' }}"> 
                     <a class="nav-link" href="{{ route('status') }}">
                         <i class="fas fa-signal"></i> 
                         <span>Status Page</span>
@@ -323,8 +299,8 @@
         @endhasanyrole
 
         @hasrole('user')
-            <li class="nav-item {{ request()->routeIs('planSubscription') ? 'active' : '' }}">
-                <a class="nav-link plan" href="{{ route('planSubscription') }}">
+            <li class="nav-item plan {{ request()->routeIs('planSubscription') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('planSubscription') }}">
                     <i class="fas fa-credit-card"></i>
                     <span>Plan & Subscription</span>
                 </a>
@@ -332,8 +308,8 @@
         @endhasrole
 
         @hasrole('user')
-        <li class="nav-item {{ request()->routeIs('ssl.check') ? 'active' : '' }}">
-            <a class="nav-link ssl" href="{{ route('ssl.check') }}">
+        <li class="nav-item ssl {{ request()->routeIs('ssl.check') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('ssl.check') }}">
                 <i class="fas fa-lock"></i>
                 <span>SSL Check</span>
             </a>
@@ -343,7 +319,7 @@
 
     @if( auth()->user()->hasRole('user'))
         {{-- @if((auth()->user()->status==='paid' || auth()->user()->status === 'free_trial')) --}}
-            <li class="nav-item {{ request()->routeIs('display.sub.users') ? 'active' : '' }}">
+            <li class="nav-item myUser {{ request()->routeIs('display.sub.users') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('display.sub.users') }}">
                     <i class="fas fa-user"></i>
                     <span>My Users</span>
@@ -443,7 +419,7 @@
        
 
         @can('see.activity')
-            <li class="nav-item {{ request()->routeIs('display.activity') ? 'active' : '' }}">
+            <li class="nav-item activityLog {{ request()->routeIs('display.activity') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('display.activity') }}">
                     <i class="fas fa-chart-line"></i>
                     <span>Activity Log</span>
@@ -453,7 +429,7 @@
 
         <!-- Helpdesk item at bottom -->
         @hasrole('user')
-            <li class="nav-item {{ request()->routeIs('display.tickets') ? 'active' : '' }}">
+            <li class="nav-item raiseIssue{{ request()->routeIs('display.tickets') ? 'active' : '' }}">
                 <a class="nav-link" href="{{route('display.tickets')}}">
                     <i class="fas fa-headset"></i>
                     <span>Raise Issue</span>
@@ -463,6 +439,16 @@
                 </a>
             </li>
         @endhasrole
+
+        {{-- @hasrole('user')
+            <li class="nav-item {{ request()->routeIs('display.maintenance') ? 'active' : '' }}">
+                <a class="nav-link" href="{{route('display.maintenance')}}">
+                    <i class="fas fa-wrench"></i>
+                    <span>Maintenance</span>
+                </a>
+            </li>
+        @endhasrole --}}
+
         @hasrole('superadmin')
             <li class="nav-item {{ request()->routeIs('display.trafficLog') ? 'active' : '' }}">
                 <a class="nav-link" href="{{route('display.trafficLog')}}">

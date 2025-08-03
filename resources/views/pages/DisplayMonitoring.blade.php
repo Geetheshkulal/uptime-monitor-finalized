@@ -151,7 +151,13 @@
                         @endif
                       </span>
 
-                    <span class="text-primary">{{ $details->url }}</span>
+                      @if($details->type === 'port')
+                      
+                        <span class="text-primary">{{ $details->url }} : {{$details->port}}</span>
+                      @else
+                        <span class="text-primary">{{ $details->url }}</span>
+                      
+                      @endif
                 </h5>
             </div>
         </div>
@@ -672,7 +678,7 @@
             function setEditUrl(id) {
                 let editForm = document.getElementById('editForm');
                 if (editForm) {
-                    editForm.action = "/monitoring/edit/" + id; // Set form action dynamically
+                    editForm.action = "/monitoring/edit/" + id; 
                 } else {
                     console.error("Edit form not found!");
                 }

@@ -1,45 +1,58 @@
 <?php
 
-use App\Http\Controllers\ActivityController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\BillingController;
-use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\PremiumPageController;
-use App\Http\Controllers\PushNotificationController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\RolePermissionController;
-use App\Http\Controllers\TrackingController;
-use App\Http\Controllers\IncidentController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\MonitoringController;
-use App\Http\Controllers\UserController;
-use App\Models\Subscriptions;
-use App\Http\Controllers\SslCheckController;
-use App\Http\Controllers\DnsController;
-use App\Http\Controllers\PingMonitoringController;
-use App\Http\Controllers\PortMonitorController;
-use App\Http\Controllers\HttpMonitoringController;
-use App\Http\Controllers\CashFreePaymentController;
-use App\Http\Controllers\PlanSubscriptionController;
-// for ticket and comments
-use App\Http\Controllers\TicketController;
-use App\Http\Controllers\BlockController;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Auth\EmailVerificationPromptController;
+use App\Models\Subscriptions;
+use App\Events\AdminNotification;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DnsController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BlockController;
+use App\Http\Controllers\CouponController;
+use App\Http\Controllers\TicketController;
+use App\Http\Controllers\BillingController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\CashfreeController;
+use App\Http\Controllers\IncidentController;
+use App\Http\Controllers\SslCheckController;
+use App\Http\Controllers\TrackingController;
+use App\Http\Controllers\ChangelogController;
+use App\Http\Controllers\MonitoringController;
+use App\Http\Controllers\PermissionController;
+// for ticket and comments
+use App\Http\Controllers\StatusPageController;
+use App\Http\Controllers\TrafficLogController;
+use App\Http\Controllers\PortMonitorController;
+use App\Http\Controllers\PremiumPageController;
+use Illuminate\Session\Middleware\StartSession;
+use App\Http\Controllers\EditTemplateController;
+use App\Http\Controllers\AdminWhatsAppController;
+
+use App\Http\Controllers\HttpMonitoringController;
+use App\Http\Controllers\PingMonitoringController;
+use App\Http\Controllers\RolePermissionController;
+use App\Http\Controllers\AppNotificationController;
+use App\Http\Controllers\CashFreePaymentController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\PlanSubscriptionController;
+use App\Http\Controllers\PublicStatusPageController;
+use App\Http\Controllers\PushNotificationController;
+use App\Http\Controllers\Maintenance\MaintenanceController;
+use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 
-use App\Http\Controllers\StatusPageController;
-use App\Http\Controllers\PublicStatusPageController;
-use App\Http\Controllers\CouponController;
-use App\Http\Controllers\ChangelogController;
-use App\Http\Controllers\TrafficLogController;
-use App\Http\Controllers\AdminWhatsAppController;
-use App\Http\Controllers\EditTemplateController;
-use App\Events\AdminNotification;
-use App\Http\Controllers\AppNotificationController;
 
+
+
+// Route::match(['post'], '/cashfree/response', function (Request $request) {
+//     return view('cashfree', ['data' => $request->all()]);
+// })->name('cashfree.response');
+
+Route::post('/cashfree/response', [CashfreeController::class, 'handleResponse'])->name('cashfree.response');
+
+Route::match(['get', 'post'], '/plan-subscription', [PlanSubscriptionController::class, 'planSubscription'])->name('planSubscription');
 
 
 Route::get('/Product_documentation', function () {
@@ -93,17 +106,19 @@ Route::post('/email/verification-notification', function (Request $request) {
 
 Route::get('/changelog', [ChangelogController::class, 'ChangelogPage'])->middleware('blockIp');
 
+
 Route::middleware(['auth', 'verified', 'CheckUserSession', 'blockIp'])->group(function () {
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->middleware('role:user')->name('profile.destroy');
+
+    Route::controller(ProfileController::class)->group(function () {
+        Route::get('/profile', 'edit')->name('profile.edit');
+        Route::patch('/profile', 'update')->name('profile.update');
+        Route::delete('/profile', 'destroy')->middleware('role:user')->name('profile.destroy');
+    });
+    
 
     Route::get('/dashboard', [MonitoringController::class, 'MonitoringDashboard'])->middleware('role:user|subuser')->middleware('permission:see.monitors')->name('monitoring.dashboard');
-    Route::get('/dashboard/{id}', [TrackingController::class, 'NotificationTracker']);
     Route::get('/monitoring/dashboard/update', [MonitoringController::class, 'MonitoringDashboardUpdate'])->name('monitoring.dashboard.update');
-
-
     Route::get('/monitoring/add', [MonitoringController::class, 'AddMonitoring'])->middleware('monitor.limit')->middleware('permission:add.monitor')->name('add.monitoring');
     Route::get('/monitoring/display/{id}/{type}', [MonitoringController::class, 'MonitoringDisplay'])->middleware('monitor.access')->middleware('permission:see.monitor.details')->name('display.monitoring');
     Route::get('/monitoring/chart/update/{id}/{type}', [MonitoringController::class, 'MonitoringChartUpdate'])->name('display.chart.update');
@@ -112,6 +127,9 @@ Route::middleware(['auth', 'verified', 'CheckUserSession', 'blockIp'])->group(fu
     Route::get('/monitoring/delete/{id}', [MonitoringController::class, 'MonitorDelete'])->middleware('permission:delete.monitor')->name('monitoring.delete');
     Route::post('/monitoring/edit/{id}', [MonitoringController::class, 'MonitorEdit'])->middleware('permission:edit.monitor')->name('monitoring.update');
     Route::post('/monitor/pause/{id}', [MonitoringController::class, 'pauseMonitor'])->name('monitor.pause');
+
+    Route::get('/dashboard/{id}', [TrackingController::class, 'NotificationTracker']);
+
 
 
     Route::patch('/user/update/billing', [UserController::class, 'UpdateBillingInfo'])->name('update.billing.info');
@@ -124,8 +142,10 @@ Route::middleware(['auth', 'verified', 'CheckUserSession', 'blockIp'])->group(fu
     Route::post('/ssl-check', [SslCheckController::class, 'check'])->name('ssl.check.domain');
 
     Route::get('/incidents', [IncidentController::class, 'incidents'])->middleware('role:user|subuser')->middleware('permission:see.incidents')->name('incidents');
-    Route::get('/incidents/fetch', [IncidentController::class, 'fetchIncidents'])->name('incidents.fetch'); // Add this for AJAX
-    Route::get('/plan-subscription', [PlanSubscriptionController::class, 'planSubscription'])->name('planSubscription');
+    Route::get('/incidents/fetch', [IncidentController::class, 'fetchIncidents'])->name('incidents.fetch'); 
+    // Route::get('/plan-subscription', [PlanSubscriptionController::class, 'planSubscription'])->name('planSubscription');
+    // Route::match(['get', 'post'], '/plan-subscription', [PlanSubscriptionController::class, 'planSubscription'])->name('planSubscription');
+
     Route::post('/dns-check', [DnsController::class, 'checkDnsRecords']);
     Route::post('/add/dns', [DnsController::class, 'AddDNS'])->name('add.dns');
     Route::post('/monitoring/ping', [PingMonitoringController::class, 'store'])->name('ping.monitoring.store');
@@ -135,24 +155,36 @@ Route::middleware(['auth', 'verified', 'CheckUserSession', 'blockIp'])->group(fu
     Route::post('/monitor/port', [PortMonitorController::class, 'PortStore'])->name('monitor.port');
     Route::post('/monitoring/http', [HttpMonitoringController::class, 'store'])->name('monitoring.http.store');
 
+    Route::post('/subscriptions/{subscription_id}/cancel', [CashFreePaymentController::class, 'cancelSubscription'])->name('subscriptions.cancel');
     Route::get('cashfree/payments/create', [CashFreePaymentController::class, 'create'])->name('callback');
     Route::post('cashfree/payments/store', [CashFreePaymentController::class, 'store'])->name('store');
     Route::any('cashfree/payments/success', [CashFreePaymentController::class, 'success'])->name('success');
     Route::any('cashfree/payments/webhook', [CashFreePaymentController::class, 'webhook'])->name('webhook');
     Route::any('cashfree/payments/status', [CashFreePaymentController::class, 'status'])->name('payment.status');
 
-    Route::post('/apply-coupon', [CouponController::class, 'apply']);
-    Route::post('/remove-coupon', [CouponController::class, 'remove'])->name('coupon.remove');
+    // Routes for applying/removing coupons 
+    Route::controller(CouponController::class)->group(function () {
+        Route::post('/apply-coupon', 'apply');
+        Route::post('/remove-coupon', 'remove')->name('coupon.remove');
+        Route::get('/coupon/users/search', 'UserSearch')->name('coupon.users.search');
+    });
 
-
-    // for super admin coupon
-    Route::get('/coupons', [CouponController::class, 'DisplayCoupons'])->middleware('permission:manage.coupons')->name('display.coupons');
-    Route::post('/coupons', [CouponController::class, 'CouponStore'])->middleware('permission:manage.coupons')->name('coupons.store');
-    Route::put('/coupons/{id}', [CouponController::class, 'CouponUpdate'])->middleware('permission:manage.coupons')->name('coupons.update');
-    Route::delete('/coupons/{id}', [CouponController::class, 'destroy'])->middleware('permission:manage.coupons')->name('coupons.destroy');
-    Route::get('/claimed-users/{coupon_id}', [CouponController::class, 'showClaimedUsers'])->middleware('permission:manage.coupons')->name('view.claimed.users');
+    // Routes for Super Admin (with manage.coupons permission)
+    Route::middleware('permission:manage.coupons')->controller(CouponController::class)->group(function () {
+        Route::get('/coupons', 'DisplayCoupons')->name('display.coupons');
+        Route::post('/coupons', 'CouponStore')->name('coupons.store');
+        Route::put('/coupons/{id}', 'CouponUpdate')->name('coupons.update');
+        Route::delete('/coupons/{id}', 'destroy')->name('coupons.destroy');
+        Route::get('/claimed-users/{coupon_id}', 'showClaimedUsers')->name('view.claimed.users');
+    });
+  
     Route::get('premium', [PremiumPageController::class, 'PremiumPage'])->middleware('premium_middleware')->middleware('role:user')->name('premium.page');
 
+    Route::controller(MaintenanceController::class)->group(function () {
+        Route::get('/maintenance', 'DisplayMaintenance')->name('display.maintenance');
+        Route::post('/maintenance/start', 'startMaintenance')->name('maintenance.start');
+        Route::post('/maintenance/stop', 'stopMaintenance')->name('maintenance.stop');
+    });
 
     // Test route to trigger PropertyTypeAdded event
     Route::get('/test-broadcast', function () {
@@ -201,8 +233,6 @@ Route::group(['middleware' => ['auth', 'blockIp']], function () {
 
     Route::get('/activity/users/search', [ActivityController::class, 'UserSearch'])->name('activity.users.search');
 
-    Route::get('/coupon/users/search', [CouponController::class, 'UserSearch'])->name('coupon.users.search');
-
 
     // Add the AJAX route for fetching activity logs
     Route::get('/activity-logs/ajax', [ActivityController::class, 'fetchActivityLogs'])
@@ -218,6 +248,9 @@ Route::group(['middleware' => ['auth', 'blockIp']], function () {
 
     Route::get('/billing', [BillingController::class, 'Billing'])->middleware('role:superadmin')->name('billing');
     Route::post('/edit/billing/{id}', [BillingController::class, 'EditBilling'])->middleware('role:superadmin')->name('edit.billing');
+    Route::post('/add/billing', [BillingController::class, 'AddBilling'])->middleware('role:superadmin')->name('add.billing');
+    Route::delete('/billing/{id}', [BillingController::class, 'destroy'])->middleware('role:superadmin')->name('subscription.destroy');
+    Route::post('/toggle-active/{id}', [BillingController::class, 'ToggleActive'])->middleware('role:superadmin')->name('toggle.active');
 
     Route::get('/display/tickets', [TicketController::class, 'ViewTicketsUser'])->name('display.tickets');
     Route::get('/raise/tickets', [TicketController::class, 'RaiseTicketsPage'])->name('raise.tickets');

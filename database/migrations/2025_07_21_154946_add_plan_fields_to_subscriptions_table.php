@@ -15,8 +15,7 @@ return new class extends Migration
             $table->string('slug')->unique()->after('amount');
             $table->text('description')->nullable()->after('slug');
             $table->enum('billing_cycle', ['monthly', 'yearly'])->default('monthly')->after('description');
-            $table->decimal('monthly_discount', 5, 2)->default(0)->after('billing_cycle'); // e.g., 20.00 = 20%
-            $table->decimal('yearly_discount', 5, 2)->default(0)->after('monthly_discount');
+            $table->decimal('yearly_discount', 5, 2)->default(null)->after('billing_cycle');
             $table->json('features')->nullable()->after('yearly_discount');
             $table->boolean('is_active')->default(true)->after('features');
         });

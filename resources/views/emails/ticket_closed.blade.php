@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ticket Closed - {{$ticket->ticket_id}}</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
 </head>
 <body style="font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f5f7fa; margin: 0; padding: 0; color: #333333; -webkit-font-smoothing: antialiased;">
     <table width="100%" cellpadding="0" cellspacing="0" border="0" style="min-width: 100%; border-collapse: collapse;">
@@ -17,8 +17,9 @@
                             <table width="100%" cellpadding="0" cellspacing="0" border="0">
                                 <tr>
                                     <td align="center">
-                                        <div style="background-color: white; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-                                            <i class="fas fa-check-circle" style="font-size: 40px; color: #10b981;"></i>
+                                        <div style="width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                                           <img src="https://img.icons8.com/color/48/000000/ok--v1.png" width="60" height="60" alt="Success Icon">
+
                                         </div>
                                         <h1 style="color: white; margin: 0; font-size: 28px; font-weight: 600;">Ticket Closed</h1>
                                         <p style="color: rgba(255,255,255,0.9); margin: 10px 0 0; font-size: 16px;">Your support request has been resolved</p>
@@ -38,10 +39,14 @@
                             <div style="background-color: #f8f9fa; border-radius: 8px; padding: 20px; margin: 25px 0; border: 1px solid #e5e7eb;">
                                 <div style="display: flex; align-items: center; margin-bottom: 15px;">
                                     <div style="background-color: #e0e7ff; width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-right: 12px; flex-shrink: 0;">
-                                        <i class="fas fa-ticket-alt" style="color: #4f46e5; font-size: 18px;"></i>
+                                        <img src="https://img.icons8.com/fluency/48/ticket.png" 
+     alt="Ticket Icon" 
+     width="25" height="25" 
+     style="padding-top: 7px;padding-left: 6px;">
+
                                     </div>
                                     <div>
-                                        <h3 style="margin: 0 0 5px 0; font-size: 18px; color: #111827;">Ticket Summary</h3>
+                                        <h3 style="margin: 0 0 5px 0; font-size: 20px; color: #111827;">Ticket Summary</h3>
                                         <p style="margin: 0; color: #6b7280; font-size: 14px;">Reference # {{ $ticket->ticket_id }}</p>
                                     </div>
                                 </div>

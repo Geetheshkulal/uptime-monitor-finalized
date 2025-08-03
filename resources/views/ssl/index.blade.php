@@ -197,6 +197,15 @@
         color: #000;
     }
 
+    @media (max-width: 576px) {
+    .introjs-tooltip,
+    .introjs-overlay,
+    .introjs-floating,
+    .introjs-helperLayer {
+    display: none !important;
+        
+    }
+}
 </style>
 @endpush
 </head>
@@ -469,8 +478,7 @@
 
 </script>
 
-<script>
-      // Initialize Intro.js when the DOM is fully loaded
+{{-- <script>
       document.addEventListener("DOMContentLoaded", function () {
         const intro = introJs();
         const savedStep=localStorage.getItem("introCurrentStep");
@@ -499,29 +507,29 @@
         intro.goToStep(Number(savedStep));
         intro.start(); 
     } else {
-        console.log("Starting tour from the beginning"); // Debugging
+        console.log("Starting tour from the beginning"); 
         intro.start(); 
     }
         
-        // Save the current step to localStorage whenever the step changes
+
         intro.onchange(function () {
-            const currentStep = intro._currentStep; // Get the current step
+            const currentStep = intro._currentStep; 
             console.log("Saving step:", currentStep);
-            localStorage.setItem("introCurrentStep", currentStep); // Save it to localStorage
+            localStorage.setItem("introCurrentStep", currentStep);
         });
 
-        // Clear the saved step when the tour is completed
+        
         intro.oncomplete(function () {
         localStorage.removeItem("introCurrentStep");
        });
 
-        // Clear the saved step if the user exits the tour
+        
         intro.onexit(function () {
         localStorage.removeItem("introCurrentStep");
         });
     });
 
-</script>
+</script> --}}
 
 <script>
     document.getElementById("startTourBtn").addEventListener("click", function () {
@@ -532,10 +540,6 @@
                     element: document.querySelector('.SslCheck'),
                     intro: 'To view SSL check history',
                     position: 'left'
-                },
-                {
-                    element: document.querySelector('.SslBox'),
-                    intro: 'To check SSL expire.'
                 }
             ],
             nextLabel: 'Next',

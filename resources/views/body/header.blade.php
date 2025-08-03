@@ -42,7 +42,7 @@
 
     <!-- Skeleton Loader Styles -->
     <style>
-        *:not(.status-dot):not(.status-badge, .status-indicator, .bar-segment, .badge, .whatsapp-bubble, .telegram-bubble):not(#profile-photo) {
+        *:not(.status-dot):not(.status-badge, .status-indicator, .bar-segment, .badge, .whatsapp-bubble, .telegram-bubble):not(#profile-photo):not(.form-check-input) {
             border-radius: 3px;
         }
 

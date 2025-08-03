@@ -77,7 +77,7 @@
             </div>
           
           <div style="text-align: center; margin: 30px 0;">
-    <a href="http://127.0.0.1:8000/premium?coupon={{ $coupon->code }}" 
+    <a href="{{ $url }}" 
        style="background: linear-gradient(135deg, #1e3c72, #2a5298); 
               color: #fff; 
               padding: 12px 25px; 

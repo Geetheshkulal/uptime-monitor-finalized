@@ -289,7 +289,7 @@ input:checked + .slider:before {
     }
     
 .price {
-    font-size: 3rem;
+    font-size: 34px;
     font-weight: 700;
     color: var(--primary);
 }
@@ -538,7 +538,11 @@ th {
                 <input type="checkbox" id="pricing-toggle">
                 <span class="slider"></span>
             </label>
-            <span>Yearly <span class="discount">Save 20%</span></span>
+            <span>Yearly 
+                @if($jspricingData->contains('yearly_discount', '!=', null))
+                    <span class="discount">Save up to {{ $jspricingData->max('yearly_discount') }}%</span>
+                @endif
+            </span>
         </div>
     </div>
     
@@ -623,24 +627,28 @@ th {
                     <div class="card-content">
                         <div class="card-header-premium">
                             <h2 class="white-color">{{ $plan->name }}</h2>
-                            <div class="price" data-original="{{ $plan->amount }}" data-id="{{ $plan->id }}">
-                    @php
-                        $originalPrice = $plan->amount;
-                        $discount = ($appliedCoupon && $appliedCoupon['subscription'] == $plan->id) 
-                                    ? $appliedCoupon['discount'] 
-                                    : 0;
-                        $finalPrice =($appliedCoupon && $appliedCoupon['discount_type']==='flat')? round(max(0, $originalPrice - $discount)):round(max(0, $originalPrice - (($originalPrice*$discount)/100)));
+                            {{-- Discount badge placeholder --}}
+                            <div class="discount-badge" data-id="{{ $plan->id }}"></div>
 
-                    @endphp
+                            <div class="price" data-original="{{ $plan->amount }}" data-id="{{ $plan->id }}">
+                                
+                            @php
+                                $originalPrice = $plan->amount;
+                                $discount = ($appliedCoupon && $appliedCoupon['subscription'] == $plan->id) 
+                                            ? $appliedCoupon['discount'] 
+                                            : 0;
+                                $finalPrice =($appliedCoupon && $appliedCoupon['discount_type']==='flat')? round(max(0, $originalPrice - $discount)):round(max(0, $originalPrice - (($originalPrice*$discount)/100)));
+
+                            @endphp
                     
                     @if($discount > 0)
-                        <del>₹{{ number_format($originalPrice, 2) }}</del>
-                        ₹{{ number_format($finalPrice, 2) }}
+                        {{-- <del>₹{{ number_format($originalPrice, 2) }}</del> --}}
+                        <del>₹{{ round($originalPrice) }}</del>
+                        ₹{{ round($finalPrice) }}
                     @else
-                        ₹{{ number_format($originalPrice, 2) }}
+                        ₹{{ round($originalPrice) }}
                     @endif
                         <span class="currency">/</span><span class="period">mo</span></div>
-
                         </div>
 
                         @if($appliedCoupon && $appliedCoupon['subscription'] == $plan->id)
@@ -707,13 +715,23 @@ th {
                                 </div>
                             </li>
                         </ul>
-                        <form id="paymentForm_{{ $plan->id }}" action="{{ route('store') }}" method="POST" target="_blank">
+                        <form id="paymentForm_{{ $plan->id }}" action="{{ route('store') }}" method="POST">
                             @csrf
                             <input type="hidden" name="name" value="{{ auth()->user()->name }}">
                             <input type="hidden" name="email" value="{{ auth()->user()->email }}">
                             <input type="hidden" name="mobile" value="{{ auth()->user()->phone }}">
                             <input type="hidden" name="subscription_id" value="{{ $plan->id }}">
-                            
+                            <input type="hidden" name="billing_cycle" id="billing_cycle" value={{$plan->billing_cycle}}>
+
+                            {{-- cashfree subscription --}}
+                            <input type="hidden" name="plan_id" value="{{ $plan->plan_id}}">
+                            <input type="hidden" name="plan_name" value="{{ $plan->name }}">
+                            <input type="hidden" name="plan_type" value="{{ $plan->plan_type }}">
+                            <input type="hidden" name="plan_currency" value="INR">
+                            {{-- only for periodic plan recurring amount is required --}}
+                            <input type="hidden" name="plan_recurring_amount" value="{{ $plan->plan_recurring_amount }}">
+            
+                            <input type="hidden" name="amount" value="{{ $plan->amount }}">
                             <button class="select-plan">Choose Plan</button>
                         </form>
                     </div>
@@ -762,6 +780,9 @@ th {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+<!-- Include Cashfree SDK -->
+<script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
 
 <script>
     toastr.options = {
@@ -929,7 +950,7 @@ th {
     });
 </script>
 
-<script>
+{{-- <script>
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('form[id^="paymentForm_"]').forEach(form => {
         form.addEventListener('submit', function(e) {
@@ -947,8 +968,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 return false;
             }
 
-            const paymentWindow = window.open('', 'paymentWindow', 'width=600,height=800');
-            
+            // const paymentWindow = window.open('', 'paymentWindow', 'width=600,height=800');
+            const formDataObj = Object.fromEntries(new FormData(form));
+
             fetch(form.action, {
                 method: 'POST',
                 headers: {
@@ -956,48 +978,158 @@ document.addEventListener('DOMContentLoaded', function() {
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
                 },
-                body: JSON.stringify(Object.fromEntries(new FormData(form)))
+                // body: JSON.stringify(Object.fromEntries(new FormData(form)))
+                body: JSON.stringify(formDataObj),
             })
             .then(response => response.json())
             .then(data => {
-                if (data.payment_link) {
-                    paymentWindow.location.href = data.payment_link;
-                    
-                    const checkPaymentStatus = setInterval(() => {
-                        fetch('/cashfree/payments/status')
-                        .then(response => response.json())
-                        .then(status => {
-                            if (status.payment_success && status.payment_end_date!==null && status.status==='paid') {
-                                clearInterval(checkPaymentStatus);
-                                paymentWindow.close();
-                                window.location.reload();
-                            }
-                        });
-                    }, 3000);
+                if (data.subscription_session_id) {
+                    // console.log("Redirecting to:", data.payment_link);
+                    const cashfree = Cashfree({ mode: "sandbox"})
+                    cashfree.subscriptionsCheckout({
+                        subsSessionId: data.subscription_session_id,
+                        redirectTarget: "_blank"
+                    }).then(function(result){
+                        if(result.error){
+                            alert("payment error:" + result.error.message);
+                        }
+                    })
+                    // window.location.assign(data.payment_link);
+
                 } else {
-                    paymentWindow.close();
-                    alert('Error initiating payment. Please try again.');
+                    // paymentWindow.close();
+                    alert('Error: ' + (data.message || 'Something went wrong'));
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                paymentWindow.close();
+                // paymentWindow.close();
                 alert('Error initiating payment. Please try again.');
             });
         });
     });
 });
+</script> --}}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('form[id^="paymentForm_"]').forEach(form => {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+    
+                const user = @json($user);
+    
+                if (!user.address_1 || !user.place || !user.state || !user.pincode || !user.country) {
+                    toastr.warning('You must fill the billing details in your profile section first');
+                    setTimeout(() => {
+                        window.location.href = "{{ route('profile.update') }}?tab=billing";
+                    }, 2000);
+                    return;
+                }
+    
+                const formDataObj = Object.fromEntries(new FormData(form));
+    
+                fetch(form.action, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    },
+                    body: JSON.stringify(formDataObj),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.subscription_session_id) {
+                        const cashfree = Cashfree({ 
+                            mode:"sandbox",
+                         });
+    
+                         cashfree.subscriptionsCheckout({
+                            subsSessionId : data.subscription_session_id,
+                            redirectTarget: "_blank"
+                        }).then(function (result) {
+                            if (result.error) {
+                                console.error("Modal Error:", result.error.message);
+                                alert("Payment error: " + result.error.message);
+                            }
+                        });
+                    } else {
+                        alert('Error: ' + (data.message || 'Something went wrong'));
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error initiating payment. Please try again.');
+                });
+            });
+        });
+    });
 </script>
+    
+
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Pricing toggle
+        const toggle = document.querySelector('.switch input');
+        const prices = document.querySelectorAll('.price');
+        const periods = document.querySelectorAll('.period');
+        const couponBtn = document.getElementById('couponActionBtn');
+
+        const pricingData = @json($jspricingData);
+
+        if (toggle.checked) {
+            couponBtn.style.visibility = 'hidden';
+        }
+
+
+        toggle.addEventListener('change', () => {
+            const isYearly = toggle.checked;
+            const billing_cycle = isYearly ? 'yearly' : 'monthly';
+
+            document.querySelectorAll('input[name="billing_cycle"]').forEach(input => {
+                input.value = billing_cycle;
+            });
+
+            prices.forEach((priceEl) => {
+                const planId = parseInt(priceEl.getAttribute('data-id'));
+                const planData = pricingData.find(p => p.id === planId);
+
+                if (!planData) return;
+
+                const newPrice = toggle.checked ? planData.yearly : planData.monthly;
+                const periodText = toggle.checked ? 'year' : 'mo';
+
+                priceEl.innerHTML = `
+                    ₹${Math.round(newPrice)} 
+                    <span class="currency">/</span>
+                    <span class="period">${periodText}</span>
+                `;
+
+                const badgeE1 = document.querySelector(`.discount-badge[data-id="${planId}"]`);
+                if (badgeE1) {
+                    if (toggle.checked && planData.yearly_discount) {
+                        badgeE1.innerHTML = `<span class="discount">Save ${planData.yearly_discount}%</span>`;
+                    }else {
+                        badgeE1.innerHTML = '';
+                    }
+                }
+            });
+
+            couponBtn.style.visibility = toggle.checked ? 'hidden' : 'visible';
+        });
+    });
+</script>
+
+
+{{-- <script>
+    document.addEventListener('DOMContentLoaded', () => {
+    
         const toggle = document.querySelector('.switch input');
         const prices = document.querySelectorAll('.price');
         const periods = document.querySelectorAll('.period');
         const discount = document.querySelector('.discount');
 
-        // Fetch prices dynamically from the backend
         const pricingData = @json($plans->map(function($plan) {
             return [
                 'id' => $plan->id,
@@ -1005,145 +1137,33 @@ document.addEventListener('DOMContentLoaded', function() {
                 'yearly' => round($plan->amount * 12 * 0.8) 
             ];
         }));
+        
 
         toggle.addEventListener('change', () => {
-    prices.forEach((priceEl) => {
-        // Skip Basic plan
-        if (priceEl.classList.contains('basic-price')) return;
+        prices.forEach((priceEl) => {
+        const planId = parseInt(priceEl.getAttribute('data-id'));
+        const planData = pricingData.find(p => p.id === planId);
+        
+        if (!planData) return;
 
-        const planId = priceEl.getAttribute('data-id');
-        const planData = pricingData.find(p => p.id == planId);
-        const periodSpan = priceEl.querySelector('.period');
+        const newPrice = toggle.checked ? planData.yearly : planData.monthly;
+        const periodText = toggle.checked ? 'year' : 'mo';
+        const discountBadge = planData.yearly_discount && toggle.checked 
+            ? `<span class="discount-badge">Save ${planData.yearly_discount}%</span>` 
+            : '';
 
-        if (planData && periodSpan) {
-            // ✅ Update price text, keeping the currency and period intact
-            // Keep currency and update just the number
-            const currencySpan = priceEl.querySelector('.currency');
-            const currencyText = currencySpan ? currencySpan.textContent : '/';
-            
-            // Update only the number (first text node)
-            const newPrice = toggle.checked ? planData.yearly : planData.monthly;
-            priceEl.childNodes[0].nodeValue = `₹${newPrice.toFixed(2)}`;
-
-            // ✅ Update period span
-            periodSpan.textContent = toggle.checked ? 'year' : 'mo';
-        }
+        priceEl.innerHTML = `
+            ₹${newPrice.toFixed(2)} 
+            <span class="currency">/</span>
+            <span class="period">${periodText}</span>
+            ${discountBadge}
+        `;
     });
-
-    // ✅ Show/hide "Save 20%" badge
-    discount.style.display = toggle.checked ? 'inline-block' : 'none';
 });
 
-
-        // FAQ Accordion
-        const faqItems = document.querySelectorAll('.faq-item');
-
-        faqItems.forEach(item => {
-            const question = item.querySelector('.faq-question');
-            
-            question.addEventListener('click', () => {
-                const isActive = item.classList.contains('active');
-                
-                // Close all other items
-                faqItems.forEach(otherItem => {
-                    otherItem.classList.remove('active');
-                });
-
-                // Toggle current item
-                if (!isActive) {
-                    item.classList.add('active');
-                }
-            });
-        });
-
-        // Card hover effects
-        const cards = document.querySelectorAll('.card');
-
-      
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.card, .faq-item, .comparison-table').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Price calculation based on features
-        const featureCheckboxes = document.querySelectorAll('.feature-checkbox');
-        const totalPrice = document.querySelector('.total-price');
-
-        function updateTotalPrice() {
-            let total = 0;
-            featureCheckboxes.forEach(checkbox => {
-                if (checkbox.checked) {
-                    total += parseInt(checkbox.dataset.price);
-                }
-            });
-            totalPrice.textContent = `$${total}`;
-        }
-
-        featureCheckboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', updateTotalPrice);
-        });
-
-        // Local storage for user preferences
-        const savePreferences = () => {
-            const preferences = {
-                pricingType: toggle.checked ? 'yearly' : 'monthly',
-                selectedFeatures: Array.from(featureCheckboxes)
-                    .filter(cb => cb.checked)
-                    .map(cb => cb.id)
-            };
-            localStorage.setItem('pricingPreferences', JSON.stringify(preferences));
-        };
-
-        const loadPreferences = () => {
-            const saved = localStorage.getItem('pricingPreferences');
-            if (saved) {
-                const preferences = JSON.parse(saved);
-                toggle.checked = preferences.pricingType === 'yearly';
-                preferences.selectedFeatures.forEach(featureId => {
-                    const checkbox = document.getElementById(featureId);
-                    if (checkbox) checkbox.checked = true;
-                });
-                updateTotalPrice();
-            }
-        };
-
-        toggle.addEventListener('change', savePreferences);
-        featureCheckboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', savePreferences);
-        });
-
-        loadPreferences();
     });
-</script>
+</script> --}}
+
 @endpush
 
 @endsection

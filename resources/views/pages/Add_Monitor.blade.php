@@ -10,6 +10,7 @@
 
     </head>
   <style>
+
     /* ========== INTROJS TOUR ========== */
         .introjs-tooltip {
             background-color: white;
@@ -67,7 +68,22 @@
             overflow: auto;
             margin-left: -19px;
         }
+        .nav-tabs{
+            border-bottom: none;
+        }
+.nav-tabs .nav-link{
+    margin: 5px;
+}
 
+@media (max-width: 576px) {
+    .introjs-tooltip,
+    .introjs-overlay,
+    .introjs-floating,
+    .introjs-helperLayer {
+    display: none !important;
+        
+    }
+}
  </style>
 
 <div class="container-fluid">
@@ -84,7 +100,7 @@
 </div>
 
     {{-- Dropdown for Monitor Types --}}
-    <div class="dropdown mb-4 mx-3 mx-lg-5">
+    {{-- <div class="dropdown mb-4 mx-3 mx-lg-5">
         <button class="btn btn-primary dropdown-toggle MonitorTypes" type="button" id="dropdownMenuButton" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             HTTP Monitoring
@@ -99,541 +115,59 @@
             <a class="dropdown-item fs-6" href="#" onclick="updateDropdown('DNS Monitoring', 'dns')">DNS
                 Monitoring</a>
         </div>
+    </div> --}}
+
+    <!-- Tabs Navigation -->
+<ul class="nav nav-tabs mb-4 mx-3 mx-lg-5" id="monitoringTabs" role="tablist">
+    <li class="nav-item">
+        <button class="nav-link active HttpMonitoring" id="http-tab" data-toggle="tab" href="#http" type="button" role="tab" aria-controls="http" aria-selected="true">
+            HTTP Monitoring
+        </button>
+    </li>
+    <li class="nav-item">
+        <button class="nav-link PingMonitoring" id="ping-tab" data-toggle="tab" href="#ping" type="button" role="tab" aria-controls="ping" aria-selected="false">
+            Ping Monitoring
+        </button>
+    </li>
+    <li class="nav-item">
+        <button class="nav-link PortMonitoring" id="port-tab" data-toggle="tab" href="#port" type="button" role="tab" aria-controls="port" aria-selected="false">
+            Port Monitoring
+        </button>
+    </li>
+    <li class="nav-item">
+        <button class="nav-link DnsMonitoring" id="dns-tab" data-toggle="tab" href="#dns" type="button" role="tab" aria-controls="dns" aria-selected="false">
+            DNS Monitoring
+        </button>
+    </li>
+</ul>
+
+    <!-- Tab Content -->
+<!-- Tab Content -->
+<div class="tab-content" id="monitoringTabsContent">
+    <div class="tab-pane fade show active" id="http" role="tabpanel" aria-labelledby="http-tab">
+        @include('monitoring.http')
     </div>
-
-    {{-- Form Section --}}
-    <div class="d-flex justify-content-center">
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-body" id="formContainer">
-                    <!-- Default Form (HTTP Monitoring) -->
-                    <h4 class="card-title">HTTP Monitoring</h4>
-
-        
-                    <form id="monitoringForm" method="POST" action="{{ route('monitoring.http.store') }}">
-                        @csrf
-                        <input type="hidden" name="form_type" value="http"> <!-- Add this hidden input -->
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Friendly name</label>
-                            <input id="name" class="form-control" name="name" type="text"
-                                placeholder="E.g. Google"  >
-                            @if (old('form_type') === 'http')
-                                @error('name')
-                                    <div class="text-danger mt-1">{{ $message }}</div>
-                                @enderror
-                            @endif
-                        </div>
-                        <div class="mb-3">
-                            <label for="url" class="form-label">URL</label>
-                            <input id="url" class="form-control" name="url" type="text"
-                                placeholder="E.g. https://www.google.com"  >
-                            @if (old('form_type') === 'http')
-                                @error('url')
-                                    <div class="text-danger mt-1">{{ $message }}</div>
-                                @enderror
-                            @endif
-                        </div>
-
-        
-                        <div class="mb-3">
-                            <label for="retries" class="form-label">Retries</label>
-                            <input id="retries" class="form-control" name="retries" type="number" value="3"
-                                 >
-                            @if (old('form_type') === 'http')
-                                @error('retries')
-                                    <div class="text-danger mt-1">{{ $message }}</div>
-                                @enderror
-                            @endif
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="interval" class="form-label">Interval (in minutes)</label>
-                            <input 
-                                id="interval"
-                                class="form-control {{ auth()->user()->status === 'free' ? 'bg-light text-muted border-secondary' : '' }}"
-                                name="interval"
-                                type="number"
-                                min="{{ auth()->user()->status === 'free' ? 5 : 1 }}"
-                                max="10"
-                                value="{{ old('interval', auth()->user()->status === 'free' ? 5 : 1) }}"
-                                {{ auth()->user()->status === 'free' ? 'title=Only 5-10 minutes allowed for free users' : '' }}
-                            >
-                            @if (auth()->user()->status === 'free')
-                                <small class="form-text text-muted">
-                                    Free users can set an interval between <strong>5 and 10 minutes</strong>. 
-                                    <a href="{{ route('premium.page') }}">Upgrade to premium <i class="fa-solid fa-crown" style="color: #FFD43B;"></i></a> to set a shorter interval.
-                                </small>
-                            @endif
-                        </div>
-
-                        <h5 class="card-title">Notification</h5>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input id="email" class="form-control" name="email" type="email"
-                                placeholder="example@gmail.com" >
-                            @if (old('form_type') === 'http')
-                                @error('email')
-                                    <div class="text-danger mt-1">{{ $message }}</div>
-                                @enderror
-                            @endif
-                        </div>
-                        <div class="mb-3">
-                            <label for="telegram_id" class="form-label">Telegram ID (Optional)</label>
-                            <input id="telegram_id" class="form-control {{ auth()->user()->status === 'free' ? 'bg-light text-muted border-secondary' : '' }}" name="telegram_id" type="text"
-                                   {{ auth()->user()->status === 'free' ? 'disabled title=Only available for paid users' : '' }}>
-                            @if (auth()->user()->status === 'free')
-                                <small class="form-text text-muted">
-                                    <a href="{{ route('premium.page') }}">Upgrade to premium <i class="fa-solid fa-crown" style="color: #FFD43B;"></i></a> to enable Telegram notifications.
-                                </small>
-                            @endif
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="telegram_bot_token" class="form-label">Telegram Bot Token (Optional)</label>
-                            <input id="telegram_bot_token" class="form-control {{ auth()->user()->status === 'free' ? 'bg-light text-muted border-secondary' : '' }}" name="telegram_bot_token" type="text"
-                                   {{ auth()->user()->status === 'free' ? 'disabled title=Only available for paid users' : '' }}>
-                            @if (auth()->user()->status === 'free')
-                                <small class="form-text text-muted">
-                                    <a href="{{ route('premium.page') }}">Upgrade to premium <i class="fa-solid fa-crown" style="color: #FFD43B;"></i></a> to enable Telegram notifications.
-                                </small>
-                            @endif
-                        </div>
-                        
-                        <input class="btn btn-primary w-100" type="submit" value="Submit">
-                    </form>
-                </div>
-            </div>
-        </div>
+    <div class="tab-pane fade" id="ping" role="tabpanel" aria-labelledby="ping-tab">
+        @include('monitoring.ping')
     </div>
-
-    {{-- JavaScript to Handle Form Switching --}}
-    <script>
-        const forms = {
-            http: {
-                title: "HTTP Monitoring",
-                action: "{{ route('monitoring.http.store') }}",
-                fields: `
-                <input type="hidden" name="form_type" value="http"> <!-- Add this hidden input -->
-                <div class="mb-3">
-                        <label for="name" class="form-label">Friendly name</label>
-                        <input id="name" class="form-control" name="name" type="text" placeholder="E.g. Google"  >
-                        @if (old('form_type') === 'http')
-                            @error('name')
-                                <div class="text-danger mt-1">{{ $message }}</div>
-                            @enderror
-                        @endif
-                    </div>
-                    <div class="mb-3">
-                        <label for="url" class="form-label">URL</label>
-                        <input id="url" class="form-control" name="url" type="text" placeholder="E.g. https://www.google.com"  >
-                        @if (old('form_type') === 'http')
-                            @error('url')
-                                <div class="text-danger mt-1">{{ $message }}</div>
-                            @enderror
-                        @endif
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="retries" class="form-label">Retries</label>
-                        <input id="retries" class="form-control" name="retries" type="number" value="3"  >
-                        @if (old('form_type') === 'http')
-                            @error('retries')
-                                <div class="text-danger mt-1">{{ $message }}</div>
-                            @enderror
-                        @endif
-                    </div>
-
-                   <div class="mb-3">
-                            <label for="interval" class="form-label">Interval (in minutes)</label>
-                            <input 
-                                id="interval"
-                                class="form-control {{ auth()->user()->status === 'free' ? 'bg-light text-muted border-secondary' : '' }}"
-                                name="interval"
-                                type="number"
-                                min="{{ auth()->user()->status === 'free' ? 5 : 1 }}"
-                                max="10"
-                                value="{{ old('interval', auth()->user()->status === 'free' ? 5 : 1) }}"
-                                {{ auth()->user()->status === 'free' ? 'title=Only 5-10 minutes allowed for free users' : '' }}
-                            >
-                            @if (auth()->user()->status === 'free')
-                                <small class="form-text text-muted">
-                                    Free users can set an interval between <strong>5 and 10 minutes</strong>. 
-                                    <a href="{{ route('premium.page') }}">Upgrade to premium <i class="fa-solid fa-crown" style="color: #FFD43B;"></i></a> to set a shorter interval.
-                                </small>
-                            @endif
-                        </div>
-                    </div>
-                    
-                    <h5 class="card-title">Notification</h5>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input id="email" class="form-control" name="email" type="email" placeholder="example@gmail.com">
-                        @if (old('form_type') === 'http')
-                            @error('email')
-                                <div class="text-danger mt-1">{{ $message }}</div>
-                            @enderror
-                        @endif
-                    </div>
-                    <div class="mb-3">
-    <label for="telegram_id" class="form-label">Telegram ID (Optional)</label>
-    <input id="telegram_id" class="form-control {{ auth()->user()->status === 'free' ? 'bg-light text-muted border-secondary' : '' }}" name="telegram_id" type="text"
-           {{ auth()->user()->status === 'free' ? 'disabled title=Only available for paid users' : '' }}>
-    @if (auth()->user()->status === 'free')
-        <small class="form-text text-muted">
-            <a href="{{ route('premium.page') }}">Upgrade to premium <i class="fa-solid fa-crown" style="color: #FFD43B;"></i></a> to enable Telegram notifications.
-        </small>
-    @endif
-</div>
-
-<div class="mb-3">
-    <label for="telegram_bot_token" class="form-label">Telegram Bot Token (Optional)</label>
-    <input id="telegram_bot_token" class="form-control {{ auth()->user()->status === 'free' ? 'bg-light text-muted border-secondary' : '' }}" name="telegram_bot_token" type="text"
-           {{ auth()->user()->status === 'free' ? 'disabled title=Only available for paid users' : '' }}>
-    @if (auth()->user()->status === 'free')
-        <small class="form-text text-muted">
-            <a href="{{ route('premium.page') }}">Upgrade to premium <i class="fa-solid fa-crown" style="color: #FFD43B;"></i></a> to enable Telegram notifications.
-        </small>
-    @endif
-</div>
-
-                    <input class="btn btn-primary w-100" type="submit" value="Submit">
-            `
-            },
-            ping: {
-                title: "Ping Monitoring",
-                action: "{{ route('ping.monitoring.store') }}",
-                fields: `
-                <input type="hidden" name="form_type" value="ping"> <!-- Add this hidden input -->
-                <div class="mb-3">
-                    <label for="name" class="form-label">Friendly name</label>
-                    <input id="name" class="form-control" name="name" type="text" placeholder="E.g. Google"  >
-                    @if (old('form_type') === 'ping')
-                        @error('name')
-                            <div class="text-danger mt-1">{{ $message }}</div>
-                        @enderror
-                    @endif
-                </div>
-                <div class="mb-3">
-                    <label for="url" class="form-label">Domain or URL</label>
-                    <input id="url" class="form-control" name="url" type="text" placeholder="E.g. https://www.google.com"  >
-                    @if (old('form_type') === 'ping')
-                        @error('url')
-                            <div class="text-danger mt-1">{{ $message }}</div>
-                        @enderror
-                    @endif
-                </div>
-                <div class="mb-3">
-                        <label for="retries" class="form-label">Retries</label>
-                        <input id="retries" class="form-control" name="retries" type="number" value="3"  >
-                        @if (old('form_type') === 'ping')
-                            @error('retries')
-                                <div class="text-danger mt-1">{{ $message }}</div>
-                            @enderror
-                        @endif
-                    </div>
-                    <div class="mb-3">
-                            <label for="interval" class="form-label">Interval (in minutes)</label>
-                            <input 
-                                id="interval"
-                                class="form-control {{ auth()->user()->status === 'free' ? 'bg-light text-muted border-secondary' : '' }}"
-                                name="interval"
-                                type="number"
-                                min="{{ auth()->user()->status === 'free' ? 5 : 1 }}"
-                                max="10"
-                                value="{{ old('interval', auth()->user()->status === 'free' ? 5 : 1) }}"
-                                {{ auth()->user()->status === 'free' ? 'title=Only 5-10 minutes allowed for free users' : '' }}
-                            >
-                            @if (auth()->user()->status === 'free')
-                                <small class="form-text text-muted">
-                                    Free users can set an interval between <strong>5 and 10 minutes</strong>. 
-                                    <a href="{{ route('premium.page') }}">Upgrade to premium <i class="fa-solid fa-crown" style="color: #FFD43B;"></i></a> to set a shorter interval.
-                                </small>
-                            @endif
-                        </div>
-                <h5 class="card-title">Notification</h5>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input id="email" class="form-control" name="email" type="email" placeholder="example@gmail.com"  >
-                    @if (old('form_type') === 'ping')
-                        @error('email')
-                            <div class="text-danger mt-1">{{ $message }}</div>
-                        @enderror
-                    @endif
-                </div>
-                <div class="mb-3">
-    <label for="telegram_id" class="form-label">Telegram ID (Optional)</label>
-    <input id="telegram_id" class="form-control {{ auth()->user()->status === 'free' ? 'bg-light text-muted border-secondary' : '' }}" name="telegram_id" type="text"
-           {{ auth()->user()->status === 'free' ? 'disabled title=Only available for paid users' : '' }}>
-    @if (auth()->user()->status === 'free')
-        <small class="form-text text-muted">
-            <a href="{{ route('premium.page') }}">Upgrade to premium <i class="fa-solid fa-crown" style="color: #FFD43B;"></i></a> to enable Telegram notifications.
-        </small>
-    @endif
-</div>
-
-<div class="mb-3">
-    <label for="telegram_bot_token" class="form-label">Telegram Bot Token (Optional)</label>
-    <input id="telegram_bot_token" class="form-control {{ auth()->user()->status === 'free' ? 'bg-light text-muted border-secondary' : '' }}" name="telegram_bot_token" type="text"
-           {{ auth()->user()->status === 'free' ? 'disabled title=Only available for paid users' : '' }}>
-    @if (auth()->user()->status === 'free')
-        <small class="form-text text-muted">
-            <a href="{{ route('premium.page') }}">Upgrade to premium <i class="fa-solid fa-crown" style="color: #FFD43B;"></i></a> to enable Telegram notifications.
-        </small>
-    @endif
+    <div class="tab-pane fade" id="port" role="tabpanel" aria-labelledby="port-tab">
+        @include('monitoring.port')
+    </div>
+    <div class="tab-pane fade" id="dns" role="tabpanel" aria-labelledby="dns-tab">
+        @include('monitoring.dns')
+    </div>
 </div>
 
 
-                <input class="btn btn-primary w-100" type="submit" value="Submit">
-                
-            `
-            },
-            port: {
-                title: "Port Monitoring",
-                action: "{{ route('monitor.port') }}",
-                fields: `
-                <input type="hidden" name="form_type" value="port"> <!-- Add this hidden input -->
-                    <div class="mb-3">
-                    <label for="name" class="form-label">Friendly name</label>
-                    <input id="name" class="form-control" name="name" type="text" placeholder="E.g. Google" value="{{ old('name') }}">
-                    @if (old('form_type') === 'port')
-                        @error('name')
-                            <div class="text-danger mt-1">{{ $message }}</div>
-                        @enderror
-                    @endif
-                </div>
+@push('scripts')
 
-                <div class="mb-3">
-                    <label for="url" class="form-label">Domain or URL</label>
-                    <input id="url" class="form-control" name="url" type="text" placeholder="E.g. www.google.com" value="{{ old('url') }}">
-                    @if (old('form_type') === 'port')
-                        @error('url')
-                            <div class="text-danger mt-1">{{ $message }}</div>
-                        @enderror
-                    @endif
-                </div>
+ <!-- jQuery and Toastr scripts -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-                <div class="mb-3">
-                    <label for="port" class="form-label">Port</label>
-                    <input 
-                        id="portInput" 
-                        class="form-control" 
-                        name="port" 
-                        type="number" 
-                        placeholder="E.g., 80, 443, or custom port (1-65535)"
-                        list="defaultPorts"
-                        value="{{ old('port') }}"
-                    >
-                    <datalist id="defaultPorts">
-                        <option value="21">FTP</option>
-                        <option value="22">SSH/SFTP</option>
-                        <option value="25">SMTP</option>
-                        <option value="53">DNS</option>
-                        <option value="80">HTTP</option>
-                        <option value="110">POP3</option>
-                        <option value="143">IMAP</option>
-                        <option value="443">HTTPS</option>
-                        <option value="465">SMTP (SSL)</option>
-                        <option value="587">SMTP (TLS)</option>
-                        <option value="993">IMAP (SSL)</option>
-                        <option value="995">POP3 (SSL)</option>
-                        <option value="3306">MySQL</option>
-                    </datalist>
-                    @if (old('form_type') === 'port')
-                        @error('port')
-                            <div class="text-danger mt-1">{{ $message }}</div>
-                        @enderror
-                    @endif
-                </div>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/intro.min.js"></script>
 
-                <div class="mb-3">
-                    <label for="retries" class="form-label">Retries</label>
-                    <input id="retries" class="form-control" name="retries" type="number" value="{{ old('retries', 3) }}">
-                    @if (old('form_type') === 'port')
-                        @error('retries')
-                            <div class="text-danger mt-1">{{ $message }}</div>
-                        @enderror
-                    @endif
-                </div>
-
-                <div class="mb-3">
-                            <label for="interval" class="form-label">Interval (in minutes)</label>
-                            <input 
-                                id="interval"
-                                class="form-control {{ auth()->user()->status === 'free' ? 'bg-light text-muted border-secondary' : '' }}"
-                                name="interval"
-                                type="number"
-                                min="{{ auth()->user()->status === 'free' ? 5 : 1 }}"
-                                max="10"
-                                value="{{ old('interval', auth()->user()->status === 'free' ? 5 : 1) }}"
-                                {{ auth()->user()->status === 'free' ? 'title=Only 5-10 minutes allowed for free users' : '' }}
-                            >
-                            @if (auth()->user()->status === 'free')
-                                <small class="form-text text-muted">
-                                    Free users can set an interval between <strong>5 and 10 minutes</strong>. 
-                                    <a href="{{ route('premium.page') }}">Upgrade to premium <i class="fa-solid fa-crown" style="color: #FFD43B;"></i></a> to set a shorter interval.
-                                </small>
-                            @endif
-                        </div>
-
-                <h5 class="card-title">Notification</h5>
-
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input id="email" class="form-control" name="email" type="email" placeholder="example@gmail.com" value="{{ old('email') }}">
-                    @if (old('form_type') === 'port')
-                        @error('email')
-                            <div class="text-danger mt-1">{{ $message }}</div>
-                        @enderror
-                    @endif
-                </div>
-
-               <div class="mb-3">
-    <label for="telegram_id" class="form-label">Telegram ID (Optional)</label>
-    <input id="telegram_id" class="form-control {{ auth()->user()->status === 'free' ? 'bg-light text-muted border-secondary' : '' }}" name="telegram_id" type="text"
-           {{ auth()->user()->status === 'free' ? 'disabled title=Only available for paid users' : '' }}>
-    @if (auth()->user()->status === 'free')
-        <small class="form-text text-muted">
-            <a href="{{ route('premium.page') }}">Upgrade to premium <i class="fa-solid fa-crown" style="color: #FFD43B;"></i></a> to enable Telegram notifications.
-        </small>
-    @endif
-</div>
-
-<div class="mb-3">
-    <label for="telegram_bot_token" class="form-label">Telegram Bot Token (Optional)</label>
-    <input id="telegram_bot_token" class="form-control {{ auth()->user()->status === 'free' ? 'bg-light text-muted border-secondary' : '' }}" name="telegram_bot_token" type="text"
-           {{ auth()->user()->status === 'free' ? 'disabled title=Only available for paid users' : '' }}>
-    @if (auth()->user()->status === 'free')
-        <small class="form-text text-muted">
-            <a href="{{ route('premium.page') }}">Upgrade to premium <i class="fa-solid fa-crown" style="color: #FFD43B;"></i></a> to enable Telegram notifications.
-        </small>
-    @endif
-</div>
-
-
-                <input class="btn btn-primary w-100" type="submit" value="Submit">
-            `
-            },
-            dns: {
-                title: "DNS Monitoring",
-                fields: `
-                <input type="hidden" name="form_type" value="dns"> <!-- Add this hidden input -->
-                <div class="mb-3">
-                        <label for="name" class="form-label">Friendly name</label>
-                        <input id="name" class="form-control" name="name" type="text" placeholder="E.g. Google"  >
-                        @if (old('form_type') === 'dns')
-                            @error('name')
-                                <div class="text-danger mt-1">{{ $message }}</div>
-                            @enderror
-                        @endif
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="domain" class="form-label">Domain or URL</label>
-                        <input id="domain" class="form-control" name="domain" type="text" placeholder="E.g. google.com"   >
-                        @if (old('form_type') === 'dns')
-                            @error('domain')
-                                <div class="text-danger mt-1">{{ $message }}</div>
-                            @enderror
-                        @endif
-                    </div>
-
-
-<div class="mb-3">
-    <label for="interval" class="form-label">Interval (in minutes)</label>
-    <input 
-        id="interval"
-        class="form-control {{ auth()->user()->status === 'free' ? 'bg-light text-muted border-secondary' : '' }}"
-        name="interval"
-        type="number"
-        min="{{ auth()->user()->status === 'free' ? 5 : 1 }}"
-        max="10"
-        value="{{ old('interval', auth()->user()->status === 'free' ? 5 : 1) }}"
-        {{ auth()->user()->status === 'free' ? 'title=Only 5-10 minutes allowed for free users' : '' }}
-    >
-    @if (auth()->user()->status === 'free')
-        <small class="form-text text-muted">
-            Free users can set an interval between <strong>5 and 10 minutes</strong>. 
-            <a href="{{ route('premium.page') }}">Upgrade to premium <i class="fa-solid fa-crown" style="color: #FFD43B;"></i></a> to set a shorter interval.
-        </small>
-    @endif
-</div>
-                    <div class="mb-3">
-                        <label for="retries" class="form-label">Retries</label>
-                        <input id="retries" class="form-control" name="retries" type="number" min="0" value="3"  >
-                        @if (old('form_type') === 'dns')
-                            @error('retries')
-                                <div class="text-danger mt-1">{{ $message }}</div>
-                            @enderror
-                        @endif
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="dns_resource_type" class="form-label">DNS Resource Type</label>
-                        <select id="dns_resource_type" class="form-control" name="dns_resource_type"  >
-                            <option value="A">A</option>
-                            <option value="AAAA">AAAA</option>
-                            <option value="CNAME">CNAME</option>
-                            <option value="MX">MX</option>
-                            <option value="NS">NS</option>
-                            <option value="SOA">SOA</option>
-                            <option value="TXT">TXT</option>
-                            <option value="SRV">SRV</option>
-                            <option value="DNS_ALL">DNS_ALL</option>
-                        </select>
-                        @if (old('form_type') === 'dns')
-                            @error('dns_resource_type')
-                                <div class="text-danger mt-1">{{ $message }}</div>
-                            @enderror
-                        @endif
-                    </div>
-
-                    <h5 class="card-title">Notification</h5>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input id="email" class="form-control" name="email" type="email" placeholder="example@gmail.com"  >
-                        @if (old('form_type') === 'dns')
-                            @error('email')
-                                <div class="text-danger mt-1">{{ $message }}</div>
-                            @enderror
-                        @endif
-                    </div>
-
-                    <div class="mb-3">
-    <label for="telegram_id" class="form-label">Telegram ID (Optional)</label>
-    <input id="telegram_id" class="form-control {{ auth()->user()->status === 'free' ? 'bg-light text-muted border-secondary' : '' }}" name="telegram_id" type="text"
-           {{ auth()->user()->status === 'free' ? 'disabled title=Only available for paid users' : '' }}>
-    @if (auth()->user()->status === 'free')
-        <small class="form-text text-muted">
-            <a href="{{ route('premium.page') }}">Upgrade to premium <i class="fa-solid fa-crown" style="color: #FFD43B;"></i></a> to enable Telegram notifications.
-        </small>
-    @endif
-</div>
-
-<div class="mb-3">
-    <label for="telegram_bot_token" class="form-label">Telegram Bot Token (Optional)</label>
-    <input id="telegram_bot_token" class="form-control {{ auth()->user()->status === 'free' ? 'bg-light text-muted border-secondary' : '' }}" name="telegram_bot_token" type="text"
-           {{ auth()->user()->status === 'free' ? 'disabled title=Only available for paid users' : '' }}>
-    @if (auth()->user()->status === 'free')
-        <small class="form-text text-muted">
-            <a href="{{ route('premium.page') }}">Upgrade to premium <i class="fa-solid fa-crown" style="color: #FFD43B;"></i></a> to enable Telegram notifications.
-        </small>
-    @endif
-</div>
-
-                    
-                    <input class="btn btn-primary w-100" type="submit" value="Submit">
-            `,
-                action: '/add/dns'
-            },
-        };
-
-
-    function updateDropdown(selectedType, formType) {
-        document.getElementById("dropdownMenuButton").innerText = selectedType;
-        document.getElementById("selectedType").value = formType; // Update hidden input value
-        showForm(formType);
-    }
-
+ <script>
     // Validation helper functions
     function isValidUrl(string) {
         try {
@@ -701,7 +235,7 @@
                     if (type === 'http') {
                         if (!isValidUrl(fieldValue)) {
                             event.preventDefault();
-                            showError(urlField, 'Please enter a valid URL (e.g., https://www.example.com)');
+                            showError(urlField, 'Please enter a valid URL (e.g., https://example.com)');
                             isValid = false;
                         } else {
                             clearError(urlField);
@@ -772,7 +306,7 @@
 
                 if (type === 'http') {
                     if (!isValidUrl(fieldValue)) {
-                        showError(urlField, 'Please enter a valid URL (e.g., https://www.example.com)');
+                        showError(urlField, 'Please enter a valid URL (e.g., https://example.com)');
                     } else {
                         clearError(urlField);
                     }
@@ -852,68 +386,107 @@
     }
 
     // Initialize form on page load
-    document.addEventListener('DOMContentLoaded', function() {
-        const selectedType = "{{ old('selectedType', 'http') }}"; // Retain selected type after submission
-        document.getElementById("dropdownMenuButton").innerText = forms[selectedType].title;
-        showForm(selectedType);
-    });
-    </script>
-
-    <!-- jQuery and Toastr scripts -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/intro.min.js"></script>
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     const selectedType = "{{ old('selectedType', 'http') }}"; 
+    //     document.getElementById("dropdownMenuButton").innerText = forms[selectedType].title;
+    //     showForm(selectedType);
+    // });
+</script>
 
     <script>
         @if (session('success'))
             toastr.success("{{ session('success') }}");
         @endif
-    </script>
-    
-    <script>
-         // Initialize tour(tool tip)
-    document.addEventListener("DOMContentLoaded", function () {
-        introJs().setOptions({
-            disableInteraction: false,
-            steps:[
-        {
-         element:document.querySelector('.MonitorTypes'),
-         intro:'Choose types of monitoring.',
-         position:'right'
-       }
-      ],
-            dontShowAgain: true,
-            nextLabel: 'Next',
-            prevLabel: 'Back',
-            doneLabel: 'Finish'
-        }).start();
-    });
-        </script>
 
-<script>
-    $(document).ready(function() {
-        $('#startTourBtn').click(function() {
-            introJs().setOptions({
-                steps: [
-                    {
-                        element: document.querySelector('.MonitorTypes'),
-                        intro: 'Choose types of monitoring.',
-                        position: 'right'
-                    },
-                    {
-                        element: document.querySelector('#formContainer'),
-                        intro: 'Fill in the details for the selected monitoring type.',
-                        position: 'top'
-                    }
-                ],
-                nextLabel: 'Next',
-                prevLabel: 'Back',
-                doneLabel: 'Finish'
-            }).start();
+         // Initialize tabs and show the previously selected tab if there was a validation error
+    document.addEventListener('DOMContentLoaded', function() {
+        const activeTab = localStorage.getItem('activeMonitoringTab') || 'http-tab';
+        document.getElementById(activeTab).click();
+        
+        // Store the active tab when changed
+        const tabButtons = document.querySelectorAll('#monitoringTabs button[data-toggle="tab"]');
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                localStorage.setItem('activeMonitoringTab', this.id);
+            });
         });
     });
+
+    </script>
+
+<script>
+    // Initialize tour(tool tip)
+document.addEventListener("DOMContentLoaded", function () {
+    
+    if(window.innerWidth > 576){
+
+    introJs().setOptions({
+        disableInteraction: false,
+        steps: [
+                {
+                element: document.querySelector('.HttpMonitoring'),
+                intro: 'Monitor the availability and response status of your websites or web applications using HTTP checks.',
+                position: 'right'
+            },
+            {
+                element: document.querySelector('.PingMonitoring'),
+                intro: 'Use ping to monitor server or device reachability and network latency.',
+                position: 'right'
+            },
+            {
+                element: document.querySelector('.PortMonitoring'),
+                intro: 'Ensure specific ports (e.g., 22, 80, 443) on your server are open and responsive.',
+                position: 'right'
+            },
+            {
+                element: document.querySelector('.DnsMonitoring'),
+                intro: 'Monitor DNS resolution to ensure your domains are resolving correctly to IP addresses.',
+                position: 'right'
+            }
+            ],
+        dontShowAgain: true,
+        nextLabel: 'Next',
+        prevLabel: 'Back',
+        doneLabel: 'Finish'
+    }).start();
+}
+});
+
 </script>
 
+<script>
+$(document).ready(function() {
+   $('#startTourBtn').click(function() {
+       introJs().setOptions({
+           steps: [
+            {
+            element: document.querySelector('.HttpMonitoring'),
+            intro: 'Monitor the availability and response status of your websites or web applications using HTTP checks.',
+            position: 'right'
+        },
+        {
+            element: document.querySelector('.PingMonitoring'),
+            intro: 'Use ping to monitor server or device reachability and network latency.',
+            position: 'right'
+        },
+        {
+            element: document.querySelector('.PortMonitoring'),
+            intro: 'Ensure specific ports (e.g., 22, 80, 443) on your server are open and responsive.',
+            position: 'right'
+        },
+        {
+            element: document.querySelector('.DnsMonitoring'),
+            intro: 'Monitor DNS resolution to ensure your domains are resolving correctly to IP addresses.',
+            position: 'right'
+        }
+           ],
+           nextLabel: 'Next',
+           prevLabel: 'Back',
+           doneLabel: 'Finish'
+       }).start();
+   });
+});
+</script>
+@endpush
 
 @endsection

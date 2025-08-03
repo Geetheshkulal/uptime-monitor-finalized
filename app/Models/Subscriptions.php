@@ -8,8 +8,20 @@ class Subscriptions extends Model
 {
     // Link to the payment (if needed)
     protected $fillable=[
+        'plan_id',
         'name',
-        'amount'
+        'amount',
+        'slug',
+        'plan_type',
+        'plan_recurring_amount',
+        'billing_cycle',
+        'monthly_discount',
+        'yearly_discount',
+        'is_active',
+        'created_at',
+        'updated_at',
+        'description',
+        'features' ,
     ];
     public function payment()
     {

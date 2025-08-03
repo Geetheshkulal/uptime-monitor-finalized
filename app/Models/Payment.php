@@ -11,8 +11,30 @@ class Payment extends Model
     use HasFactory;
 
     protected $fillable = [
-        'coupon_code','coupon_value','payment_amount','status','user_id', 'payment_method', 'amount', 'payment_status', 'transaction_id', 'payment_type',
-        'start_date', 'end_date','subscription_id','address','city','state','pincode','country','discount_type'
+        'coupon_code',
+        'coupon_value',
+        'payment_amount',
+        'status',
+        'user_id', 
+        'payment_method',
+        'amount', 
+        'payment_status',
+         'transaction_id', 
+         'payment_type',
+        'start_date',
+         'end_date',
+         'subscription_id',
+         'address',
+         'city',
+         'state',
+         'pincode',
+         'country',
+         'address_1',
+        'address_2',
+        'place',
+        'district',
+        'gstin',
+        'discount_type'
     ];
     protected $table = 'payment';
 
@@ -29,6 +51,7 @@ class Payment extends Model
     }
 
     public function user(){
+
         return $this->belongsTo(User::class);
     }
 

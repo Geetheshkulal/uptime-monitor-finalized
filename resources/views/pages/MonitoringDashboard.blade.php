@@ -2,7 +2,6 @@
 @section('content')
 <head>
     @push('styles')
-    <!-- External CSS Libraries -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
@@ -53,8 +52,8 @@
         .status-badge {
             display: inline-flex;
             width: 60px; 
-            align-items: center;       /* vertically center */
-            justify-content: center;  /* horizontally center */ 
+            align-items: center;     
+            justify-content: center; 
             align-items: center;
             border-radius: 0.35rem;
             font-size: 0.75rem;
@@ -229,7 +228,6 @@
     }
 }
 
-        /* for mobile devices */
     @media (max-width: 430px) {
 
      .AddMonitor{
@@ -260,10 +258,15 @@
     background: linear-gradient(90deg, #3B71CA, #2c6fdc, #a1a1e9);
 }
 
-@media (max-width: 430px) {
-    
+@media (max-width: 576px) {
+    .introjs-tooltip,
+    .introjs-overlay,
+    .introjs-floating,
+    .introjs-helperLayer {
+    display: none !important;
+        
+    }
 }
-
 
 </style>
 @endpush   
@@ -279,9 +282,6 @@
                 <h1 class="h3 mb-0 text-gray-800 font-300 white-color">Overview</h1>
                 
                 @if($totalMonitors>=5 && auth()->user()->status=='free')
-                {{-- <a class="btn btn-primary AddMonitor custom-gold" style="color:yellow;" href="{{ route('premium.page') }}">
-                    <i class="fas fa-crown fa-sm mr-2"></i>Upgrade Plan
-                </a> --}}
                 <a class="btn btn-primary AddMonitor" href="{{ route('premium.page') }}">
                     <i class="fas fa-plus fa-sm"></i> Add Monitor
                 </a>
@@ -571,53 +571,74 @@
         if(userRole==='user'){
             intro.setOptions({
                 disableInteraction: false,
-                steps:[{
-                title:'Drishti Pulse',
-                intro:'Welcome to Drishti Pulse! Lets take a quick tour'
-            },
-            {
-                element:document.querySelector('.profile'),
-                intro:'Access your profile settings and account information here.',
-                position:'left'
-            },
-            {
-                element:document.querySelector('.AddMonitor'),
-                intro:'click here to add new monitor',
-                position:'left'
-            },
-            {
-                element:document.querySelector('a.incident'),
-                intro:'View and manage incident reports related to your monitored services.', 
-                position:'right'
-            },
-            {
-                element:document.querySelector('.plan'),
-                intro:'Explore and manage your current subscription plan or upgrade to premium.',
-                position:'right'
-            },
-            {
-                element:document.querySelector('.ssl'),
-                intro:'Check the SSL certificate expiry status of your domains here.',
-                position:'right'
-            },
-            {
-                element:document.querySelector('.first'),
-                intro:'This shows the total number of monitors you have configured.',
-                position:'down'
-            },
-            {
-                element:document.querySelector('.second'),
-                intro:'Displays the number of services that are currently operational.'
-            },
-            {
-                element:document.querySelector('.third'),
-                intro:'Displays the number of services that are currently down.'
-            },
-            {
-                element:document.querySelector('.fourth'),
-                intro:'Shows the number of monitors that are currently paused.'
-            }
-        ],
+                steps: [
+                {
+                    title:'Drishti Pulse',
+                    intro:'Welcome to Drishti Pulse! Lets take a quick tour'
+                },
+                {
+                    element: document.querySelector('.profile'),
+                    intro: 'Access your profile settings and account information here.',
+                    position: 'left'
+                },
+                {
+                    element: document.querySelector('.AddMonitor'),
+                    intro: 'click here to add new monitor',
+                    position: 'left'
+                },
+                {
+                    element: document.querySelector('.incident'),
+                    intro: 'View and manage incident reports related to your monitored services.',
+                    position: 'right'
+                },
+                {
+                    element: document.querySelector('.statusPage'),
+                    intro: 'Display the current status of your services including ongoing incidents and uptime history.',
+                    position: 'right'
+                },
+                {
+                    element: document.querySelector('.plan'),
+                    intro: 'Explore and manage your current subscription plan or upgrade to premium.',
+                    position: 'right'
+                },
+                {
+                    element: document.querySelector('.ssl'),
+                    intro: 'Check the SSL certificate expiry status of your domains here.',
+                    position: 'right'
+                },
+                {
+                    element: document.querySelector('.myUser'),
+                    intro: 'Manage and view the list of users in your team, assign roles, and control access levels.',
+                    position: 'right'
+                },
+                {
+                    element: document.querySelector('.activityLog'),
+                    intro: 'Track all recent activities and changes made by users in your team for better auditing and transparency.',
+                    position: 'right'
+                },
+                {
+                    element: document.querySelector('.raiseIssue'),
+                    intro: 'Raise a support ticket or report an issue to the system administrators directly from here.',
+                    position: 'right'
+                },
+                {
+                    element: document.querySelector('.first'),
+                    intro: 'This shows the total number of monitors you have configured.',
+                    position: 'down'
+                },
+                {
+                    element: document.querySelector('.second'),
+                    intro: 'Displays the number of services that are currently operational.'
+                },
+                {
+                    element: document.querySelector('.third'),
+                    intro: 'Displays the number of services that are currently down.'
+                },
+                {
+                    element: document.querySelector('.fourth'),
+                    intro: 'Shows the number of monitors that are currently paused.'
+                }
+            ],
                 dontShowAgain: true,
                 nextLabel: 'Next',
                 prevLabel: 'Back',
@@ -732,8 +753,13 @@
                     position: 'left'
                 },
                 {
-                    element: document.querySelector('a.incident'),
+                    element: document.querySelector('.incident'),
                     intro: 'View and manage incident reports related to your monitored services.',
+                    position: 'right'
+                },
+                {
+                    element: document.querySelector('.statusPage'),
+                    intro: 'Display the current status of your services including ongoing incidents and uptime history.',
                     position: 'right'
                 },
                 {
@@ -744,6 +770,21 @@
                 {
                     element: document.querySelector('.ssl'),
                     intro: 'Check the SSL certificate expiry status of your domains here.',
+                    position: 'right'
+                },
+                {
+                    element: document.querySelector('.myUser'),
+                    intro: 'Manage and view the list of users in your team, assign roles, and control access levels.',
+                    position: 'right'
+                },
+                {
+                    element: document.querySelector('.activityLog'),
+                    intro: 'Track all recent activities and changes made by users in your team for better auditing and transparency.',
+                    position: 'right'
+                },
+                {
+                    element: document.querySelector('.raiseIssue'),
+                    intro: 'Raise a support ticket or report an issue to the system administrators directly from here.',
                     position: 'right'
                 },
                 {

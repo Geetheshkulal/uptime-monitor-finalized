@@ -1,0 +1,341 @@
+
+@push('styles')
+    
+<style>
+     :root {
+  --dark-body-bg: #232429;
+  --light-body-bg:  #fff ;
+  
+  --dark-input: #323741;
+  --light-input: #ffffff;
+  
+  --dark-border: #484D5A;
+  --light-border: #B8BCCB;
+  
+  --dark-inactive-list: #A2AABE;
+  --light-inactive-list: #7C8294;
+  
+  --dark-active-list: #ffffff;
+  --light-active-list: #1C5EFF;
+  
+  --dark-list-hover: #1C5EFF;
+  --light-list-hover: #E9EFFF;
+  
+  --dark-toggle-bg: #1B1D22;
+  --light-toggle-bg: #ffffff;
+  
+}
+    .dropdown {
+        position: relative;
+    }
+    
+    .dropdown:after {
+        padding: 12px 15px;
+        position: absolute;
+        right: 5px;
+        top: 8px;
+        color: var(--dark-active-list);
+    }
+    
+    .dropdown.active:after {
+        transform: rotate(180deg);
+    }
+    
+    .dropdown_wrapper {
+    position: absolute;
+    z-index: 1000; 
+    top: 100%; 
+    left: 0;
+    right: 0;
+    padding-top: 8px;
+    height: 250px;
+    display: none;
+    padding-right: 11px;
+    padding-left: 11px;
+}
+    
+    .dropdown_wrapper.active {
+        display: block;
+    }
+    
+    .languages_wrapper {
+        overflow-y: hidden;
+        height: 100%;
+        padding: 8px;
+        padding-right: 0;
+        background: var(--light-body-bg);
+        /* border: 2px solid var(--dark-border); */
+        border-radius: 15px;
+    }
+    
+    #ports {
+        overflow-y: auto;
+        height: inherit;
+    }
+    
+    #ports span {
+        display: block;
+        padding: 12px;
+        border-radius: 15px;
+        letter-spacing: .025rem;
+        color: var(--dark-border); 
+    }
+    
+    #ports span:hover {
+        background: var(--dark-list-hover);
+        color: var(--dark-active-list);
+        cursor: pointer;
+    }
+
+    .languages_wrapper::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    /* border-radius: 10px; */
+}
+
+html.dark-mode .languages_wrapper {
+    background-color: #1a1a27 !important ;
+}
+
+html.dark-mode #ports span {
+    color: white;
+}
+
+
+html.dark-mode .languages_wrapper {
+    scrollbar-color: #1a1a27 #2c2c2c;
+}
+
+html.dark-mode .languages_wrapper::-webkit-scrollbar-track {
+    background: #2c2c2c;
+}
+
+html.dark-mode .languages_wrapper::-webkit-scrollbar-thumb {
+    background-color: #1a1a27;
+    border: 2px solid #2c2c2c;
+}
+</style>
+
+@endpush
+
+
+<div class="d-flex justify-content-center">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <form id="portMonitoringForm" method="POST" action="{{ route('monitor.port') }}">
+                    @csrf
+                    <input type="hidden" name="form_type" value="port">
+                    
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Friendly name</label>
+                        <input id="name" class="form-control" name="name" type="text" placeholder="E.g. Google" value="{{ old('name') }}">
+                        @error('name')
+                            <div class="text-danger mt-1">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-8 mb-3">
+                            <label for="url" class="form-label">URL, IP or host to monitor</label>
+                            <input id="url" class="form-control" name="url" type="text" 
+                                   placeholder="E.g. https://example.com" 
+                                   value="{{ old('url') }}">
+                            @error('url')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    
+                        <div class="col-md-4 mb-3">
+                            <label for="port" class="form-label">TCP port</label>
+                            <input id="port" class="form-control mb-1" name="port" type="text"
+                                   placeholder="E.g. 22, 80, 443"
+                                   list="portOptions"
+                                   value="{{ old('port') }}">
+                            
+                            <div class="datalist-options">
+                                <datalist id="portOptions">
+                                    <option value="21">FTP (21)</option>
+                                    <option value="22">SSH (22)</option>
+                                    <option value="25">SMTP (25)</option>
+                                    <option value="53">DNS (53)</option>
+                                    <option value="80">HTTP (80)</option>
+                                    <option value="110">POP3 (110)</option>
+                                    <option value="143">IMAP (143)</option>
+                                    <option value="443">HTTPS (443)</option>
+                                    <option value="465">SMTP-SSL (465)</option>
+                                    <option value="587">SMTP-TLS (587)</option>
+                                </datalist>
+                            </div>
+                            
+                            @error('port')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    {{-- <div class="row">
+                        <div class="col-md-7 mb-3">
+                            <label for="url" class="form-label">URL, IP or host to monitor</label>
+                            <input id="url" class="form-control" name="url" type="text" 
+                                   placeholder="E.g. ple.com" 
+                                   value="{{ old('url') }}">
+                            @error('url')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    
+                        <div class="col-md-5 mb-3">
+                            <label for="port" class="form-label">TCP port</label>
+                            <div class="dropdown">
+                                <input id="port" class="form-control" name="port" type="text"
+                                       placeholder="E.g. 22, 80, 443"
+                                       value="{{ old('port') }}">
+                            </div>
+                            
+                            <div class="dropdown_wrapper">
+                                <div class="languages_wrapper">
+                                    <div id="ports">
+                                        <span data-value="21">FTP (21)</span>
+                                        <span data-value="22">SSH (22)</span>
+                                        <span data-value="25">SMTP (25)</span>
+                                        <span data-value="53">DNS (53)</span>
+                                        <span data-value="80">HTTP (80)</span>
+                                        <span data-value="110">POP3 (110)</span>
+                                        <span data-value="143">IMAP (143)</span>
+                                        <span data-value="443">HTTPS (443)</span>
+                                        <span data-value="465">SMTP-SSL (465)</span>
+                                        <span data-value="587">SMTP-TLS (587)</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            @error('port')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div> --}}
+
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="retries" class="form-label">Retries</label>
+                            <input id="retries" class="form-control" name="retries" type="number" value="{{ old('retries', 3) }}">
+                                @error('retries')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                                @enderror
+                        </div>
+    
+                        <div class="col-md-6 mb-3">
+                                    <label for="interval" class="form-label">Interval (in minutes)</label>
+                                    <input 
+                                        id="interval"
+                                        class="form-control {{ auth()->user()->status === 'free' ? 'bg-light text-muted border-secondary' : '' }}"
+                                        name="interval"
+                                        type="number"
+                                        min="{{ auth()->user()->status === 'free' ? 5 : 1 }}"
+                                        max="10"
+                                        value="{{ old('interval', auth()->user()->status === 'free' ? 5 : 1) }}"
+                                        {{ auth()->user()->status === 'free' ? 'title=Only 5-10 minutes allowed for free users' : '' }}
+                                    >
+                                    @if (auth()->user()->status === 'free')
+                                        <small class="form-text text-muted">
+                                            Free users can set an interval between <strong>5 and 10 minutes</strong>. 
+                                            <a href="{{ route('premium.page') }}">Upgrade to premium <i class="fa-solid fa-crown" style="color: #FFD43B;"></i></a> to set a shorter interval.
+                                        </small>
+                                    @endif
+                            </div>
+                    </div>
+    
+                    <h5 class="card-title">Notification</h5>
+    
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input id="email" class="form-control" name="email" type="email" placeholder="example@gmail.com" value="{{ old('email') }}">
+                            @error('email')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                    </div>
+    
+                   <div class="mb-3">
+                    <label for="telegram_id" class="form-label">Telegram ID (Optional)</label>
+                    <input id="telegram_id" class="form-control {{ auth()->user()->status === 'free' ? 'bg-light text-muted border-secondary' : '' }}" name="telegram_id" type="text"
+                        {{ auth()->user()->status === 'free' ? 'disabled title=Only available for paid users' : '' }}>
+                    @if (auth()->user()->status === 'free')
+                        <small class="form-text text-muted">
+                            <a href="{{ route('premium.page') }}">Upgrade to premium <i class="fa-solid fa-crown" style="color: #FFD43B;"></i></a> to enable Telegram notifications.
+                        </small>
+                    @endif
+                </div>
+    
+                <div class="mb-3">
+                    <label for="telegram_bot_token" class="form-label">Telegram Bot Token (Optional)</label>
+                    <input id="telegram_bot_token" class="form-control {{ auth()->user()->status === 'free' ? 'bg-light text-muted border-secondary' : '' }}" name="telegram_bot_token" type="text"
+                        {{ auth()->user()->status === 'free' ? 'disabled title=Only available for paid users' : '' }}>
+                    @if (auth()->user()->status === 'free')
+                        <small class="form-text text-muted">
+                            <a href="{{ route('premium.page') }}">Upgrade to premium <i class="fa-solid fa-crown" style="color: #FFD43B;"></i></a> to enable Telegram notifications.
+                        </small>
+                    @endif
+                </div>
+                    
+                    <input class="btn btn-primary w-100" type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@push('scripts')
+
+<script>
+    const input = document.querySelector("#port"),
+          dropdown = document.querySelector(".dropdown"),
+          dropdownList = document.querySelector(".dropdown_wrapper"),
+          portItems = document.querySelectorAll("#ports span");
+
+    // Toggle dropdown
+    input.addEventListener("click", function(e) {
+        dropdown.classList.toggle("active");
+        dropdownList.classList.toggle("active");
+        e.target.value !== "" && (e.target.value = "");
+    });
+
+    // Filter ports
+    input.addEventListener("input", function() {
+        dropdown.classList.add("active");
+        dropdownList.classList.add("active");
+        
+        let filter = input.value.toLowerCase().trim();
+        portItems.forEach(item => {
+            let txtVal = item.innerText.toLowerCase();
+            if (txtVal.includes(filter) && filter !== "") {
+                item.style.background = "#E9EFFF";
+                item.style.color = "#5B6278";
+            } else {
+                item.style.background = "";
+                item.style.color = "";
+            }
+        });
+    });
+
+    // Close when clicking outside
+    // document.addEventListener("click", function(e) {
+    //     if (e.target.id !== "port" &&
+    //         !e.target.classList.contains("dropdown_wrapper") &&
+    //         !e.target.classList.contains("languages_wrapper")) {
+    //         dropdown.classList.remove("active");
+    //         dropdownList.classList.remove("active");
+    //     }
+    // });
+
+    // Select port
+    portItems.forEach(item => {
+    item.addEventListener("click", function(e) {
+        input.value = e.target.dataset.value;
+        dropdown.classList.remove("active");
+        dropdownList.classList.remove("active");
+    });
+})
+</script>
+    
+@endpush
+    

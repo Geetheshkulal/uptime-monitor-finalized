@@ -14,12 +14,17 @@ return [
     | To learn more: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
     |
     */
+    'paths' => ['api/*', 'cashfree/response'], 
 
-    'paths' => ['api/*', 'sanctum/csrf-cookie'],
+    // 'paths' => ['api/*', 'sanctum/csrf-cookie'],
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    // 'allowed_origins' => ['http://127.0.0.1:8000'],
+    'allowed_origins' => [
+            'http://127.0.0.1:8000',
+            'http://localhost:8000',
+    ],
 
     'allowed_origins_patterns' => [],
 

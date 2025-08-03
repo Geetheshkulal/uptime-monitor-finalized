@@ -2,7 +2,7 @@
 @section('content')
 
 @push('styles')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"> --}}
 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
 
@@ -10,6 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap4.min.css">
+
     <style>
         /* Table styles */
         .table {
@@ -269,11 +270,46 @@
 
 }
 
+    .section-title {
+        color: #4e73df;
+        font-weight: 600;
+        border-bottom: 1px solid #e3e6f0;
+        padding-bottom: 8px;
+        margin-bottom: 15px;
+    }
+    .detail-row {
+        display: flex;
+        margin-bottom: 10px;
+    }
+    .detail-label {
+        flex: 1;
+        font-weight: 600;
+        color: #5a5c69;
+    }
+    .detail-value {
+        flex: 1;
+        color: #858796;
+    }
+    .subscription-section {
+        background: #f8f9fc;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+    }
 
-    </style>
+    .payment-method-details {
+    margin-top: 10px;
+}
+.detail-row.indent {
+    margin-left: 20px;
+}
+.detail-row.indent .detail-label {
+    font-weight: normal;
+}
+</style>
 @endpush
 
-<div id="content-wrapper" class="d-flex flex-column">
+{{-- <div id="content-wrapper" class="d-flex flex-column">
     <div id="content">
         <div class="container-fluid">
             <!-- Payments Table -->
@@ -361,10 +397,189 @@
             </div>
         </div>
     </div>
+</div> --}}
+
+<div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+        <div class="container-fluid">
+            <!-- Payments Table -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-4 ml-2">
+                <h1 class="h3 mb-0 text-gray-800 font-600 white-color">My Payment History</h1>
+            </div>
+            <div class="card shadow mb-4 skeleton" data-aos="fade-up" data-aos-duration="400">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped dt-responsive nowrap" id="paymentsTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Sl No.</th>
+                                    <th>Plan Name</th>
+                                    <th>Amount</th>
+                                    <th>Subscription Id</th>
+                                    <th>Plan Recurring Amount</th>
+                                    <th>Start Date</th>
+                                    {{-- <th>End Date</th> --}}
+                                    <th>Next Payment</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($subscriptions as $subscription)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $subscription->plan_name }}</td>
+                                    <td>₹{{ number_format($subscription->plan_max_amount, 2) }}</td>
+                                    <td>
+                                        {{ $subscription->cashfree_subscription_id ?? 'N/A' }}
+                                    </td>
+                                    <td>{{ $subscription->plan_recurring_amount ?? 'N/A' }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($subscription->start_date)->format('d M Y') }}</td>
+                                    {{-- <td>{{ \Carbon\Carbon::parse($subscription->end_date)->format('d M Y') }}</td> --}}
+                                    <td>
+                                        @if($subscription->next_schedule_date)
+                                            {{ \Carbon\Carbon::parse($subscription->next_schedule_date)->format('d M Y') }}
+                                        @else
+                                            N/A
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($subscription->status === 'ACTIVE')
+                                            <span class="badge badge-success">Active</span>
+                                        @elseif($subscription->status === 'EXPIRED')
+                                            <span class="badge badge-danger">Expired</span>
+                                        @elseif($subscription->status === 'INITIALIZED')
+                                            <span class="badge badge-warning">Initialized</span>
+                                            @elseif($subscription->status === 'INITIALIZED')
+                                            <span class="badge badge-warning">Initialized</span>
+                                        @else
+                                            <span class="badge badge-secondary">{{ ucfirst(strtolower($subscription->status)) }}</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <div class="d-flex justify-content-around">
+                                        <button class="fas fa-eye" 
+                                            data-toggle="modal" 
+                                            data-target="#subscriptionDetailsModal"
+                                            data-subscription="{{ json_encode($subscription) }}" style="color: #2c4ee5; cursor: pointer;">
+                                        </button>
+
+                                        @if($subscription->status === 'ACTIVE')
+                                            <!-- Ban icon triggers delete modal -->
+                                            <a href="#" data-toggle="modal" data-target="#cancelSubscriptionModal{{ $subscription->id }}">
+                                                <i class="fas fa-ban" style="color: #f91a1a; cursor: pointer;"></i>
+                                            </a>
+                                            @endif
+                                        </div>
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td colspan="10" class="text-center">No subscription history found.</td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
+@foreach ($subscriptions as $subscription)
+<div class="modal fade" id="cancelSubscriptionModal{{ $subscription->id }}" tabindex="-1" role="dialog" aria-labelledby="cancelSubscriptionLabel{{ $subscription->id }}" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form class="modal-content" method="POST" action="{{ route('subscriptions.cancel', $subscription->cashfree_subscription_id) }}">
+            @csrf
+            <!-- Use POST unless your route expects DELETE -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="cancelSubscriptionLabel{{ $subscription->id }}">Cancel Subscription</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <p>Are you sure you want to cancel the subscription for: <strong>{{ $subscription->plan_name ?? 'N/A' }}</strong>?</p>
+                <p>This action cannot be undone.</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button type="submit" class="btn btn-danger">Yes, Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+@endforeach
+
+  
+
+<!-- Details Modal -->
+<div class="modal fade" id="subscriptionDetailsModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Subscription ID: <span id="modalSubscriptionId"></span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="subscriptionDetailsContent">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="subscription-section">
+                            <div class="detail-row">
+                                <span class="detail-label">Plan Type</span>
+                                <span class="detail-value" id="planType"></span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Max Amount</span>
+                                <span class="detail-value" id="maxAmount"></span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Start Date</span>
+                                <span class="detail-value" id="startDate"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="subscription-section">
+                            <div class="detail-row">
+                                <span class="detail-label">End Date</span>
+                                <span class="detail-value" id="endDate"></span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Cancelled At</span>
+                                <span class="detail-value" id="cancelledAt"></span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Payment Group</span>
+                                <span class="detail-value" id="paymentGroup"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <div class="subscription-section">
+                            <h6 class="section-title">Payment Method Details</h6>
+                            <div id="paymentMethodDetails"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <!-- Hidden Bill Template -->
-<div id="print-bill-template" class="print-bill-template" style="display: none;">
+{{-- <div id="print-bill-template" class="print-bill-template" style="display: none;">
     <div class="bill-container">
         <div class="bill-header">
             <div class="company-info">
@@ -469,13 +684,12 @@
             <div>If you have any questions about this invoice, please contact our support at drishtipulse2025@gmail.com</div>
         </div>
     </div>
-</div>
+</div> --}}
 
 @push('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -484,6 +698,7 @@
 
 <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 <script>
 
@@ -559,9 +774,7 @@ $(document).ready(function() {
             const couponValue = $(this).data('coupon-value');
             const finalAmount = $(this).data('final-amount');
             const discountType = $(this).data('discount-type');
-
-
-            
+    
             
             // Format the current date for the bill
             const today = new Date();
@@ -647,6 +860,103 @@ $(document).ready(function() {
     });
 });
 </script>
+
+
+<script>
+     document.addEventListener("DOMContentLoaded", function() {
+    @if(session('success'))
+        toastr.success("{{ session('success') }}", "Success", {
+            closeButton: true,
+            progressBar: true,
+            positionClass: "toast-top-right",
+            timeOut: 5000
+        });
+    @endif
+});
+
+    $(document).ready(function() {
+        $('#subscriptionDetailsModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var subscription = button.data('subscription');
+            var modal = $(this);
+            
+            // Format dates
+            function formatDate(dateString) {
+                if (!dateString) return 'Not available';
+                var date = new Date(dateString);
+                return date.toLocaleDateString('en-IN', {
+                    day: 'numeric',
+                    month: 'short',
+                    year: 'numeric'
+                }) + (dateString.includes('T') ? ', ' + date.toLocaleTimeString('en-IN', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true
+                }) : '');
+            }
+    
+            // Set header
+            $('#modalSubscriptionId').text(subscription.cashfree_subscription_id || '--');
+            
+            // Set basic details
+            $('#planType').text(subscription.plan_type || 'Not available');
+            $('#maxAmount').text('₹' + (subscription.plan_max_amount ? subscription.plan_max_amount: '--'));
+            $('#startDate').text(formatDate(subscription.start_date));
+            $('#endDate').text(formatDate(subscription.end_date));
+            $('#cancelledAt').text(subscription.cancelled_at ? formatDate(subscription.cancelled_at) : '--');
+            $('#paymentGroup').text(subscription.payment_group ? subscription.payment_group.toUpperCase() : '--');
+            
+         // Payment Method details
+            var paymentMethodHtml = '';
+            if (subscription.payment_method) {
+                try {
+                    // Parse payment_method if it's a string, otherwise use directly
+                    var paymentData = typeof subscription.payment_method === 'string' 
+                        ? JSON.parse(subscription.payment_method) 
+                        : subscription.payment_method;
+                    
+                    if (paymentData && typeof paymentData === 'object') {
+                        paymentMethodHtml = '<div class="payment-method-details">';
+                        
+                        for (const [paymentType, details] of Object.entries(paymentData)) {
+                            paymentMethodHtml += `
+                                <div class="detail-row">
+                                    <span class="detail-label">${paymentType.toUpperCase()}</span>
+                                    <span class="detail-value"></span>
+                                </div>
+                            `;
+                            
+                            // Loop through all properties of this payment type
+                            for (const [key, value] of Object.entries(details)) {
+                                if (value !== null && value !== undefined && value !== '') {
+                                    paymentMethodHtml += `
+                                        <div class="detail-row indent">
+                                            <span class="detail-label">${key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</span>
+                                            <span class="detail-value">${value || '--'}</span>
+                                        </div>
+                                    `;
+                                }
+                            }
+                        }
+                        
+                        paymentMethodHtml += '</div>';
+                    } else {
+                        paymentMethodHtml = '<div class="detail-row"><span class="detail-value">No payment details available</span></div>';
+                    }
+                } catch (e) {
+                    paymentMethodHtml = '<div class="detail-row"><span class="detail-value">Could not parse payment details</span></div>';
+                }
+            } else {
+                paymentMethodHtml = '<div class="detail-row"><span class="detail-value">No payment method specified</span></div>';
+            }
+
+            $('#paymentMethodDetails').html(paymentMethodHtml);
+        });
+    });
+    </script>
+
+
+
 @endpush
 
 @endsection

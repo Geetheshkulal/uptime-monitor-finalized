@@ -21,7 +21,14 @@ class CouponAvailableMail extends Mailable
 
     public function build()
     {
+        $url = route('premium.page');
+
         return $this->subject('🎉 New Coupon Just for You!')
-                    ->view('emails.coupon-available');
+                    ->view('emails.coupon-available')
+                    ->with([
+                        'coupon' => $this->coupon,
+                        'user' => $this->user,
+                        'url' => $url,
+                    ]);
     }
 }

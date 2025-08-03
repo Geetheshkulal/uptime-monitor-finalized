@@ -47,9 +47,7 @@ html, body {
             font-weight: 600;
             color: #6e707e;
         }
-        * {
-            border-radius: 0 !important;
-        }
+    
         .dataTables_processing {
             position: absolute;
             top: 50%;
