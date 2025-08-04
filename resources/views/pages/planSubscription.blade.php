@@ -11,6 +11,8 @@
 
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap4.min.css">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+
     <style>
         /* Table styles */
         .table {
@@ -863,13 +865,14 @@ $(document).ready(function() {
 
 
 <script>
+
      document.addEventListener("DOMContentLoaded", function() {
     @if(session('success'))
         toastr.success("{{ session('success') }}", "Success", {
             closeButton: true,
-            progressBar: true,
-            positionClass: "toast-top-right",
-            timeOut: 5000
+            // progressBar: true,
+            // positionClass: "toast-top-right",
+            // timeOut: 5000
         });
     @endif
 });
@@ -953,7 +956,7 @@ $(document).ready(function() {
             $('#paymentMethodDetails').html(paymentMethodHtml);
         });
     });
-    </script>
+</script>
 
 
 
