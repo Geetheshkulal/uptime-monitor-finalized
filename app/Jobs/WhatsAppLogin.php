@@ -36,24 +36,28 @@ class WhatsAppLogin implements ShouldQueue
 
             // Path to the shell script
             $scriptPath = base_path('scripts/run-dusk.sh');
-            Log::info('[WHATSAPP LOGIN] Running: bash ' . $scriptPath);
+            // Log::info('[WHATSAPP LOGIN] Running: bash ' . $scriptPath);
 
             // Run the shell script using bash
-            $process = new Process(['bash', $scriptPath]);
+            $bashPath = env('BASH_PATH');
+            $phpPath = env('PHP_BIN_PATH');
+            // Log::info('[WHATSAPP LOGIN] Using BASH_PATH: ' . $bashPath);
+            // $process = new Process(['bash', $scriptPath, $phpPath]);
+            $process = new Process([$bashPath, $scriptPath, $phpPath]);
             $process->setTimeout(300);
             $process->run(); // Don't use disableOutput here if you want logs below
 
-            Log::info('[WHATSAPP LOGIN] Exit Code: ' . $process->getExitCode());
-            Log::info('[WHATSAPP LOGIN] STDOUT: ' . $process->getOutput());
+            // Log::info('[WHATSAPP LOGIN] Exit Code: ' . $process->getExitCode());
+            // Log::info('[WHATSAPP LOGIN] STDOUT: ' . $process->getOutput());
 
             if (!$process->isSuccessful()) {
-                Log::error('[WHATSAPP LOGIN] STDERR: ' . $process->getErrorOutput());
-                Log::error('[WHATSAPP LOGIN] Process failed.');
+                // Log::error('[WHATSAPP LOGIN] STDERR: ' . $process->getErrorOutput());
+                // Log::error('[WHATSAPP LOGIN] Process failed.');
             } else {
-                Log::info('[WHATSAPP LOGIN] WhatsAppLoginTest completed successfully.');
+                // Log::info('[WHATSAPP LOGIN] WhatsAppLoginTest completed successfully.');
             }
         } catch (\Exception $e) {
-            Log::error('[WHATSAPP LOGIN] Exception: ' . $e->getMessage());
+            // Log::error('[WHATSAPP LOGIN] Exception: ' . $e->getMessage());
         }
     }
 }

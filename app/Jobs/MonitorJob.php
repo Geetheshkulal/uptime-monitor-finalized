@@ -114,7 +114,7 @@ class MonitorJob
 
 
     private function sendAlert(Monitors $monitor, string $status)
-{
+    {
     $shouldAlert =
         ($status === 'down' && ($monitor->status === 'up' || $monitor->status === null)) ||
         ($status === 'up' && ($monitor->status === 'down' || $monitor->status === null));
@@ -151,8 +151,22 @@ class MonitorJob
                     'template_used' => 'whatsapp_monitor_down',
                 ]));
 
-                $process = new Process(['php', 'artisan', 'dusk', 'tests/Browser/WhatsAppBotTest.php']);
-                $process->run();
+                // $process = new Process(['php', 'artisan', 'dusk', 'tests/Browser/WhatsAppBotTest.php']);
+                // $process->run();
+                $scriptPath = base_path('scripts/run-dusk-alert.sh');
+                // Log::info('[WHATSAPP LOGIN] Running: bash ' . $scriptPath);
+
+                // Run the shell script using bash
+                $bashPath = env('BASH_PATH');
+                $phpPath = env('PHP_BIN_PATH');
+                // Log::info('[WHATSAPP LOGIN] Using BASH_PATH: ' . $bashPath);
+                // $process = new Process(['bash', $scriptPath, $phpPath]);
+                $process = new Process([$bashPath, $scriptPath, $phpPath]);
+                $process->setTimeout(300);
+                $process->run(); 
+
+                // Log::info('[WHATSAPP LOGIN] Exit Code: ' . $process->getExitCode());
+                // Log::info('[WHATSAPP LOGIN] STDOUT: ' . $process->getOutput());
 
                 // Log::info('Job whatsapp output:' . Artisan::output());
                 Storage::delete('whatsapp-details.json');
@@ -163,8 +177,6 @@ class MonitorJob
             $token = Str::random(32);
             // Monitor UP — send only once directly
             Mail::to($monitor->email)->send(new MonitorUpAlert($monitor, $token));
-
-            // Log::info('only once mail send and pwa :' . Artisan::output());
 
             if ($monitor->telegram_bot_token && $monitor->telegram_id && $monitor->user->status !== 'free') {
                 $this->sendTelegramNotification($monitor);
@@ -177,8 +189,20 @@ class MonitorJob
                     'template_used' => 'whatsapp_monitor_up',
                 ]));
 
-                $process = new Process(['php', 'artisan', 'dusk', 'tests/Browser/WhatsAppBotTest.php']);
-                $process->run();
+                // $process = new Process(['php', 'artisan', 'dusk', 'tests/Browser/WhatsAppBotTest.php']);
+                // $process->run(); $scriptPath = base_path('scripts/run-dusk-alert.sh');
+                $scriptPath = base_path('scripts/run-dusk-alert.sh');
+                // Log::info('[WHATSAPP LOGIN] Running: bash ' . $scriptPath);
+
+                // Run the shell script using bash
+                $bashPath = env('BASH_PATH');
+                $phpPath = env('PHP_BIN_PATH');
+                // Log::info('[WHATSAPP LOGIN] Using BASH_PATH: ' . $bashPath);
+                // $process = new Process(['bash', $scriptPath, $phpPath]);
+                $process = new Process([$bashPath, $scriptPath, $phpPath]);
+                $process->setTimeout(300);
+                $process->run(); 
+
 
                 // Log::info('Job whatsapp output:' . Artisan::output());
                 Storage::delete('whatsapp-details.json');

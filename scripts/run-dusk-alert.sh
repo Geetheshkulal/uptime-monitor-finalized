@@ -10,6 +10,5 @@ if [[ "$OS" != "Windows_NT" ]]; then
 fi
 
 
-
 # Run Dusk with no TTY mode and log output
-$PHP_PATH artisan dusk tests/Browser/WhatsAppLoginTest.php >> storage/logs/dusk-output.log 2>&1
+$PHP_PATH artisan dusk tests/Browser/WhatsAppBotTest.php >> storage/logs/dusk-output.log 2>&1

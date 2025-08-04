@@ -19,9 +19,6 @@
     outline: none !important;
 }
 
-.form-check-input {
-    border-radius: 0 !important; 
-}
 </style>
 @endpush
 
