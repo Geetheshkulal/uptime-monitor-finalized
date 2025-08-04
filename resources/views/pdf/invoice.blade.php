@@ -2,10 +2,10 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Invoice - {{ $subscription['authorization_details']['payment_id'] ?? 'N/A' }}</title>
+    {{-- <title>Invoice - {{ $subscription['authorization_details']['payment_id'] ?? 'N/A' }}</title> --}}
     <style>
         body {
-            font-family: DejaVu Sans, Arial, sans-serif;
+            /* font-family: DejaVu Sans, Arial, sans-serif; */
             color: #333;
             line-height: 1.4;
             font-size: 13px; 
@@ -165,7 +165,7 @@
                 <td style="text-align: right; vertical-align: top;">
                     <div class="bill-title">INVOICE</div>
                     <div class="bill-meta">
-                        <div><strong>Invoice #:</strong> INV-{{ $subscription['authorization_details']['payment_id'] ?? 'N/A' }}</div>
+                        {{-- <div><strong>Invoice #:</strong> INV-{{ $subscription['authorization_details']['payment_id'] ?? 'N/A' }}</div> --}}
                         <div><strong>Date:</strong> {{ now()->format('d M Y') }}</div>
                     </div>
                 </td>
@@ -188,13 +188,13 @@
                     <div class="section-title">Bill To:</div>
                     <div>
                         <strong>{{ $user->name }}</strong><br>
-                        @if(!empty($payment['address_1'])) {{ $payment['address_1'] }}<br> @endif
-                        @if(!empty($payment['address_2'])) {{ $payment['address_2'] }}<br> @endif
-                        @if(!empty($payment['place'])) {{ $payment['place'] }}, @endif
-                        @if(!empty($payment['district'])) {{ $payment['district'] }}, @endif
-                        @if(!empty($payment['state'])) {{ $payment['state'] }} @endif
-                        @if(!empty($payment['pincode'])) - {{ $payment['pincode'] }}<br> @endif
-                        @if(!empty($payment['country'])) {{ $payment['country'] }} @endif
+                        @if(!empty($payment->address_1)) {{ $payment->address_1 }}<br> @endif
+                        @if(!empty($payment->address_2)) {{ $payment->address_2 }}<br> @endif
+                        @if(!empty($payment->place)) {{ $payment->place }}, @endif
+                        @if(!empty($payment->district)) {{ $payment->district }}, @endif
+                        @if(!empty($payment->state)) {{ $payment->state }} @endif
+                        @if(!empty($payment->pincode)) - {{ $payment->pincode }}<br> @endif
+                        @if(!empty($payment->country)) {{ $payment->country }} @endif
                     </div>
                 </td>
             </tr>
@@ -209,15 +209,15 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>{{  $subscription['plan_details']['plan_name'] }} Subscription</td>
-                    <td>₹{{ $payment['payment_amount']}}</td>
+                    {{-- <td>{{  $subscription['plan_details']['plan_name'] }} Subscription</td> --}}
+                    <td>₹{{ $payment->payment_amount}}</td>
                 </tr>
-                @if(!empty($payment['coupon_code']))
+                @if(!empty($payment->coupon_code))
                 <tr>
                     <td>
-                        Coupon Discount ({{ $payment['coupon_code']}})
+                        Coupon Discount ({{ $payment->coupon_code}})
                         @if($payment['discount_type'] === 'percentage')
-                            ({{ $payment['coupon_value'] }}%)
+                            ({{ $payment->coupon_value }}%)
                         @endif
                     </td>
                     <td>
@@ -233,7 +233,7 @@
             <tfoot>
                 <tr>
                     <td><strong>Total</strong></td>
-                    <td><strong>₹{{ $payment['payment_amount']}}</strong></td>
+                    <td><strong>₹{{ $payment->payment_amount}}</strong></td>
                 </tr>
             </tfoot>
         </table>
@@ -241,9 +241,9 @@
         <table width="300" align="right" cellpadding="8" style="background: #f1f8fe; font-size: 12px;">
             <tr>
                 <td>Subtotal:</td>
-                <td style="text-align: right;">₹{{ $payment['payment_amount']}}</td>
+                <td style="text-align: right;">₹{{ $payment->payment_amount}}</td>
             </tr>
-            @if($payment['coupon_code'])
+            @if($payment->coupon_code)
             <tr>
                 <td>Discount:</td>
                 <td style="text-align: right;">
@@ -261,16 +261,16 @@
             </tr>
             <tr>
                 <td><strong>Total:</strong></td>
-                <td style="text-align: right;"><strong>₹{{ $payment['payment_amount']}}</strong></td>
+                <td style="text-align: right;"><strong>₹{{ $payment->payment_amount}}</strong></td>
             </tr>
         </table>
 
         <div style="margin-top: 20px; font-size: 12px;">
-            <div><strong>Payment Method:</strong> {{ strtoupper($payment['payment_type']) }}</div>
-            <div><strong>Payment Status:</strong> {{ strtoupper($subscription['subscription_status']) }}</div>
+            <div><strong>Payment Method:</strong> {{ strtoupper($payment->payment_type) }}</div>
+            {{-- <div><strong>Payment Status:</strong> {{ strtoupper($subscription['subscription_status']) }}</div> --}}
             <div><strong>Subscription Period:</strong> 
-                {{ \Carbon\Carbon::parse($payment['start_date'])->format('d M Y') }} to 
-                {{ \Carbon\Carbon::parse($payment['end_date'])->format('d M Y') }}
+                {{ \Carbon\Carbon::parse($payment->start_date)->format('d M Y') }} to 
+                {{ \Carbon\Carbon::parse($payment->end_date)->format('d M Y') }}
             </div>
         </div>
 

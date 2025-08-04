@@ -11,6 +11,7 @@ class Payment extends Model
     use HasFactory;
 
     protected $fillable = [
+        'cashfree_subscription_id',
         'coupon_code',
         'coupon_value',
         'payment_amount',

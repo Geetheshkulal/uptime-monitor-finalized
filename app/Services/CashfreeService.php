@@ -161,45 +161,6 @@ public function cancelSubscription($subscriptionId)
   
 }
 
-// public function chargeAfterAuthorization($subscription){
-
-//     $subscriptionId = $subscription['subscription_id'] ?? null;
-//     $paymentId = $subscription['authorization_details']['payment_id'] ?? null;
-//     $paymentType = "AUTH";
-//     $subscriptionSessionId = $subscription['subscription_session_id'];
-//     $paymentAmount = $subscription['plan_details']['plan_max_amount'] ?? 0;
-//     $scheduleDate = now('Asia/Kolkata')->addHours(24)->format('Y-m-d\TH:i:sP'); // Local time
-//     $paymentMethod = $subscription['authorization_details']['payment_method'] ?? null;
-
-//     $payload =[
-//         'subscription_id' => $subscriptionId,
-//         'payment_id' => $paymentId,
-//         'payment_type' => $paymentType,
-//         'subscription_session_id' =>  $subscriptionSessionId,
-//         'payment_amount' => $paymentAmount,
-//         'payment_schedule_date' => $scheduleDate,
-//         'payment_method' => $paymentMethod,
-//     ];
-
-//     Log::info('Charge payload', ['payload' => $payload]);
-
-//     $response = Http::withHeaders([
-//         'x-client-id' => config('services.cashfree.key'),
-//         'x-client-secret' => config('services.cashfree.secret'),
-//         'x-api-version' => '2025-01-01',
-//         'Content-Type' => 'application/json',
-//     ])->post('https://sandbox.cashfree.com/pg/subscriptions/pay', $payload);
-
-//     if(!$response->successful()){
-//         Log::error('cashfree charge after authorization failed',['response' => $response->json()]);
-//         throw new \Exception('Failed to charge after authorization');
-//     }
-
-//     Log::info('cashfree charge after authorization success', ['response' => $response->json()]);
-
-//     return $response->json();
-
-// }
 
     public function initiatePayment($name, $email, $mobile, $subscriptionId, $billingCycle, $userId)
     {

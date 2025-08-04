@@ -13,6 +13,7 @@ use Minishlink\WebPush\Subscription;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Storage;
+use Barryvdh\Snappy\Facades\SnappyPdf;
 
 
 class CashfreeController extends Controller
@@ -27,7 +28,8 @@ class CashfreeController extends Controller
         try{
             $subscription = app(CashfreeService::class)->getSubscriptionDetails($data['cf_subscriptionId']);
 
-            // Log::info('Cashfree Subscription Details after payment', $subscription);
+            // 
+            Log::info('Cashfree Subscription Details after payment', $subscription);
 
             // updating the table
             $nextScheduleDate = isset($subscription['next_schedule_date']) 
@@ -56,6 +58,7 @@ class CashfreeController extends Controller
                 $paymentData=[
                     // subscription_id means subscriptios table in DB primary key (plan table)
                     'subscription_id' =>$subscriptionPrimarykey->id,
+                    'cashfree_subscription_id' => $subscription['subscription_id'],
                     'user_id' => $user->id,
                     'coupon_code' =>  null,
                     'coupon_value' =>  null,
@@ -77,20 +80,9 @@ class CashfreeController extends Controller
                     'gstin' => $user->gstin,
                 ];
 
-                Payment::create($paymentData);
+                $payment = Payment::create($paymentData);
 
-                // $pdf = Pdf::loadView('pdf.invoice', ['payment' => $paymentData]);
-                // $pdf = Pdf::loadView('pdf.invoice', [
-                //     'user'=> $user,
-                //     'payment' => $paymentData,
-                //     'subscription' => $subscription
-                // ]);
-
-                // $filename = "invoice_{$user->phone}.pdf";
-                // Storage::put("public/invoices/{$filename}", $pdf->output());
-
-                // return $pdf->download($filename);
-
+                // return $this->testDownload($payment, $user);
             return redirect()->route('monitoring.dashboard')->with('success', 'Subscription is active.');
 
         }catch(\Exception $e){
@@ -100,4 +92,35 @@ class CashfreeController extends Controller
         }
         // return view('cashfree.subscription-complete', ['data' => $data]);
     }
+
+
+    // public function testDownload($payment, $user)
+    public function testDownload()
+    {
+        $payment = Payment::latest()->first();
+
+        if (!$payment) {
+            return "No payment record found.";
+        }
+    
+        // Fetch the user associated with this payment
+        $user = User::find($payment->user_id);
+    
+        if (!$user) {
+            return "User not found for this payment.";
+        }
+        $pdf = Pdf::loadView('pdf.invoice', [
+            'payment' => $payment,
+            'user' => $user
+        ]);
+    
+        $filename = "invoice_{$user->phone}.pdf";
+    
+        // Save to storage
+        Storage::put("public/invoices/{$filename}", $pdf->output());
+
+        return $pdf->download($filename);
+    }
+    
+
 }

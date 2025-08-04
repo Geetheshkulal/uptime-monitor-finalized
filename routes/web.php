@@ -162,6 +162,11 @@ Route::middleware(['auth', 'verified', 'CheckUserSession', 'blockIp'])->group(fu
     Route::any('cashfree/payments/webhook', [CashFreePaymentController::class, 'webhook'])->name('webhook');
     Route::any('cashfree/payments/status', [CashFreePaymentController::class, 'status'])->name('payment.status');
 
+   
+
+    Route::controller(CashfreeController::class)->group(function(){
+        Route::get('/test-download', 'testDownload');
+    });
     // Routes for applying/removing coupons 
     Route::controller(CouponController::class)->group(function () {
         Route::post('/apply-coupon', 'apply');
