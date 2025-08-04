@@ -14,6 +14,9 @@ use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\Snappy\Facades\SnappyPdf;
+use App\Mail\InvoiceEmail;
+use Illuminate\Support\Facades\Mail;
+
 
 
 class CashfreeController extends Controller
@@ -59,6 +62,7 @@ class CashfreeController extends Controller
                     // subscription_id means subscriptios table in DB primary key (plan table)
                     'subscription_id' =>$subscriptionPrimarykey->id,
                     'cashfree_subscription_id' => $subscription['subscription_id'],
+                    'payment_id' => $subscription['authorization_details']['payment_id'],
                     'user_id' => $user->id,
                     'coupon_code' =>  null,
                     'coupon_value' =>  null,
@@ -82,7 +86,21 @@ class CashfreeController extends Controller
 
                 $payment = Payment::create($paymentData);
 
-                // return $this->testDownload($payment, $user);
+                $filename = "invoice_{$user->phone}.pdf";
+                $pdfPath = "public/invoices/{$filename}";
+                
+                $subscriptionId = UserSubscription::where('cashfree_subscription_id', $payment->cashfree_subscription_id)->first();
+                
+                $pdf = Pdf::loadView('pdf.invoice', [
+                    'payment' => $payment,
+                    'user' => $user,
+                    'subscription' => $subscriptionId,
+                ]);
+        
+            Storage::put($pdfPath, $pdf->output());
+        
+            Mail::to($user->email)->queue(new InvoiceEmail($pdfPath, $user, $payment));
+        
             return redirect()->route('monitoring.dashboard')->with('success', 'Subscription is active.');
 
         }catch(\Exception $e){
@@ -95,32 +113,31 @@ class CashfreeController extends Controller
 
 
     // public function testDownload($payment, $user)
-    public function testDownload()
-    {
-        $payment = Payment::latest()->first();
+    // {
+    //     // $payment = Payment::latest()->first();
 
-        if (!$payment) {
-            return "No payment record found.";
-        }
+    //     // if (!$payment) {
+    //     //     return "No payment record found";
+    //     // }
     
-        // Fetch the user associated with this payment
-        $user = User::find($payment->user_id);
-    
-        if (!$user) {
-            return "User not found for this payment.";
-        }
-        $pdf = Pdf::loadView('pdf.invoice', [
-            'payment' => $payment,
-            'user' => $user
-        ]);
-    
-        $filename = "invoice_{$user->phone}.pdf";
-    
-        // Save to storage
-        Storage::put("public/invoices/{$filename}", $pdf->output());
+    //     // $user = User::find($payment->user_id);
 
-        return $pdf->download($filename);
-    }
+    //     $subscription = UserSubscription::where('cashfree_subscription_id', $payment->cashfree_subscription_id)->first();
+    
+
+    //     $pdf = Pdf::loadView('pdf.invoice', [
+    //         'payment' => $payment,
+    //         'user' => $user,
+    //         'subscription' => $subscription,
+    //     ]);
+    
+    //     $filename = "invoice_{$user->phone}.pdf";
+    
+    //     // Save to storage
+    //     Storage::put("public/invoices/{$filename}", $pdf->output());
+
+    //     return $pdf->download($filename);
+    // }
     
 
 }

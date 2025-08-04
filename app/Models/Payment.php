@@ -12,6 +12,7 @@ class Payment extends Model
 
     protected $fillable = [
         'cashfree_subscription_id',
+        'payment_id',
         'coupon_code',
         'coupon_value',
         'payment_amount',

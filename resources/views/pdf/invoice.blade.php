@@ -2,10 +2,10 @@
 <html>
 <head>
     <meta charset="utf-8">
-    {{-- <title>Invoice - {{ $subscription['authorization_details']['payment_id'] ?? 'N/A' }}</title> --}}
+    <title>Invoice - {{ $payment->payment_id }}</title>
     <style>
         body {
-            /* font-family: DejaVu Sans, Arial, sans-serif; */
+            font-family: Arial, sans-serif;
             color: #333;
             line-height: 1.4;
             font-size: 13px; 
@@ -165,7 +165,7 @@
                 <td style="text-align: right; vertical-align: top;">
                     <div class="bill-title">INVOICE</div>
                     <div class="bill-meta">
-                        {{-- <div><strong>Invoice #:</strong> INV-{{ $subscription['authorization_details']['payment_id'] ?? 'N/A' }}</div> --}}
+                        <div><strong>Invoice #:</strong> INV-{{ $payment->payment_id ?? 'N/A' }}</div>
                         <div><strong>Date:</strong> {{ now()->format('d M Y') }}</div>
                     </div>
                 </td>
@@ -209,8 +209,8 @@
             </thead>
             <tbody>
                 <tr>
-                    {{-- <td>{{  $subscription['plan_details']['plan_name'] }} Subscription</td> --}}
-                    <td>₹{{ $payment->payment_amount}}</td>
+                    <td>{{  $subscription->plan_name }} Subscription</td>
+                    <td>Rs. {{ $payment->payment_amount}}</td>
                 </tr>
                 @if(!empty($payment->coupon_code))
                 <tr>
@@ -233,7 +233,7 @@
             <tfoot>
                 <tr>
                     <td><strong>Total</strong></td>
-                    <td><strong>₹{{ $payment->payment_amount}}</strong></td>
+                    <td><strong>Rs. {{ $payment->payment_amount}}</strong></td>
                 </tr>
             </tfoot>
         </table>
@@ -241,7 +241,7 @@
         <table width="300" align="right" cellpadding="8" style="background: #f1f8fe; font-size: 12px;">
             <tr>
                 <td>Subtotal:</td>
-                <td style="text-align: right;">₹{{ $payment->payment_amount}}</td>
+                <td style="text-align: right;">Rs. {{ $payment->payment_amount}}</td>
             </tr>
             @if($payment->coupon_code)
             <tr>
@@ -257,17 +257,17 @@
             @endif
             <tr>
                 <td>Tax (0%):</td>
-                <td style="text-align: right;">₹0.00</td>
+                <td style="text-align: right;">Rs.0.00</td>
             </tr>
             <tr>
                 <td><strong>Total:</strong></td>
-                <td style="text-align: right;"><strong>₹{{ $payment->payment_amount}}</strong></td>
+                <td style="text-align: right;"><strong>Rs. {{ $payment->payment_amount}}</strong></td>
             </tr>
         </table>
 
         <div style="margin-top: 20px; font-size: 12px;">
             <div><strong>Payment Method:</strong> {{ strtoupper($payment->payment_type) }}</div>
-            {{-- <div><strong>Payment Status:</strong> {{ strtoupper($subscription['subscription_status']) }}</div> --}}
+            <div><strong>Transaction Id:</strong> {{ strtoupper($payment->transaction_id) }}</div>
             <div><strong>Subscription Period:</strong> 
                 {{ \Carbon\Carbon::parse($payment->start_date)->format('d M Y') }} to 
                 {{ \Carbon\Carbon::parse($payment->end_date)->format('d M Y') }}

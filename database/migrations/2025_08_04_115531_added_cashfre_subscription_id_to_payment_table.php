@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::table('payment', function (Blueprint $table) {
             $table->string('cashfree_subscription_id')->nullable()->after('subscription_id');
+            $table->string('payment_id')->nullable()->after('cashfree_subscription_id');
         });
     }
 
@@ -23,6 +24,7 @@ return new class extends Migration
     {
         Schema::table('payment', function (Blueprint $table) {
             $table->dropColumn('cashfree_subscription_id');
+            $table->dropColumn('payment_id');
         });
     }
 };
