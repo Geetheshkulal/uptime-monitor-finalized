@@ -32,8 +32,9 @@ class BillingController extends Controller
         $validated['plan_currency'] = 'INR';
         
         $response = $cashfree->createPlan($validated);
+
         if (isset($response['code']) && $response['code'] !== 'success') {
-            return back()->with('error', $response['message'] ?? 'Plan creation failed');
+            return back()->withErrors([$response['message'] ?? 'Plan creation failed'])->withInput();
         }
    
          Subscriptions::create([

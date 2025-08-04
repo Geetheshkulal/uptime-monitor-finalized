@@ -190,24 +190,26 @@ input:checked + .slider:before {
             <form method="POST" action="{{ route('add.billing') }}">
                 @csrf
                 <div class="modal-body">
-                    <div class="form-group">
+                    <div class="row">
+                    <div class="form-group col-md-6">
                         <label for="plan_id">Plan ID</label>
                         <input type="text" class="form-control" id="plan_id" name="plan_id" placeholder="Enter Cashfree Plan ID" required>
                         <div class="invalid-feedback">
                             This field is required.
                         </div>
                     </div>
-                    
-
-                    <div class="form-group">
+                
+                    <div class="form-group col-md-6">
                         <label for="name">Plan Name</label>
                         <input type="text" class="form-control" id="name" name="name" placeholder="e.g., Basic, Pro" required>
                         <div class="invalid-feedback">
                             This field is required.
                         </div>
                     </div>
+                    </div>
 
-                    <div class="form-group">
+                    <div class="row">
+                    <div class="form-group col-md-6">
                         <label for="billing_cycle">Billing Cycle</label>
                         <select class="form-control" id="billing_cycle" name="billing_cycle" required>
                             <option value="">Select Period</option>
@@ -219,12 +221,13 @@ input:checked + .slider:before {
                         </div>
                     </div>
 
-                    <div class="form-group yearly-discount-group">
+                    <div class="form-group yearly-discount-group col-md-6">
                         <label for="yearly_discount">Yearly Discount (%)</label>
                         <input type="number" class="form-control" id="yearly_discount" name="yearly_discount" placeholder="e.g., 20%">
                         <div class="invalid-feedback">
                             This field is required.
                         </div>
+                    </div>
                     </div>
 
                      <div class="form-group">
@@ -362,22 +365,22 @@ input:checked + .slider:before {
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+@if ($errors->any())
+<script>
+    $(document).ready(function () {
+        @foreach ($errors->all() as $error)
+            toastr.error("{{ $error }}");
+        @endforeach
+        $('#addSubscriptionModal').modal('show');
+    });
+</script>
+@endif
+
 <script>
 
 @if (session('success'))
 toastr.success("{{ session('success') }}");
-@endif
-
-@if ($errors->any())
-
-    $(document).ready(function () {
-            @foreach ($errors->all() as $error)
-                toastr.error("{{ $error }}");
-            @endforeach
-
-            // Re-open modal if validation fails
-            $('#addSubscriptionModal').modal('show');
-    });
 @endif
 
 
