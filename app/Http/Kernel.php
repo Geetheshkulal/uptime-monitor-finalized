@@ -38,7 +38,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \App\Http\Middleware\CheckUserSession::class,
+            // \App\Http\Middleware\CheckUserSession::class,
         ],
 
         'api' => [
@@ -79,7 +79,11 @@ class Kernel extends HttpKernel
         'blockIp'=> \App\Http\Middleware\BlockSuspiciousTraffic::class,
     ];
 
+    // protected $routeMiddleware = [
+    //     'CheckUserSession' => \App\Http\Middleware\CheckUserSession::class,
+    // ];
     protected $routeMiddleware = [
-        'CheckUserSession' => \App\Http\Middleware\CheckUserSession::class,
+        // Other middleware...
+        'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
     ];
 }

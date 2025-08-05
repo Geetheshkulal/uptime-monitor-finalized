@@ -27,7 +27,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function create()
     {
-      
+
         return view('auth.login');
     }
 
@@ -57,13 +57,13 @@ class AuthenticatedSessionController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
-        if(!$user){
+        if (!$user) {
             return back()->withErrors(['email' => 'This email is not registered.'])->withInput();
         }
 
         if (!Hash::check($request->password, $user->password)) {
             return back()->withErrors(['password' => 'Wrong password.'])->withInput();
-    }
+        }
 
         try {
             $request->authenticate();
@@ -82,7 +82,8 @@ class AuthenticatedSessionController extends Controller
                     $isp = $data['org'] ?? 'Unknown ISP';
                     $country = $data['country'] ?? '';
                 }
-            } catch (\Exception $ex) {}
+            } catch (\Exception $ex) {
+            }
 
             TrafficLog::create([
                 'ip' => $ip,
@@ -170,9 +171,9 @@ class AuthenticatedSessionController extends Controller
     //                 'response' => $value,
     //                 'remoteip' => request()->ip(),
     //             ]);
-        
+
     //             $responseBody = $response->json();
-        
+
     //             if (!($responseBody['success'] ?? false)) {
     //                 $fail('reCAPTCHA verification failed.');
     //             }
@@ -243,20 +244,20 @@ class AuthenticatedSessionController extends Controller
     //     return redirect()->intended($redirectRoute)->with('success', 'Login Successfully');;
     // }
 
-   
+
     public function destroy(Request $request): RedirectResponse
     {
         /** @var User $user */
         $user = Auth::user();
 
-          if ($user instanceof User) {
+        if ($user instanceof User) {
 
             $user->update([
                 'session_id' => null,
             ]);
         }
 
-        PushSubscription::where('user_id',$user->id)->delete();
+        PushSubscription::where('user_id', $user->id)->delete();
 
         if ($user) {
             activity()

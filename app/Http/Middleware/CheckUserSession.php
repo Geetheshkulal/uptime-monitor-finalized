@@ -17,19 +17,19 @@ class CheckUserSession
         
         if ($user) {
             $sessionId = Session::getId(); //Get sessionId
-
-            // Log::debug('Middleware check:', [
-            //     'current_session' => $sessionId,
-            //     'user_session' => $user->session_id
-            // ]);
             
             // If user's session_id doesn't match current session
-            if ($user->session_id !== $sessionId) {
-                Session::flash('error', 'Logged out from other device');
+            if (!empty($user->session_id) && $user->session_id !== $sessionId) {
+                PushSubscription::where('user_id', $user->id)->delete();
+
+                Log::info('Redirecting with error message', [
+                    'error' => 'Logged out from other device2',
+                    'user_id' => $user->id,
+                ]);
+
                 Auth::logout();
-                PushSubscription::where('user_id',$user->id)->delete();
-                Log::info('Redirecting with error message', ['error' => 'Logged out from other device',$user->id]);
-                return redirect('login');
+
+                return redirect('login')->with('error', 'Logged out from other device');
             }
         }
         
