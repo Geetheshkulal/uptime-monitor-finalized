@@ -70,6 +70,7 @@ Route::prefix('user')->group(function () {
     Route::post('/status-settings', [UserController::class, 'updateStatusPageSettings'])
         ->name('user.status-settings.update');
 });
+
 Route::middleware(['auth', 'blockIp'])->group(function () {
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');

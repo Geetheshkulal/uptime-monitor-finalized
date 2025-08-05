@@ -22,8 +22,7 @@ return [
 
     // 'allowed_origins' => ['http://127.0.0.1:8000'],
     'allowed_origins' => [
-            'http://127.0.0.1:8000',
-            'https://drishtipulse.in',
+            'https://drishtipulse.in'
     ],
 
     'allowed_origins_patterns' => [],

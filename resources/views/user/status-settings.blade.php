@@ -2,7 +2,11 @@
 @section('content')
 @push('styles')
 <style>
-       html, body {
+    * {
+        border-radius: 3px !important;
+    }
+    
+    html, body {
     height: 100%;
     margin: 0;
 }
@@ -58,6 +62,11 @@
     .title-status-setting{
         margin-top: 47px;
     }
+}
+
+.form-check-input:focus {
+    box-shadow: none !important;
+    outline: none !important;
 }
 
 </style>
@@ -211,8 +220,6 @@
         const ip = data.Answer.find(ans => ans.type === 1)?.data;
         return ip;
     }
-
-  
 
 
 
