@@ -139,20 +139,32 @@ public function cancelSubscription($subscriptionId)
         throw new \Exception('Failed to fetch subscription details');
     }
     
+     $subscriptionData = $response->json();
+
     $updateData = [
         'status'=> $subscriptionData['subscription_status'] ?? 'CANCELLED',
         'cancelled_at' => now()
     ];
-    $updateUserTableData =[
-        'status'=> 'free',
-        'premium_end_date' => null,
-    ];
+
     $updatePaymentTableData=[
         'status' => 'expired',
         'payment_status' => $subscriptionData['subscription_status'] ?? 'CANCELLED',
     ];
 
-    Payment::where('user_id', $user->id)->update($updatePaymentTableData);
+    $hasActiveSubscription = UserSubscription::where('user_id', $user->id)
+        ->where('status', 'ACTIVE')
+        ->exists();
+
+    $updateUserTableData =[
+        'premium_end_date' => null,
+        'status'=> $hasActiveSubscription ? 'paid' : 'free',
+    ];
+   
+
+    Payment::where('user_id', $user->id)
+            ->where('cashfree_subscription_id', $subscriptionId)
+            ->update($updatePaymentTableData);
+            
     User::where('id', $user->id)->update($updateUserTableData);
     UserSubscription::where('cashfree_subscription_id', $subscriptionId)->update($updateData);
 

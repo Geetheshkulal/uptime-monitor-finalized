@@ -136,7 +136,7 @@
         padding: 13px 19px;
         position: relative;
         overflow: hidden;
-        box-shadow: 0 8px 24px rgba(255, 107, 107, 0.3);
+        /* box-shadow: 0 8px 24px rgba(255, 107, 107, 0.3); */
         /* animation: slideIn 0.6s ease-out; */
         margin: 15px 0;
       
