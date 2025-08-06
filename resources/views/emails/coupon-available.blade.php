@@ -92,7 +92,7 @@
 
             <p>Apply this coupon during checkout and enjoy the savings.</p>
         
-            <p>Thanks,<br><strong>Check My Site Team</strong></p>
+            <p>Thanks,<br><strong>Drishti Pulse Site Team</strong></p>
         </div>
       
         <div class="footer">

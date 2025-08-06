@@ -7,6 +7,8 @@ use App\Models\CouponCode;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Models\Subscriptions;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\CouponAvailableMail;
 
 class CouponController extends Controller
 {
@@ -213,7 +215,15 @@ public function apply(Request $request)
         }
             
         // CouponCode::create($request->all());
-        CouponCode::create($data);
+        $coupon = CouponCode::create($data);
+
+        if($request->filled('user_ids')){
+            $users = User::whereIn('id', $request->user_ids)->get();
+
+            foreach($users as $user){
+                Mail::to($user->email)->queue(new CouponAvailableMail($coupon, $user));
+            }
+        }
 
         activity()
             ->performedOn(new CouponCode())

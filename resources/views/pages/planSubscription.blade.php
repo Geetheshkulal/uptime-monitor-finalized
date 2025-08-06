@@ -254,7 +254,7 @@
 
 
 
-@media (max-width: 430px) {
+@media (max-width: 578px) {
 
 .dataTables_length {
    text-align: left !important;
@@ -263,11 +263,14 @@
 }
 
 .dataTables_filter{
-       margin-left: -10px;
+    margin-left: -33px
 }
 
 .page-content {
    margin-bottom: 175px;
+}
+.eyeCancel{
+    margin-top: -21px;
 }
 
 }
@@ -459,20 +462,20 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <div class="d-flex justify-content-around">
+                                    <div class="d-flex justify-content-center align-items-center gap-2 eyeCancel">
                                         <button class="fas fa-eye" 
                                             data-toggle="modal" 
                                             data-target="#subscriptionDetailsModal"
                                             data-subscription="{{ json_encode($subscription) }}" style="color: #2c4ee5; cursor: pointer;">
                                         </button>
-
+                                        
                                         @if($subscription->status === 'ACTIVE')
                                             <!-- Ban icon triggers delete modal -->
                                             <a href="#" data-toggle="modal" data-target="#cancelSubscriptionModal{{ $subscription->id }}">
                                                 <i class="fas fa-ban" style="color: #f91a1a; cursor: pointer;"></i>
                                             </a>
                                             @endif
-                                        </div>
+                                    </div>
                                     </td>
                                 </tr>
                                 @empty

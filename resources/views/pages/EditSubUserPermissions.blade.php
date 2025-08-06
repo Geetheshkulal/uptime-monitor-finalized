@@ -13,6 +13,16 @@
     .permission-item {
         margin-left: 20px;
     }
+    .backButton{
+        margin-bottom: 15px;
+    }
+
+    @media (max-width: 430px) {
+        .backButton{
+            display: none;
+        }
+}
+
 </style>
 @endpush
 
@@ -26,7 +36,7 @@
                             <h4 class="card-title mb-0">
                                 Modify Permissions for User: <strong>{{ $user->name }}</strong>
                             </h4>
-                            <a href="{{ route('display.sub.users') }}" class="btn btn-primary">
+                            <a href="{{ route('display.sub.users') }}" class="btn btn-primary backButton">
                                 <i class="fas fa-arrow-left"></i> Back
                             </a>
                         </div>

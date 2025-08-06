@@ -275,6 +275,7 @@ html.dark-mode .languages_wrapper::-webkit-scrollbar-thumb {
                             <a href="{{ route('premium.page') }}">Upgrade to premium <i class="fa-solid fa-crown" style="color: #FFD43B;"></i></a> to enable Telegram notifications.
                         </small>
                     @endif
+                    <div class="form-text">You can get a token from <a href="https://t.me/BotFather" target="_blank">https://t.me/BotFather</a>.</div>
                 </div>
                     
                     <input class="btn btn-primary w-100" type="submit" value="Submit">

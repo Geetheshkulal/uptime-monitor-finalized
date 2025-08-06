@@ -273,8 +273,9 @@
                 var ctx = document.getElementById("myAreaChart").getContext('2d');     
 
                 var gradient = ctx.createLinearGradient(0, 0, 0, 400); // Vertical gradient
-                gradient.addColorStop(0, "rgba(0, 0, 139, 0.6)"); // Dark blue (top) with 50% opacity
-                gradient.addColorStop(1, "rgba(173, 216, 230, 0.1)"); // Light blue (bottom) with 20% opacity
+                    gradient.addColorStop(0, "rgba(0, 0, 139, 0.3)"); 
+                    gradient.addColorStop(1, "rgba(173, 216, 230, 0)"); 
+                 
 
 
                 var responseTimes = {!! json_encode(array_slice($ChartResponses->pluck('response_time')->toArray(), -20)) !!};
@@ -297,11 +298,11 @@
                         labels: timestamps,
                         datasets: [{
                             label: "Response Time (ms)",
-                            lineTension: 0.1,
+                            fill: true,
                             // backgroundColor: "rgba(78, 115, 223, 0.05)",
                             backgroundColor: gradient, 
-                            // borderColor: "rgba(78, 115, 223, 1)",
                             borderColor:"rgba(12, 12, 233, 0.97)",
+                            lineTension: 0.2,
                             pointRadius: 3,
                             pointBackgroundColor: "rgba(78, 115, 223, 1)",
                             pointBorderColor: "rgba(78, 115, 223, 1)",
@@ -315,6 +316,7 @@
                     },
                  
                     options: {
+                        responsive: true,
                         maintainAspectRatio: false,
                         layout: {
                             padding: {

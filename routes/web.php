@@ -118,7 +118,7 @@ Route::middleware(['auth', 'verified', 'CheckUserSession', 'blockIp'])->group(fu
     });
     
 
-    Route::get('/dashboard', [MonitoringController::class, 'MonitoringDashboard'])->middleware('role:user|subuser')->middleware('permission:see.monitors')->name('monitoring.dashboard');
+    Route::get('/dashboard', [MonitoringController::class, 'MonitoringDashboard'])->middleware('role:user|subuser|admin')->middleware('permission:see.monitors')->name('monitoring.dashboard');
     Route::get('/monitoring/dashboard/update', [MonitoringController::class, 'MonitoringDashboardUpdate'])->name('monitoring.dashboard.update');
     Route::get('/monitoring/add', [MonitoringController::class, 'AddMonitoring'])->middleware('monitor.limit')->middleware('permission:add.monitor')->name('add.monitoring');
     Route::get('/monitoring/display/{id}/{type}', [MonitoringController::class, 'MonitoringDisplay'])->middleware('monitor.access')->middleware('permission:see.monitor.details')->name('display.monitoring');

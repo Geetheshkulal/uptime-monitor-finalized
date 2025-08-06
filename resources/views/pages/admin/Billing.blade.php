@@ -82,12 +82,6 @@ input:checked + .slider:before {
 }
 
 
-.form-check-input:focus {
-    outline: none !important;
-    box-shadow: none !important;
-
-}
-
     </style>    
 @endpush
 

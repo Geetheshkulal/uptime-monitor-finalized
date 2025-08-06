@@ -74,19 +74,12 @@ class CashfreeService
                 ]
             ],
             'subscription_meta' => [
-                // 'return_url' => "http://127.0.0.1:8000/cashfree/response",
                 'return_url' => route('cashfree.response'),
                 'notification_email' => $validated['email'],
             ],
         ]);
 
         $json = $response->json();
-
-        // Log::info('Cashfree Subscription API Response', [
-        //     'userId' => auth()->id(),
-        //     'requestData' => $validated,
-        //     'response' => $json
-        // ]);
 
         // Optional: handle failure
         if (!$response->successful()) {
@@ -103,6 +96,48 @@ class CashfreeService
         throw $e;
     }
 }
+
+
+public function verifySignature(array $postData, string $receivedSignature): bool
+{
+    $secretKey = config('services.cashfree.secret');
+    
+    if (empty($secretKey)) {
+        throw new \RuntimeException('Cashfree secret key not configured');
+    }
+
+    // 1. Remove signature from verification
+    unset($postData['signature']);
+
+    // 2. Sort keys alphabetically (case-sensitive)
+    ksort($postData, SORT_STRING);
+
+    // 3. Concatenate all values directly without any separator
+    $postDataString = '';
+    foreach ($postData as $value) {
+        // Convert all empty cases to empty string
+        if ($value === null || $value === 'N/A' || $value === '') {
+            $value = '';
+        }
+        $postDataString .= (string)$value;
+    }
+
+    Log::info('Cashfree Concatenated String', ['string' => $postDataString]);
+
+    // 4. Generate HMAC-SHA256 signature
+    $hash = base64_encode(
+        hash_hmac('sha256', $postDataString, $secretKey, true)
+    );
+
+    Log::info('Cashfree Signature Comparison', [
+        'received' => $receivedSignature,
+        'generated' => $hash
+    ]);
+
+    // 5. Securely compare signatures
+    return hash_equals($hash, $receivedSignature);
+}
+
 
 public function getSubscriptionDetails($subscriptionId)
 {

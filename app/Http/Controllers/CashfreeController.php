@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Monitors;
 use App\Services\CashfreeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -26,7 +27,15 @@ class CashfreeController extends Controller
         $user = auth()->user();
         $data = $request->all();
 
-        Log::info('Cashfree Subscription POST Data:', $data);
+        // Log::info('Cashfree Subscription POST Data:', $data);
+
+        // $signature = $data['signature'] ?? '';
+        // $isValidSignature = app(CashfreeService::class)->verifySignature($data, $signature);
+
+        // if (!$isValidSignature) {
+        //     Log::error('Invalid Cashfree signature. Potential forgery attempt.');
+        //         abort(403, 'Invalid signature');
+        // }
 
         try{
             $subscription = app(CashfreeService::class)->getSubscriptionDetails($data['cf_subscriptionId']);
@@ -55,7 +64,7 @@ class CashfreeController extends Controller
             UserSubscription::where('cashfree_subscription_id', $subscription['subscription_id'])->update($updateData);
 
                 
-                $planId = $subscription['plan_details']['plan_id'] ;
+                $planId = $subscription['plan_details']['plan_id'];
                 $subscriptionPrimarykey = Subscriptions::where('plan_id', $planId)->first();
 
                 $paymentData=[
@@ -85,6 +94,7 @@ class CashfreeController extends Controller
                 ];
 
                 $payment = Payment::create($paymentData);
+                Monitors::where('user_id', $user->id)->update(['pause_on_expire' => 0]);
 
                 $filename = "invoice_{$user->phone}.pdf";
                 $pdfPath = "public/invoices/{$filename}";
