@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Cashfree;
 
+use App\Http\Controllers\Controller;
 use App\Models\Monitors;
 use App\Services\CashfreeService;
 use Illuminate\Http\Request;
@@ -184,6 +185,35 @@ class CashfreeResponseController extends Controller
     }
     }
 
+    private function handleStatusChange(array $data)
+    {
+        // Log::info('cashfree status change data', $data);
+
+        $userSubscription = UserSubscription::where('cashfree_subscription_id', $data['subscription_details']['subscription_id'])->first();
+
+        $user= User::find($userSubscription->user_id);
+
+        $nextScheduleDate = isset($data['subscription_details']['next_schedule_date']) 
+            ? Carbon::parse($data['subscription_details']['next_schedule_date'])->format('Y-m-d H:i:s')
+            : null;
+
+            $updateData =[
+                'next_schedule_date' => $nextScheduleDate,
+                'payment_group' => $data['authorization_details']['payment_group'] ?? null,
+                'payment_method' => $data['authorization_details']['payment_method'] ?? null,
+                'status' => $data['subscription_details']['subscription_status'] ?? 'ACTIVE'
+            ];
+
+            $updateUserTable=[
+                'status'=>'paid',
+                'premium_end_date'=>Carbon::parse($data['subscription_details']['subscription_expiry_time'])->toDateString(),
+            ];
+
+            User::where('id', $user->id)->update($updateUserTable);
+            UserSubscription::where('cashfree_subscription_id', $data['subscription_details']['subscription_id'])->update($updateData);         
+
+    }
+
 
     private function handlePaymentSuccess(array $data)
     {
@@ -223,6 +253,13 @@ class CashfreeResponseController extends Controller
                 ];
 
                 $payment = Payment::create($paymentData);
+
+                $updateUserTable=[
+                    'status'=>'paid',
+                    'premium_end_date'=> $endDate,
+                ];
+
+                User::where('id', $user->id)->update($updateUserTable);
                 Monitors::where('user_id', $user->id)->update(['pause_on_expire' => 0]);
 
                 $filename = "invoice_{$user->phone}.pdf";
@@ -248,34 +285,6 @@ class CashfreeResponseController extends Controller
         
     }
 
-    private function handleStatusChange(array $data)
-    {
-        // Log::info('cashfree status change data', $data);
-
-        $userSubscription = UserSubscription::where('cashfree_subscription_id', $data['subscription_details']['subscription_id'])->first();
-
-        $user= User::find($userSubscription->user_id);
-
-        $nextScheduleDate = isset($data['subscription_details']['next_schedule_date']) 
-            ? Carbon::parse($data['subscription_details']['next_schedule_date'])->format('Y-m-d H:i:s')
-            : null;
-
-            $updateData =[
-                'next_schedule_date' => $nextScheduleDate,
-                'payment_group' => $data['authorization_details']['payment_group'] ?? null,
-                'payment_method' => $data['authorization_details']['payment_method'] ?? null,
-                'status' => $data['subscription_details']['subscription_status'] ?? 'ACTIVE'
-            ];
-
-            $updateUserTable=[
-                'status'=>'paid',
-                'premium_end_date'=>Carbon::parse($data['subscription_details']['subscription_expiry_time'])->toDateString(),
-            ];
-
-            User::where('id', $user->id)->update($updateUserTable);
-            UserSubscription::where('cashfree_subscription_id', $data['subscription_details']['subscription_id'])->update($updateData);         
-
-    }
     private function handlePaymentFailed(array $data)
     {
         // Log::info('cashfree payment failed data', $data);
@@ -287,32 +296,6 @@ class CashfreeResponseController extends Controller
         // Log::info('cashfree payment initiated Data', $data);
     }
 
-    // public func22tion testDownload($payment, $user)
-    // {
-    //     // $payment = Payment::latest()->first();
-
-    //     // if (!$payment) {
-    //     //     return "No payment record found";
-    //     // }
-    
-    //     // $user = User::find($payment->user_id);
-
-    //     $subscription = UserSubscription::where('cashfree_subscription_id', $payment->cashfree_subscription_id)->first();
-    
-
-    //     $pdf = Pdf::loadView('pdf.invoice', [
-    //         'payment' => $payment,
-    //         'user' => $user,
-    //         'subscription' => $subscription,
-    //     ]);
-    
-    //     $filename = "invoice_{$user->phone}.pdf";
-    
-    //     // Save to storage
-    //     Storage::put("public/invoices/{$filename}", $pdf->output());
-
-    //     return $pdf->download($filename);
-    // }
     
 
 }

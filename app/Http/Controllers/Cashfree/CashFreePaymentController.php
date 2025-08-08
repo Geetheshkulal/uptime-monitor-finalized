@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Cashfree;
 
+use App\Http\Controllers\Controller;
 use App\Jobs\RunWhatsAppInvoiceBotTest;
 use App\Models\Subscriptions;
 use Illuminate\Http\Request;

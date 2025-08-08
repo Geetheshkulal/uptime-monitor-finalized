@@ -117,6 +117,7 @@
         </div>
     </div> --}}
 
+    
     <!-- Tabs Navigation -->
 <ul class="nav nav-tabs mb-4 mx-3 mx-lg-5" id="monitoringTabs" role="tablist">
     <li class="nav-item">

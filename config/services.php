@@ -37,6 +37,7 @@ return [
     'cashfree' => [
         'key' => env('CASHFREE_API_KEY'),
         'secret' => env('CASHFREE_API_SECRET'),
+        'base_url' => env('CASHFREE_BASE_URL'),
     ],
 
 ];
