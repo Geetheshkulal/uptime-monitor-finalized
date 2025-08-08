@@ -466,7 +466,8 @@
                                         <button class="fas fa-eye" 
                                             data-toggle="modal" 
                                             data-target="#subscriptionDetailsModal"
-                                            data-subscription="{{ json_encode($subscription) }}" style="color: #2c4ee5; cursor: pointer;">
+                                            data-subscription="{{ json_encode($subscription) }}"
+                                            data-payment ="{{json_encode($payments->get($subscription->cashfree_subscription_id))}}" style="color: #2c4ee5; cursor: pointer;">
                                         </button>
                                         
                                         @if($subscription->status === 'ACTIVE')
@@ -562,6 +563,10 @@
                             <div class="detail-row">
                                 <span class="detail-label">Payment Group</span>
                                 <span class="detail-value" id="paymentGroup"></span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Payment status</span>
+                                <span class="detail-value" id="paymentStatus"></span>
                             </div>
                         </div>
                     </div>
@@ -884,6 +889,7 @@ $(document).ready(function() {
         $('#subscriptionDetailsModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
             var subscription = button.data('subscription');
+            var payment = button.data('payment');
             var modal = $(this);
             
             // Format dates
@@ -911,6 +917,7 @@ $(document).ready(function() {
             $('#endDate').text(formatDate(subscription.end_date));
             $('#cancelledAt').text(subscription.cancelled_at ? formatDate(subscription.cancelled_at) : '--');
             $('#paymentGroup').text(subscription.payment_group ? subscription.payment_group.toUpperCase() : '--');
+            $('#paymentStatus').text(payment.payment_status ? payment.payment_status.toUpperCase() : '--');
             
          // Payment Method details
             var paymentMethodHtml = '';

@@ -24,6 +24,11 @@ class PlanSubscriptionController extends Controller
       ->orderBy('created_at', 'desc')
       ->get();
 
+      $payments = Payment::where("user_id", $userId)
+              ->orderBy('created_at', 'desc')
+              ->get()
+              ->keyBy('cashfree_subscription_id');
+
       $count = $subscriptions->count();
   
   
@@ -32,6 +37,6 @@ class PlanSubscriptionController extends Controller
       // } else {
       //     return redirect()->route('premium.page');
       // }
-      return view('pages.planSubscription', compact('subscriptions'));
+      return view('pages.planSubscription', compact('subscriptions', 'payments'));
   }
 }

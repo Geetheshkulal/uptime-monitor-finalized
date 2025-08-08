@@ -14,7 +14,7 @@ use App\Http\Controllers\TicketController;
 use App\Http\Controllers\BillingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ActivityController;
-use App\Http\Controllers\CashfreeController;
+use App\Http\Controllers\CashfreeResponseController;
 use App\Http\Controllers\IncidentController;
 use App\Http\Controllers\SslCheckController;
 use App\Http\Controllers\TrackingController;
@@ -50,7 +50,8 @@ use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 //     return view('cashfree', ['data' => $request->all()]);
 // })->name('cashfree.response');
 
-Route::post('/cashfree/response', [CashfreeController::class, 'handleResponse'])->name('cashfree.response');
+Route::post('/cashfree/response', [CashfreeResponseController::class, 'handleResponse'])->name('cashfree.response');
+Route::post('/cashfree/webhook', [CashfreeResponseController::class ,'handleWebhook'])->name('cashfree.webhook');
 
 Route::match(['get', 'post'], '/plan-subscription', [PlanSubscriptionController::class, 'planSubscription'])->name('planSubscription');
 
@@ -165,7 +166,7 @@ Route::middleware(['auth', 'verified', 'CheckUserSession', 'blockIp'])->group(fu
 
    
 
-    Route::controller(CashfreeController::class)->group(function(){
+    Route::controller(CashfreeResponseController::class)->group(function(){
         Route::get('/test-download', 'testDownload');
     });
     // Routes for applying/removing coupons 

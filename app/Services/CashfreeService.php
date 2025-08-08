@@ -98,7 +98,7 @@ class CashfreeService
 }
 
 
-public function verifySignature(array $postData, string $receivedSignature): bool
+public function verifySignatureInReturnUrl(array $postData, string $receivedSignature): bool
 {
     $secretKey = config('services.cashfree.secret');
     
@@ -112,30 +112,63 @@ public function verifySignature(array $postData, string $receivedSignature): boo
     // 2. Sort keys alphabetically (case-sensitive)
     ksort($postData, SORT_STRING);
 
-    // 3. Concatenate all values directly without any separator
+    // 3. Prepare values with exact formatting Cashfree uses
     $postDataString = '';
-    foreach ($postData as $value) {
-        // Convert all empty cases to empty string
-        if ($value === null || $value === 'N/A' || $value === '') {
-            $value = '';
-        }
-        $postDataString .= (string)$value;
+    foreach ($postData as $key => $value) {
+        // Convert all values to string representation that matches Cashfree's format
+        $stringValue = match(true) {
+            is_bool($value) => $value ? 'true' : 'false',
+            $value === null => '',
+            $value === 'N/A' => '',
+            default => (string)$value
+        };
+        $postDataString .= $stringValue;
     }
 
-    Log::info('Cashfree Concatenated String', ['string' => $postDataString]);
+    // 4. Generate HMAC-SHA256 hash
+    $hashHmac = hash_hmac('sha256', $postDataString, $secretKey, true);
 
-    // 4. Generate HMAC-SHA256 signature
-    $hash = base64_encode(
-        hash_hmac('sha256', $postDataString, $secretKey, true)
-    );
+    // 5. Base64 encode the hash
+    $computedSignature = base64_encode($hashHmac);
 
-    Log::info('Cashfree Signature Comparison', [
+    Log::debug('Cashfree Signature Verification Details', [
         'received' => $receivedSignature,
-        'generated' => $hash
+        'generated' => $computedSignature,
+        'concatenatedString' => $postDataString,
+        'sortedData' => $postData
     ]);
 
-    // 5. Securely compare signatures
-    return hash_equals($hash, $receivedSignature);
+    // 6. Securely compare signatures
+    return hash_equals($computedSignature, $receivedSignature);
+}
+
+public function verifyWebhookSignature(string $payload, ?string $timestamp, ?string $receivedSignature): bool
+{
+    $clientSecret = config('services.cashfree.secret');
+    
+    if (empty($clientSecret)) {
+        throw new \RuntimeException('Cashfree client secret not configured');
+    }
+
+    if (empty($timestamp) || empty($receivedSignature)) {
+        Log::error('Missing required headers for signature verification');
+        return false;
+    }
+
+ 
+    $signedPayload = $timestamp . $payload;
+
+    $expectedSignature = base64_encode(
+        hash_hmac('sha256', $signedPayload, $clientSecret, true)
+    );
+
+    // Log::debug('Signature Verification', [
+    //     'received' => $receivedSignature,
+    //     'expected' => $expectedSignature,
+    //     'signedPayload' => $signedPayload
+    // ]);
+
+    return hash_equals($expectedSignature, $receivedSignature);
 }
 
 
@@ -152,7 +185,7 @@ public function getSubscriptionDetails($subscriptionId)
         throw new \Exception('Failed to fetch subscription details');
     }
 
-    Log::info('cashfree subscription details', ['response' => $response->json()]);
+    // Log::info('cashfree subscription details', ['response' => $response->json()]);
     return $response->json();
 }
 
@@ -182,8 +215,7 @@ public function cancelSubscription($subscriptionId)
     ];
 
     $updatePaymentTableData=[
-        'status' => 'expired',
-        'payment_status' => $subscriptionData['subscription_status'] ?? 'CANCELLED',
+        'status' => $subscriptionData['subscription_status'] ?? 'CANCELLED',
     ];
 
     $hasActiveSubscription = UserSubscription::where('user_id', $user->id)

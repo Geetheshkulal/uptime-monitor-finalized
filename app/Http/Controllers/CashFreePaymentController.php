@@ -44,7 +44,7 @@ class CashFreePaymentController extends Controller
             'billing_cycle' => 'required|in:monthly,yearly'
         ]);
     } catch (\Exception $e) {
-            Log::error('Validation failed', $e->errors());
+            // Log::error('Validation failed', $e->errors());
             return back()->with('error', 'Validation failed: ' . $e->getMessage());
         }
 
@@ -54,7 +54,7 @@ class CashFreePaymentController extends Controller
             
             $response = $cashfree->createSubscription($validated);
             
-            Log::info('Cashfree Subscription Response:', $response);
+            // Log::info('Cashfree Subscription Response:', $response);
 
             // save in user_subscriptions table
             UserSubscription::create([
@@ -90,9 +90,6 @@ class CashFreePaymentController extends Controller
     }
 
 
-
-    
-
     public function cancelSubscription(Request $request, $subscriptionId, CashfreeService $cashfree)
     {
         try {
@@ -107,35 +104,4 @@ class CashFreePaymentController extends Controller
     }
 
 
-
-    public function success(Request $request)
-    {
-        $orderId = $request->query('order_id');
-        (new CashfreeService())->verifyAndProcessPayment($orderId);
-        return view('pages.payment-success');
-    }
-
-    public function webhook(Request $request)
-    {
-        $data = $request->all();
-        Log::info('Cashfree Webhook:', $data);
-
-        if (isset($data['orderId'])) {
-            (new CashfreeService())->verifyAndProcessPayment($data['orderId']);
-        }
-
-        return response()->json(['status' => 'success']);
-    }
-
-    public function status(Request $request)
-    {
-        $user = auth()->user();
-        $hasActiveSubscription = ($user->status == 'paid');
-
-        return response()->json([
-            'payment_success' => $hasActiveSubscription,
-            'payment_end_date' => $user->premium_end_date,
-            'status' => $user->status,
-        ]);
-    }
 }
