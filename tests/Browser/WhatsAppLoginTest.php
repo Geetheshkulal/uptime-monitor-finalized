@@ -19,7 +19,7 @@ class WhatsAppLoginTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('https://web.whatsapp.com');
-
+            
             $userId = 1;
 
             Log::info('[WHATSAPP SESSION] Opened WhatsApp Web');
@@ -114,10 +114,10 @@ class WhatsAppLoginTest extends DuskTestCase
                 ['user_id' => $userId], 
                 ['status' => 'connected']
             );
+         
             Log::info('[WHATSAPP SESSION] WhatsApp login successful!');
 
             // to remove continue button
-
             try {
                 $continueButton = $browser->driver->findElement(
                     WebDriverBy::xpath("//*[contains(text(), 'Continue')]")

@@ -75,8 +75,8 @@
                                         @canany(['edit.role','delete.role'])
                                             <td class="text-center">
                                                 @can('edit.role')
-                                                    <a href="{{ route('edit.role',$role->id) }}" class="ml-2">
-                                                        <i class="fas fa-edit" style="color: #2653d4; cursor: pointer;"></i>
+                                                    <a href="{{ route('edit.role',$role->id) }}" class="btn btn-sm btn-primary ml-2">
+                                                        <i class="fas fa-edit" style="cursor: pointer;"></i>
                                                     </a>
                                                 @endcan
 
@@ -85,8 +85,8 @@
                                                         <i class="fas fa-trash"></i>
                                                     </a> --}}
 
-                                                    <a href="#" data-toggle="modal" data-target="#roleDeleteModal{{ $role->id }}" class="ml-2">
-                                                        <i class="fas fa-trash" style="color: #e74a3b; cursor: pointer;"></i>
+                                                    <a href="#" data-toggle="modal" data-target="#roleDeleteModal{{ $role->id }}" class="btn btn-sm btn-danger ml-2">
+                                                        <i class="fas fa-trash" style="cursor: pointer;"></i>
                                                     </a>
                                                 @endcan
                                         </td>

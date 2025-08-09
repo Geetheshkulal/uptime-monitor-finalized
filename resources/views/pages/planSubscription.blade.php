@@ -254,7 +254,7 @@
 
 
 
-@media (max-width: 430px) {
+@media (max-width: 578px) {
 
 .dataTables_length {
    text-align: left !important;
@@ -263,11 +263,14 @@
 }
 
 .dataTables_filter{
-       margin-left: -10px;
+    margin-left: -33px
 }
 
 .page-content {
    margin-bottom: 175px;
+}
+.eyeCancel{
+    margin-top: -21px;
 }
 
 }
@@ -459,20 +462,21 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <div class="d-flex justify-content-around">
+                                    <div class="d-flex justify-content-center align-items-center gap-2 eyeCancel">
                                         <button class="fas fa-eye" 
                                             data-toggle="modal" 
                                             data-target="#subscriptionDetailsModal"
-                                            data-subscription="{{ json_encode($subscription) }}" style="color: #2c4ee5; cursor: pointer;">
+                                            data-subscription="{{ json_encode($subscription) }}"
+                                            data-payment ="{{json_encode($payments->get($subscription->cashfree_subscription_id))}}" style="color: #2c4ee5; cursor: pointer;">
                                         </button>
-
+                                        
                                         @if($subscription->status === 'ACTIVE')
                                             <!-- Ban icon triggers delete modal -->
                                             <a href="#" data-toggle="modal" data-target="#cancelSubscriptionModal{{ $subscription->id }}">
                                                 <i class="fas fa-ban" style="color: #f91a1a; cursor: pointer;"></i>
                                             </a>
                                             @endif
-                                        </div>
+                                    </div>
                                     </td>
                                 </tr>
                                 @empty
@@ -559,6 +563,10 @@
                             <div class="detail-row">
                                 <span class="detail-label">Payment Group</span>
                                 <span class="detail-value" id="paymentGroup"></span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Payment status</span>
+                                <span class="detail-value" id="paymentStatus"></span>
                             </div>
                         </div>
                     </div>
@@ -881,6 +889,7 @@ $(document).ready(function() {
         $('#subscriptionDetailsModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
             var subscription = button.data('subscription');
+            var payment = button.data('payment');
             var modal = $(this);
             
             // Format dates
@@ -908,6 +917,7 @@ $(document).ready(function() {
             $('#endDate').text(formatDate(subscription.end_date));
             $('#cancelledAt').text(subscription.cancelled_at ? formatDate(subscription.cancelled_at) : '--');
             $('#paymentGroup').text(subscription.payment_group ? subscription.payment_group.toUpperCase() : '--');
+            $('#paymentStatus').text(payment.payment_status ? payment.payment_status.toUpperCase() : '--');
             
          // Payment Method details
             var paymentMethodHtml = '';

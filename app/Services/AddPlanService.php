@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Log;
 
 class AddPlanService
 {
-    protected $baseUrl = 'https://sandbox.cashfree.com/pg/plans';
+    // protected $baseUrl = 'https://sandbox.cashfree.com/pg/plans';
+    protected $baseUrl = 'https://api.cashfree.com/pg/plans';
 
     // protected function headers()
     // {

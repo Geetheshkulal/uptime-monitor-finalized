@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 
-class SuperAdmin extends Seeder
+class UserTableSeeder extends Seeder
 {
     public function run()
     {

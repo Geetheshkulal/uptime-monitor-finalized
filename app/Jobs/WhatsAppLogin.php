@@ -16,7 +16,7 @@ class WhatsAppLogin implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
 
-    public  $tries = 1; // Number of attempts before failing the job'
+    public  $tries = 1; 
     // public $timeout = 200; 
     /**
      * Create a new job instance.
@@ -32,6 +32,7 @@ class WhatsAppLogin implements ShouldQueue
     public function handle(): void
     {
         try {
+            
             Log::info('[WHATSAPP LOGIN] Starting WhatsAppLoginTest via shell script.');
 
             // Path to the shell script

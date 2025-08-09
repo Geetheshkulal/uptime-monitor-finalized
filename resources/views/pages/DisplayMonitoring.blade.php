@@ -273,8 +273,9 @@
                 var ctx = document.getElementById("myAreaChart").getContext('2d');     
 
                 var gradient = ctx.createLinearGradient(0, 0, 0, 400); // Vertical gradient
-                gradient.addColorStop(0, "rgba(0, 0, 139, 0.6)"); // Dark blue (top) with 50% opacity
-                gradient.addColorStop(1, "rgba(173, 216, 230, 0.1)"); // Light blue (bottom) with 20% opacity
+                    gradient.addColorStop(0, "rgba(0, 0, 139, 0.3)"); 
+                    gradient.addColorStop(1, "rgba(173, 216, 230, 0)"); 
+                 
 
 
                 var responseTimes = {!! json_encode(array_slice($ChartResponses->pluck('response_time')->toArray(), -20)) !!};
@@ -297,11 +298,11 @@
                         labels: timestamps,
                         datasets: [{
                             label: "Response Time (ms)",
-                            lineTension: 0.1,
+                            fill: true,
                             // backgroundColor: "rgba(78, 115, 223, 0.05)",
                             backgroundColor: gradient, 
-                            // borderColor: "rgba(78, 115, 223, 1)",
                             borderColor:"rgba(12, 12, 233, 0.97)",
+                            lineTension: 0.2,
                             pointRadius: 3,
                             pointBackgroundColor: "rgba(78, 115, 223, 1)",
                             pointBorderColor: "rgba(78, 115, 223, 1)",
@@ -315,6 +316,7 @@
                     },
                  
                     options: {
+                        responsive: true,
                         maintainAspectRatio: false,
                         layout: {
                             padding: {
@@ -593,12 +595,12 @@
                     <input type="hidden" name="type" value="{{ $details->type }}">
 
                   <div class="modal-body">
-                        <div class="row">
-                            <div class="mb-3 col-md-6">
+                            <div class="mb-3 col-md-12">
                                 <label for="name" class="form-label">Friendly name</label>
                                 <input id="name" class="form-control" name="name" type="text" placeholder="E.g. Google" value="{{ $details->name }}" required>
                             </div>
 
+                            <div class="row p-2">
                             <div class="mb-3 col-md-6">
                                 <label for="retries" class="form-label">Retries</label>
                                 <input id="retries" class="form-control" name="retries" type="number" value="{{ $details->retries }}" required>
@@ -606,7 +608,24 @@
 
                             <div class="mb-3 col-md-6">
                                 <label for="interval" class="form-label">Interval (in minutes)</label>
-                                <input id="interval" class="form-control" name="interval" type="number" value="{{ $details->interval }}" required>
+                                <input 
+                                    id="interval"
+                                    class="form-control {{ auth()->user()->status === 'free' ? 'bg-light text-muted border-secondary' : '' }}"
+                                    name="interval"
+                                    type="number"
+                                    min="{{ auth()->user()->status === 'free' ? 5 : 1 }}"
+                                    max="10"
+                                    value="{{ old('interval', auth()->user()->status === 'free' ? max(5, $details->interval) : $details->interval) }}"
+                                    {{ auth()->user()->status === 'free' ? 'title=Only 5-10 minutes allowed for free users' : '' }}
+                                    required
+                                >
+                                @if (auth()->user()->status === 'free')
+                                    <small class="form-text text-muted">
+                                        Free users can set an interval between <strong>5 and 10 minutes</strong>. 
+                                        <a href="{{ route('premium.page') }}">Upgrade to premium <i class="fa-solid fa-crown" style="color: #FFD43B;"></i></a> to set a shorter interval.
+                                    </small>
+                                @endif
+                            </div>
                             </div>
 
                             <div class="mb-3 col-md-12">
@@ -649,16 +668,15 @@
                                 <input id="email" class="form-control" name="email" type="email" placeholder="example@gmail.com" value="{{ $details->email }}" required>
                             </div>
 
-                            <div class="mb-3 col-md-6">
+                            <div class="mb-3 col-md-12">
                                 <label for="telegram_id" class="form-label">Telegram ID (Optional)</label>
                                 <input id="telegram_id" class="form-control" name="telegram_id" type="text" value="{{ $details->telegram_id }}">
                             </div>
 
-                            <div class="mb-3 col-md-6">
+                            <div class="mb-3 col-md-12">
                                 <label for="telegram_bot_token" class="form-label">Telegram Bot Token (Optional)</label>
                                 <input id="telegram_bot_token" class="form-control" name="telegram_bot_token" type="text" value="{{ $details->telegram_bot_token }}">
                             </div>
-                        </div>
                     </div>
 
                     <div class="modal-footer">

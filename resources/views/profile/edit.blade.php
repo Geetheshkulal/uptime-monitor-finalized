@@ -58,7 +58,7 @@
     }
 }
 
-/* for dark mode */
+
 body.dark-mode .responsive-tabs .nav-link.active {
     background-color:rgb(15, 43, 92) !important;
     color: white !important;
@@ -130,13 +130,6 @@ body.dark-mode .responsive-tabs .nav-link.active {
             </div>
         </div>
         
-        {{-- <div class="col-lg-4 col-md-12 mb-4">
-            <div class="card shadow p-3">
-                <h1 class="h5 mb-0 text-gray-800 white-color">Last login IP address</h1>
-                <br>
-                <h4 class="h5 mb-0 text-gray-900 white-color">{{$user->last_login_ip}}</h4>
-            </div>
-        </div> --}}
     </div>
 </div>
 @push('scripts')

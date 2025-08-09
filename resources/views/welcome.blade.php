@@ -695,7 +695,7 @@
                 <i class="fas fa-bell"></i>
               </div>
               <h3 class="h5 fw-bold">Instant Alerts</h3>
-              <p class="text-muted">Get notified via email, SMS, Slack, Discord, or webhook when your sites go down.</p>
+              <p class="text-muted">Get notified via email, Telegram when your sites go down.</p>
             </div>
           </div>
         </div>

@@ -7,9 +7,9 @@
 
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap4.min.css">
     <style>
-        /* * {
-    border-radius: 0 !important;
-    } */
+        * {
+    border-radius: 3px;
+    }
 
     html, body {
     height: 100%;
@@ -111,12 +111,10 @@
         color: #000;
     }
 
-
-
 </style>
 @endpush
-</head>
 
+</head>
 
 @if(session('showPremiumModal'))
 <div id="content-wrapper" class="d-flex flex-column blur-content">

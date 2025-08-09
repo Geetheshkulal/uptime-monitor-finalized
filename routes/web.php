@@ -14,7 +14,6 @@ use App\Http\Controllers\TicketController;
 use App\Http\Controllers\BillingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ActivityController;
-use App\Http\Controllers\CashfreeController;
 use App\Http\Controllers\IncidentController;
 use App\Http\Controllers\SslCheckController;
 use App\Http\Controllers\TrackingController;
@@ -34,7 +33,8 @@ use App\Http\Controllers\HttpMonitoringController;
 use App\Http\Controllers\PingMonitoringController;
 use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\AppNotificationController;
-use App\Http\Controllers\CashFreePaymentController;
+use App\Http\Controllers\Cashfree\CashFreePaymentController;
+use App\Http\Controllers\Cashfree\CashfreeResponseController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\PlanSubscriptionController;
 use App\Http\Controllers\PublicStatusPageController;
@@ -50,7 +50,8 @@ use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 //     return view('cashfree', ['data' => $request->all()]);
 // })->name('cashfree.response');
 
-Route::post('/cashfree/response', [CashfreeController::class, 'handleResponse'])->name('cashfree.response');
+Route::post('/cashfree/response', [CashfreeResponseController::class, 'handleResponse'])->name('cashfree.response');
+Route::post('/cashfree/webhook', [CashfreeResponseController::class ,'handleWebhook'])->name('cashfree.webhook');
 
 Route::match(['get', 'post'], '/plan-subscription', [PlanSubscriptionController::class, 'planSubscription'])->name('planSubscription');
 
@@ -118,7 +119,7 @@ Route::middleware(['auth', 'verified', 'CheckUserSession', 'blockIp'])->group(fu
     });
     
 
-    Route::get('/dashboard', [MonitoringController::class, 'MonitoringDashboard'])->middleware('role:user|subuser')->middleware('permission:see.monitors')->name('monitoring.dashboard');
+    Route::get('/dashboard', [MonitoringController::class, 'MonitoringDashboard'])->middleware('role:user|subuser|admin')->middleware('permission:see.monitors')->name('monitoring.dashboard');
     Route::get('/monitoring/dashboard/update', [MonitoringController::class, 'MonitoringDashboardUpdate'])->name('monitoring.dashboard.update');
     Route::get('/monitoring/add', [MonitoringController::class, 'AddMonitoring'])->middleware('monitor.limit')->middleware('permission:add.monitor')->name('add.monitoring');
     Route::get('/monitoring/display/{id}/{type}', [MonitoringController::class, 'MonitoringDisplay'])->middleware('monitor.access')->middleware('permission:see.monitor.details')->name('display.monitoring');
@@ -165,7 +166,7 @@ Route::middleware(['auth', 'verified', 'CheckUserSession', 'blockIp'])->group(fu
 
    
 
-    Route::controller(CashfreeController::class)->group(function(){
+    Route::controller(CashfreeResponseController::class)->group(function(){
         Route::get('/test-download', 'testDownload');
     });
     // Routes for applying/removing coupons 

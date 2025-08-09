@@ -42,10 +42,11 @@
 
     <!-- Skeleton Loader Styles -->
     <style>
-        *:not(.status-dot):not(.status-badge, .status-indicator, .bar-segment, .badge, .whatsapp-bubble, .telegram-bubble):not(#profile-photo):not(.form-check-input) {
+        *:not(.status-dot):not(.status-badge, .status-indicator, .bar-segment, .badge, .whatsapp-bubble, .telegram-bubble):not(#profile-photo){
             border-radius: 3px;
         }
 
+      
 
         html, body {
     height: 100%;
@@ -251,6 +252,16 @@
             }
 
         }
+
+    .form-check-input:focus {
+        outline: none !important;
+        box-shadow: none !important;
+}
+
+    #introjs-dontShowAgain{
+        outline: none !important;
+        box-shadow: none !important;
+    }
     </style>
 
 

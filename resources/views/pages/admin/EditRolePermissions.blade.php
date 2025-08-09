@@ -24,7 +24,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h4 class="card-title mb-0">
+                            <h4 class="h3 mb-0 text-gray-800 white-color">
                                 Modify Permissions for Role: <strong>{{ $role->name }}</strong>
                             </h4>
                             <a href="{{ route('display.roles') }}" class="btn btn-primary">
