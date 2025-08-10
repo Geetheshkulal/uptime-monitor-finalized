@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Invoice - {{ $payment->payment_id }}</title>
+    <title>Invoice - {{ $payment->transaction_id }}</title>
     <style>
         body {
             font-family: Arial, sans-serif;

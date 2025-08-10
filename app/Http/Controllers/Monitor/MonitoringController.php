@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
-
-
+namespace App\Http\Controllers\Monitor;
+use App\Http\Controllers\Controller;
 use App\Models\DnsResponse;
 use App\Models\HttpResponse;
 use App\Models\Monitors;

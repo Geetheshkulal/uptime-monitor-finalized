@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\StatusPage;
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Monitors;
 use App\Models\Whitelist;

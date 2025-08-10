@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
-
-
+namespace App\Http\Controllers\Monitor;
+use App\Http\Controllers\Controller;
 use App\Models\Monitors;
 use App\Models\PortResponse;
 use Illuminate\Support\Facades\Log;

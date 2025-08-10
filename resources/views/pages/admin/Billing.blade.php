@@ -90,9 +90,9 @@ input:checked + .slider:before {
     <!-- Page Heading -->
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800 white-color subscription-head">Subscription Plans</h1>
+        <h1 class="h3 mb-0 text-gray-800 white-color subscription-head">Plans</h1>
         <button class="btn btn-primary" data-toggle="modal" data-target="#addSubscriptionModal">
-            <i class="fas fa-plus"></i> Add Subscription
+            <i class="fas fa-plus"></i> Add Plan
         </button>
     </div>
 

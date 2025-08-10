@@ -30,9 +30,12 @@ class InvoiceEmail extends Mailable
     public function attachments()
     {
         return [
-            Attachment::fromStorage($this->pdfPath)
-                      ->as('invoice.pdf')
-                      ->withMime('application/pdf'),
+            Attachment::fromPath(public_path($this->pdfPath))
+                ->as('invoice.pdf')
+                ->withMime('application/pdf'),
+            // Attachment::fromStorage($this->pdfPath)
+            //           ->as('invoice.pdf')
+            //           ->withMime('application/pdf'),
         ];
     }
 }

@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Storage;
 use Barryvdh\Snappy\Facades\SnappyPdf;
 use App\Mail\InvoiceEmail;
 use Illuminate\Support\Facades\Mail;
-
+use App\Models\Invoice;
 
 
 class CashfreeResponseController extends Controller
@@ -262,8 +262,9 @@ class CashfreeResponseController extends Controller
                 User::where('id', $user->id)->update($updateUserTable);
                 Monitors::where('user_id', $user->id)->update(['pause_on_expire' => 0]);
 
-                $filename = "invoice_{$user->phone}.pdf";
-                $pdfPath = "public/invoices/{$filename}";
+                $filename = "invoice_{$data['cf_txn_id']}.pdf";
+                // $pdfPath = "public/invoices/{$filename}";
+                $pdfPath = 'storage/invoices/' . $filename;
                 
                 $subscriptionId = UserSubscription::where('cashfree_subscription_id', $payment->cashfree_subscription_id)->first();
                 
@@ -273,9 +274,24 @@ class CashfreeResponseController extends Controller
                     'subscription' => $subscriptionId,
                 ]);
         
-            Storage::put($pdfPath, $pdf->output());
-        
+
+            if (!file_exists(public_path('storage/invoices'))) {
+                mkdir(public_path('storage/invoices'), 0777, true);
+            }
+            // Storage::put($pdfPath, $pdf->output());
+            $pdf->save(public_path($pdfPath));
+
             Mail::to($user->email)->queue(new InvoiceEmail($pdfPath, $user, $payment));
+            // save to invoice table
+
+            Invoice::create([
+                'user_id' => $user->id,
+                'billing_name'=> $user->name,
+                'invoice_number' => $data['cf_txn_id'],
+                'invoice_date' => now(),
+                'tax_amount' => 0,
+                'file_path' => $pdfPath,
+            ]);
     }
 
     private function handleAuthStatus(array $data)

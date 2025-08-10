@@ -4,46 +4,53 @@ use Illuminate\Http\Request;
 use App\Models\Subscriptions;
 use App\Events\AdminNotification;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DnsController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\BlockController;
+
 use App\Http\Controllers\CouponController;
-use App\Http\Controllers\TicketController;
 use App\Http\Controllers\BillingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ActivityController;
-use App\Http\Controllers\IncidentController;
-use App\Http\Controllers\SslCheckController;
-use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\ChangelogController;
-use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\PermissionController;
-// for ticket and comments
-use App\Http\Controllers\StatusPageController;
-use App\Http\Controllers\TrafficLogController;
-use App\Http\Controllers\PortMonitorController;
 use App\Http\Controllers\PremiumPageController;
 use Illuminate\Session\Middleware\StartSession;
-use App\Http\Controllers\EditTemplateController;
-use App\Http\Controllers\AdminWhatsAppController;
 
-use App\Http\Controllers\HttpMonitoringController;
-use App\Http\Controllers\PingMonitoringController;
-use App\Http\Controllers\RolePermissionController;
-use App\Http\Controllers\AppNotificationController;
+use App\Http\Controllers\Ticket\TicketController;
+
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminWhatsAppController;
+use App\Http\Controllers\Admin\AppNotificationController;
+use App\Http\Controllers\Admin\EditTemplateController;
+use App\Http\Controllers\Admin\TrafficLogController;
+use App\Http\Controllers\Admin\TrackingController;
+use App\Http\Controllers\Admin\BlockController;
+use App\Http\Controllers\Admin\UserSubscriptionController;
+use App\Http\Controllers\Admin\InvoicesController;
+
+use App\Http\Controllers\Monitor\HttpMonitoringController;
+use App\Http\Controllers\Monitor\MonitoringController;
+use App\Http\Controllers\Monitor\PingMonitoringController;
+use App\Http\Controllers\Monitor\DnsController;
+use App\Http\Controllers\Monitor\PortMonitorController;
+use App\Http\Controllers\Monitor\SslCheckController;
+
+use App\Http\Controllers\StatusPage\StatusPageController;
+use App\Http\Controllers\StatusPage\PublicStatusPageController;
+
 use App\Http\Controllers\Cashfree\CashFreePaymentController;
 use App\Http\Controllers\Cashfree\CashfreeResponseController;
+
+use App\Http\Controllers\Incident\IncidentController;
+
+use App\Http\Controllers\Maintenance\MaintenanceController;
+
+use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\PlanSubscriptionController;
-use App\Http\Controllers\PublicStatusPageController;
 use App\Http\Controllers\PushNotificationController;
-use App\Http\Controllers\Maintenance\MaintenanceController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
-
-
 
 
 // Route::match(['post'], '/cashfree/response', function (Request $request) {
@@ -118,6 +125,10 @@ Route::middleware(['auth', 'verified', 'CheckUserSession', 'blockIp'])->group(fu
         Route::delete('/profile', 'destroy')->middleware('role:user')->name('profile.destroy');
     });
     
+    Route::controller(UserSubscriptionController::class)->group(function () {
+        Route::get('/user/subscription', 'DisplayUserSubscription')->name('userSubscription');
+        Route::get('/user-subscriptions/{cashfree_subscription_id}', 'DetailUserSubscription')->name('admin.userSubscriptions.show');
+    });
 
     Route::get('/dashboard', [MonitoringController::class, 'MonitoringDashboard'])->middleware('role:user|subuser|admin')->middleware('permission:see.monitors')->name('monitoring.dashboard');
     Route::get('/monitoring/dashboard/update', [MonitoringController::class, 'MonitoringDashboardUpdate'])->name('monitoring.dashboard.update');
@@ -131,8 +142,6 @@ Route::middleware(['auth', 'verified', 'CheckUserSession', 'blockIp'])->group(fu
     Route::post('/monitor/pause/{id}', [MonitoringController::class, 'pauseMonitor'])->name('monitor.pause');
 
     Route::get('/dashboard/{id}', [TrackingController::class, 'NotificationTracker']);
-
-
 
     Route::patch('/user/update/billing', [UserController::class, 'UpdateBillingInfo'])->name('update.billing.info');
 });
@@ -186,6 +195,9 @@ Route::middleware(['auth', 'verified', 'CheckUserSession', 'blockIp'])->group(fu
     });
   
     Route::get('premium', [PremiumPageController::class, 'PremiumPage'])->middleware('premium_middleware')->middleware('role:user')->name('premium.page');
+
+
+    Route::get('/user-invoices', [InvoicesController::class, 'DisplayUserInvoices'])->name('userInvoices');
 
     Route::controller(MaintenanceController::class)->group(function () {
         Route::get('/maintenance', 'DisplayMaintenance')->name('display.maintenance');
