@@ -412,7 +412,7 @@
             <li class="nav-item {{ request()->routeIs('userInvoices') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('userInvoices') }}">
                     {{-- <i class="fas fa-user-tag"></i>  --}}
-                    <i class="fas fa-receipt"></i> 
+                    <i class="fas fa-file-invoice"></i>
                     <span>Invoices</span>
                 </a>
             </li>
