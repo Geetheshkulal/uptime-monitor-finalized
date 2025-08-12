@@ -15,6 +15,7 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         // '/plan-subscription',  
         '/cashfree/response',
-        '/cashfree/webhook'
+        '/cashfree/webhook',
+        '/payment/thank-you'
     ];
 }

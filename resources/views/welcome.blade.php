@@ -841,15 +841,17 @@
                 </div>
               @endforeach
                <ul style="text-align: left; list-style: none;">
-                <li class="mb-3"><i class="fas fa-check-circle" style="color: #065bef;"></i>  All basic features</li>
-                <li class="mb-3"><i class="fas fa-check-circle" style="color: #065bef;"></i>  Monitor unlimited websites</li>
-                <li class="mb-3"><i class="fas fa-check-circle" style="color: #065bef;"></i>  1-minute check</li>
-                <li class="mb-3"><i class="fas fa-check-circle" style="color: #065bef;"></i>  Telegram bot notification alert</li>
-                <li class="mb-3"><i class="fas fa-check-circle" style="color: #065bef;"></i>  4-Month history</li>
-                <li class="mb-3"><i class="fas fa-check-circle" style="color: #065bef;"></i>  SSL expiry check</li>
-                <li class="mb-3">
-                  <i class="fas fa-check-circle" style="color: #065bef;"></i>  Create and manage team members
-                </li>
+                @foreach($plan->features ?? [] as $feature)
+                <li class="mb-3 {{ !$feature['available'] ? 'feature-unavailable' : '' }}">
+                  @if($feature['available'])
+                      <i class="fas fa-check-circle" style="color: #065bef;"></i>
+                  @else
+                      <i class="fas fa-times-circle" style="color: #dc3545;"></i>
+                  @endif
+                  {{ $feature['name'] }}
+              </li>
+            
+                @endforeach
               </ul>
               {{-- <a href="#" class="btn btn-primary d-block">Get Started</a> --}}
               @if(auth()->check())

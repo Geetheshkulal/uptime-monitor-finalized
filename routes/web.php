@@ -56,8 +56,10 @@ use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 // Route::match(['post'], '/cashfree/response', function (Request $request) {
 //     return view('cashfree', ['data' => $request->all()]);
 // })->name('cashfree.response');
+Route::post('/payment/thank-you', [CashfreeResponseController::class, 'handleResponse'])
+     ->name('payment.thank-you');
 
-Route::post('/cashfree/response', [CashfreeResponseController::class, 'handleResponse'])->name('cashfree.response');
+// Route::post('/cashfree/response', [CashfreeResponseController::class, 'handleResponse'])->name('cashfree.response');
 Route::post('/cashfree/webhook', [CashfreeResponseController::class ,'handleWebhook'])->name('cashfree.webhook');
 
 Route::match(['get', 'post'], '/plan-subscription', [PlanSubscriptionController::class, 'planSubscription'])->name('planSubscription');
@@ -128,6 +130,7 @@ Route::middleware(['auth', 'verified', 'CheckUserSession', 'blockIp'])->group(fu
     Route::controller(UserSubscriptionController::class)->group(function () {
         Route::get('/user/subscription', 'DisplayUserSubscription')->name('userSubscription');
         Route::get('/user-subscriptions/{cashfree_subscription_id}', 'DetailUserSubscription')->name('admin.userSubscriptions.show');
+
     });
 
     Route::get('/dashboard', [MonitoringController::class, 'MonitoringDashboard'])->middleware('role:user|subuser|admin')->middleware('permission:see.monitors')->name('monitoring.dashboard');
@@ -265,11 +268,17 @@ Route::group(['middleware' => ['auth', 'blockIp']], function () {
     Route::post('/roles/{id}/permissions', [RolePermissionController::class, 'UpdateRolePermissions'])->middleware('permission:edit.role.permissions')->name('update.role.permissions');
 
 
-    Route::get('/billing', [BillingController::class, 'Billing'])->middleware('role:superadmin')->name('billing');
-    Route::post('/edit/billing/{id}', [BillingController::class, 'EditBilling'])->middleware('role:superadmin')->name('edit.billing');
-    Route::post('/add/billing', [BillingController::class, 'AddBilling'])->middleware('role:superadmin')->name('add.billing');
-    Route::delete('/billing/{id}', [BillingController::class, 'destroy'])->middleware('role:superadmin')->name('subscription.destroy');
-    Route::post('/toggle-active/{id}', [BillingController::class, 'ToggleActive'])->middleware('role:superadmin')->name('toggle.active');
+    Route::middleware('role:superadmin')->controller(BillingController::class)->group(function () {
+        Route::get('/billing', 'Billing')->name('billing');
+        Route::post('/edit/billing/{id}', 'EditBilling')->name('edit.billing');
+        Route::post('/add/billing', 'AddBilling')->name('add.billing');
+        Route::delete('/billing/{id}', 'destroy')->name('subscription.destroy');
+        Route::post('/toggle-active/{id}', 'ToggleActive')->name('toggle.active');
+
+        Route::get('subscriptions/{subscription}/edit',  'EditFeature')->name('admin.features.edit');
+        Route::put('subscriptions/{subscription}', 'UpdateFeature')->name('admin.features.update');
+    });
+    
 
     Route::get('/display/tickets', [TicketController::class, 'ViewTicketsUser'])->name('display.tickets');
     Route::get('/raise/tickets', [TicketController::class, 'RaiseTicketsPage'])->name('raise.tickets');

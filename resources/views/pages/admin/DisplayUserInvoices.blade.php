@@ -13,6 +13,18 @@
 .collapse {
     visibility: visible !important; 
 }
+
+@media (max-width: 578px) {
+      .dataTables_length {
+        text-align: left !important;
+        margin-left: 2px;
+        margin-bottom: 10px;
+    }
+     .dataTables_filter{
+            margin-left: -8px;
+    }
+   
+}
 </style>
 @endpush
 
@@ -27,7 +39,7 @@
         <!-- Card Body -->
         <div class="card-body px-4 py-4">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered dt-responsive nowrap" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>SL No</th>
@@ -79,6 +91,8 @@
 <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
 <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
 
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap4.min.js"></script>
 
 <script>
 
@@ -93,6 +107,9 @@ $(function () {
             "searching": true,
             "ordering": true,
             "info": true,
+            "info": true,
+            responsive: true,
+            scrollX: false,
             "order": [[0, "asc"]],
             "language": {
             // "search": "", // Hides default "Search:" label

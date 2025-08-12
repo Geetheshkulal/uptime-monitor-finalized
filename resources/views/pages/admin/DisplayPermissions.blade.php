@@ -4,10 +4,11 @@
 @push('styles')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
+
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap4.min.css">
+
 <style>
-    /* * {
-        border-radius: 0 !important;
-    } */
+ 
     @media (max-width: 430px) {
     .RoleBack{
          margin-bottom: 11px;
@@ -42,7 +43,7 @@
                 <!-- Card Body with consistent padding -->
                 <div class="card-body px-4 py-4">
                     <div class="table-responsive">
-                        <table class="table table-bordered" id="permissionsTable" width="100%" cellspacing="0">
+                        <table class="table table-bordered dt-responsive nowrap" id="permissionsTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -95,6 +96,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap4.min.js"></script>
+
 <script>
     $(document).ready(function() {
         $('#permissionsTable').DataTable({
@@ -102,6 +107,8 @@
             "searching": true,
             "ordering": true,
             "info": true,
+            responsive: true,
+            scrollX: false,
             "order": [[0, "asc"]],
             "columnDefs": [
                 { "orderable": false, "targets": [3] } // Disable sorting for action column

@@ -13,6 +13,18 @@
 .collapse {
     visibility: visible !important; 
 }
+
+@media (max-width: 578px) {
+      .dataTables_length {
+        text-align: left !important;
+        margin-left: 2px;
+        margin-bottom: 10px;
+    }
+     .dataTables_filter{
+            margin-left: -8px;
+    }
+   
+}
 </style>
 @endpush
 
@@ -95,6 +107,8 @@
 <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
 <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
 
+{{-- <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap4.min.js"></script> --}}
 
 <script>
 
@@ -109,6 +123,8 @@ $(function () {
             "searching": true,
             "ordering": true,
             "info": true,
+            responsive: true,
+            scrollX: false,
             "order": [[0, "asc"]],
             "language": {
             // "search": "", // Hides default "Search:" label

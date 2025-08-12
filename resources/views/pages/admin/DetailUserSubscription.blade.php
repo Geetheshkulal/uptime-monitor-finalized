@@ -36,6 +36,18 @@
     .detail-value {
         word-break: break-all;
     }
+
+    @media (max-width: 578px) {
+      .dataTables_length {
+        text-align: left !important;
+        margin-left: 2px;
+        margin-bottom: 10px;
+    }
+     .dataTables_filter{
+            margin-left: -8px;
+    }
+   
+}
 </style>
 @endpush
 
@@ -162,7 +174,7 @@
                     <div class="card-body">
                         @if(!empty($payments))
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="paymentsTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered dt-responsive nowrap" id="paymentsTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th>Payment ID</th>
@@ -233,6 +245,10 @@
 @push('scripts')
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap4.min.js"></script>
+
 <script>
 $(document).ready(function() {
     // Initialize DataTable

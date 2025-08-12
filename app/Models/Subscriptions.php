@@ -23,6 +23,10 @@ class Subscriptions extends Model
         'description',
         'features' ,
     ];
+
+    protected $casts = [
+        'features' => 'array'
+    ];
     public function payment()
     {
         

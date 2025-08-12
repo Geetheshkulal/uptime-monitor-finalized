@@ -21,6 +21,7 @@ class PublicStatusPageController extends Controller
         $whitelistedIPs = $whitelistRecord->whitelist;
 
         $ip = $request->ip();
+    
         if(!in_array($ip, $whitelistedIPs)){
             return view('pages.StatusPageNotAllowed');
         }

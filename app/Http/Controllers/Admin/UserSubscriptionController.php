@@ -45,4 +45,6 @@ class UserSubscriptionController extends Controller
             'payments' => $payments
         ]);
     }
+
+    
 }

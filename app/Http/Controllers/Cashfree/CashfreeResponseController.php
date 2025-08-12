@@ -111,8 +111,17 @@ class CashfreeResponseController extends Controller
             // Storage::put($pdfPath, $pdf->output());
         
             // Mail::to($user->email)->queue(new InvoiceEmail($pdfPath, $user, $payment));
+            
+            $subscriptionDetails = session('subscription_details');
         
-            return redirect()->route('monitoring.dashboard')->with('success', 'Subscription is active.');
+            if (!$subscriptionDetails) {
+                return redirect()->route('home')->with('error', 'Invalid payment session');
+            }
+            return view('cashfree.thank-you', [
+                'details' => $subscriptionDetails
+            ]);
+            
+            // return redirect()->route('monitoring.dashboard')->with('success', 'Subscription is active.');
 
         }catch(\Exception $e){
 

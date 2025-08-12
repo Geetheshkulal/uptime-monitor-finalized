@@ -215,11 +215,9 @@
         #accordionSidebar::-webkit-scrollbar {
             display: none; 
         }
-
-.dark-mode .sidebar {
-    background-color: #1f1f2e !important; 
-    color: #f1f1f1;
-}
+        #accordionSidebar {
+        background-color: #4e73df;
+    }
 
 
 @media (max-width: 578px) {
