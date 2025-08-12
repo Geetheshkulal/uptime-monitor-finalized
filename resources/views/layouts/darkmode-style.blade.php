@@ -89,12 +89,14 @@
     .dark-mode .btn-primary,
     html.dark .btn-primary {
         background-color: var(--color-primary-dark);
-        border-color: #3a3f51 !important;
+        /* border-color: #3a3f51 !important; */
+        border-color: var(--color-secondary-light);
     }
 
     html.dark .btn-secondary {
         background-color: var(--color-secondary-light) !important;
-        border-color: #545b62 !important;
+        /* border-color: #545b62 !important; */
+        border-color: var(--color-secondary-light)
     }
 
     .dark-mode .form-control,
@@ -409,7 +411,7 @@ html.dark-mode .text-primary {
 }
 
 .dark-mode .page-header p {
-    color: #b0b0b0;
+    color: var(--color-border-light);
 }
 
 
@@ -428,7 +430,7 @@ html.dark-mode .text-primary {
 }
 
 .dark-mode .applied-coupon-msg {
-    background-color: #3a3a3a;
+    background-color: var(--color-input-border-dark)
     color: #a5d6a7;
 }
 
@@ -443,13 +445,13 @@ html.dark-mode .text-primary {
 } 
  
 .dark-mode .btn-disabled {
-    background-color: #3a3a3a !important;
+    background-color: var(--color-input-border-dark); !important;
     color: var(--color-input-border-dark) !important;
 }
 
 
 .dark-mode .modal-content {
-    background-color: #2d2d2d;
+    background-color: var(--color-card-accent-dark);
     color: var(--color-text-dark);
 }
 html.dark-mode .modal-header {
@@ -472,38 +474,40 @@ html.dark-mode .modal-header .close {
     border: none;
 }
 .dark-mode .form-control {
-    background-color: #3a3a3a;
+    background-color: var(--color-input-border-dark);;
     border-color: var(--color-input-border-dark);
     color: var(--color-text-dark);
 }
 
 .dark-mode .form-control:focus {
-    background-color: #4a4a4a;
+    /* background-color: #4a4a4a; */
+    background-color: var(--color-input-border-dark);
     color: var(--color-bg-light);
 }
 
 /* dark mode for premium blade ends */
 
 .dark-mode .custom-select{
-     background-color: #2c2c2c; 
+     background-color: var(--color-input-dark); 
     color: var(--color-bg-light);
     border:none;
 }
 
 /* raise ticket file input */
 html.dark-mode .custom-file-label {
-    background-color: #2a2a2a;
+    /* background-color: #2a2a2a; */
+    background-color: var(--color-input-dark); 
     color: var(--color-bg-light);
     border-color: var(--color-input-border-dark);
 }
 
 html.dark-mode .custom-file-input:focus ~ .custom-file-label {
-    border-color: #888;
+    border-color: var(--color-secondary-light);
     box-shadow: 0 0 0 0.1rem rgba(255, 255, 255, 0.25);
 }
 
 html.dark-mode .custom-file-input {
-    background-color: #2a2a2a;
+    background-color: var(--color-input-dark);
     color: var(--color-bg-light);
     border-color: var(--color-input-border-dark);
 }
@@ -542,17 +546,18 @@ html.dark-mode .ql-toolbar.ql-snow .ql-fill {
 }
 
 html.dark-mode .ql-toolbar.ql-snow .ql-picker-options {
-    background-color: #3a3a3a;
+    background-color: var(--color-input-border-dark);;
+
     color: var(--color-bg-light);
 }
 
 html.dark-mode .ql-container.ql-snow {
-    background-color: #1e1e1e;
+    background-color: var(--color-input-dark);
     color: var(--color-text-dark);
     border-color: var(  --color-input-border-dark);
 }
 html.dark-mode .ql-editor::before {
-    color: #aaa;
+    color: var(--color-border-light);
 }
 
 /* quill editor ends */
@@ -576,7 +581,7 @@ html.dark-mode .new-comment-header{
 
 html.dark-mode .ql-editor {
     background-color: var(--color-card-dark) !important;
-    color: #f0f0f0 !important;
+    color: var(--color-bg-light) !important;
 }
 
 html.dark-mode .commment-black{
