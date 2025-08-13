@@ -1,20 +1,23 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Monitor;
+use App\Http\Controllers\Controller;
 use App\Models\Monitors;
+use App\Models\HttpResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log; 
 use Illuminate\Validation\Rule;
 
-//Controller for Ping Monitors.
-class PingMonitoringController extends Controller
+//Controller for HttP
+class HttpMonitoringController extends Controller
 {
-    //store the ping monitor.
+    // Store a new HTTP monitor entry
     public function store(Request $request)
     {
         $user = auth()->user();
         $user = ($user->hasRole('subuser'))?$user->parentUser:auth()->user();
 
+        Log::info('HTTP Monitor Request: ', $request->all());
         $request->validate([
             'name' => 'required|string',
             'url' => [
@@ -22,7 +25,7 @@ class PingMonitoringController extends Controller
                 'url',
                 Rule::unique('monitors')->where(function ($query) use ($user, $request) {
                     return $query->where('user_id', $user->id)
-                                ->where('type', 'ping');
+                                ->where('type', 'http');
                 }),
             ],
             'email' => 'required|email',
@@ -30,41 +33,41 @@ class PingMonitoringController extends Controller
             'interval' => 'required|integer|min:1',
             'telegram_id' => 'nullable|string',
             'telegram_bot_token' => 'nullable|string',
-         
         ]);
 
-        // Save the monitor data to the database
+        // Create a new HTTP monitor entry
         $monitor = Monitors::create([
             'user_id' => $user->id,
             'name' => $request->name,
             'status' => 'waiting',
             'url' => $request->url,
-            'type' => 'ping',
-            'port' => null,
+            'type' => 'http',
             'retries' => $request->retries,
-            'dns_resource_type'=>null,
             'interval' => $request->interval,
             'email' => $request->email,
             'telegram_id' => $request->telegram_id,
             'telegram_bot_token' => $request->telegram_bot_token,
-            // Default to DOWN until the cron job updates it
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
-        
-        //Log the activity
+
+        //Record the activity
         activity()
-        ->causedBy(auth()->user())
         ->performedOn($monitor)
-        ->inLog('ping_monitoring')
+        ->causedBy(auth()->user())
+        ->inLog('http_monitoring') 
         ->event('created')
         ->withProperties([
-            'email'=> $request->email,
-            'url' => $request->url,
-            'type' => $request->type
+            'user_name' => auth()->user()->name,
+            'monitor_name' => $monitor->name,
+            'monitor_url' => $monitor->url,
+            'monitor_type' => $monitor->type
         ])
-        ->log('ping Monitor created');
+        ->log("Created {$monitor->type} monitor");
 
-        return redirect()->route('monitoring.dashboard')->with('success', ucfirst($request->type) . ' monitoring added successfully!');
+        Log::info('HTTP Monitor Created: ', $monitor->toArray());
 
-
+        return redirect()->route('monitoring.dashboard')->with('success', 'HTTP Monitor added successfully');
     }
+
 }

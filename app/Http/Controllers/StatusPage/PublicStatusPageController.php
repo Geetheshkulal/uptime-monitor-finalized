@@ -1,35 +1,51 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\StatusPage;
+use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Models\Monitors;
+use App\Models\Whitelist;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
-class StatusPageController extends Controller
-{
-    public function index()
-    {
-        $user = auth()->user();
-        $user = ($user->hasRole('subuser'))?$user->parentUser:auth()->user();
 
-        $daysToShow = $user->status === 'free' ? 30 : 120; // Determine days based on user status
-        
-        $monitors = Monitors::with(['user'])
-            ->where('user_id', $user->id)
-            ->orderBy('status')
-            ->orderBy('name')
-            ->get()
-            ->map(function ($monitor) use ($daysToShow) {
-                return $this->getMonitorData($monitor, $daysToShow);
-            });
-            
-            return view('pages.status', [
-                'monitors' => $monitors,
-                'user' => $user
-            ]);
+class PublicStatusPageController extends Controller
+{
+    public function show(Request $request,$hash)
+    {
+        $user = User::where('status_page_hash', $hash)
+                  ->where('enable_public_status', true)
+                  ->firstOrFail();
+
+        $whitelistRecord = Whitelist::where('user_id',$user->id)->first();
+        $whitelistedIPs = $whitelistRecord->whitelist;
+
+        $ip = $request->ip();
+    
+        if(!in_array($ip, $whitelistedIPs)){
+            return view('pages.StatusPageNotAllowed');
+        }
+
+
+        // Get days to show based on user status
+        $daysToShow = $user->status === 'free' ? 30 : 120;
+
+        // Get and enrich public monitors
+        $monitors = $user->monitors()
+                       ->orderBy('status')
+                       ->orderBy('name')
+                       ->get()
+                       ->map(function ($monitor) use ($daysToShow) {
+                           return $this->getMonitorData($monitor, $daysToShow);
+                       });
+
+        return view('public-status', [
+            'monitors' => $monitors,
+            'user' => $user
+        ]);
     }
 
-    public function getMonitorData($monitor, $daysToShow)
+    protected function getMonitorData($monitor, $daysToShow)
     {
         // Determine status color and icon
         $monitor->statusColor = $monitor->status == 'up' ? 'success' : 'danger';
@@ -37,7 +53,7 @@ class StatusPageController extends Controller
         
         // Get data for the specified number of days
         $daysData = [];
-        $startDate = now()->subDays($daysToShow - 1)->startOfDay(); // Subtract (daysToShow - 1) to get correct number of days
+        $startDate = now()->subDays($daysToShow - 1)->startOfDay();
         $endDate = now();
         
         // Initialize all days with default values
@@ -87,13 +103,13 @@ class StatusPageController extends Controller
         
         // Process days data for visualization
         $monitor->daysData = collect($daysData)->map(function ($day) {
-
+            // Determine color based on uptime percentage
             $day['color'] = '#10b981'; 
             if ($day['uptime_percentage'] < 95) {
                 $day['color'] = '#f59e0b'; 
             }
             if ($day['uptime_percentage'] < 80) {
-                $day['color'] = '#ef4444'; 
+                $day['color'] = '#ef4444';
             }
             // If no checks that day, show gray
             if ($day['total_checks'] === 0) {

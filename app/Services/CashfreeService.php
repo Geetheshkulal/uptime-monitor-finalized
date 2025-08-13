@@ -42,13 +42,15 @@ class CashfreeService
 
    
     try {
+        $subscriptionId = 'sub_' . rand(1, 1000) . '_' . time();
+
         $response = Http::withHeaders([
             'x-client-id' => config('services.cashfree.key'),
             'x-client-secret' => config('services.cashfree.secret'),
             'x-api-version' => '2025-01-01',
             'Content-Type' => 'application/json',
         ])->post(config('services.cashfree.base_url'), [
-            'subscription_id' => 'sub_' . rand(1, 1000) . '_' . time(),
+            'subscription_id' =>  $subscriptionId,
             'customer_details' => [
                 'customer_email' => $validated['email'],
                 'customer_phone' => $validated['mobile'],
@@ -74,19 +76,30 @@ class CashfreeService
                 ]
             ],
             'subscription_meta' => [
-                'return_url' => route('cashfree.response'),
+                'return_url' => route('payment.thank-you'),
                 'notification_email' => $validated['email'],
             ],
         ]);
 
-        $json = $response->json();
+        if($response->successful()){
+            session()->flash('subscription_details', [
+                'subscription_id' => $subscriptionId,
+                'plan_name' => $validated['plan_name'],
+                'amount' => $validated['amount'],
+                'billing_cycle' => $validated['billing_cycle'],
+                'customer_name' => $validated['name'],
+                'customer_email' => $validated['email'],
+                'payment_status' => 'Pending' // Will be updated via webhook
+            ]);
+        }
+        // $json = $response->json();
 
         // Optional: handle failure
         if (!$response->successful()) {
             throw new \Exception($json['message'] ?? 'Cashfree API error');
         }
 
-        return $json;
+        return $response->json();
         
     } catch (\Exception $e) {
         // Log::error('Cashfree Subscription API Failed', [

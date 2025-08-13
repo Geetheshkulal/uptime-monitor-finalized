@@ -8,6 +8,8 @@
 
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap4.min.css">
+
     <style>
       
 
@@ -122,6 +124,7 @@
     }
    
 }
+
 
 </style>
 @endpush
@@ -409,13 +412,14 @@
 <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
 <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
 
+{{-- <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap4.min.js"></script> --}}
 
 <script>
 
     $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 })
-
 
 $(document).ready(function() {
     // Initialize DataTable
@@ -424,13 +428,16 @@ $(document).ready(function() {
         "searching": true,
         "ordering": true,
         "info": true,
+        responsive: true,
+        scrollX: false,
         "order": [[7, "desc"]],
         "columnDefs": [
             { "searchable": false, "targets": [8] }
         ],
         "language": {
             "searchPlaceholder": "Search by code or type"
-        }
+        },
+
     });
 
     // Initialize Select2 with proper dropdown parent
@@ -448,6 +455,7 @@ $(document).ready(function() {
         $('#valid_until').attr('min', $('#valid_from').val());
     });
 
+    
     // Initialize same functionality for edit modals
     @foreach($coupons as $coupon)
         $(`#valid_from{{ $coupon->id }}`).on('change', function() {

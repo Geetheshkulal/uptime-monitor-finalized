@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Incident;
+use App\Http\Controllers\Controller;
 use App\Models\Incident;
 use App\Models\Monitors;
 use Illuminate\Support\Facades\Auth;

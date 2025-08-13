@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Ticket;
+use App\Http\Controllers\Controller;
 use App\Mail\TicketClosedMail;
 use App\Models\Ticket;
 use Illuminate\Http\Request;

@@ -10,10 +10,7 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap4.min.css">
 
 <style>
-    /* * {
-        border-radius: 0 !important;
-    } */
-
+  
     .nav-tabs{
         border-bottom: none;
     }
@@ -75,14 +72,14 @@
 
  
 
-    @media (max-width: 430px) {
-    .dataTables_length {
+    @media (max-width: 578px) {
+      .dataTables_length {
         text-align: left !important;
         margin-left: 2px;
         margin-bottom: 10px;
     }
-    .dataTables_filter{
-            margin-right: -7px;
+     .dataTables_filter{
+            margin-left: -8px;
     }
    
 }

@@ -195,7 +195,6 @@
     align-items: flex-end;
 }
 
-/* If there's only one badge, center it horizontally */
 .badge-container > span:first-child:last-child {
     right: 50%;
     align-self: center;
@@ -203,36 +202,25 @@
     
 }
 
-  /* Hide Scrollbar but Allow Scrolling */
         #accordionSidebar {
-            /* position: -webkit-sticky; */
             position: sticky;
             top: 0;
             height: 100vh;
-            z-index: 1040;
+            z-index: 1040; 
             overflow-y: scroll; 
             overflow-x: hidden; 
-            background-color: #4e73df;
             
         }
 
         #accordionSidebar::-webkit-scrollbar {
-            display: none; /* Hides the scrollbar */
+            display: none; 
         }
-
-.sidebar {
-    background-color: #4e73df; /* Light */
-    color: white;
-}
+        #accordionSidebar {
+        background-color: #4e73df;
+    }
 
 
-.dark-mode .sidebar {
-    background-color: #1f1f2e !important; 
-    color: #f1f1f1;
-}
-
-
-@media (max-width: 430px) {
+@media (max-width: 578px) {
 
      #accordionSidebar {
         position: fixed;
@@ -240,6 +228,7 @@
         width: 96px;
         z-index: 2000; 
     }
+   
 
     #sidebarToggleTop {
         position: relative;
@@ -248,7 +237,9 @@
     }
 } 
 
-
+.collapse {
+    visibility: visible !important; 
+}
 
 </style>
 
@@ -306,6 +297,8 @@
                 </a>
             </li>
         @endhasrole
+
+
 
         @hasrole('user')
         <li class="nav-item ssl {{ request()->routeIs('ssl.check') ? 'active' : '' }}">
@@ -402,9 +395,42 @@
             <li class="nav-item {{ request()->routeIs('billing') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('billing') }}">
                     <i class="fas fa-money-bill"></i>
-                    <span>Subscription Plans</span>
+                    <span>Plans</span>
                 </a>
             </li>
+
+            <li class="nav-item {{ request()->routeIs('userSubscription') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('userSubscription') }}">
+                    {{-- <i class="fas fa-user-tag"></i>  --}}
+                    <i class="fas fa-receipt"></i> 
+                    <span>User Subscription</span>
+                </a>
+            </li>
+
+            <li class="nav-item {{ request()->routeIs('userInvoices') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('userInvoices') }}">
+                    {{-- <i class="fas fa-user-tag"></i>  --}}
+                    <i class="fas fa-file-invoice"></i>
+                    <span>Invoices</span>
+                </a>
+            </li>
+
+            {{-- <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Components</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Custom Components:</h6>
+                        <a class="collapse-item" href="buttons.html">Buttons</a>
+                        <a class="collapse-item" href="cards.html">Cards</a>
+                    </div>
+                </div>
+            </li> --}}
+
+            
 
             @can('manage.coupons')
                 <li class="nav-item {{ request()->routeIs('display.coupons') ? 'active' : '' }}">

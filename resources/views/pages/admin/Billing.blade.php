@@ -5,6 +5,9 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap4.min.css">
+
 <style>
 
 .switch {
@@ -90,9 +93,9 @@ input:checked + .slider:before {
     <!-- Page Heading -->
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800 white-color subscription-head">Subscription Plans</h1>
+        <h1 class="h3 mb-0 text-gray-800 white-color subscription-head">Plans</h1>
         <button class="btn btn-primary" data-toggle="modal" data-target="#addSubscriptionModal">
-            <i class="fas fa-plus"></i> Add Subscription
+            <i class="fas fa-plus"></i> Add Plan
         </button>
     </div>
 
@@ -102,7 +105,7 @@ input:checked + .slider:before {
                 <!-- Card Body -->
                 <div class="card-body px-4 py-4">
                     <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table table-bordered dt-responsive nowrap" id="dataTable" width="100%" cellspacing="0">
                            
                          <thead>
                                 <tr>
@@ -136,20 +139,11 @@ input:checked + .slider:before {
                                             </label>
                                         </td>
                                         <td>
-                                            {{-- <a href="#" 
-                                               class=" ml-2 edit-subscription"
-                                               title="Edit"
-                                               data-toggle="modal" 
-                                               data-target="#editSubscriptionModal"
-                                               data-id="{{ $subscription->id }}"
-                                               data-name="{{ $subscription->name }}"
-                                               data-amount="{{ $subscription->amount }}"
-                                               data-billing_cycle="{{ $subscription->billing_cycle }}"
-                                               data-monthly_discount="{{ $subscription->monthly_discount }}"
-                                               data-yearly_discount="{{ $subscription->yearly_discount }}"
-                                               data-is_active="{{ $subscription->is_active }}">
+                                            <a href="{{ route('admin.features.edit', $subscription->id) }}"
+                                               class=" ml-2"
+                                               title="Edit">
                                                 <i class="fas fa-edit"  style="color: #2653d4; cursor: pointer;"></i>
-                                            </a> --}}
+                                            </a>
 
                                             <a href="#" data-toggle="modal" data-target="#deleteCouponModal{{ $subscription->id }}" class="ml-2">
                                                 <i class="fas fa-trash" style="color: #e74a3b; cursor: pointer;"></i>
@@ -359,6 +353,9 @@ input:checked + .slider:before {
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap4.min.js"></script>
 
 @if ($errors->any())
 <script>

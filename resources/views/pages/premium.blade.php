@@ -101,8 +101,6 @@
     }
     
 
-
-
 .title {
     font-size: 3rem;
     font-weight: 700;
@@ -374,102 +372,12 @@ input:checked + .slider:before {
     box-shadow: var(--shadow-glow);
 }
 
-/* Feature Comparison */
-.feature-comparison {
-    margin: var(--spacing-xl) 0;
-    padding-top: var(--spacing-xl);
-}
-
-.feature-comparison h2 {
-    text-align: center;
-    margin-bottom: var(--spacing-xl);
-    font-size: 2.5rem;
-    background: linear-gradient(45deg, var(--primary), var(--secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.comparison-table {
-    overflow-x: auto;
-    background: var(--white);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
-    margin: 0 auto;
-    max-width: 1000px;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th, td {
-    padding: var(--spacing-md);
-    text-align: left;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-th {
-    background: var(--bg-light);
-    font-weight: 600;
-}
-
-/* FAQ Section */
-.faq-section {
-    margin-bottom: var(--spacing-xl);
-}
-
-.faq-section h2 {
-    text-align: center;
-    margin-bottom: var(--spacing-lg);
-}
-
-.faq-container {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.faq-item {
-    background: var(--white);
-    border-radius: var(--radius-md);
-    margin-bottom: var(--spacing-sm);
-    box-shadow: var(--shadow-sm);
-    overflow: hidden;
-}
-
-.faq-question {
-    padding: var(--spacing-md);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-}
-
-.faq-question h3 {
-    font-size: 1.1rem;
-    font-weight: 500;
-}
-
 .toggle-icon {
     font-size: 1.5rem;
     transition: var(--transition);
 }
 
-.faq-answer {
-    padding: 0 var(--spacing-md);
-    max-height: 0;
-    overflow: hidden;
-    transition: var(--transition);
-}
 
-.faq-item.active .faq-answer {
-    padding: var(--spacing-md);
-    max-height: 200px;
-}
-
-.faq-item.active .toggle-icon {
-    transform: rotate(45deg);
-}
 
 .select-plan.basic-price {
     cursor: not-allowed;
@@ -666,54 +574,20 @@ th {
                         @endif
                         @endif
                         <ul class="features">
-                            <li>
-                                <span class="feature-icon">✓</span>
-                                <div class="feature-content">
-                                    <span class="feature-title">All Basic features</span>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="feature-icon">✓</span>
-                                <div class="feature-content">
-                                    <span class="feature-title">Unlimited website monitoring</span>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="feature-icon">✓</span>
-                                <div class="feature-content">
-                                    <span class="feature-title">1-minute check</span>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="feature-icon">✓</span>
-                                <div class="feature-content">
-                                    <span class="feature-title">Telegram bot alerts</span>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="feature-icon">✓</span>
-                                <div class="feature-content">
-                                    <span class="feature-title">4-Month history</span>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="feature-icon">✓</span>
-                                <div class="feature-content">
-                                    <span class="feature-title">SSL expiry check</span>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="feature-icon">✓</span>
-                                <div class="feature-content">
-                                    <span class="feature-title">SSL expiry check</span>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="feature-icon">✓</span>
-                                <div class="feature-content">
-                                    <span class="feature-title">Create and manage team members</span>
-                                </div>
-                            </li>
+                            @foreach ($plan->features ?? [] as $feature )
+                                <li class="{{ !$feature['available'] ? 'featured' : '' }}">
+                                    <span class="feature-icon">
+                                        @if ($feature['available'])
+                                            ✓
+                                        @else
+                                            ✗
+                                        @endif
+                                    </span>
+                                    <div class="feature-content">
+                                        <span class="feature-title">{{ $feature['name']}}</span>
+                                    </div>
+                                </li>
+                            @endforeach
                         </ul>
                         <form id="paymentForm_{{ $plan->id }}" action="{{ route('store') }}" method="POST">
                             @csrf
@@ -950,67 +824,6 @@ th {
     });
 </script>
 
-{{-- <script>
-document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('form[id^="paymentForm_"]').forEach(form => {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const user = @json($user);
-
-            if(user.address_1===null||user.place===null||user.state===null||user.pincode===null||user.country===null){
-                toastr.warning('You must fill the billing details in your profile section first');
-
-                setTimeout(() => {
-                    window.location.href = "{{ route('profile.update') }}?tab=billing";
-                }, 2000);
-
-                return false;
-            }
-
-            // const paymentWindow = window.open('', 'paymentWindow', 'width=600,height=800');
-            const formDataObj = Object.fromEntries(new FormData(form));
-
-            fetch(form.action, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                },
-                // body: JSON.stringify(Object.fromEntries(new FormData(form)))
-                body: JSON.stringify(formDataObj),
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.subscription_session_id) {
-                    // console.log("Redirecting to:", data.payment_link);
-                    const cashfree = Cashfree({ mode: "sandbox"})
-                    cashfree.subscriptionsCheckout({
-                        subsSessionId: data.subscription_session_id,
-                        redirectTarget: "_blank"
-                    }).then(function(result){
-                        if(result.error){
-                            alert("payment error:" + result.error.message);
-                        }
-                    })
-                    // window.location.assign(data.payment_link);
-
-                } else {
-                    // paymentWindow.close();
-                    alert('Error: ' + (data.message || 'Something went wrong'));
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                // paymentWindow.close();
-                alert('Error initiating payment. Please try again.');
-            });
-        });
-    });
-});
-</script> --}}
-
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         document.querySelectorAll('form[id^="paymentForm_"]').forEach(form => {
@@ -1047,7 +860,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
                          cashfree.subscriptionsCheckout({
                             subsSessionId : data.subscription_session_id,
-                            redirectTarget: "_blank"
+                            redirectTarget: "_self"
                         }).then(function (result) {
                             if (result.error) {
                                 console.error("Modal Error:", result.error.message);

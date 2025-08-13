@@ -6,8 +6,7 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
-
-
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap4.min.css">
 
 <style>
     .tooltip-inner {
@@ -146,7 +145,7 @@
                 <!-- Card Body -->
                 <div class="card-body px-4 py-4">
                     <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table table-bordered dt-responsive nowrap" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>SL No</th>
@@ -262,7 +261,8 @@
 <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
 <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
 
-
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap4.min.js"></script>
 
 <script>
 
@@ -289,6 +289,8 @@ document.addEventListener("DOMContentLoaded", function() {
             "searching": true,
             "ordering": true,
             "info": true,
+            responsive: true,
+            scrollX: false,
             "order": [[0, "asc"]],
             "language": {
             // "search": "", // Hides default "Search:" label

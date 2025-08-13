@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Subscriptions;
 use Illuminate\Http\Request;
 use App\Services\AddPlanService;
+
+
 class BillingController extends Controller
 {
     
@@ -94,5 +96,45 @@ class BillingController extends Controller
 
         return response()->json(['success' => true, 'is_active' => $subscription->is_active]);
     }
+
+    public function EditFeature(Subscriptions $subscription)
+    {
+        
+    /// Initialize with empty array if no features exist
+    $features = $subscription->features ?? [];
+
+    return view('pages.admin.EditPlanFeatures', [
+        'subscription' => $subscription,
+        'features' => $features
+    ]);
+
+    }
+
+    public function UpdateFeature(Request $request, Subscriptions $subscription)
+    {
+        $validated = $request->validate([
+            // Other validation rules...
+            'features' => 'nullable|array',
+            'features.*.name' => 'required|string',
+            'features.*.available' => 'required|boolean'
+        ]);
+    
+        // Format features correctly
+        $features = [];
+        foreach ($request->input('features', []) as $feature) {
+            $features[] = [
+                'name' => $feature['name'],
+                'available' => (bool)$feature['available']
+            ];
+        }
+    
+        $subscription->update([
+            // Other fields...
+            'features' => $features
+        ]);
+
+    return redirect()->route('admin.features.edit', ['subscription' => $subscription->id])
+        ->with('success', 'Subscription plan updated successfully');
+}
 
 }
