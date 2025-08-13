@@ -1,7 +1,7 @@
 <style>
     body {
         font-family: Arial, sans-serif;
-        background: linear-gradient(to bottom, #2a6cf4, #6ea8fe);
+        /* background: linear-gradient(to bottom, #2a6cf4, #6ea8fe); */
         margin: 0;
         padding: 0;
         display: flex;
@@ -74,9 +74,9 @@
         margin-top: 15px;
         font-size: 13px;
         color: #333;
-        display: flex;
+        /* display: flex; */
         align-items: center;
-        gap: 8px;
+        /* gap: 8px; */
     }
 </style>
 
@@ -108,17 +108,35 @@
     </div>
 
     <div class="email-note">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
-        </svg>
+        {{-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+        </svg> --}}
         A confirmation email has been sent to <strong>{{ $details['customer_email'] }}</strong>
     </div>
   
   <div style="text-align: center; margin-top: 30px;">
-    <a href="{{ route('planSubscription') }}" 
+    <a href="{{ route('planSubscription') }}" id="backDashboard"
        style="display: inline-block; background-color: #33A1E0; color: white; padding: 10px 20px; 
               text-decoration: none; border-radius: 5px; font-weight: bold;">
          Back to Dashboard
     </a>
+    <p style="margin-top: 10px; font-size: 12px; color: gray;">
+        Redirecting in <span id="countdown">8</span> seconds...
+    </p>
 </div>
 
 </div>
+
+
+<script>
+    let seconds = 8;
+    const countdownEl = document.getElementById('countdown');
+
+    const countdown = setInterval(() => {
+        seconds--;
+        countdownEl.textContent = seconds;
+        if (seconds <= 0) {
+            clearInterval(countdown);
+            window.location.href = document.getElementById('backDashboard').href;
+        }
+    }, 1000);
+</script>

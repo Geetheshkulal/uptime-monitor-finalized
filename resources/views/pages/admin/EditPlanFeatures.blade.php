@@ -5,6 +5,14 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
 <style>
+       :root {
+    /* Colors */
+    --primary: #5154ff;
+    
+    /* Transitions */
+    --transition: all 0.3s ease;
+       }
+
     .feature-item {
         padding: 10px;
         border-radius: 5px;
@@ -27,6 +35,51 @@
         gap: 14px;
     }
    
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: var(--transition);
+    border-radius: 34px !important;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: var(--transition);
+    border-radius: 50% !important;
+}
+
+input:checked + .slider {
+    background: var(--primary);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
 }
 </style>
     
@@ -62,16 +115,27 @@
                                            value="{{ $feature['name'] }}" 
                                            placeholder="Feature name" required>
                                 </div>
-                                <div class="col-md-3 col-12">
+                                {{-- <div class="col-md-3 col-12">
                                     <select class="form-control" name="features[{{ $index }}][available]">
                                         <option value="1" {{ $feature['available'] ? 'selected' : '' }}>Available</option>
                                         <option value="0" {{ !$feature['available'] ? 'selected' : '' }}>Not Available</option>
                                     </select>
-                                </div>
-                                <div class="col-md-2">
+                                </div> --}}
+
+                                <div class="col-md-3 col-12 d-flex justify-content-between align-items-center">
+                                <input type="hidden" name="features[{{ $index }}][available]" value="0">
+                                <label class="switch">
+                                    <input type="checkbox" 
+                                        name="features[{{ $index }}][available]" 
+                                        value="1" 
+                                        {{ $feature['available'] ? 'checked' : '' }}>
+                                    <span class="slider"></span>
+                                </label>
+                                <div class="">
                                     <button type="button" class="btn btn-danger" onclick="removeFeature(this)">
                                         <i class="fas fa-trash"></i> Remove
                                     </button>
+                                </div>
                                 </div>
                             </div>
                         @endforeach
@@ -93,6 +157,23 @@
 @push('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
+<script>
+    function toggleAvailable(button) {
+        const hiddenInput = button.previousElementSibling;
+        if (hiddenInput.value == "1") {
+            hiddenInput.value = "0";
+            button.textContent = "Not Available";
+            button.classList.remove("btn-success");
+            button.classList.add("btn-secondary");
+        } else {
+            hiddenInput.value = "1";
+            button.textContent = "Available";
+            button.classList.remove("btn-secondary");
+            button.classList.add("btn-success");
+        }
+    }
+</script>
+    
 <script>
     toastr.options = {
     "closeButton": true,
@@ -126,16 +207,19 @@
                        name="features[${featureIndex}][name]" 
                        placeholder="Feature name" required>
             </div>
-            <div class="col-md-3 col-12">
-                <select class="form-control" name="features[${featureIndex}][available]">
-                    <option value="1">Available</option>
-                    <option value="0">Not Available</option>
-                </select>
-            </div>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-danger" onclick="removeFeature(this)">
-                    <i class="fas fa-trash"></i> Remove
-                </button>
+            <div class="col-md-3 col-12 d-flex justify-content-between align-items-center">
+                                <input type="hidden" name="features[${featureIndex}][available]" value="0">
+                                <label class="switch">
+                                    <input type="checkbox" 
+                                        name="features[${featureIndex}][available]"
+                                        value="1">
+                                    <span class="slider"></span>
+                                </label>
+                                <div class="">
+                                    <button type="button" class="btn btn-danger" onclick="removeFeature(this)">
+                                        <i class="fas fa-trash"></i> Remove
+                                    </button>
+                                </div>
             </div>
         `;
         featureList.appendChild(newFeature);

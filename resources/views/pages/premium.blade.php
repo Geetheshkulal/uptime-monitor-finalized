@@ -101,8 +101,6 @@
     }
     
 
-
-
 .title {
     font-size: 3rem;
     font-weight: 700;
@@ -374,102 +372,12 @@ input:checked + .slider:before {
     box-shadow: var(--shadow-glow);
 }
 
-/* Feature Comparison */
-.feature-comparison {
-    margin: var(--spacing-xl) 0;
-    padding-top: var(--spacing-xl);
-}
-
-.feature-comparison h2 {
-    text-align: center;
-    margin-bottom: var(--spacing-xl);
-    font-size: 2.5rem;
-    background: linear-gradient(45deg, var(--primary), var(--secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.comparison-table {
-    overflow-x: auto;
-    background: var(--white);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
-    margin: 0 auto;
-    max-width: 1000px;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th, td {
-    padding: var(--spacing-md);
-    text-align: left;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-th {
-    background: var(--bg-light);
-    font-weight: 600;
-}
-
-/* FAQ Section */
-.faq-section {
-    margin-bottom: var(--spacing-xl);
-}
-
-.faq-section h2 {
-    text-align: center;
-    margin-bottom: var(--spacing-lg);
-}
-
-.faq-container {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.faq-item {
-    background: var(--white);
-    border-radius: var(--radius-md);
-    margin-bottom: var(--spacing-sm);
-    box-shadow: var(--shadow-sm);
-    overflow: hidden;
-}
-
-.faq-question {
-    padding: var(--spacing-md);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-}
-
-.faq-question h3 {
-    font-size: 1.1rem;
-    font-weight: 500;
-}
-
 .toggle-icon {
     font-size: 1.5rem;
     transition: var(--transition);
 }
 
-.faq-answer {
-    padding: 0 var(--spacing-md);
-    max-height: 0;
-    overflow: hidden;
-    transition: var(--transition);
-}
 
-.faq-item.active .faq-answer {
-    padding: var(--spacing-md);
-    max-height: 200px;
-}
-
-.faq-item.active .toggle-icon {
-    transform: rotate(45deg);
-}
 
 .select-plan.basic-price {
     cursor: not-allowed;
