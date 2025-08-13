@@ -1,250 +1,124 @@
-
-
-
 <style>
-    /* Main Container */
-    .payment-success-container {
-        min-height: 100vh;
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to bottom, #2a6cf4, #6ea8fe);
+        margin: 0;
+        padding: 0;
         display: flex;
-        align-items: center;
         justify-content: center;
-        padding: 2rem;
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    }
-    
-    /* Card Styling */
-    .payment-success-card {
-        width: 100%;
-        max-width: 600px;
-        background: white;
-        border-radius: 16px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-    }
-    
-    /* Header Section */
-    .payment-header {
-        background: linear-gradient(90deg,rgba(9, 9, 121, 0.73) 38%, rgba(0, 43, 255, 0.84) 100%);
-        color: white;
-        padding: 2.5rem;
-        text-align: center;
-        position: relative;
-    }
-    
-    .payment-header h1 {
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-        font-size: 2rem;
-    }
-    
-    .payment-header .subheader {
-        opacity: 0.9;
-        font-size: 1.1rem;
-    }
-    
-    .success-icon {
-        margin-bottom: 1.5rem;
-    }
-    
-    .success-icon svg {
-        stroke: white;
-        stroke-width: 2.5;
-    }
-    
-    /* Body Section */
-    .payment-body {
-        padding: 2rem;
-    }
-    
-    .receipt-card {
-        background: #f9fbfd;
-        border-radius: 12px;
-        padding: 1.5rem;
-        margin-bottom: 2rem;
-        border: 1px solid #e1e8ed;
-    }
-    
-    .receipt-card h3 {
-        color: #4facfe;
-        margin-bottom: 1.5rem;
-        display: flex;
         align-items: center;
-        gap: 0.5rem;
-        font-size: 1.25rem;
+        min-height: 100vh;
     }
-    
-    /* Details Grid */
-    .receipt-details {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 1rem;
+
+    .success-container {
+        background: white;
+        border-radius: 12px;
+        max-width: 400px;
+        width: 100%;
+        padding: 20px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
     }
-    
-    .detail-row {
+
+    .success-icon {
+        background: #2a6cf4;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto 15px auto;
+    }
+
+    .success-icon svg {
+        color: white;
+        width: 32px;
+        height: 32px;
+    }
+
+    h2 {
+        margin: 0;
+        font-size: 1.5rem;
+        color: #333;
+    }
+
+    p {
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+    .receipt {
+        background: #f9fbfd;
+        border-radius: 8px;
+        padding: 15px;
+        text-align: left;
+        font-size: 14px;
+    }
+
+    .receipt div {
         display: flex;
         justify-content: space-between;
-        padding-bottom: 0.75rem;
-        border-bottom: 1px dashed #e1e8ed;
+        padding: 5px 0;
+        border-bottom: 1px solid #eee;
     }
-    
-    .detail-row:last-child {
+
+    .receipt div:last-child {
         border-bottom: none;
     }
-    
-    .detail-label {
-        font-weight: 600;
-        color: #6c757d;
-    }
-    
-    .detail-value {
-        font-weight: 500;
-        color: #343a40;
-    }
-    
-    /* Confirmation Message */
-    .confirmation-message {
+
+    .email-note {
+        background: #eef6ff;
+        padding: 10px;
+        border-radius: 8px;
+        margin-top: 15px;
+        font-size: 13px;
+        color: #333;
         display: flex;
         align-items: center;
-        gap: 1rem;
-        background: #f0f8ff;
-        padding: 1rem;
-        border-radius: 8px;
-        margin-bottom: 2rem;
+        gap: 8px;
     }
-    
-    .confirmation-icon {
-        font-size: 1.5rem;
-        color: #4facfe;
-    }
-    
-    .confirmation-message p {
-        margin: 0;
-        color: #495057;
-    }
-    
-    /* Buttons */
-    .action-buttons {
-        display: flex;
-        gap: 1rem;
-        flex-wrap: wrap;
-    }
-    
-    .btn {
-        padding: 0.75rem 1.5rem;
-        border-radius: 8px;
-        font-weight: 600;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        transition: all 0.3s ease;
-        text-decoration: none;
-    }
-    
-    .btn-dashboard {
-        background: linear-gradient(90deg,rgba(9, 9, 121, 0.73) 38%, rgba(0, 43, 255, 0.84) 100%);
-        color: white;
-        border: none;
-    }
-    
-    .btn-dashboard:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(79, 172, 254, 0.3);
-    }
-    
-    .btn-home {
-        background: white;
-        color: #4facfe;
-        border: 2px solid #4facfe;
-    }
-    
-    .btn-home:hover {
-        background: #f8f9fa;
-        transform: translateY(-2px);
-    }
-    
-    /* Responsive Adjustments */
-    @media (max-width: 576px) {
-        .payment-header {
-            padding: 1.5rem;
-        }
-        
-        .payment-body {
-            padding: 1.5rem;
-        }
-        
-        .action-buttons {
-            flex-direction: column;
-        }
-        
-        .btn {
-            width: 100%;
-            justify-content: center;
-        }
-    }
-    </style>
-    
-    
-    <div class="payment-success-container">
-        <div class="payment-success-card">
-            <div class="payment-header">
-                <div class="success-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                    </svg>
-                </div>
-                <h1>Payment Successful!</h1>
-                <p class="subheader">Thank you for your subscription</p>
-            </div>
-    
-            <div class="payment-body">
-                <div class="receipt-card">
-                    <h3><i class="fas fa-receipt"></i> Order Receipt</h3>
-                    
-                    <div class="receipt-details">
-                        <div class="detail-row">
-                            <span class="detail-label">Subscription ID</span>
-                            <span class="detail-value">{{ $details['subscription_id'] }}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Plan Name</span>
-                            <span class="detail-value">{{ $details['plan_name'] }}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Amount Paid</span>
-                            <span class="detail-value">₹{{ number_format($details['amount'], 2) }}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Billing Cycle</span>
-                            <span class="detail-value">{{ ucfirst($details['billing_cycle']) }}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Customer Name</span>
-                            <span class="detail-value">{{ $details['customer_name'] }}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Customer Email</span>
-                            <span class="detail-value">{{ $details['customer_email'] }}</span>
-                        </div>
-                    </div>
-                </div>
-    
-                <div class="confirmation-message">
-                    <div class="confirmation-icon">
-                        <i class="fas fa-envelope-open-text"></i>
-                    </div>
-                    <p>A confirmation email has been sent to <strong>{{ $details['customer_email'] }}</strong> with your subscription details.</p>
-                </div>
-    
-                <div class="action-buttons">
-                    <a href="{{ route('planSubscription') }}" class="btn btn-dashboard">
-                        <i class="fas fa-tachometer-alt"></i> Go to Dashboard
-                    </a>
-                    
-                </div>
-            </div>
-        </div>
+</style>
+
+<div class="success-container">
+  <div style="display: flex; align-items: center; gap: 10px;">
+<!--     <img src="{{ asset('images/company-logo.png') }}" 
+         alt="Company Logo" 
+         style="width: 40px; height: 40px; object-fit: contain;"> -->
+     <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="Icon" width="50" height="50">
+    <span style="font-weight: bold; font-size: 18px;">Drishti Pulse</span>
+</div>
+
+    <div class="success-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                  d="M5 13l4 4L19 7" />
+        </svg>
     </div>
-    
-    
-    
+    <h2>Payment Successful!</h2>
+    <p>Thank you for your subscription</p>
+
+    <div class="receipt">
+        <div><strong>Subscription ID</strong> <span>{{ $details['subscription_id'] }}</span></div>
+        <div><strong>Plan Name</strong> <span>{{ $details['plan_name'] }}</span></div>
+        <div><strong>Amount Paid</strong> <span>₹{{ number_format($details['amount'], 2) }}</span></div>
+        <div><strong>Billing Cycle</strong> <span>{{ ucfirst($details['billing_cycle']) }}</span></div>
+        <div><strong>Customer Name</strong> <span>{{ $details['customer_name'] }}</span></div>
+        <div><strong>Customer Email</strong> <span>{{ $details['customer_email'] }}</span></div>
+    </div>
+
+    <div class="email-note">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+        </svg>
+        A confirmation email has been sent to <strong>{{ $details['customer_email'] }}</strong>
+    </div>
+  
+  <div style="text-align: center; margin-top: 30px;">
+    <a href="{{ route('planSubscription') }}" 
+       style="display: inline-block; background-color: #33A1E0; color: white; padding: 10px 20px; 
+              text-decoration: none; border-radius: 5px; font-weight: bold;">
+         Back to Dashboard
+    </a>
+</div>
+
+</div>
