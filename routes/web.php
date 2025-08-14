@@ -7,8 +7,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 
-use App\Http\Controllers\CouponController;
-use App\Http\Controllers\BillingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\ChangelogController;
@@ -27,6 +25,9 @@ use App\Http\Controllers\Admin\TrackingController;
 use App\Http\Controllers\Admin\BlockController;
 use App\Http\Controllers\Admin\UserSubscriptionController;
 use App\Http\Controllers\Admin\InvoicesController;
+use App\Http\Controllers\Admin\BillingController;
+use App\Http\Controllers\Admin\CouponController;
+
 
 use App\Http\Controllers\Monitor\HttpMonitoringController;
 use App\Http\Controllers\Monitor\MonitoringController;

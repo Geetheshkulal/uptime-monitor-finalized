@@ -11,7 +11,6 @@
 
 
     <style>
-        /* ========== GLOBAL STYLES ========== */
         :root {
             --primary: #4e73df;
             --primary-light: #e3f2fd;
@@ -24,10 +23,10 @@
             --dark-gray: #5a5c69;
         }
 
-        body {
+        /* body {
             font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
             color: var(--dark-gray);
-        }
+        } */
 
         .card {
             border: none;
@@ -113,7 +112,7 @@
         }
 
         .btn-primary {
-            background-color: var(--primary);
+            background-color: var(--blue);
             border-color: var(--primary);
         }
 
@@ -140,7 +139,6 @@
             height: 100%;
         }
       
-
         /* ========== UTILITY CLASSES ========== */
         .text-primary {
             color: var(--primary) !important;

@@ -16,6 +16,7 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use App\Rules\ValidEmailWithTLD;
 
 
 class RegisteredUserController extends Controller
@@ -39,14 +40,14 @@ class RegisteredUserController extends Controller
                 $countryCode = $response->json()['country'] ?? null;
 
                 $dialingCodes = include(base_path('app/Helpers/CountryDialingCodes.php'));
-                Log::info('All Dial Codes', $dialingCodes);
+                // Log::info('All Dial Codes', $dialingCodes);
 
                 $dialCode = $dialingCodes[$countryCode] ?? null;
 
-                Log::info("Dial Code Detected", ['dialCode' => $dialCode, 'countryCode' => $countryCode]);
+                // Log::info("Dial Code Detected", ['dialCode' => $dialCode, 'countryCode' => $countryCode]);
             }
         } catch (\Exception $e) {
-            Log::warning("IPInfo API failed: " . $e->getMessage());
+            // Log::warning("IPInfo API failed: " . $e->getMessage());
         }
     
 
@@ -62,7 +63,8 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'max:255', 'unique:users', new ValidEmailWithTLD],
+            // 'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             // 'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
             'phone'=>['required', 'digits:10','min:10']

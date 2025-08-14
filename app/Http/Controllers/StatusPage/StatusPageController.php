@@ -108,4 +108,6 @@ class StatusPageController extends Controller
         
         return $monitor;
     }
+
+    
 }
