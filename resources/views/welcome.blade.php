@@ -35,7 +35,7 @@
     --light-color: #f8f9fa;
   }
   
-  body {
+  html, body {
     font-family: 'Poppins', sans-serif;
     overflow-x: hidden;
   }
@@ -49,6 +49,7 @@
     position: relative;
     overflow: hidden;
   }
+  
   
   .hero-section::before {
     content: '';
@@ -507,22 +508,27 @@
   .status-indicator {
     margin-right: 5px;
   }
-
   }
 
+  .navbar-toggler:focus {
+    box-shadow: none !important;
+}
 </style>
 
 
 @if (session('error'))
 <script>
     toastr.error("{{ session('error') }}");
+    
 </script>
 @endif
 
 <body>
    <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+
     <div class="container">
+      
       <a class="navbar-brand text-primary fw-bold d-flex align-items-center" href="/">
         <i class="fas fa-heartbeat me-2"></i>DRISHTI PULSE
       </a>
@@ -530,7 +536,7 @@
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
-      
+
       <div class="collapse navbar-collapse" id="navbarNav">
         <!-- Left-aligned navigation items -->
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -546,12 +552,6 @@
           <li class="nav-item">
             <a class="nav-link" href="{{ route('documentation.page') }}">User Docs</a>
           </li>
-          {{-- <li class="nav-item">
-            <a class="nav-link" href="{{ route('product.documentation') }}">Product Docs</a>
-          </li> --}}
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="{{ route('latest.page') }}">Updates</a>
-          </li> -->
         </ul>
         
         <!-- Right-aligned items -->
@@ -996,6 +996,7 @@
 
   <script>
     // Navbar scroll effect
+    
     window.addEventListener('scroll', function() {
       if (window.scrollY > 50) {
         document.querySelector('.navbar').classList.add('scrolled');
