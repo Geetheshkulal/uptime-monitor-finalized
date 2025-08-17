@@ -16,6 +16,7 @@ class VerifyCsrfToken extends Middleware
         // '/plan-subscription',  
         '/cashfree/response',
         '/cashfree/webhook',
-        '/payment/thank-you'
+        '/payment/thank-you',
+        '/feedbear'
     ];
 }

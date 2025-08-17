@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FeedBack\FeedBackController;
 use Illuminate\Http\Request;
 use App\Models\Subscriptions;
 use App\Events\AdminNotification;
@@ -62,6 +63,8 @@ Route::post('/payment/thank-you', [CashfreeResponseController::class, 'handleRes
 
 // Route::post('/cashfree/response', [CashfreeResponseController::class, 'handleResponse'])->name('cashfree.response');
 Route::post('/cashfree/webhook', [CashfreeResponseController::class ,'handleWebhook'])->name('cashfree.webhook');
+
+Route::post('/feedbear',[FeedBackController::class, 'FeedBearResponse'])->name('feedback');
 
 Route::match(['get', 'post'], '/plan-subscription', [PlanSubscriptionController::class, 'planSubscription'])->name('planSubscription');
 
@@ -148,6 +151,8 @@ Route::middleware(['auth', 'verified', 'CheckUserSession', 'blockIp'])->group(fu
     Route::get('/dashboard/{id}', [TrackingController::class, 'NotificationTracker']);
 
     Route::patch('/user/update/billing', [UserController::class, 'UpdateBillingInfo'])->name('update.billing.info');
+
+    Route::get('/feedback', [FeedBackController::class, 'showFeatureRequests'])->name('display.feedback');
 });
 
 Route::middleware(['auth', 'verified', 'CheckUserSession', 'blockIp'])->group(function () {
