@@ -202,12 +202,12 @@
                             <div class="col-md-4">
                                 <label class="form-label small text-muted white-color">Search</label>
                                 <div class="input-group input-group-sm">
-                                    <span class="input-group-text bg-white border-end-0" style="border: none;">
+                                    {{-- <span class="input-group-text bg-white border-end-0" style="border: none;">
                                         <i class="fas fa-search fa-xs"></i>
-                                    </span>
+                                    </span> --}}
                                     <input type="text" name="search" class="form-control form-control-sm" 
                                         value="{{ request('search') }}" 
-                                        placeholder="IP, Browser, URL ,Platform...">
+                                        placeholder="IP, Browser, URL ,Platform, Name">
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -267,6 +267,12 @@
                     <div class="detail-group">
                         <span class="detail-label white-color">ISP:</span>
                         <span class="detail-value white-color">{{ $log->isp ?? 'Unknown' }}</span>
+                    </div>
+                    <div class="detail-group">
+                        @if (!empty($log->name))
+                                        <strong class="detail-label white-color">User name :</strong> 
+                                        <span class="detail-value white-color">{{ $log->name }}</span>
+                                        @endif
                     </div>
                     <div class="detail-group">
                         @if (!empty($log->email))

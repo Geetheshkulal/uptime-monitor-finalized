@@ -171,6 +171,8 @@ html.dark-mode .languages_wrapper::-webkit-scrollbar-thumb {
                             @enderror
                         </div>
                     </div>
+
+            
                     {{-- <div class="row">
                         <div class="col-md-7 mb-3">
                             <label for="url" class="form-label">URL, IP or host to monitor</label>
@@ -286,17 +288,19 @@ html.dark-mode .languages_wrapper::-webkit-scrollbar-thumb {
 
 @push('scripts')
 
-<script>
+{{-- <script>
     const input = document.querySelector("#port"),
-          dropdown = document.querySelector(".dropdown"),
-          dropdownList = document.querySelector(".dropdown_wrapper"),
-          portItems = document.querySelectorAll("#ports span");
+        dropdown = document.querySelector(".dropdown"),
+        dropdownList = document.querySelector(".dropdown_wrapper"),
+        portItems = document.querySelectorAll("#ports span");
 
     // Toggle dropdown
     input.addEventListener("click", function(e) {
+        if (e.target === input) { 
         dropdown.classList.toggle("active");
         dropdownList.classList.toggle("active");
         e.target.value !== "" && (e.target.value = "");
+        }
     });
 
     // Filter ports
@@ -317,15 +321,15 @@ html.dark-mode .languages_wrapper::-webkit-scrollbar-thumb {
         });
     });
 
-    // Close when clicking outside
-    // document.addEventListener("click", function(e) {
-    //     if (e.target.id !== "port" &&
-    //         !e.target.classList.contains("dropdown_wrapper") &&
-    //         !e.target.classList.contains("languages_wrapper")) {
-    //         dropdown.classList.remove("active");
-    //         dropdownList.classList.remove("active");
-    //     }
-    // });
+    //Close when clicking outside
+    document.addEventListener("click", function(e) {
+        if (e.target.id !== "port" &&
+            !e.target.classList.contains("dropdown_wrapper") &&
+            !e.target.classList.contains("languages_wrapper")) {
+            dropdown.classList.remove("active");
+            dropdownList.classList.remove("active");
+        }
+    });
 
     // Select port
     portItems.forEach(item => {
@@ -334,8 +338,12 @@ html.dark-mode .languages_wrapper::-webkit-scrollbar-thumb {
         dropdown.classList.remove("active");
         dropdownList.classList.remove("active");
     });
+
+    
 })
-</script>
+</script> --}}
+
+
     
 @endpush
     

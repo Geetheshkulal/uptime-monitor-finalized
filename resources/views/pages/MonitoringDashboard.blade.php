@@ -459,7 +459,9 @@
                                             @endif
                                         </td>
                                         <td>{{ $monitor->created_at->format('M d, Y') }}</td>
-                                        <td>                    
+                                        <td>
+                                            <a href="{{ route('display.monitoring', ['id'=>$monitor->id, 'type'=>$monitor->type]) }}" 
+                                                style="display: block; width: 100%; height: 100%; cursor: pointer; text-decoration: none;">                    
                                             @if ($monitor->latestResponses->isNotEmpty())  
                                                 @foreach ($monitor->latestResponses as $response)
                                                     @if ($response->status === 'up')
@@ -473,6 +475,7 @@
                                             @else
                                             <span class="status-dot d-inline-block mr-1 spinner-dot"></span>
                                             @endif
+                                            </a>
                                         </td>
                                         
                                         @can('see.monitor.details')

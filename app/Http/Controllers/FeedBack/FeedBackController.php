@@ -18,12 +18,12 @@ class FeedBackController extends Controller
             $expectedToken = env('FEEDBEAR_WEBHOOK_TOKEN'); 
 
             if ($token !== $expectedToken) {
-                Log::warning('Invalid FeedBear token received', ['token' => $token]);
+                // Log::warning('Invalid FeedBear token received', ['token' => $token]);
                 return response()->json(['message' => 'Invalid token'], 401);
             }
 
             $data = $request->all();
-            Log::info('FeedBear POST Data: ' . json_encode($data, JSON_PRETTY_PRINT));
+            // Log::info('FeedBear POST Data: ' . json_encode($data, JSON_PRETTY_PRINT));
 
             switch($data['event_name']){
                 case 'post_new':

@@ -1,12 +1,13 @@
 {
     "name": "DRISHTI PULSE",
-    "short_name": "LPT",
+    "short_name": "Drishti Pulse",
     "start_url": "/",
     "scope": "/",
     "background_color": "#6777ef",
     "description": "DRISHTI PULSE",
     "display": "fullscreen",
     "theme_color": "#6777ef",
+    "orientation": "portrait",
     "icons": [
         {
             "src": "mainlogo.png",

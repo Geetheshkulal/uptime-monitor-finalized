@@ -58,10 +58,23 @@ class AuthenticatedSessionController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if (!$user) {
+
+           // Controller
+            $request->session()->flash('traffic_status', 'login_attempt_failed');
+            $request->session()->flash('traffic_reason', 'Email not registered');
+            $request->session()->flash('traffic_email', $request->email);
+
+            // Log::info('Attr in controller'.json_encode($request->attributes()));
+
             return back()->withErrors(['email' => 'This email is not registered.'])->withInput();
         }
 
         if (!Hash::check($request->password, $user->password)) {
+
+            $request->session()->flash('traffic_status', 'login_attempt_failed');
+            $request->session()->flash('traffic_reason', 'Wrong password');
+            $request->session()->flash('traffic_email', $request->email);
+
             return back()->withErrors(['password' => 'Wrong password.'])->withInput();
         }
 
@@ -74,30 +87,35 @@ class AuthenticatedSessionController extends Controller
             $isp = 'Unknown ISP';
             $country = '';
 
-            try {
-                $token = env('IPINFO_TOKEN');
-                $response = Http::get("https://ipinfo.io/{$ip}?token={$token}");
-                if ($response->successful()) {
-                    $data = $response->json();
-                    $isp = $data['org'] ?? 'Unknown ISP';
-                    $country = $data['country'] ?? '';
-                }
-            } catch (\Exception $ex) {
-            }
+            // try {
+            //     $token = env('IPINFO_TOKEN');
+            //     $response = Http::get("https://ipinfo.io/{$ip}?token={$token}");
+            //     if ($response->successful()) {
+            //         $data = $response->json();
+            //         $isp = $data['org'] ?? 'Unknown ISP';
+            //         $country = $data['country'] ?? '';
+            //     }
+            // } catch (\Exception $ex) {
+            // }
 
-            TrafficLog::create([
-                'ip' => $ip,
-                'email' => $request->email,
-                'status' => 'failed_login',
-                'reason' => 'Invalid credentials',
-                'isp' => $isp,
-                'country' => $country,
-                'browser' => $agent->browser(),
-                'platform' => $agent->platform(),
-                'user_agent' => $request->userAgent(),
-                'url' => $request->fullUrl(),
-                'method' => $request->method(),
-            ]);
+            // TrafficLog::create([
+            //     'ip' => $ip,
+            //     'email' => $request->email,
+            //     'status' => 'failed_login',
+            //     'reason' => 'Invalid credentials',
+            //     'isp' => $isp,
+            //     'country' => $country,
+            //     'browser' => $agent->browser(),
+            //     'platform' => $agent->platform(),
+            //     'user_agent' => $request->userAgent(),
+            //     'url' => $request->fullUrl(),
+            //     'method' => $request->method(),
+            // ]);
+
+            
+            $request->attributes->set('traffic_status', 'login_attempt_failed');
+            $request->attributes->set('traffic_reason', 'Invalid credentials (auth failure)');
+            $request->attributes->set('traffic_email', $request->email);
 
             throw $e; // re-throw to let Laravel handle validation redirect
         }
