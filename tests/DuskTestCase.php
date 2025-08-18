@@ -29,7 +29,7 @@ abstract class DuskTestCase extends BaseTestCase
         $options = (new ChromeOptions)
             ->setBinary(env('CHROMIUM_BINARY'))
             ->addArguments([
-                 '--headless=new',
+                 '--headless',
                 '--disable-gpu',
                 '--window-size=1920,1080',
                 '--no-sandbox',
