@@ -60,7 +60,8 @@ class RegisteredUserController extends Controller
      * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request): RedirectResponse
-    {
+    {   
+        try{
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'max:255', 'unique:users', new ValidEmailWithTLD],
@@ -69,6 +70,15 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'string', 'min:6', 'confirmed'],
             'phone'=>['required', 'digits:10','min:10']
         ]);
+    } catch (\Illuminate\Validation\ValidationException $e) {
+
+        $request->session()->flash('traffic_status', 'register_attempt_failed');
+        $request->session()->flash('traffic_reason', 'Validation failed');
+        $request->session()->flash('traffic_name', $request->name);
+        $request->session()->flash('traffic_email', $request->email);
+
+        throw $e;
+    }
 
         $user = User::create([
             'name' => $request->name,
