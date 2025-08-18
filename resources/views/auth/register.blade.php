@@ -95,7 +95,7 @@
         
         .register-footer a:hover {
             color: #2e59d9;
-            text-decoration: underline;
+            text-decoration: none;
         }
         
         .password-input-container {
@@ -117,6 +117,7 @@
             background: #e9ecef;
             border-radius: 2px;
             margin-top: 8px;
+            margin-bottom: 6px;
             overflow: hidden;
         }
         
@@ -127,11 +128,13 @@
         }
         
         .divider {
+
             position: relative;
             text-align: center;
             margin: 1.5rem 0;
             font-size: 0.8rem;
             color: #b7b9cc;
+
         }
         
         .divider:before {
@@ -201,11 +204,98 @@
         }
        
 
-@media (max-width: 430px) {
+/* @media (max-width: 430px) {
     .register-text{
         margin-top: 35px
     }
     
+} */
+
+@media (max-width: 578px) {
+    .card {
+        margin: 0.5rem;
+        border-radius: 0.5rem;
+    }
+
+    .register-text {
+        font-size: 1.25rem;
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    .register-subtext {
+        font-size: 0.8rem;
+        text-align: center;
+    }
+
+    .form-control-user {
+        font-size: 0.8rem;
+        padding: 0.6rem 1rem;
+    }
+
+    .btn-primary {
+        font-size: 0.8rem;
+        padding: 0.6rem 0.9rem;
+    }
+
+    .login-footer {
+        font-size: 0.8rem;
+        text-align: center;
+    }
+
+    .login-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        padding-left: 0;
+        margin-top: 0;
+        border-radius: 0.5rem 0.5rem 0 0;
+    }
+
+    .custom-back-button {
+        top: 10px;
+        left: 10px;
+    }
+
+    .custom-btn-lg {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+
+    .password-toggle {
+        right: 10px;
+        font-size: 0.9rem;
+    }
+
+    .divider {
+        font-size: 0.7rem;
+    }
+
+    .divider span {
+        padding: 0 8px;
+    }
+
+    .g-recaptcha {
+        transform: scale(0.70) !important;
+        transform-origin: 0 0;
+        width: 100%;
+        margin: 10px 0;
+    }
+    
+    .recaptcha-wrapper {
+        width: 100%;
+        overflow: visible;
+        margin: 15px 0;
+    }
+    
+    .p-5 {
+        padding: 1.5rem !important;
+    }
+}
+
+.password-strength{
+    visibility: hidden;
 }
     </style>
 
@@ -241,21 +331,21 @@
                                     </div>
 
                                     <form class="user" method="POST" action="{{ route('register') }}">
-                                        @csrf
-                                        
+
+                                        @csrf                                 
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user" 
                                                 id="name" name="name" placeholder="Full Name" 
-                                                value="{{ old('name') }}" required autofocus>
+                                                value="{{ old('name') }}">
                                             @error('name')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
                                         
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user" 
+                                            <input type="text" class="form-control form-control-user" 
                                                 id="email" name="email" placeholder="Email Address" 
-                                                value="{{ old('email') }}" required>
+                                                value="{{ old('email') }}">
                                             @error('email')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
@@ -270,9 +360,9 @@
                                                     <span class="input-group-text">{{ $dialCode }}</span>
                                                 </div>
                                             @endif
-                                            <input type="text" class="form-control form-control-user" 
+                                            <input type="number" class="form-control form-control-user" 
                                                 id="phone" name="phone" placeholder="Phone Number" 
-                                                value="{{ old('phone') }}" required>
+                                                value="{{ old('phone') }}">
                                         </div>
                                             @error('phone')
                                                 <small class="text-danger">{{ $message }}</small>
@@ -284,8 +374,8 @@
                                                 <div class="password-col">
                                                     <div class="password-input-container">
                                                         <input type="password" class="form-control form-control-user"
-                                                            id="password" name="password" placeholder="Password" required
-                                                            onkeyup="checkPasswordStrength(this.value)">
+                                                            id="password" name="password" placeholder="Password"
+                                                            oninput="checkPasswordStrength(this.value)">
                                                         <span class="password-toggle" onclick="togglePassword('password')">
                                                             <i class="far fa-eye"></i>
                                                         </span>
@@ -302,7 +392,7 @@
                                                     <div class="password-input-container">
                                                         <input type="password" class="form-control form-control-user"
                                                             id="password_confirmation" name="password_confirmation" 
-                                                            placeholder="Confirm Password" required>
+                                                            placeholder="Confirm Password">
                                                         <span class="password-toggle" onclick="togglePassword('password_confirmation')">
                                                             <i class="far fa-eye"></i>
                                                         </span>
@@ -310,6 +400,37 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        {{-- <div class="form-group">
+                                                    <div class="password-input-container">
+                                                        <input type="password" class="form-control form-control-user"
+                                                            id="password" name="password" placeholder="Password"
+                                                            oninput="checkPasswordStrength(this.value)">
+                                                        <span class="password-toggle" onclick="togglePassword('password')">
+                                                            <i class="far fa-eye"></i>
+                                                        </span>
+                                                    </div>
+                                            </div>
+
+                                                    <div class="password-strength">
+                                                        <div class="password-strength-bar" id="password-strength-bar"></div>
+                                                    </div>
+                                                    <small id="password-strength-text" class="text-muted"></small>
+                                                    @error('password')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
+                                                
+                                                    <div class="form-group">
+                                                    <div class="password-input-container">
+                                                        <input type="password" class="form-control form-control-user"
+                                                            id="password_confirmation" name="password_confirmation" 
+                                                            placeholder="Confirm Password">
+                                                        <span class="password-toggle" onclick="togglePassword('password_confirmation')">
+                                                            <i class="far fa-eye"></i>
+                                                        </span>
+                                                    </div>
+                                                    </div> --}}
+                                            
                                         
                                         <button type="submit" class="btn btn-primary btn-user btn-block" id="register-btn">
                                             <span class="spinner-border spinner-border-sm d-none" id="register-spinner"></span>
@@ -321,7 +442,7 @@
                                         </div>
 
                                         <div class="text-center register-footer">
-                                            <a href="{{ route('login') }}">Already have an account? Login!</a>
+                                            Already have an account? <a href="{{ route('login') }}">Login</a>
                                         </div>
                                     </form>
                                 </div>
@@ -341,6 +462,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <script>
+
         function togglePassword(fieldId) {
             const field = document.getElementById(fieldId);
             const icon = field.nextElementSibling.querySelector('i');
@@ -357,10 +479,21 @@
         }
     
         function checkPasswordStrength(password) {
+            
+            const strengthBarContainer = document.querySelector('.password-strength');
             const strengthBar = document.getElementById('password-strength-bar');
             const strengthText = document.getElementById('password-strength-text');
+
             let strength = 0;
             let missingRequirements = [];
+
+            if (password.length > 0) {
+                strengthBarContainer.classList.add('visible');
+                strengthText.classList.add('visible');
+            } else {
+                strengthBarContainer.classList.remove('visible');
+                strengthText.classList.remove('visible');
+            }
             
             // Check requirements
             const hasMinLength = password.length >= 8;

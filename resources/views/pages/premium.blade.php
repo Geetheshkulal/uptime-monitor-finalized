@@ -437,7 +437,7 @@ input:checked + .slider:before {
     
     <!-- Page Header -->
     <div class="page-header">
-        <h2>Upgrade to Premium <i class="fas fa-crown crown-icon"></i></h2>
+        <h2>Upgrade to Premium</h2>
         <p>Unlock advanced monitoring features and take full control of your website's uptime.</p>
 
         <div class="pricing-toggle">
@@ -447,9 +447,9 @@ input:checked + .slider:before {
                 <span class="slider"></span>
             </label>
             <span>Yearly 
-                @if($jspricingData->contains('yearly_discount', '!=', null))
+                {{-- @if($jspricingData->contains('yearly_discount', '!=', null))
                     <span class="discount">Save up to {{ $jspricingData->max('yearly_discount') }}%</span>
-                @endif
+                @endif --}}
             </span>
         </div>
     </div>

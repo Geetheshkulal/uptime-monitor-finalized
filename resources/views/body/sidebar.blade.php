@@ -399,6 +399,13 @@
                 </a>
             </li>
 
+            <li class="nav-item {{ request()->routeIs('display.feedback') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('display.feedback') }}">
+                    <i class="fas fa-comment-dots"></i>
+                    <span>Feedback</span>
+                </a>
+            </li>
+
             <li class="nav-item {{ request()->routeIs('userSubscription') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('userSubscription') }}">
                     {{-- <i class="fas fa-user-tag"></i>  --}}

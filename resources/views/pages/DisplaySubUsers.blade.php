@@ -88,7 +88,7 @@
 .premium-modal {
     position: fixed;
     top: 80%;
-    left: 55%;
+    left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1050;
     width: 400px;

@@ -106,7 +106,7 @@
         
         .login-footer a:hover {
             color: #2e59d9;
-            text-decoration: underline;
+            text-decoration: none;
         }
         
         .password-input-container {
@@ -192,7 +192,7 @@
         }
 
         /* for mobile devices */
- @media (max-width: 430px) {
+ @media (max-width: 578px) {
     .card {
         margin: 0.5rem;
         border-radius: 0.5rem;

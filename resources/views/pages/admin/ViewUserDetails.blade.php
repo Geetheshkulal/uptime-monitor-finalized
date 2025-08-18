@@ -19,6 +19,18 @@
     outline: none !important;
 }
 
+@media (max-width: 578px) {
+    .dataTables_length {
+        text-align: left !important;
+        margin-left: 2px;
+        margin-bottom: 10px;
+    }
+     .dataTables_filter{
+            margin-left: -11px;
+    }
+   
+}
+
 </style>
 @endpush
 
@@ -225,6 +237,46 @@
                     </div>
                 </div>
             </div>
+
+                 <!-- Collapsable Card Example -->
+                 <div class="card shadow mb-4">
+                    <!-- Card Header - Accordion -->
+                    <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse"
+                        role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                        <h6 class="m-0 font-weight-bold text-primary">SSL Checks</h6>
+                    </a>
+                    <!-- Card Content - Collapse -->
+                    <div class="collapse show" id="collapseCardExample">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover" id="sslTable" width="100%" cellspacing="0">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>URL</th>
+                                            <th>Valid From</th>
+                                            <th>Valid To</th>
+                                            <th>Status</th>
+                                            <th>Issuer</th>
+                                            <th>Created At</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($user->ssls as $ssl)
+                                        <tr>
+                                            <td>{{ Str::limit($ssl->url, 30) }}</td>
+                                            <td>{{ $ssl->valid_from}}</td>
+                                            <td>{{ $ssl->valid_to}}</td>
+                                            <td>{{ $ssl->status}}</td>
+                                            <td>{{ $ssl->issuer}}</td>
+                                            <td>{{ $ssl->created_at}}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         @endif
     @endcan
 </div>
@@ -302,15 +354,17 @@
 
 <script>
     $(document).ready(function() {
+
         $('#monitorsTable').DataTable({
             responsive: true,
             dom: "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
                  "<'row'<'col-sm-12'tr>>" +
                  "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
             language: {
-                search: "_INPUT_",
-                searchPlaceholder: "Search monitors...",
-                lengthMenu: "Show _MENU_ monitors per page",
+                "search": "Search:",
+                // search: "_INPUT_",
+                searchPlaceholder: "monitors...",
+                // lengthMenu: "Show _MENU_ monitors per page",
                 info: "Showing _START_ to _END_ of _TOTAL_ monitors",
                 infoEmpty: "No monitors available",
                 infoFiltered: "(filtered from _MAX_ total monitors)",
@@ -330,6 +384,39 @@
             pageLength: 10,
             lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
         });
+
+        $('#sslTable').DataTable({
+            responsive: true,
+            dom: "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+                 "<'row'<'col-sm-12'tr>>" +
+                 "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+            language: {
+                "search": "Search:",
+                // search: "_INPUT_",
+                searchPlaceholder: "URL, Date...",
+                info: "Showing _START_ to _END_ of _TOTAL_ SSL Checks",
+                infoEmpty: "No SSL Checks available",
+                infoFiltered: "(filtered from _MAX_ total SSL)",
+                paginate: {
+                    first: "First",
+                    last: "Last",
+                    next: "Next",
+                    previous: "Previous"
+                }
+            },
+            columnDefs: [
+                { responsivePriority: 1, targets: 0 }, // Name column
+                { responsivePriority: 2, targets: -1 }, // Action column if exists
+                { orderable: false, targets: -1 } // Make action column not orderable
+            ],
+            order: [[4, "desc"]], // Default sort by Created Date descending
+            pageLength: 10,
+            lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+        });
+
+
+
+
     });
 
     @if(Session::has('success'))

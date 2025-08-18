@@ -112,4 +112,10 @@ class User extends Authenticatable implements MustVerifyEmail
                    ->orderBy('created_at', 'desc');
     }
 
+    public function ssls()
+    {
+        return $this->hasMany(Ssl::class);
+    }
+
+
   }
