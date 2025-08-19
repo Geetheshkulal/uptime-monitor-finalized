@@ -202,7 +202,7 @@
     
 }
 
-        #accordionSidebar {
+         #accordionSidebar {
             position: sticky;
             top: 0;
             height: 100vh;
@@ -210,11 +210,11 @@
             overflow-y: scroll; 
             overflow-x: hidden;
             
-        }
+        } 
 
-        #accordionSidebar::-webkit-scrollbar {
+         #accordionSidebar::-webkit-scrollbar {
             display: none; 
-        }
+        } 
         #accordionSidebar {
         background-color: #4e73df;
     }
@@ -233,7 +233,7 @@
     #sidebarToggleTop {
         position: relative;
     
-    }
+    } 
 } 
 
 .collapse {
@@ -414,7 +414,7 @@
             </li>
 
                <!-- Nav Item - Pages Collapse Menu -->
-               <li class="nav-item">
+               {{-- <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
@@ -427,7 +427,7 @@
                         <a class="collapse-item" href="cards.html">Cards</a>
                     </div>
                 </div>
-            </li>
+            </li> --}}
 
             <li class="nav-item {{ request()->routeIs('userInvoices') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('userInvoices') }}">
@@ -450,9 +450,7 @@
                         <a class="collapse-item" href="cards.html">Cards</a>
                     </div>
                 </div>
-            </li> --}}
-
-            
+            </li> --}}      
 
             @can('manage.coupons')
                 <li class="nav-item {{ request()->routeIs('display.coupons') ? 'active' : '' }}">

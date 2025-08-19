@@ -256,7 +256,7 @@
 
 @media (max-width: 578px) {
 
-.dataTables_length {
+/* .dataTables_length {
    text-align: left !important;
    margin-left: 2px;
    margin-bottom: 10px;
@@ -264,7 +264,18 @@
 
 .dataTables_filter{
     margin-left: -33px
-}
+} */
+
+.dataTables_length {
+        text-align: left !important;
+        margin-left: 6px;
+        margin-bottom: 10px;
+    }
+
+    .dataTables_filter {
+        text-align: left !important;
+        margin-bottom: 10px;
+    }
 
 .page-content {
    margin-bottom: 175px;
@@ -731,6 +742,9 @@ function initDataTable() {
     responsive: isMobile, 
     scrollX: false,
     stateSave: true,
+    "language": {
+    "search": '<i class="fas fa-search"></i> '
+  },
     columnDefs: [
       { className: 'dtr-control', targets: 0 },
       { responsivePriority: 1, targets: '_all' }

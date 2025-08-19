@@ -125,6 +125,7 @@ class UserController extends Controller
             return view('pages.admin.ViewUserDetails', compact('user'));
         }
 
+        
          //Edit user data page
         public function EditUsers($id)
         {

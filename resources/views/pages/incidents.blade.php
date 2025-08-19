@@ -119,20 +119,31 @@
     } 
     }
 
-@media (max-width: 430px) {
+@media (max-width: 578px) {
 
-.dataTables_length {
+/* .dataTables_length {
    text-align: left !important;
    margin-left: 2px;
    margin-bottom: 10px;
 }
 .dataTables_filter{
-       margin-left: -10px;
-}
+            margin-left: -25px;
+    } */
+
+    .dataTables_length {
+        text-align: left !important;
+        margin-left: 6px;
+        margin-bottom: 10px;
+    }
+
+    .dataTables_filter {
+        text-align: left !important;
+        margin-bottom: 10px;
+    }
+
 .page-content {
    margin-bottom: 175px;
 }
-
 
 }
 </style>
@@ -256,7 +267,8 @@
             "scrollX": false,
             "order": [[2, "desc"]], // Sort by start time by default
             "language": {
-                "search": "Search",
+                // "search": "Search",
+                "search": '<i class="fas fa-search"></i>',
                 "searchPlaceholder": "incidents",
                 "lengthMenu": "Show _MENU_",
                 "info": "Showing _START_ to _END_ of _TOTAL_"

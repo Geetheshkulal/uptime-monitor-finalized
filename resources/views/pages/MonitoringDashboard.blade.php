@@ -226,7 +226,7 @@
     }
 }
 
-    @media (max-width: 430px) {
+    @media (max-width: 578px) {
 
      .AddMonitor{
         /* width: 92px;
@@ -239,12 +239,18 @@
 
     .dataTables_length {
         text-align: left !important;
-        margin-left: 2px;
+        margin-left: 6px;
         margin-bottom: 10px;
     }
-     .dataTables_filter{
-            margin-left: -11px;
+
+    .dataTables_filter {
+        text-align: left !important;
+        margin-bottom: 10px;
     }
+     /* .dataTables_filter{
+            margin-left: -25px;
+    } */
+
      .page-content {
         margin-bottom: 175px;
 }
@@ -536,7 +542,7 @@
             "scrollX": false,
             "order": [[4, "desc"]],
             "language": {
-                "search": "Search:",
+                "search": '<i class="fas fa-search"></i>',
                 "searchPlaceholder": "monitors, type, status",
                 "lengthMenu": "Show _MENU_",
                 "info": "Showing _START_ to _END_ of _TOTAL_"
