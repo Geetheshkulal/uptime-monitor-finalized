@@ -591,6 +591,7 @@
       <div class="shape shape-1"></div>
       <div class="shape shape-2"></div>
     </div>
+    
     <div class="container">
       <div class="row align-items-center hero-content">
         <div class="col-lg-6 text-center text-lg-start mb-5 mb-lg-0">
