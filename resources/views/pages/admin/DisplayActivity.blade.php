@@ -116,31 +116,39 @@ html.dark-mode .select2-container--default .select2-results__option[aria-selecte
   
 
 @media (max-width: 430px) {
-    .dataTables_length {
+    /* .dataTables_length {
         text-align: left !important;
         margin-left: 11px;
         margin-bottom: 10px;
-    }
+    } */
     .filter-container{
         margin-left: 11px;
         overflow:hidden;
     }
-     /* .dataTables_wrapper .paginate_button .page-link {
-        padding: 0.25rem 0.5rem;
-        font-size: 0.8rem;
-        
-    } */
+
     .pagination {
     padding-left: 23px;
 }
 .page-content{
     margin-bottom: 78px;
 }
-.dataTables_filter{
+
+/* .dataTables_filter{
     margin-top: 10px;
     margin-right: -5px;
-}
+} */
 
+.dataTables_length {
+        text-align: left !important;
+        margin-left: 6px;
+        margin-bottom: 10px;
+    }
+
+    .dataTables_filter {
+        text-align: left !important;
+        margin-bottom: 10px;
+    }
+    
 }
 
 
@@ -261,7 +269,7 @@ html.dark-mode .select2-container--default .select2-results__option[aria-selecte
             lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
             language: {
                 processing: '<div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div> Loading...',
-                search: "Search:",
+                search: '<i class="fas fa-search"></i> ',
                 lengthMenu: "Show _MENU_ entries",
                 info: "Showing _START_ to _END_ of _TOTAL_ entries",
                 infoEmpty: "Showing 0 to 0 of 0 entries",

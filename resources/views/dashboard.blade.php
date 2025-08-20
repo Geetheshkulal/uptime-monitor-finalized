@@ -3,7 +3,7 @@
 
 @include('body.header')
 
-<body id="page-top" class="loading">
+<body id="page-top" class="loading" >
     <div id="wrapper">
         @include('body.sidebar')
 

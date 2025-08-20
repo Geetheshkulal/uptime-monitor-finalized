@@ -132,7 +132,7 @@
     overflow-x: hidden !important;
 }
 
-@media (max-width: 430px) {
+@media (max-width: 578px) {
     .container .card-body {
     padding: 23px !important;
 }
@@ -150,16 +150,24 @@
 
 }
 
-.dataTables_length {
+/* .dataTables_length {
    text-align: left !important;
-   /* margin-left: 2px;
-   margin-bottom: 10px; */
+
 }
 .dataTables_filter{
     margin-top: 10px;
-    margin-left: -46px;
-}
+    text-align: left !important;
+} */
+.dataTables_length {
+        text-align: left !important;
+        margin-left: 6px;
+        margin-bottom: 10px;
+    }
 
+    .dataTables_filter {
+        text-align: left !important;
+        margin-bottom: 10px;
+    }
 }
 
 
@@ -377,8 +385,6 @@
 <script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap4.min.js"></script>
 
 
-
-
 <script>
     $(document).ready(function() {
         $('#sslChecksTable').DataTable({
@@ -390,6 +396,9 @@
             "scrollX": false,
             stateSave: true,
             "order": [[0, "asc"]],
+            "language": {
+                "search": '<i class="fas fa-search"></i> '
+            },
             "columnDefs": [
                  { "orderable": false, "targets": [6] }
              ]

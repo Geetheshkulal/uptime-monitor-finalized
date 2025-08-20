@@ -302,6 +302,14 @@
                       {{ $user->status === 'free_trial' ? 'checked' : '' }}>
                       <label class="form-check-label" for="statusFreeTrial">Free Trial</label>
                   </div>
+
+                  <!-- Free Trial Days Input -->
+                <div class="form-group mt-3" id="freeTrialDaysGroup" style="display: none;">
+                    <label for="free_trial_days">Free Trial Days</label>
+                    <input type="number" class="form-control" name="free_trial_days" id="free_trial_days" 
+                        value="{{ old('free_trial_days', $user->free_trial_days) }}" max="10">
+                </div>
+
   
                   <div class="form-check">
                       <input class="form-check-input" type="radio" name="status" id="statusFree" value="free" 
@@ -415,8 +423,6 @@
         });
 
 
-
-
     });
 
     @if(Session::has('success'))
@@ -431,9 +437,13 @@
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const paidRadio = document.getElementById("statusPaid");
+        const freeTrialRadio = document.getElementById("statusFreeTrial");
         const statusRadios = document.querySelectorAll('input[name="status"]');
+
         const premiumEndDateGroup = document.getElementById("premiumEndDateGroup");
         const planTypeGroup = document.getElementById("planTypeGroup");
+        const freeTrialDaysGroup = document.getElementById("freeTrialDaysGroup");
+
         const monthly = document.getElementById("monthly");
         const yearly = document.getElementById("yearly");
         const premiumEndDateInput = document.getElementById("premium_end_date");
@@ -456,6 +466,8 @@
         function togglePremiumFields() {
             if (paidRadio.checked) {
                 planTypeGroup.style.display = "block";
+                premiumEndDateGroup.style.display = "none";
+                freeTrialDaysGroup.style.display = "none";
     
                 monthly.addEventListener('change', function () {
                 if (monthly.checked) {
@@ -473,9 +485,15 @@
                 }
             });
     
+            }else if(freeTrialRadio.checked){
+                freeTrialDaysGroup.style.display = "block";
+                planTypeGroup.style.display = "none";
+                premiumEndDateGroup.style.display = "none";
+
             } else {
                 planTypeGroup.style.display = "none";
                 premiumEndDateGroup.style.display = "none";
+                freeTrialDaysGroup.style.display = "none";
             }
         }
     

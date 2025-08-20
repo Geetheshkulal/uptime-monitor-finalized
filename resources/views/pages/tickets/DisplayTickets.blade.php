@@ -169,7 +169,7 @@
 }
 
 @media (max-width: 430px) {
-    .dataTables_length {
+    /* .dataTables_length {
         text-align: left !important;
         margin-left: 3px;
         margin-bottom: 10px;
@@ -178,7 +178,18 @@
 .dataTables_filter{
     margin-top: 10px;
     margin-left: -10px;
-}
+} */
+
+.dataTables_length {
+        text-align: left !important;
+        margin-left: 6px;
+        margin-bottom: 10px;
+    }
+
+    .dataTables_filter {
+        text-align: left !important;
+        margin-bottom: 10px;
+    }
 
 
 }
@@ -305,7 +316,7 @@
             "scrollX": false,
             "order": [[4, "desc"]], // Default sort by Created date
             "language": {
-                "search": "Search : _INPUT_",
+                "search": '<i class="fas fa-search"></i> ',
                 "searchPlaceholder": "Search tickets...",
                 "lengthMenu": "Show _MENU_",
                 "info": "Showing _START_ to _END_ of _TOTAL_ tickets"
