@@ -10,6 +10,6 @@ class TrafficLog extends Model
     use HasFactory;
 
     protected $fillable = [
-        'ip','email','name','status','reason','isp','country','browser','platform' ,'user_agent','url','method' ,
+        'ip','email','name','status','reason','type','isp','country','browser','platform' ,'user_agent','url','method' ,
     ];
 }

@@ -8,6 +8,7 @@ use Jenssegers\Agent\Agent;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use App\Models\User;
 
 class LogTraffic
 {
@@ -88,6 +89,13 @@ class LogTraffic
         $logData['name'] = $request->session()->get('traffic_name');
         $logData['email'] = $request->session()->get('traffic_email');
 
+        $probableUser = User::where('last_login_ip', $ip)->first();
+
+        if ($probableUser) {
+            $logData['type']  = 'probable user';
+            $logData['name']  = $probableUser->name;
+            $logData['email'] = $probableUser->email;
+        }
 
         // Log::info('Traffic Log Data in middleware: ', $logData);
 
@@ -101,7 +109,8 @@ class LogTraffic
         //     $logData['status'] = 'register_attempt';
         // }
 
-        TrafficLog::create(attributes: $logData);
+        // TrafficLog::create(attributes: $logData);
+        TrafficLog::create($logData);
     }
 
     // return $next($request);

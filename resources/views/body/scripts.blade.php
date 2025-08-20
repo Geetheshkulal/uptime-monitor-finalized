@@ -295,7 +295,7 @@
     });
 </script>
 
-<script>
+{{-- <script>
     document.addEventListener('DOMContentLoaded', function () {
         const countdownEl = document.getElementById('trial-hours-left');
         if (!countdownEl) return;
@@ -309,9 +309,8 @@
             const hoursLeft = Math.floor(diffMs / (1000 * 60 * 60));
             countdownEl.textContent = `Trial ends in ${hoursLeft} hour${hoursLeft !== 1 ? 's' : ''}`;
         } else {
-            // Hide banner if it's already past midnight
             const trialNotice = countdownEl.closest('.trial-notice');
             if (trialNotice) trialNotice.remove();
         }
     });
-</script>
+</script> --}}
