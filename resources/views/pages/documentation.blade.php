@@ -27,7 +27,7 @@
       height: 100vh;
     }
 
- /* Sidebar Container */
+
 .sidebar {
     width: var(--sidebar-width);
     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
@@ -42,9 +42,9 @@
     left: 0;
 }
 
-/* Content Area */
+
 .content {
-    margin-left: var(--sidebar-width); /* Offset content to the right of the sidebar */
+    margin-left: var(--sidebar-width); 
     flex: 1;
     padding: 40px;
     overflow-y: auto;
@@ -54,7 +54,6 @@
 }
 
 
-/* Sidebar Header */
 .sidebar-header {
     padding: 0 25px 20px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -73,7 +72,6 @@
     color: white;
 }
 
-/* Navigation Menu */
 .nav-menu {
     padding: 20px 0;
 }
@@ -108,7 +106,6 @@
     color: white;
 }
 
-/* Premium Badge */
 .badge-premium {
     background-color: rgba(255, 193, 7, 0.2);
     color: gold;
@@ -120,7 +117,7 @@
     text-transform: uppercase;
 }
 
-/* Back Button */
+
 .back-btn {
     margin: 20px 25px;
     display: flex;
@@ -237,7 +234,7 @@
       color: #333;
     }
 
-    @media (max-width: 992px) {
+    @media (max-width:578px) {
       body {
         flex-direction: column;
       }
@@ -280,7 +277,7 @@
     }
      
       .content {
-        margin-left: 0; /* Remove offset for smaller screens */
+        margin-left: 0; 
         padding: 30px 20px;
     }
       
@@ -305,7 +302,6 @@
         </a>
         <a href="#" onclick="showTab('tab3')">
             <i class="fas fa-lock"></i> SSL Monitoring 
-            <span class="badge-premium">Premium</span>
         </a>
         <a href="#" onclick="showTab('tab4')">
             <i class="fas fa-exclamation-triangle"></i> Incident Tracking
@@ -315,7 +311,6 @@
         </a>
         <a href="#" onclick="showTab('tab6')">
             <i class="fas fa-user-plus"></i> Add User
-            <span class="badge-premium">Premium</span>
         </a>
         <a href="#" onclick="showTab('tab7')">
             <i class="fas fa-ticket-alt"></i> Raise Ticket
@@ -436,7 +431,7 @@
     <!-- SSL Monitoring Tab -->
     <div id="tab3" class="tab-content">
       <div class="content-header">
-        <h2><i class="fas fa-lock feature-icon"></i> SSL Monitoring <span class="badge-premium">Premium Feature</span></h2>
+        <h2><i class="fas fa-lock feature-icon"></i> SSL Monitoring</h2>
       </div>
       
       <p class="lead">Advanced SSL certificate monitoring to ensure your website security never lapses. Get alerts before certificates expire and verify proper configuration.</p>

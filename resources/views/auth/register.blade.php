@@ -568,13 +568,27 @@
     <!--PWA-->
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js', { scope: '/' })
-                .then(function (registration) {
-                    console.log('Service Worker registered with scope:', registration.scope);
-                })
-                .catch(function (error) {
-                    console.error('Service Worker registration failed:', error);
-                });
+            // navigator.serviceWorker.register('/sw.js', { scope: '/' })
+            //     .then(function (registration) {
+            //         console.log('Service Worker registered with scope:', registration.scope);
+            //     })
+            //     .catch(function (error) {
+            //         console.error('Service Worker registration failed:', error);
+            //     });
+
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+        registrations.forEach(function(registration) {
+            registration.unregister().then(function(success) {
+                if (success) {
+                    console.log('Service Worker unregistered successfully');
+                } else {
+                    console.log('Service Worker unregistration failed');
+                }
+            });
+        });
+    }).catch(function(error) {
+        console.error('Error during service worker unregistration:', error);
+    });
         }
     </script>
     
