@@ -499,14 +499,15 @@
                 // alert("Login process started.");
                 console.log("Login process started.");
             } else {
-                alert("Failed to start: " + (data.message || "Unknown error"));
+                // alert("Failed to start: " + (data.message || "Unknown error"));
+                toastr.error("Failed to start: " + (data.message || "Unknown error"));
                 connecting=false;
                 connectBtn.style.display = 'inline-block';
                 loadingLottie.style.display = 'none';
             }
         } catch (e) {
             console.error("Trigger error:", e);
-            alert("Something went wrong while starting WhatsApp login.");
+            toastr.error("Something went wrong while starting WhatsApp login.");
 
             connecting=false;
             connectBtn.style.display = 'inline-block';
