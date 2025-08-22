@@ -96,7 +96,7 @@ class LogTraffic
         //     $logData['status'] = 'login_attempt';
         // }
 
-        // if ($request->is('register') && $request->isMethod('post')) {
+        // if ($request->is('register') && $request->isMethod('pos0t')) {
         //     $logData['email'] = $request->input('email');
         //     $logData['status'] = 'register_attempt';
         // }
@@ -144,7 +144,6 @@ class LogTraffic
     //     $log->save();
 
     // }
-
     //     return $next($request);
        
     // }

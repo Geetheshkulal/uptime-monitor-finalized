@@ -185,37 +185,37 @@
         pointer-events: none;
     }
 
-.badge-container {
-    position: absolute;
-    top: 8px;
-    right: 5px;
-    display: flex;
-    flex-direction: column;
-    padding-right: 43px;
-    align-items: flex-end;
-}
+    .badge-container {
+        position: absolute;
+        top: 8px;
+        right: 5px;
+        display: flex;
+        flex-direction: column;
+        padding-right: 43px;
+        align-items: flex-end;
+    }
 
-.badge-container > span:first-child:last-child {
-    right: 50%;
-    align-self: center;
-    margin-top: 10px;
-    
-}
+    .badge-container > span:first-child:last-child {
+        right: 50%;
+        align-self: center;
+        margin-top: 10px;
+        
+    }
 
-         #accordionSidebar {
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            z-index: 1040; 
-            overflow-y: scroll; 
-            overflow-x: hidden;
-            
-        } 
+    #accordionSidebar {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        z-index: 1040; 
+        overflow-y: scroll; 
+        overflow-x: hidden;
+        
+    } 
 
-         #accordionSidebar::-webkit-scrollbar {
-            display: none; 
-        } 
-        #accordionSidebar {
+    #accordionSidebar::-webkit-scrollbar {
+        display: none; 
+    } 
+    #accordionSidebar {
         background-color: #4e73df;
     }
 
@@ -236,6 +236,25 @@
     } 
 } 
 
+/* Sidebar overlay */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1039; /* Just below sidebar z-index */
+}
+.sidebar-overlay.active {
+    display: block;
+}
+
+
+body.sidebar-toggled .overlay {
+  display: block;
+}
 .collapse {
     visibility: visible !important; 
 }
@@ -618,3 +637,4 @@
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
 </ul>
+<div class="overlay"></div> <!-- Black overlay -->

@@ -13,6 +13,154 @@
 
 @stack('scripts')
 
+<script>
+    function handleSidebarResize(initial = false) {
+    if ($(window).width() < 768) {
+        // On first load, if screen <480px → start collapsed
+        if (initial && $(window).width() < 480) {
+            $("body").addClass("sidebar-toggled");
+            $(".sidebar").addClass("toggled");
+            $(".sidebar .collapse").collapse("hide");
+        }
+    } else {
+        // Large screen: force expanded
+        $("body").removeClass("sidebar-toggled");
+        $(".sidebar").removeClass("toggled");
+        $(".sidebar .collapse").collapse("show");
+    }
+
+    // Body scroll + overlay logic
+    if ($(window).width() < 768) {
+        if (!$(".sidebar").hasClass("toggled")) {
+            // Sidebar is open → disable body scroll & show overlay
+            $("body").css("overflow", "hidden");
+            $(".sidebar-overlay").addClass("active");
+        } else {
+            // Sidebar collapsed → allow scroll & hide overlay
+            $("body").css("overflow", "");
+            $(".sidebar-overlay").removeClass("active");
+        }
+    } else {
+        $("body").css("overflow", "");
+        $(".sidebar-overlay").removeClass("active");
+    }
+}
+
+// Run once on load with "initial=true"
+$(document).ready(function () {
+    // Inject overlay into DOM if not already there
+    if ($(".sidebar-overlay").length === 0) {
+        $("body").append('<div class="sidebar-overlay"></div>');
+    }
+
+    handleSidebarResize(true);
+});
+
+// Run on resize (but not "initial" so user toggling is preserved)
+$(window).resize(function () {
+    handleSidebarResize(false);
+});
+
+// Run when toggling sidebar
+$("#sidebarToggle, #sidebarToggleTop").on("click", function () {
+    handleSidebarResize(false);
+});
+
+// Close sidebar when clicking overlay
+$(document).on("click", ".sidebar-overlay", function () {
+    $("body").addClass("sidebar-toggled");
+    $(".sidebar").addClass("toggled");
+    $(".sidebar .collapse").collapse("hide");
+    handleSidebarResize(false);
+});
+
+$(document).on('click', '.ip-address', function (e) {
+    e.preventDefault();
+
+    let ip = $(this).data('ip');
+
+    // Update header and open sidebar
+    $('#sidebarIp').text(`IP: ${ip}`);
+    $('#ipSidebar').addClass('open');
+
+    // Clear previous users
+    $('#usersList').html('<li class="loading-msg text-center py-2">Loading...</li>');
+
+    // Fetch users by IP
+    $.ajax({
+        url: '/activities/users-by-ip',
+        method: 'GET',
+        data: { ip: ip },
+        success: function (response) {
+            $('#usersList').empty();
+
+            if (response.users.length === 0) {
+                $("#usersList").append(
+                    '<li class="no-results-msg text-center py-2">No users found</li>'
+                );
+            }
+
+            response.users.forEach(user => {
+                $('#usersList').append(`
+                    <li class="list-group-item user-item" 
+                        data-name="${user.name ?? ''}" 
+                        data-email="${user.email ?? ''}"
+                        data-url="/admin/display/user/${user.id}">
+                        <strong>${user.name ?? 'Unnamed User'}</strong><br>
+                        <small class="text-muted">E-mail: ${user.email}</small>
+                    </li>
+                `);
+            });
+        },
+        error: function () {
+            $('#usersList').html('<li class="list-group-item text-danger">Error loading users</li>');
+        }
+    });
+});
+
+// Close sidebar
+$('#closeSidebar').on('click', function () {
+    $('#ipSidebar').removeClass('open');
+});
+
+$(document).on("keyup", "#userSearch", function () {
+    let query = $(this).val().toLowerCase();
+    let anyVisible = false;
+
+    $("#usersList li").each(function () {
+        let name = $(this).data("name")?.toLowerCase() || "";
+        let email = $(this).data("email")?.toLowerCase() || "";
+
+        let match = name.includes(query) || email.includes(query);
+
+        $(this).toggle(match);
+
+        if (match) anyVisible = true;
+    });
+
+    // Remove previous "No users found"
+    $("#usersList .no-results-msg").remove();
+
+    // If nothing matches, show message
+    if (!anyVisible) {
+        $("#usersList").append(
+            '<li class="no-results-msg text-center py-2">No users found</li>'
+        );
+    }
+});
+
+
+$(document).on("click", ".user-item", function () {
+    let url = $(this).data("url");
+    if (url) {
+        window.location.href = url;
+    }
+});
+
+</script>
+
+
+
 
 <!-- Remove skeletons after load -->
 <script>
@@ -238,8 +386,8 @@
             };
 
             const typeBadge = `<span class="badge badge-${badge} ml-2">
-            ${type.charAt(0).toUpperCase() + type.slice(1)}
-        </span>`;
+                                    ${type.charAt(0).toUpperCase() + type.slice(1)}
+                                </span>`;
 
             newNotification.innerHTML = `
             <div class="mr-3">

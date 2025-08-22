@@ -34,6 +34,12 @@
         font-size: 0.875rem;
         color: #3182ce;
         font-weight: 500;
+        
+    }
+
+    .ip-address:hover{
+        cursor: pointer;
+        text-decoration: underline;
     }
     
     .flag {
@@ -138,9 +144,9 @@
         min-height: 300px; 
     }
     label {
-    display: inline-block;
-    margin-bottom: 0.5rem;
-    margin-top: 0.5rem;
+        display: inline-block;
+        margin-bottom: 0.5rem;
+        margin-top: 0.5rem;
     }
     
     @media (max-width: 768px) {
@@ -160,35 +166,109 @@
             gap: 0.5rem;
         }
     }
+    .ip-sidebar {
+        position: fixed;
+        top: 0;
+        right: -400px; /* hidden initially */
+        width: 400px;
+        height: 100%;
+        background: #fff;
+        border-left: 1px solid #ddd;
+        box-shadow: -2px 0 8px rgba(0,0,0,0.15);
+        transition: right 0.3s ease;
+        z-index: 1050;
+        display: flex;
+        flex-direction: column;
+    }
 
-    @media (max-width: 430px) {
+    .ip-sidebar.open {
+        right: 0;
+    }
+
+    .ip-sidebar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        background: #f8fafc;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .ip-sidebar-header h5 {
+        margin: 0;
+        font-size: 1rem;
+        color: #2d3748;
+    }
+
+    .close-btn {
+        border: none;
+        background: transparent;
+        font-size: 1.5rem;
+        cursor: pointer;
+        line-height: 1;
+        color: #333;
+    }
+
+    .ip-sidebar-content {
+        padding: 1rem;
+        overflow-y: auto;
+        flex: 1;
+    }
+
+    #usersList .list-group-item {
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+
+    #usersList .list-group-item:hover {
+        background-color: #f0f0f0;
+    }
+
+
+
+    @media (max-width: 578px) {
         .FilterButton{
             margin-top:12px;
         }
-         .pagination {
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        width: 308px;
-    }
+        .pagination {
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            width: 308px;
+        }
 
-    .pagination::-webkit-scrollbar {
-        display: none; 
-    }
+        .pagination::-webkit-scrollbar {
+            display: none; 
+        }
 
-    .pagination .page-item {
-        flex: 0 0 auto; 
-        white-space: nowrap;
-    }
+        .pagination .page-item {
+            flex: 0 0 auto; 
+            white-space: nowrap;
+        }
 
-    .pagination .page-link {
-        padding: 0.25rem 0.5rem;
-        font-size: 0.75rem;
+        .pagination .page-link {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+        }
     }
-}
 </style>
 @endpush
+<!-- Right Sidebar -->
+<div id="ipSidebar" class="ip-sidebar card">
+    <div class="ip-sidebar-header card-header">
+        <h5 id="sidebarIp" class="white-color">IP Details</h5>
+        <button class="close-btn" id="closeSidebar">&times;</button>
+    </div>
+    <div class="ip-sidebar-content">
+        <label for="userSearch">Search</label>
+        <input type="text" id="userSearch" class="form-control" placeholder="Search something...">
+
+        <ul id="usersList" class="list-group mt-3 gap-2">
+            <!-- Users will be populated here -->
+        </ul>
+    </div>
+</div>
 
 <div class="container-fluid">
     <h1 class="h3 mb-0 text-gray-800 white-color">Visitor Traffic Logs</h1><br>
@@ -242,7 +322,9 @@
                     <div class="traffic-header dark-bg">
                         <div class="ip-display">
                             <span class="detail-label white-color">IP:</span>
-                            <span class="ip-address">{{ $log->ip }}</span>
+                            <a href="#" class="ip-address" data-ip="{{ $log->ip }}">
+                                {{ $log->ip }}
+                            </a>
                             @if($log->country !== 'Unknown')
                             <img src="https://flagcdn.com/16x12/{{ strtolower($log->country) }}.png" class="flag">
                         @endif
