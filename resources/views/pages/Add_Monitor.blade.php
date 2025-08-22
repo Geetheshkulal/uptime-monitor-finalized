@@ -142,7 +142,6 @@
     </li>
 </ul>
 
-    <!-- Tab Content -->
 <!-- Tab Content -->
 <div class="tab-content" id="monitoringTabsContent">
     <div class="tab-pane fade show active" id="http" role="tabpanel" aria-labelledby="http-tab">
