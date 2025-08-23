@@ -55,6 +55,11 @@ use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 
 
+use App\Http\Controllers\TestWebPushNotificationController;
+
+// Route::get('/test-notification', [TestWebPushNotificationController::class, 'sendTestNotification']);
+
+
 // Route::match(['post'], '/cashfree/response', function (Request $request) {
 //     return view('cashfree', ['data' => $request->all()]);
 // })->name('cashfree.response');
