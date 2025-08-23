@@ -94,7 +94,7 @@
         <div class="container-fluid">
 
             @php
-                $defaultTab = $errors->any() ? 'users' : 'customers';
+                $defaultTab = $errors->any() ? 'users' : null;
             @endphp
 
             <div x-data="tabHandler({{ json_encode($defaultTab) }})" x-init="initActiveTab()">
@@ -245,12 +245,19 @@
 
 
 function tabHandler(defaultTab) {
+    // Check localStorage first, then fallback to defaultTab, then 'customers'
+    const storedTab = localStorage.getItem('userPageItem');
     return {
-        activeTab: defaultTab || 'customers',
+        activeTab: storedTab || defaultTab || 'customers',
         customersInitialized: false,
         usersInitialized: false,
         initActiveTab() {
+            // Watch for tab changes
             this.$watch('activeTab', (value) => {
+                // Store the tab selection in localStorage
+                localStorage.setItem('userPageItem', value);
+
+                // Initialize tables if needed
                 if (value === 'customers' && !this.customersInitialized) {
                     $('#customersTable').DataTable({
                         paging: true,
@@ -279,8 +286,9 @@ function tabHandler(defaultTab) {
                 }
             });
 
+            // Initialize the first tab if not already
             this.$nextTick(() => {
-                if (this.activeTab === 'customers') {
+                if (this.activeTab === 'customers' && !this.customersInitialized) {
                     $('#customersTable').DataTable({
                         paging: true,
                         searching: true,
@@ -293,10 +301,24 @@ function tabHandler(defaultTab) {
                     });
                     this.customersInitialized = true;
                 }
+                if (this.activeTab === 'users' && !this.usersInitialized) {
+                    $('#usersTable').DataTable({
+                        paging: true,
+                        searching: true,
+                        ordering: true,
+                        info: true,
+                        responsive: true,
+                        scrollX: false,
+                        order: [[0, 'asc']],
+                        columnDefs: [{ orderable: false, targets: -1 }]
+                    });
+                    this.usersInitialized = true;
+                }
             });
         }
     };
 }
+
 
 
 document.getElementById('showPasswordCheckbox').addEventListener('change', function () {

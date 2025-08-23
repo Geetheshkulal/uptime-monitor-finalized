@@ -1,14 +1,14 @@
 @extends('dashboard')
 @section('content')
 
-    <head>
-        <!-- Toastr CSS -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<head>
+    <!-- Toastr CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/introjs.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/introjs.min.css"/>
 
-    </head>
+</head>
   <style>
 
     /* ========== INTROJS TOUR ========== */
@@ -143,7 +143,7 @@
 </ul>
 
 <!-- Tab Content -->
-<div class="tab-content" id="monitoringTabsContent">
+<div class="tab-content mb-5" id="monitoringTabsContent">
     <div class="tab-pane fade show active" id="http" role="tabpanel" aria-labelledby="http-tab">
         @include('monitoring.http')
     </div>

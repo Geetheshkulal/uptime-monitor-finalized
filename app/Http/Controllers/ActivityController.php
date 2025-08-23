@@ -158,4 +158,27 @@ class ActivityController extends Controller
             'data' => $data
         ]);
     }
+
+    public function usersByIp(Request $request)
+    {
+        $ip = $request->query('ip'); // ✅ get ip from query param
+
+        if (!$ip) {
+            return response()->json(['error' => 'IP is required'], 422);
+        }
+
+        // Get unique causer_ids directly from Activity model
+        $userIds = Activity::where('ip_address', $ip)
+            ->whereNotNull('causer_id')
+            ->pluck('causer_id')
+            ->unique();
+
+        // Fetch users
+        $users = User::whereIn('id', $userIds)->get();
+
+        return response()->json([
+            'ip' => $ip,
+            'users' => $users
+        ]);
+    }
 }

@@ -136,7 +136,6 @@ class LogTraffic
     //     $log->save();
 
     // }
-
     //     return $next($request);
 
     // }

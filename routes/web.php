@@ -265,6 +265,8 @@ Route::group(['middleware' => ['auth', 'blockIp']], function () {
         ->name('display.activity');
 
     Route::get('/activity/users/search', [ActivityController::class, 'UserSearch'])->name('activity.users.search');
+    Route::get('/activities/users-by-ip', [ActivityController::class, 'usersByIp']);
+
 
 
     // Add the AJAX route for fetching activity logs

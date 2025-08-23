@@ -52,10 +52,10 @@ class WhatsAppLogin implements ShouldQueue
             // Log::info('[WHATSAPP LOGIN] STDOUT: ' . $process->getOutput());
 
             if (!$process->isSuccessful()) {
-                // Log::error('[WHATSAPP LOGIN] STDERR: ' . $process->getErrorOutput());
-                // Log::error('[WHATSAPP LOGIN] Process failed.');
+                Log::error('[WHATSAPP LOGIN] STDERR: ' . $process->getErrorOutput());
+                Log::error('[WHATSAPP LOGIN] Process failed.');
             } else {
-                // Log::info('[WHATSAPP LOGIN] WhatsAppLoginTest completed successfully.');
+                Log::info('[WHATSAPP LOGIN] WhatsAppLoginTest completed successfully.');
             }
         } catch (\Exception $e) {
             // Log::error('[WHATSAPP LOGIN] Exception: ' . $e->getMessage());
