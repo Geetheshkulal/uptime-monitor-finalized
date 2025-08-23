@@ -302,10 +302,13 @@ Route::group(['middleware' => ['auth', 'blockIp']], function () {
     Route::get('/display/subsusers', [UserController::class, 'DisplaySubUsers'])->name('display.sub.users');
 
     Route::post('/add/subsusers', [UserController::class, 'StoreSubUser'])->middleware('premium_middleware')->name('add.sub.user');
-    Route::delete('/delete/subsuser/${id}', [UserController::class, 'DeleteSubUser'])->middleware('premium_middleware')->name('delete.sub.user');
+    Route::delete('/delete/subsuser/{id}', [UserController::class, 'DeleteSubUser'])->middleware('premium_middleware')->name('delete.sub.user');
+    
+    Route::get('/get/subusers/{id}', [UserController::class, 'GetSubUsers'])->name('get.sub.users');
 
-    Route::delete('/completely/delete/user/${id}', [UserController::class, 'CompletelyDeleteUser'])->middleware('premium_middleware')->name('completely.delete.user');
+    Route::delete('/completely/delete/user/{id}', [UserController::class, 'CompletelyDeleteUser'])->middleware('premium_middleware')->name('completely.delete.user');
 
+    Route::get('/sub-user/{id}/edit', [UserController::class, 'EditSubUser'])->name('edit.sub.user');
 
 
     Route::get('/sub-user/{id}/edit-permissions', [UserController::class, 'EditSubUserPermissions'])->name('edit.sub.user.permissions');

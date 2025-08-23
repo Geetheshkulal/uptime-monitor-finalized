@@ -84,7 +84,9 @@ class UserController extends Controller
             // Basic search functionality
             $search = $request->input('search');
             
-            $users = User::withTrashed()->with('roles')
+            $users = User::withTrashed()->with('roles')->whereDoesntHave('roles', function ($q) {
+                                $q->where('name', 'subuser');
+                            })
                         ->when($search, function($query) use ($search) {
                             $query->where('name', 'like', "%{$search}%")
                                 ->orWhere('email', 'like', "%{$search}%")
@@ -504,5 +506,11 @@ class UserController extends Controller
         $user->forceDelete();
         return redirect()->route('display.users')
                     ->with('success', 'User deleted successfully!');
+    }
+
+    public function GetSubUsers($id){
+        $subUsers = User::withTrashed()->where('parent_user_id', $id)->get();
+        
+        return response()->json($subUsers);
     }
 }

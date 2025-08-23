@@ -26,11 +26,11 @@ class TrafficLogController extends Controller
               ->orWhere('url', 'like', "%{$search}%");
         });
     }
-
-    if ($request->filled('from_date') && $request->filled('to_date')) {
-        $from = $request->input('from_date') . ' 00:00:00';
-        $to = $request->input('to_date') . ' 23:59:59';
-
+    
+    if ($request->date_range) {
+        [$from, $to] = explode(' to ', $request->date_range);
+        $from_date = $from;
+        $to_date = $to;
         $query->whereBetween('created_at', [$from, $to]);
     }
 

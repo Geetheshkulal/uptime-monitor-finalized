@@ -208,12 +208,12 @@
         }
 
     .spinner-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: var(--warning); /* or a custom color */
-    animation: pulse 1s infinite ease-in-out;
-}
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--warning); /* or a custom color */
+        animation: pulse 1s infinite ease-in-out;
+    }
 
 @keyframes pulse {
     0%, 100% {

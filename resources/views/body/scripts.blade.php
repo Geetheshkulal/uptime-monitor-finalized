@@ -70,10 +70,11 @@ $("#sidebarToggle, #sidebarToggleTop").on("click", function () {
 $(document).on("click", ".sidebar-overlay", function () {
     $("body").addClass("sidebar-toggled");
     $(".sidebar").addClass("toggled");
-    $(".sidebar .collapse").collapse("hide");
     handleSidebarResize(false);
 });
 
+
+//IP Sidebar Logic
 $(document).on('click', '.ip-address', function (e) {
     e.preventDefault();
 
@@ -102,7 +103,7 @@ $(document).on('click', '.ip-address', function (e) {
 
             response.users.forEach(user => {
                 $('#usersList').append(`
-                    <li class="list-group-item user-item" 
+                    <li class="list-group-item user-item card mb-2" 
                         data-name="${user.name ?? ''}" 
                         data-email="${user.email ?? ''}"
                         data-url="/admin/display/user/${user.id}">
@@ -148,6 +149,86 @@ $(document).on("keyup", "#userSearch", function () {
         );
     }
 });
+
+
+
+//Customers page sidebar logic
+
+$(document).on('click', '.subuser-button', function (e) {
+    e.preventDefault();
+
+    let parentUserId = $(this).data('user');
+
+    // Update header and open sidebar
+    $('#sidebarSubuser').text(`User: ${parentUserId}`);
+    $('#subuserSidebar').addClass('open');
+
+    // Show loading
+    $('#subusersList').html('<li class="loading-msg text-center py-2">Loading...</li>');
+
+    // Fetch subusers
+    $.ajax({
+        url: '/get/subusers/' + parentUserId,
+        method: 'GET',
+        success: function (response) {
+            $('#subusersList').empty(); // clear loading
+
+            if (!response || response.length === 0) {
+                $("#subusersList").append(
+                    '<li class="no-results-msg text-center py-2">No users found</li>'
+                );
+                return;
+            }
+
+            response.forEach(subuser => {
+                $('#subusersList').append(`
+                    <li class="list-group-item user-item card mb-2" 
+                        data-name="${subuser.name ?? ''}" 
+                        data-email="${subuser.email ?? ''}"
+                        data-url="/admin/display/user/${subuser.id}">
+                        <strong>${subuser.name ?? 'Unnamed User'}</strong><br>
+                        <small class="text-muted">E-mail: ${subuser.email ?? 'N/A'}</small>
+                    </li>
+                `);
+            });
+        },
+        error: function () {
+            $('#subusersList').html('<li class="list-group-item text-danger">Error loading users</li>');
+        }
+    });
+});
+
+// Close sidebar
+$('#closesubuserSidebar').on('click', function () {
+    $('#subuserSidebar').removeClass('open');
+});
+
+// Search filter
+$(document).on("keyup", "#subuserSearch", function () {
+    let query = $(this).val().toLowerCase();
+    let anyVisible = false;
+
+    $("#subusersList li.user-item").each(function () {
+        let name = $(this).data("name")?.toLowerCase() || "";
+        let email = $(this).data("email")?.toLowerCase() || "";
+
+        let match = name.includes(query) || email.includes(query);
+        $(this).toggle(match);
+
+        if (match) anyVisible = true;
+    });
+
+    // Remove old "No users found"
+    $("#subusersList .no-results-msg").remove();
+
+    // If nothing matches, show message
+    if (!anyVisible && $("#subusersList li.user-item").length > 0) {
+        $("#subusersList").append(
+            '<li class="no-results-msg text-center py-2">No users found</li>'
+        );
+    }
+});
+
 
 
 $(document).on("click", ".user-item", function () {

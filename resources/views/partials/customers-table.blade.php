@@ -51,8 +51,11 @@
                             </td>
                             <td>
                                 <div class="btn-group" role="group">
-                                    <a href="{{ route('show.user', $user->id) }}" class="btn btn-sm btn-primary" title="View">
+                                    <a href="{{ route('show.user', $user->id) }}" class="btn btn-sm btn-success mr-2" title="View">
                                         <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="{{ route('show.user', $user->id) }}" class="btn btn-sm btn-primary subuser-button" data-url="/admin/display/user/{{ $user->id }}" title="View" data-user="{{ $user->id }}">
+                                        <i class="fas fa-users"></i>
                                     </a>
                                 </div>
                             </td>
