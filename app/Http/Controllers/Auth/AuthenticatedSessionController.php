@@ -40,25 +40,25 @@ class AuthenticatedSessionController extends Controller
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
-            // 'g-recaptcha-response' => ['required', function ($attribute, $value, $fail) {
-            //     $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
-            //         'secret' => config('services.recaptcha.secret'),
-            //         'response' => $value,
-            //         'remoteip' => request()->ip(),
-            //     ]);
+            'g-recaptcha-response' => ['required', function ($attribute, $value, $fail) {
+                $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+                    'secret' => config('services.recaptcha.secret'),
+                    'response' => $value,
+                    'remoteip' => request()->ip(),
+                ]);
 
-            //     $responseBody = $response->json();
+                $responseBody = $response->json();
 
-            //     if (!($responseBody['success'] ?? false)) {
-            //         $fail('reCAPTCHA verification failed.');
-            //     }
-            // }],
+                if (!($responseBody['success'] ?? false)) {
+                    $fail('reCAPTCHA verification failed.');
+                }
+            }],
+
         ]);
 
         $user = User::where('email', $request->email)->first();
 
         if (!$user) {
-
            // Controller
             $request->session()->flash('traffic_status', 'login_attempt_failed');
             $request->session()->flash('traffic_reason', 'Email not registered');
@@ -81,11 +81,12 @@ class AuthenticatedSessionController extends Controller
         try {
             $request->authenticate();
         } catch (\Illuminate\Validation\ValidationException $e) {
+
             // Log failed login attempt
-            $agent = new Agent();
-            $ip = $request->ip();
-            $isp = 'Unknown ISP';
-            $country = '';
+            // $agent = new Agent();
+            // $ip = $request->ip();
+            // $isp = 'Unknown ISP';
+            // $country = '';
 
             // try {
             //     $token = env('IPINFO_TOKEN');
@@ -171,7 +172,7 @@ class AuthenticatedSessionController extends Controller
                 $redirectRoute = RouteServiceProvider::HOME;
         }
 
-        Log::info('Session data in login controller:', session()->all());
+        // Log::info('Session data in login controller:', session()->all());
 
         redirect()->setIntendedUrl(url($redirectRoute));
         return redirect()->intended($redirectRoute)->with('success', 'Login Successfully');

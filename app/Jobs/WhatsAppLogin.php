@@ -46,16 +46,16 @@ class WhatsAppLogin implements ShouldQueue
             // $process = new Process(['bash', $scriptPath, $phpPath]);
             $process = new Process([$bashPath, $scriptPath, $phpPath]);
             $process->setTimeout(300);
-            $process->run(); // Don't use disableOutput here if you want logs below
+            $process->run(); 
 
             // Log::info('[WHATSAPP LOGIN] Exit Code: ' . $process->getExitCode());
             // Log::info('[WHATSAPP LOGIN] STDOUT: ' . $process->getOutput());
 
             if (!$process->isSuccessful()) {
-                // Log::error('[WHATSAPP LOGIN] STDERR: ' . $process->getErrorOutput());
-                // Log::error('[WHATSAPP LOGIN] Process failed.');
+                Log::error('[WHATSAPP LOGIN] STDERR: ' . $process->getErrorOutput());
+                Log::error('[WHATSAPP LOGIN] Process failed.');
             } else {
-                // Log::info('[WHATSAPP LOGIN] WhatsAppLoginTest completed successfully.');
+                Log::info('[WHATSAPP LOGIN] WhatsAppLoginTest completed successfully.');
             }
         } catch (\Exception $e) {
             // Log::error('[WHATSAPP LOGIN] Exception: ' . $e->getMessage());

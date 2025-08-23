@@ -80,6 +80,7 @@ class AdminWhatsAppController extends Controller
     {
         $user = auth()->user();
         try {
+            
             WhatsAppLogin::dispatch();
 
             activity()

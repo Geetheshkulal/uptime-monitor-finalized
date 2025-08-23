@@ -69,7 +69,7 @@
 
 <div class="container py-4">
     <div class="d-sm-flex align-items-center justify-content-between mb-3">
-        <h1 class="h3 mb-0 text-gray-800 white-color subscription-head">feature Requests</h1>
+        <h1 class="h3 mb-0 text-gray-800 white-color subscription-head">Feature Requests</h1>
     </div>
 
     <div id="featureRequests">
@@ -136,9 +136,10 @@
                         </div>
                     @endif --}}
                 </div>
+                
                 <div class="card-footer bg-transparent">
                     <div class="d-flex justify-content-between align-items-center">
-                        <div>
+                        <div class="d-flex flex-wrap">
                             <span class="text-muted author">Posted by {{ $post->author_name }}</span>
                             <span class="mx-2">•</span>
                             <small class="text-muted date" data-date="{{ $post->created_at->timestamp }}">{{ $post->created_at->timezone('Asia/Kolkata')->format('d-m-Y h:i A') }}</small>
@@ -154,6 +155,12 @@
         @endforeach
     </div>
     </div>
+
+    <!-- Pagination -->
+    <div class="mt-3 d-flex justify-content-center">
+        {{ $feedbearPosts->appends(request()->query())->links('pagination::bootstrap-4') }}
+     </div>
+
 </div>
 
 

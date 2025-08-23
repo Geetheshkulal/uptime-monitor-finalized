@@ -40,6 +40,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'country_code',
         'premium_end_date',
         'status',
+        'free_trial_days',
         'role',
         'email_verified_at',
         'parent_user_id',
