@@ -213,12 +213,14 @@ class UserController extends Controller
 
             $oldValues = [
                 'status' => $user->status,
-                'premium_end_date' => $user->premium_end_date ? $user->premium_end_date : null
+                'premium_end_date' => $user->premium_end_date ? $user->premium_end_date : null,
+                'free_trial_days' => $user->free_trial_days ? $user->free_trial_days : null
             ];
 
             $validated = $request->validate([
                 'status' => 'nullable|in:free,free_trial,paid',
-                'premium_end_date' => 'nullable|date|after_or_equal:today'
+                'premium_end_date' => 'nullable|date|after_or_equal:today',
+                'free_trial_days' => 'nullable|integer|min:0|max:10',
             ]);
         
             try {
@@ -230,11 +232,13 @@ class UserController extends Controller
                 $user->update([
                     'status' => $newStatus,
                     'premium_end_date' => $premiumEndDate,
+                    'free_trial_days' => $validated['free_trial_days'] ?? $user->free_trial_days,
                 ]);
         
                 $newValues = [
                     'status' => $newStatus,
                     'premium_end_date' => $premiumEndDate,
+                    'free_trial_days' => $request->free_trial_days ?? $user->free_trial_days,
                 ];
 
                 activity()

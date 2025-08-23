@@ -86,6 +86,7 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'last_login_ip' => $request->ip(),
             'phone'=> $request->phone,
+            'free_trial_days'=>10,
             'country_code' => $request->country_code,
         ]);
 

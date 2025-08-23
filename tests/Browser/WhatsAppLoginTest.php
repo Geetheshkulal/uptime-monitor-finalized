@@ -11,8 +11,6 @@ use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\Exception\NoSuchElementException;
 use App\Models\WhatsappSession;
 
-
-
 class WhatsAppLoginTest extends DuskTestCase
 {
     public function testWhatsappSessionLogin()
@@ -69,10 +67,11 @@ class WhatsAppLoginTest extends DuskTestCase
                                 'error_message' => 'QR not scanned in time'
                             ]
 
-                );
-              
-                Log::warning('[WHATSAPP SESSION] QR not scanned in time.');
-        
+                );  
+                Log::warning('[WHATSAPP SESSION] QR not scanned in time.'); 
+
+                $browser->quit();
+                return;
             }
         
     

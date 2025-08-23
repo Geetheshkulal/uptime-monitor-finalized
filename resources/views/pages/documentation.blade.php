@@ -2,18 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UP_TIME Monitoring System - Documentation</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     :root {
-      --primary-color: #4e73df;;
+      --primary-color: #4e73df;
       --primary-dark: #0a58ca;
       --accent-color: #ffc107;
       --white: #ffffff;
       --sidebar-width: 280px;
+      --sidebar-width-mobile: 240px;
     }
-    
     
     body {
       display: flex;
@@ -22,130 +23,154 @@
       font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
       background-color: #f8f9fa;
       color: #333;
-      position: sticky;
-      top: 0;
-      height: 100vh;
+      overflow-x: hidden;
     }
 
- /* Sidebar Container */
-.sidebar {
-    width: var(--sidebar-width);
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-    color: white;
-    padding: 20px 0;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    height: 100vh;
-    z-index: 10;
-    overflow-y: auto;
-    top: 0;
-    left: 0;
-}
+    .sidebar {
+      width: var(--sidebar-width);
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      color: white;
+      padding: 20px 0;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      height: 100vh;
+      z-index: 1000;
+      overflow-y: auto;
+      top: 0;
+      left: 0;
+      transition: transform 0.3s ease-in-out;
+    }
 
-/* Content Area */
-.content {
-    margin-left: var(--sidebar-width); /* Offset content to the right of the sidebar */
-    flex: 1;
-    padding: 40px;
-    overflow-y: auto;
-    position: relative;
-    background-color: #f8f9fa;
-    min-height: 94vh;
-}
+    .content {
+      margin-left: var(--sidebar-width); 
+      flex: 1;
+      padding: 40px;
+      overflow-y: auto;
+      position: relative;
+      background-color: #f8f9fa;
+      min-height: 94vh;
+      transition: margin-left 0.3s ease-in-out;
+    }
 
+    .mobile-header {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      color: white;
+      padding: 11px 20px;
+      z-index: 999;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
 
-/* Sidebar Header */
-.sidebar-header {
-    padding: 0 25px 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    text-align: center;
-}
+    .mobile-header a {
+      margin: 0;
+      font-size: 1.25rem;
+      display: flex;
+      align-items: center;
+    }
 
-.sidebar-header h4 {
-    font-weight: 600;
-    margin: 0;
-    font-size: 1.25rem;
-    color: white;
-}
+    .mobile-header a i {
+      margin-right: 10px;
+    }
 
-.sidebar-header a {
-    text-decoration: none;
-    color: white;
-}
+    .hamburger {
+      /* position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%); */
+      cursor: pointer;
+      font-size: 1.5rem;
+    }
 
-/* Navigation Menu */
-.nav-menu {
-    padding: 20px 0;
-}
+    .sidebar-header {
+      padding: 0 25px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+    }
 
-.nav-menu a {
-    color: rgba(255, 255, 255, 0.9);
-    text-decoration: none;
-    padding: 12px 25px;
-    display: flex;
-    align-items: center;
-    font-size: 15px;
-    transition: all 0.3s ease;
-    border-left: 4px solid transparent;
-    margin: 2px 0;
-}
+    .sidebar-header h4 {
+      font-weight: 600;
+      margin: 0;
+      font-size: 1.25rem;
+      color: white;
+    }
 
-.nav-menu a i {
-    margin-right: 12px;
-    width: 20px;
-    text-align: center;
-}
+    .sidebar-header a {
+      text-decoration: none;
+      color: white;
+    }
 
-.nav-menu a:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-left: 4px solid var(--white);
-    color: white;
-}
+    .nav-menu {
+      padding: 20px 0;
+    }
 
-.nav-menu a.active {
-    background-color: rgba(255, 255, 255, 0.15);
-    border-left: 4px solid var(--white);
-    color: white;
-}
+    .nav-menu a {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      padding: 12px 25px;
+      display: flex;
+      align-items: center;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      border-left: 4px solid transparent;
+      margin: 2px 0;
+    }
 
-/* Premium Badge */
-.badge-premium {
-    background-color: rgba(255, 193, 7, 0.2);
-    color: gold;
-    font-size: 0.7rem;
-    font-weight: 600;
-    padding: 3px 8px;
-    border-radius: 4px;
-    margin-left: 8px;
-    text-transform: uppercase;
-}
+    .nav-menu a i {
+      margin-right: 12px;
+      width: 20px;
+      text-align: center;
+    }
 
-/* Back Button */
-.back-btn {
-    margin: 20px 25px;
-    display: flex;
-    align-items: center;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 4px;
-    font-size: 14px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
+    .nav-menu a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-left: 4px solid var(--white);
+      color: white;
+    }
 
-.back-btn:hover {
-    background-color: var(--primary-dark);
-    transform: translateY(-1px);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
+    .nav-menu a.active {
+      background-color: rgba(255, 255, 255, 0.15);
+      border-left: 4px solid var(--white);
+      color: white;
+    }
 
-.back-btn i {
-    margin-right: 8px;
-}
+    .badge-premium {
+      background-color: rgba(255, 193, 7, 0.2);
+      color: gold;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+      margin-left: 8px;
+      text-transform: uppercase;
+    }
 
- 
+    .back-btn {
+      margin: 20px 25px;
+      display: flex;
+      align-items: center;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      font-size: 14px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .back-btn i {
+      margin-right: 8px;
+    }
 
     .tab-content {
       display: none;
@@ -237,62 +262,96 @@
       color: #333;
     }
 
-    @media (max-width: 992px) {
-      body {
-        flex-direction: column;
+    /* Mobile Responsive Styles */
+    @media (max-width: 578px) {
+      .mobile-header {
+        display: block;
       }
-    .sidebar {
-        width: 100%;
-        max-width: 100%;
-        padding: 15px 0;
-        position: relative;
-        height: auto;
-    }
-
-    .sidebar-header {
-        padding: 0 15px 10px;
-    }
-
-    .nav-menu {
-        display: flex;
-        overflow-x: auto;
-        padding: 10px 0 !important;
-        white-space: nowrap;
-    }
-
-    .nav-menu a {
-        padding: 8px 15px;
-        display: inline-block;
-        border-left: none;
-        border-bottom: 3px solid transparent;
-    }
-
-    .nav-menu a:hover,
-    .nav-menu a.active {
-        border-left: none;
-        border-bottom: 3px solid var(--accent-color);
-    }
-
-    .back-btn {
-        margin: 10px auto;
-        width: 90%;
-        text-align: center;
-    }
-     
-      .content {
-        margin-left: 0; /* Remove offset for smaller screens */
-        padding: 30px 20px;
-    }
       
+      .sidebar {
+        transform: translateX(-100%);
+        width: var(--sidebar-width-mobile);
+      }
+      
+      .content {
+        margin-left: 0;
+        padding: 70px 20px 30px;
+      }
+      
+      .sidebar-open .sidebar {
+        transform: translateX(0);
+        box-shadow: 5px 0 15px rgba(0, 0, 0, 0.2);
+      }
+      
+      .sidebar-open .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        display: block;
+      }
+      
+      .nav-menu {
+        padding: 10px 0;
+      }
+      
+      .nav-menu a {
+        padding: 10px 20px;
+      }
+      
+      .back-btn {
+        margin: 15px;
+        width: calc(100% - 30px);
+        text-align: center;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar-header h4 {
+        font-size: 1.1rem;
+      }
+      
+      .nav-menu a {
+        font-size: 14px;
+        padding: 8px 15px;
+      }
+      
+      .content {
+        padding: 70px 15px 20px;
+      }
+    }
+
+    .overlay {
+      display: none;
     }
   </style>
 </head>
+
 <body>
+  <!-- Mobile Header with Hamburger -->
+  <div class="mobile-header">
+    <div class="d-flex justify-content-between align-items-center w-100">
+      <div class="hamburger" id="hamburger-menu">
+        <i class="fas fa-bars"></i>
+      </div>
+      
+      <a class="fw-bold d-flex align-items-center text-white text-decoration-none ms-auto" href="/">
+        <i class="fas fa-heartbeat me-2"></i>Drishti Pulse
+      </a>
+    </div>
+  </div>
+
+  <!-- Overlay for when sidebar is open -->
+  <div class="overlay" id="overlay"></div>
 
   <!-- Sidebar Navigation -->
- <div class="sidebar">
+  <div class="sidebar">
     <div class="sidebar-header">
-        <a>
+        <a href="/">
             <h4><i class="fas fa-heartbeat me-2"></i>Drishti Pulse</h4>
         </a>
     </div>
@@ -305,7 +364,6 @@
         </a>
         <a href="#" onclick="showTab('tab3')">
             <i class="fas fa-lock"></i> SSL Monitoring 
-            <span class="badge-premium">Premium</span>
         </a>
         <a href="#" onclick="showTab('tab4')">
             <i class="fas fa-exclamation-triangle"></i> Incident Tracking
@@ -315,7 +373,6 @@
         </a>
         <a href="#" onclick="showTab('tab6')">
             <i class="fas fa-user-plus"></i> Add User
-            <span class="badge-premium">Premium</span>
         </a>
         <a href="#" onclick="showTab('tab7')">
             <i class="fas fa-ticket-alt"></i> Raise Ticket
@@ -323,20 +380,16 @@
         <a href="#" onclick="showTab('tab8')">
             <i class="fas fa-signal"></i> Status page
         </a>
-        <a href="#" onclick="showTab('tab9')">
-            <i class="fas fa-credit-card"></i> Plan & Subscription
-        </a>
     </div>
 
     <!-- Back Button -->
     <a href="{{ url()->previous() }}" class="back-btn">
         <i class="fas fa-arrow-left"></i> Back
     </a>
-</div>
+  </div>
 
   <!-- Main Content Area -->
   <div class="content">
-
     <!-- Overview Tab -->
     <div id="tab1" class="tab-content active">
       <div class="content-header">
@@ -355,12 +408,10 @@
           <li><strong>Performance Metrics:</strong> Response time tracking and historical data</li>
         </ul>
       </div>
-      
-      
     </div>
 
-    <!-- Website Monitoring Tab -->
-    <div id="tab2" class="tab-content">
+     <!-- Website Monitoring Tab -->
+     <div id="tab2" class="tab-content">
       <div class="content-header">
         <h2><i class="fas fa-globe feature-icon"></i> Website Monitoring</h2>
       </div>
@@ -433,79 +484,79 @@
       </div>
     </div>
 
-    <!-- SSL Monitoring Tab -->
-    <div id="tab3" class="tab-content">
-      <div class="content-header">
-        <h2><i class="fas fa-lock feature-icon"></i> SSL Monitoring <span class="badge-premium">Premium Feature</span></h2>
-      </div>
-      
-      <p class="lead">Advanced SSL certificate monitoring to ensure your website security never lapses. Get alerts before certificates expire and verify proper configuration.</p>
-      
-      
-      
-      <div class="row align-items-center mb-5">
-        <div class="col-lg-6">
-          <div class="card">
-            <div class="card-header bg-primary text-white">
-              <h5 class="mb-0">SSL Check Interface</h5>
+      <!-- SSL Monitoring Tab -->
+      <div id="tab3" class="tab-content">
+        <div class="content-header">
+          <h2><i class="fas fa-lock feature-icon"></i> SSL Monitoring</h2>
+        </div>
+        
+        <p class="lead">Advanced SSL certificate monitoring to ensure your website security never lapses. Get alerts before certificates expire and verify proper configuration.</p>
+        
+        
+        
+        <div class="row align-items-center mb-5">
+          <div class="col-lg-6">
+            <div class="card">
+              <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">SSL Check Interface</h5>
+              </div>
+              <div class="card-body">
+                <p>Simple yet powerful interface to validate SSL certificates:</p>
+                <ul class="mb-0">
+                  <li>Enter any website URL with HTTPS</li>
+                  <li>Comprehensive certificate validation</li>
+                  <li>Expiration tracking with countdown</li>
+                  <li>Configuration best practices check</li>
+                </ul>
+              </div>
             </div>
-            <div class="card-body">
-              <p>Simple yet powerful interface to validate SSL certificates:</p>
-              <ul class="mb-0">
-                <li>Enter any website URL with HTTPS</li>
-                <li>Comprehensive certificate validation</li>
-                <li>Expiration tracking with countdown</li>
-                <li>Configuration best practices check</li>
-              </ul>
+          </div>
+          <div class="col-lg-6 text-center">
+            <img src="frontend/assets/img/sslform.png" class="img-fluid img-preview" alt="SSL Form Preview">
+          </div>
+        </div>
+        
+        <div class="row align-items-center mb-5 flex-lg-row-reverse">
+          <div class="col-lg-6">
+            <div class="card">
+              <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Certificate Details</h5>
+              </div>
+              <div class="card-body">
+                <p>Detailed certificate analysis includes:</p>
+                <ul class="mb-0">
+                  <li><strong>Validity Status:</strong> Verified or problematic</li>
+                  <li><strong>Issuer Information:</strong> Certificate authority details</li>
+                  <li><strong>Domain Coverage:</strong> SAN and CN validation</li>
+                  <li><strong>Date Range:</strong> Issue and expiration dates</li>
+                  <li><strong>Security Grade:</strong> Protocol and cipher strength</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 text-center">
+            <img src="frontend/assets/img/sslcheck.png" class="img-fluid img-preview" alt="SSL Check Result">
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">SSL History Tracking</h5>
+          </div>
+          <div class="card-body">
+            <p>Premium users benefit from historical SSL data tracking:</p>
+            <ul>
+              <li>Trend analysis of certificate changes</li>
+              <li>Expiration countdown timeline</li>
+              <li>Configuration change alerts</li>
+              <li>Exportable reports for compliance</li>
+            </ul>
+            <div class="text-center mt-3">
+              <img src="frontend/assets/img/sslhistory.png" class="img-fluid img-preview" alt="SSL History" style="max-width: 80%;">
             </div>
           </div>
         </div>
-        <div class="col-lg-6 text-center">
-          <img src="frontend/assets/img/sslform.png" class="img-fluid img-preview" alt="SSL Form Preview">
-        </div>
       </div>
-      
-      <div class="row align-items-center mb-5 flex-lg-row-reverse">
-        <div class="col-lg-6">
-          <div class="card">
-            <div class="card-header bg-primary text-white">
-              <h5 class="mb-0">Certificate Details</h5>
-            </div>
-            <div class="card-body">
-              <p>Detailed certificate analysis includes:</p>
-              <ul class="mb-0">
-                <li><strong>Validity Status:</strong> Verified or problematic</li>
-                <li><strong>Issuer Information:</strong> Certificate authority details</li>
-                <li><strong>Domain Coverage:</strong> SAN and CN validation</li>
-                <li><strong>Date Range:</strong> Issue and expiration dates</li>
-                <li><strong>Security Grade:</strong> Protocol and cipher strength</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6 text-center">
-          <img src="frontend/assets/img/sslcheck.png" class="img-fluid img-preview" alt="SSL Check Result">
-        </div>
-      </div>
-      
-      <div class="card">
-        <div class="card-header bg-primary text-white">
-          <h5 class="mb-0">SSL History Tracking</h5>
-        </div>
-        <div class="card-body">
-          <p>Premium users benefit from historical SSL data tracking:</p>
-          <ul>
-            <li>Trend analysis of certificate changes</li>
-            <li>Expiration countdown timeline</li>
-            <li>Configuration change alerts</li>
-            <li>Exportable reports for compliance</li>
-          </ul>
-          <div class="text-center mt-3">
-            <img src="frontend/assets/img/sslhistory.png" class="img-fluid img-preview" alt="SSL History" style="max-width: 80%;">
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- Incident Tracking Tab -->
     <div id="tab4" class="tab-content">
@@ -541,8 +592,8 @@
       </div>
     </div>
 
-    <!-- Alert Notifications Tab -->
-    <div id="tab5" class="tab-content">
+     <!-- Alert Notifications Tab -->
+     <div id="tab5" class="tab-content">
       <div class="content-header">
         <h2><i class="fas fa-bell feature-icon"></i> Alert Notifications</h2>
       </div>
@@ -633,218 +684,218 @@
       </div>
     </div>
 
-    <!--Subuser Tab-->
-    <div id="tab6" class="tab-content">
-      <div class="content-header">
-        <h2><i class="fas fa-user-plus feature-icon"></i> Add User</h2>
-      </div>
-      
-      <p class="lead">Manage your team by adding users and assigning them specific permissions.</p>
-      
-      <div class="row mt-4">
-        <div class="col-lg-12">
-          <div class="card h-100">
-            <div class="card-header bg-primary text-white">
-              <h5 class="mb-0"><i class="fas fa-users me-2"></i> User Management</h5>
+      <!--Subuser Tab-->
+      <div id="tab6" class="tab-content">
+        <div class="content-header">
+          <h2><i class="fas fa-user-plus feature-icon"></i> Add User</h2>
+        </div>
+        
+        <p class="lead">Manage your team by adding users and assigning them specific permissions.</p>
+        
+        <div class="row mt-4">
+          <div class="col-lg-12">
+            <div class="card h-100">
+              <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="fas fa-users me-2"></i> User Management</h5>
+              </div>
+              <div class="card-body">
+                <p>To add a new user, follow these steps:</p>
+                <ol>
+                  <li>Navigate to the User Management section</li>
+                  <li>Click on "Add User"</li>
+                  <li>Fill in the user details (name, email, etc.)</li>
+                  <li>Select permissions for the user</li>
+                  <li>Click "Save" to create the user</li>
+                </ol>
+              </div>
             </div>
-            <div class="card-body">
-              <p>To add a new user, follow these steps:</p>
-              <ol>
-                <li>Navigate to the User Management section</li>
-                <li>Click on "Add User"</li>
-                <li>Fill in the user details (name, email, etc.)</li>
-                <li>Select permissions for the user</li>
-                <li>Click "Save" to create the user</li>
-              </ol>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-lg-12">
+            <div class="card h-100">
+              <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="fas fa-user-cog me-2"></i> User Permissions</h5>
+              </div>
+              <div class="card-body">
+                <p>Permissions can be set for each user to control their access level:</p>
+                <ul>
+                  <li><strong>User:</strong> Full access to all features</li>
+                  <li><strong>SubUser:</strong> Access to Features that the user gives permission's like dashboard,Incident,Status page</li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="row mt-4">
-        <div class="col-lg-12">
-          <div class="card h-100">
-            <div class="card-header bg-primary text-white">
-              <h5 class="mb-0"><i class="fas fa-user-cog me-2"></i> User Permissions</h5>
-            </div>
-            <div class="card-body">
-              <p>Permissions can be set for each user to control their access level:</p>
-              <ul>
-                <li><strong>User:</strong> Full access to all features</li>
-                <li><strong>SubUser:</strong> Access to Features that the user gives permission's like dashboard,Incident,Status page</li>
-              </ul>
-            </div>
+
+   <!--Raise Ticket Tab-->
+   <div id="tab7" class="tab-content">
+    <div class="content-header">
+      <h2><i class="fas fa-ticket-alt feature-icon"></i> Raise Ticket</h2>
+    </div>
+    
+    <div class="row mt-4">
+      <div class="col-lg-12">
+        <div class="card h-100">
+          <div class="card-header bg-primary text-white">
+            <h5 class="mb-0"><i class="fas fa-ticket-alt me-2"></i> Ticket Management</h5>
+          </div>
+          <div class="card-body">
+            <p>To raise a ticket, follow these steps:</p>
+            <ol>
+              <li>Navigate to the Raise Issue section</li>
+              <li>Click on "Raise Ticket"</li>
+              <li>Fill in the ticket details (subject, description, etc.)</li>
+              <li>Click "Submit" to create the ticket</li>
+            </ol>
           </div>
         </div>
       </div>
     </div>
+    <div class="row mt-4">
+      <div class="col-lg-12">
+        <div class="card h-100">
+          <div class="card-header bg-primary text-white">
+            <h5 class="mb-0"><i class="fas fa-history me-2"></i> Ticket History</h5>
+          </div>
+          <div class="card-body">
+            <p>View your ticket history and track the status of your requests:</p>
+            <ul>
+              <li><strong>Open Tickets:</strong> The user or subuser can view all tickets that are currently open</li>
+              <li><strong>Closed Tickets:</strong> View all tickets that have been resolved</li>
+              <li><strong>Ticket Details:</strong> Click on a ticket to view its details and responses</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-lg-12">
+        <div class="card h-100">
+          <div class="card-header bg-primary text-white">
+            <h5 class="mb-0"><i class="fas fa-comments me-2"></i> Ticket Responses</h5>
+          </div>
+          <div class="card-body">
+            <p>Communicate with our support team through ticket responses:</p>
+            <ul>
+              <li><strong>View Responses:</strong> Check the responses from our support team</li>
+              <li><strong>Add Comments:</strong> Add comments or additional information to your ticket</li>
+              <li><strong>Close Ticket:</strong> The ticket is closed once the user issue is resolved</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <!--Raise Ticket Tab-->
-    <div id="tab7" class="tab-content">
-      <div class="content-header">
-        <h2><i class="fas fa-ticket-alt feature-icon"></i> Raise Ticket</h2>
-      </div>
-      
-      <div class="row mt-4">
-        <div class="col-lg-12">
-          <div class="card h-100">
-            <div class="card-header bg-primary text-white">
-              <h5 class="mb-0"><i class="fas fa-ticket-alt me-2"></i> Ticket Management</h5>
-            </div>
-            <div class="card-body">
-              <p>To raise a ticket, follow these steps:</p>
-              <ol>
-                <li>Navigate to the Raise Issue section</li>
-                <li>Click on "Raise Ticket"</li>
-                <li>Fill in the ticket details (subject, description, etc.)</li>
-                <li>Click "Submit" to create the ticket</li>
-              </ol>
-            </div>
+   <!-- Status Page Tab -->
+   <div id="tab8" class="tab-content">
+    <div class="content-header">
+      <h2><i class="fas fa-signal feature-icon"></i>Status page</h2>
+    </div>
+  <div class="row align-items-center mb-5">
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Status page view for user</h5>
+          </div>
+          <div class="card-body">
+            <p>The users can view the status page from their account itself</p>
+            <ul class="mb-0">
+              <li>Navigate to the Status page section</li>
+            <li>It will show the status of all the websites that are being monitored</li>
+            </ul>
           </div>
         </div>
       </div>
-      <div class="row mt-4">
-        <div class="col-lg-12">
-          <div class="card h-100">
-            <div class="card-header bg-primary text-white">
-              <h5 class="mb-0"><i class="fas fa-history me-2"></i> Ticket History</h5>
-            </div>
-            <div class="card-body">
-              <p>View your ticket history and track the status of your requests:</p>
-              <ul>
-                <li><strong>Open Tickets:</strong> The user or subuser can view all tickets that are currently open</li>
-                <li><strong>Closed Tickets:</strong> View all tickets that have been resolved</li>
-                <li><strong>Ticket Details:</strong> Click on a ticket to view its details and responses</li>
-              </ul>
-            </div>
+      <div class="col-lg-6 text-center">
+        <img src="frontend/assets/img/status_page.png" class="img-fluid img-preview" alt="SSL Form Preview">
+      </div>
+    </div>
+    <div class="row align-items-center mb-5">
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">How to make the status page Public</h5>
+          </div>
+          <div class="card-body">
+            <p>If the user wants to make the status page to be seen by other's :</p>
+            <ul class="mb-0">
+              <li>Navigate to the Status page section</li>
+            <li>It will show button to share status page,click on that button</li>
+            <li>whitelist your ip address to make the status page public</li>
+            <li>click on enable public status page</li>
+            <li>now click on save settings button and your status page will be public</li>
+            <li>you can share the link with anyone to view the status page</li>
+            </ul>
           </div>
         </div>
       </div>
-      <div class="row mt-4">
-        <div class="col-lg-12">
-          <div class="card h-100">
-            <div class="card-header bg-primary text-white">
-              <h5 class="mb-0"><i class="fas fa-comments me-2"></i> Ticket Responses</h5>
-            </div>
-            <div class="card-body">
-              <p>Communicate with our support team through ticket responses:</p>
-              <ul>
-                <li><strong>View Responses:</strong> Check the responses from our support team</li>
-                <li><strong>Add Comments:</strong> Add comments or additional information to your ticket</li>
-                <li><strong>Close Ticket:</strong> The ticket is closed once the user issue is resolved</li>
-              </ul>
-            </div>
-          </div>
-        </div>
+      <div class="col-lg-6 text-center">
+        <img src="frontend/assets/img/public_status_page.png" class="img-fluid img-preview" alt="SSL Form Preview">
       </div>
     </div>
     
-    <!-- Status Page Tab -->
-    <div id="tab8" class="tab-content">
-      <div class="content-header">
-        <h2><i class="fas fa-signal feature-icon"></i>Status page</h2>
-      </div>
-    <div class="row align-items-center mb-5">
-        <div class="col-lg-6">
-          <div class="card">
-            <div class="card-header bg-primary text-white">
-              <h5 class="mb-0">Status page view for user</h5>
-            </div>
-            <div class="card-body">
-              <p>The users can view the status page from their account itself</p>
-              <ul class="mb-0">
-                <li>Navigate to the Status page section</li>
-              <li>It will show the status of all the websites that are being monitored</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6 text-center">
-          <img src="frontend/assets/img/status_page.png" class="img-fluid img-preview" alt="SSL Form Preview">
-        </div>
-      </div>
-      <div class="row align-items-center mb-5">
-        <div class="col-lg-6">
-          <div class="card">
-            <div class="card-header bg-primary text-white">
-              <h5 class="mb-0">How to make the status page Public</h5>
-            </div>
-            <div class="card-body">
-              <p>If the user wants to make the status page to be seen by other's :</p>
-              <ul class="mb-0">
-                <li>Navigate to the Status page section</li>
-              <li>It will show button to share status page,click on that button</li>
-              <li>whitelist your ip address to make the status page public</li>
-              <li>click on enable public status page</li>
-              <li>now click on save settings button and your status page will be public</li>
-              <li>you can share the link with anyone to view the status page</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6 text-center">
-          <img src="frontend/assets/img/public_status_page.png" class="img-fluid img-preview" alt="SSL Form Preview">
-        </div>
-      </div>
-      
-    </div>
+  </div>
 
     <!-- Plan & Subscription Tab -->
     <div id="tab9" class="tab-content">
-  <div class="content-header">
-    <h2><i class="fas fa-credit-card feature-icon"></i> Plan & Subscription</h2>
-  </div>
-
-  <p class="lead">Choose the plan that fits your monitoring needs and manage your subscription preferences.</p>
-
-  <div class="row mt-4">
-    <!-- Basic Plan -->
-    <div class="col-lg-6 mb-4">
-      <div class="card h-100">
-        <div class="card-header bg-primary text-white">
-          <h5 class="mb-0"><i class="fas fa-star me-2"></i> Basic Plan</h5>
-        </div>
-        <div class="card-body">
-          <h4 class="card-title pricing-card-title">₹0<small class="text-muted fw-light">/month</small></h4>
-          <ul class="list-unstyled mt-3 mb-4">
-            <li class="mb-3"><i class="fas fa-check-circle text-primary"></i> Monitor 5 websites</li>
-            <li class="mb-3"><i class="fas fa-check-circle text-primary"></i> 5-minute check</li>
-            <li class="mb-3"><i class="fas fa-check-circle text-primary"></i> Email alerts</li>
-            <li class="mb-3"><i class="fas fa-check-circle text-primary"></i> 1-Month history</li>
-            <li class="mb-3"><i class="fas fa-times-circle text-primary"></i> Public Status page</li>
-            <li class="mb-3"><i class="fas fa-times-circle text-danger"></i> Telegram alert unavailable</li>
-            <li class="mb-3"><i class="fas fa-times-circle text-danger"></i> SSL expiry check unavailable</li>
-            <li class="mb-3"><i class="fas fa-times-circle text-danger"></i> Team management unavailable</li>
-          </ul>
-        </div>
+      <div class="content-header">
+        <h2><i class="fas fa-credit-card feature-icon"></i> Plan & Subscription</h2>
       </div>
-    </div>
-
-    <!-- Premium Plans -->
-    @foreach($plans as $plan)
-    <div class="col-lg-6 mb-4">
-      <div class="card h-100 border-primary">
-        <div class="card-header bg-primary text-white">
-          <h5 class="mb-0"><i class="fas fa-crown me-2"></i> {{ $plan->name }}</h5>
+    
+      <p class="lead">Choose the plan that fits your monitoring needs and manage your subscription preferences.</p>
+    
+      <div class="row mt-4">
+        <!-- Basic Plan -->
+        <div class="col-lg-6 mb-4">
+          <div class="card h-100">
+            <div class="card-header bg-primary text-white">
+              <h5 class="mb-0"><i class="fas fa-star me-2"></i> Basic Plan</h5>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title pricing-card-title">₹0<small class="text-muted fw-light">/month</small></h4>
+              <ul class="list-unstyled mt-3 mb-4">
+                <li class="mb-3"><i class="fas fa-check-circle text-primary"></i> Monitor 5 websites</li>
+                <li class="mb-3"><i class="fas fa-check-circle text-primary"></i> 5-minute check</li>
+                <li class="mb-3"><i class="fas fa-check-circle text-primary"></i> Email alerts</li>
+                <li class="mb-3"><i class="fas fa-check-circle text-primary"></i> 1-Month history</li>
+                <li class="mb-3"><i class="fas fa-times-circle text-primary"></i> Public Status page</li>
+                <li class="mb-3"><i class="fas fa-times-circle text-danger"></i> Telegram alert unavailable</li>
+                <li class="mb-3"><i class="fas fa-times-circle text-danger"></i> SSL expiry check unavailable</li>
+                <li class="mb-3"><i class="fas fa-times-circle text-danger"></i> Team management unavailable</li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <div class="card-body">
-          <h4 class="card-title pricing-card-title">₹{{ $plan->amount }}<small class="text-muted fw-light">/month</small></h4>
-          <ul class="list-unstyled mt-3 mb-4">
-            <li class="mb-3"><i class="fas fa-check-circle text-primary"></i> All basic features</li>
-            <li class="mb-3"><i class="fas fa-check-circle text-primary"></i> Monitor unlimited websites</li>
-            <li class="mb-3"><i class="fas fa-check-circle text-primary"></i> 1-minute check</li>
-            <li class="mb-3"><i class="fas fa-check-circle text-primary"></i> Telegram bot notification alert</li>
-            <li class="mb-3"><i class="fas fa-check-circle text-primary"></i> 4-Month history</li>
-            <li class="mb-3"><i class="fas fa-check-circle text-primary"></i> Public Status page</li>
-            <li class="mb-3"><i class="fas fa-check-circle text-primary"></i> SSL expiry check</li>
-            <li class="mb-3"><i class="fas fa-check-circle text-primary"></i> Team management</li>
-          </ul>
+    
+        <!-- Premium Plans -->
+        @foreach($plans as $plan)
+        <div class="col-lg-6 mb-4">
+          <div class="card h-100 border-primary">
+            <div class="card-header bg-primary text-white">
+              <h5 class="mb-0"><i class="fas fa-crown me-2"></i> {{ $plan->name }}</h5>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title pricing-card-title">₹{{ $plan->amount }}<small class="text-muted fw-light">/month</small></h4>
+              <ul class="list-unstyled mt-3 mb-4">
+                <li class="mb-3"><i class="fas fa-check-circle text-primary"></i> All basic features</li>
+                <li class="mb-3"><i class="fas fa-check-circle text-primary"></i> Monitor unlimited websites</li>
+                <li class="mb-3"><i class="fas fa-check-circle text-primary"></i> 1-minute check</li>
+                <li class="mb-3"><i class="fas fa-check-circle text-primary"></i> Telegram bot notification alert</li>
+                <li class="mb-3"><i class="fas fa-check-circle text-primary"></i> 4-Month history</li>
+                <li class="mb-3"><i class="fas fa-check-circle text-primary"></i> Public Status page</li>
+                <li class="mb-3"><i class="fas fa-check-circle text-primary"></i> SSL expiry check</li>
+                <li class="mb-3"><i class="fas fa-check-circle text-primary"></i> Team management</li>
+              </ul>
+            </div>
+          </div>
         </div>
+        @endforeach
       </div>
-    </div>
-    @endforeach
+        </div>
   </div>
-    </div>
-
 
   <script>
     function showTab(tabId) {
@@ -860,46 +911,45 @@
       navLinks.forEach(link => link.classList.remove('active'));
       event.currentTarget.classList.add('active');
       
+      // Close sidebar on mobile after selection
+      if (window.innerWidth <= 992) {
+        document.body.classList.remove('sidebar-open');
+        document.getElementById('overlay').style.display = 'none';
+      }
+      
       // Scroll to top of content
       document.querySelector('.content').scrollTo(0, 0);
-    }
-  </script>
-  <!--script so that tab remains active even after refresh-->
-<script>
-    // Function to show a specific tab
-    function showTab(tabId) {
-        // Hide all tab contents
-        const tabs = document.querySelectorAll('.tab-content');
-        tabs.forEach(tab => tab.classList.remove('active'));
-        
-        // Show the selected tab
-        document.getElementById(tabId).classList.add('active');
-        
-        // Update active nav link
-        const navLinks = document.querySelectorAll('.nav-menu a');
-        navLinks.forEach(link => link.classList.remove('active'));
-        event.currentTarget.classList.add('active');
-        
-        // Save the active tab ID to localStorage
-        localStorage.setItem('activeTab', tabId);
-        
-        // Scroll to top of content
-        document.querySelector('.content').scrollTo(0, 0);
+      
+      // Save active tab
+      localStorage.setItem('activeTab', tabId);
     }
 
-    // Restore the active tab on page load
-    document.addEventListener('DOMContentLoaded', () => {
-        const savedTab = localStorage.getItem('activeTab') || 'tab1'; // Default to 'tab1' if no tab is saved
-        showTab(savedTab);
-
-        // Highlight the corresponding nav link
-        const navLinks = document.querySelectorAll('.nav-menu a');
-        navLinks.forEach(link => {
-            if (link.getAttribute('onclick').includes(savedTab)) {
-                link.classList.add('active');
-            }
-        });
+    // Hamburger menu functionality
+    document.getElementById('hamburger-menu').addEventListener('click', function() {
+      document.body.classList.toggle('sidebar-open');
+      document.getElementById('overlay').style.display = 
+        document.body.classList.contains('sidebar-open') ? 'block' : 'none';
     });
-</script>
+
+    // Close sidebar when clicking on overlay
+    document.getElementById('overlay').addEventListener('click', function() {
+      document.body.classList.remove('sidebar-open');
+      this.style.display = 'none';
+    });
+
+    // Load active tab on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const savedTab = localStorage.getItem('activeTab') || 'tab1';
+      showTab(savedTab);
+      
+      // Set the active class on the correct nav link
+      const navLinks = document.querySelectorAll('.nav-menu a');
+      navLinks.forEach(link => {
+        if (link.getAttribute('onclick') && link.getAttribute('onclick').includes(savedTab)) {
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
 </body>
 </html>

@@ -29,7 +29,7 @@ abstract class DuskTestCase extends BaseTestCase
         $options = (new ChromeOptions)
             ->setBinary(env('CHROMIUM_BINARY'))
             ->addArguments([
-                 '--headless=new',
+                 '--headless',
                 '--disable-gpu',
                 '--window-size=1920,1080',
                 '--no-sandbox',
@@ -39,7 +39,6 @@ abstract class DuskTestCase extends BaseTestCase
                 '--enable-webgl',
                 '--use-angle=swiftshader',
                 '--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-
             ]);
 
         return RemoteWebDriver::create(
