@@ -18,9 +18,12 @@ class FeedBackController extends Controller
     {
             $token = $request->header('token'); 
             $expectedToken = env('FEEDBEAR_WEBHOOK_TOKEN'); 
+            
+            // Log::info('FeedBear Webhook Token: ' . $token);
+            // Log::info('Expected Token: ' . $expectedToken);
 
             if ($token !== $expectedToken) {
-                // Log::warning('Invalid FeedBear token received', ['token' => $token]);
+                //  Log::warning('Invalid FeedBear token received', ['token' => $token]);
                 return response()->json(['message' => 'Invalid token'], 401);
             }
 
@@ -31,9 +34,9 @@ class FeedBackController extends Controller
                 case 'post_new':
                     $this->handleNewPost($data['payload']);
                     break;
-                case 'post_upvotes':
-                    $this->handlePostUpvote($data['payload']);
-                    break;
+                // case 'post_upvotes':
+                //     $this->handlePostUpvote($data['payload']);
+                //     break;
             }
             return response()->json(['message' => 'success']);
     }
