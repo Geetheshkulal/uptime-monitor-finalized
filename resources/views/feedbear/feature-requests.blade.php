@@ -122,6 +122,7 @@
     let startDate = '';
     let endDate = '';
     let order = 'desc';
+    let searchTimeout;
 
     // Init flatpickr for date range
     flatpickr("#dateRange", {
@@ -137,7 +138,7 @@
     });
 
     // Fetch posts via AJAX
-    function fetchPosts(page = 1) {
+    function fetchPosts(cursor = null) {
         $.ajax({
             url: "{{ route('feedback.filter') }}",
             data: {
@@ -145,7 +146,7 @@
                 start_date: startDate,
                 end_date: endDate,
                 order: order,
-                page: page
+                cursor: cursor
             },
             success: function(res) {
                 renderPosts(res.data);
@@ -153,6 +154,7 @@
             }
         });
     }
+
 
     // Render cards dynamically
     function renderPosts(posts) {
@@ -208,22 +210,14 @@
         let pagination = $('#pagination');
         pagination.empty();
 
-        if (res.last_page <= 1) return;
-
         let html = `<nav><ul class="pagination justify-content-center">`;
 
-        if (res.current_page > 1) {
-            html += `<li class="page-item"><a class="page-link" href="#" data-page="${res.current_page - 1}">Prev</a></li>`;
+        if (res.prev_cursor) {
+            html += `<li class="page-item"><a class="page-link" href="#" data-cursor="${res.prev_cursor}">Prev</a></li>`;
         }
 
-        for (let i = 1; i <= res.last_page; i++) {
-            html += `<li class="page-item ${i === res.current_page ? 'active' : ''}">
-                        <a class="page-link" href="#" data-page="${i}">${i}</a>
-                     </li>`;
-        }
-
-        if (res.current_page < res.last_page) {
-            html += `<li class="page-item"><a class="page-link" href="#" data-page="${res.current_page + 1}">Next</a></li>`;
+        if (res.next_cursor) {
+            html += `<li class="page-item"><a class="page-link" href="#" data-cursor="${res.next_cursor}">Next</a></li>`;
         }
 
         html += `</ul></nav>`;
@@ -232,10 +226,11 @@
         // bind click events
         $('#pagination .page-link').on('click', function(e) {
             e.preventDefault();
-            let page = $(this).data('page');
-            fetchPosts(page);
+            let cursor = $(this).data('cursor');
+            fetchPosts(cursor);
         });
     }
+
 
     // Attachment modal handling
     function bindAttachmentClicks() {
@@ -251,7 +246,8 @@
 
     // Search event
     $('.search').on('keyup', function() {
-        fetchPosts();
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => fetchPosts(), 400); // waits 400ms
     });
 
     // Sort buttons

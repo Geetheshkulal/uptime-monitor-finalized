@@ -62,25 +62,31 @@ class FeedBackController extends Controller
     }
    
     public function filter(Request $request)
-{
-    $query = FeedBearPost::query();
+    {
+        $query = FeedBearPost::query();
 
-    if ($request->search) {
-        $query->where('title', 'like', '%' . $request->search . '%')
-              ->orWhere('content', 'like', '%' . $request->search . '%');
-    }
+        if ($request->search) {
+            $query->where(function($q) use ($request) {
+                $q->where('title', 'like', '%' . $request->search . '%')
+                ->orWhere('content', 'like', '%' . $request->search . '%');
+            });
+        }
 
-    if ($request->start_date && $request->end_date) {
-        $query->whereBetween('created_at', [
-            Carbon::createFromFormat('d-m-Y', $request->start_date)->startOfDay(),
-            Carbon::createFromFormat('d-m-Y', $request->end_date)->endOfDay()
+        if ($request->start_date && $request->end_date) {
+            $query->whereBetween('created_at', [
+                Carbon::createFromFormat('d-m-Y', $request->start_date)->startOfDay(),
+                Carbon::createFromFormat('d-m-Y', $request->end_date)->endOfDay()
+            ]);
+        }
+
+        $order = $request->order === 'asc' ? 'asc' : 'desc';
+
+        $posts = $query->orderBy('created_at', $order)->cursorPaginate(6);
+
+        return response()->json([
+            'data' => $posts->items(),
+            'next_cursor' => $posts->nextCursor()?->encode(),
+            'prev_cursor' => $posts->previousCursor()?->encode(),
         ]);
     }
-
-    $order = $request->order === 'asc' ? 'asc' : 'desc';
-    $posts = $query->orderBy('created_at', $order)->paginate(6); // paginated
-
-    return response()->json($posts);
-}
-
 }
