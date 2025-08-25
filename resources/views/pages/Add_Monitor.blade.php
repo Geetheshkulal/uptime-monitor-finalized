@@ -83,6 +83,17 @@
     display: none !important;
         
     }
+
+    #monitoringTabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  #monitoringTabs .nav-item {
+    flex: 1 1 calc(50% - 8px);
+  }
+
 }
  </style>
 
