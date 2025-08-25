@@ -147,12 +147,12 @@
 <!-- Right Sidebar -->
 <div id="subuserSidebar" class="subuser-sidebar card">
     <div class="subuser-sidebar-header card-header">
-        <h5 id="sidebarSubuser" class="white-color">IP Details</h5>
+        <h5 id="sidebarSubuser" class="white-color"></h5>
         <button class="close-btn" id="closesubuserSidebar">&times;</button>
     </div>
     <div class="subuser-sidebar-content">
         <label for="subuserSearch">Search</label>
-        <input type="text" id="subuserSearch" class="form-control" placeholder="Search something...">
+        <input type="text" id="subuserSearch" class="form-control" placeholder="Search Subusers...">
 
         <ul id="subusersList" class="list-group mt-3">
             <!-- Users will be populated here -->

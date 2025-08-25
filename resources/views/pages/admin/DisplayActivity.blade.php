@@ -24,47 +24,47 @@ html, body {
 #content {
     flex: 1; 
 }
-        .select2-container--default .select2-selection--single {
-            height: 38px;
-            border: 1px solid #d1d3e2;
-            border-radius: 0.35rem;
-            padding: 6px 12px;
-        }
-        .select2-container--default .select2-selection--single .select2-selection__arrow {
-            height: 36px;
-        }
-        .select2-container--default .select2-selection--single .select2-selection__rendered {
-            line-height: 24px;
-        }
-        .filter-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        .filter-container label {
-            margin-bottom: 0;
-            font-weight: 600;
-            color: #6e707e;
-        }
-    
-        .dataTables_processing {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 200px;
-            margin-left: -100px;
-            margin-top: -26px;
-            text-align: center;
-            padding: 1em 0;
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid #ddd;
-        }
+.select2-container--default .select2-selection--single {
+    height: 38px;
+    border: 1px solid #d1d3e2;
+    border-radius: 0.35rem;
+    padding: 6px 12px;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 36px;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 24px;
+}
+.filter-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+.filter-container label {
+    margin-bottom: 0;
+    font-weight: 600;
+    color: #6e707e;
+}
 
-        .select2-results__options {
-            max-height: 200px; /* Adjust this value as needed */
-            overflow-y: auto;
-        }
+.dataTables_processing {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    margin-left: -100px;
+    margin-top: -26px;
+    text-align: center;
+    padding: 1em 0;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ddd;
+}
+
+.select2-results__options {
+    max-height: 200px; /* Adjust this value as needed */
+    overflow-y: auto;
+}
 
 
     /* Select2 Dark Mode Styling */
@@ -205,7 +205,7 @@ html.dark-mode .select2-container--default .select2-results__option[aria-selecte
                 </button>
             </div>
             <div class="modal-body">
-                <pre id="propertiesContent" class="bg-light p-3 border rounded" style="max-height: 500px; overflow: auto;"></pre>
+                <pre id="propertiesContent" class="card p-3 border rounded" style="max-height: 500px; overflow: auto;"></pre>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -263,6 +263,18 @@
         outline: none !important;
         box-shadow: none !important;
     }
+
+    .introjs-skipbutton{
+            color: var(--color-card-dark) !important;
+    }
+    .introjs-button {
+            background-color: var(--primary) !important;
+            border-radius: 0.25rem;
+            font-weight: 600;
+            color: white !important;
+            text-shadow: none;
+            
+    }
     </style>
 
 

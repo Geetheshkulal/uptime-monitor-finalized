@@ -97,7 +97,7 @@ Route::middleware(['auth', 'blockIp'])->group(function () {
 Route::get('/', function () {
     $plans = Subscriptions::all();
     return view('welcome', compact('plans'));
-})->middleware('blockIp','log.traffic');
+})->middleware('blockIp', 'log.traffic');
 
 Route::get('latestUpdates', function () {
     return view('pages.latestUpdates');
@@ -153,6 +153,7 @@ Route::middleware(['auth', 'verified', 'CheckUserSession', 'blockIp'])->group(fu
     Route::patch('/user/update/billing', [UserController::class, 'UpdateBillingInfo'])->name('update.billing.info');
 
     Route::get('/feedback', [FeedBackController::class, 'showFeatureRequests'])->name('display.feedback');
+    Route::get('/feedback/filter', [FeedBackController::class, 'filter'])->name('feedback.filter');
 });
 
 Route::middleware(['auth', 'verified', 'CheckUserSession', 'blockIp'])->group(function () {
