@@ -8,9 +8,15 @@ use Illuminate\Support\Facades\Log;
 
 class AddPlanService
 {
-    // protected $baseUrl = 'https://sandbox.cashfree.com/pg/plans';
-    protected $baseUrl = 'https://api.cashfree.com/pg/plans';
+     protected $baseUrl;
 
+    public function __construct()
+    {
+        $this->baseUrl = env('DRISHTI_PULSE_ENV') === 'local'
+            ? 'https://sandbox.cashfree.com/pg/plans'
+            : 'https://api.cashfree.com/pg/plans';
+    }
+    
     // protected function headers()
     // {
     //     return [
