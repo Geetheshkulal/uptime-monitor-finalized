@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UP_TIME Monitoring System - Documentation</title>
+  <title>Drishti pulse | Documentation</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
@@ -366,7 +366,7 @@
             <i class="fas fa-lock"></i> SSL Monitoring 
         </a>
         <a href="#" onclick="showTab('tab4')">
-            <i class="fas fa-exclamation-triangle"></i> Incident Tracking
+            <i class="fas fa-exclamation-triangle"></i> Incident Details
         </a>
         <a href="#" onclick="showTab('tab5')">
             <i class="fas fa-bell"></i> Alert Notifications
@@ -435,7 +435,7 @@
           </div>
         </div>
         <div class="col-lg-6 text-center">
-          <img src="frontend/assets/img/form.png" class="img-fluid img-preview" alt="Monitor Form Preview">
+          <img src="frontend/assets/img/addmonitor.png" class="img-fluid img-preview" alt="Monitor Form Preview">
         </div>
       </div>
       
@@ -492,7 +492,7 @@
         
         <p class="lead">Advanced SSL certificate monitoring to ensure your website security never lapses. Get alerts before certificates expire and verify proper configuration.</p>
         
-        
+
         
         <div class="row align-items-center mb-5">
           <div class="col-lg-6">
@@ -561,7 +561,7 @@
     <!-- Incident Tracking Tab -->
     <div id="tab4" class="tab-content">
       <div class="content-header">
-        <h2><i class="fas fa-exclamation-triangle feature-icon"></i> Incident Tracking</h2>
+        <h2><i class="fas fa-exclamation-triangle feature-icon"></i> Incident Details</h2>
       </div>
       
       <p class="lead">Comprehensive incident logging with detailed diagnostics to help you understand and resolve downtime issues quickly.</p>
@@ -578,7 +578,6 @@
                 <li><strong>Root Cause Analysis:</strong> Identifies which check failed (HTTP, Ping, Port, or DNS)</li>
                 <li><strong>Timeline:</strong> Precise start and end time of the outage</li>
                 <li><strong>Duration:</strong> Total downtime calculated automatically</li>
-                <li><strong>Status Tracking:</strong> Ongoing incidents vs resolved issues</li>
                 <li><strong>Affected Components:</strong> Shows which monitors were impacted</li>
               </ul>
             </div>
@@ -666,11 +665,10 @@
               <ul>
                 <li>Service Down (Immediate)</li>
                 <li>Service Recovery</li>
-                <li>SSL Certificate Expiry (7/30/60 day warnings)</li>
                 <li>Uptime Percentage Thresholds</li>
               </ul>
             </div>
-            <div class="col-md-6">
+            {{-- <div class="col-md-6">
               <h6>Alert Frequency:</h6>
               <ul>
                 <li>Instant Alerts</li>
@@ -678,7 +676,7 @@
                 <li>Weekly Summary</li>
                 <li>Critical Only</li>
               </ul>
-            </div>
+            </div> --}}
           </div>
         </div>
       </div>

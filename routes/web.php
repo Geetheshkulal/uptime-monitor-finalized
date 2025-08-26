@@ -54,9 +54,6 @@ use App\Http\Controllers\PushNotificationController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 
-
-use App\Http\Controllers\TestWebPushNotificationController;
-
 // Route::get('/test-notification', [TestWebPushNotificationController::class, 'sendTestNotification']);
 
 
@@ -113,6 +110,9 @@ Route::get('documentation', function () {
     return view('pages.documentation', compact('plans'));
 })->middleware('blockIp')->name('documentation.page');
 
+Route::view('/terms', 'TermsAndConditions.terms')->name('terms');
+Route::view('/privacy', 'TermsAndConditions.privacy')->name('privacy');
+Route::view('/cookies', 'TermsAndConditions.cookies')->name('cookies');
 
 // email verify and register route
 Route::post('/email/verification-notification', function (Request $request) {
