@@ -70,6 +70,63 @@
         border-color: #dc3545;
     }
 
+    .subuser-sidebar {
+        position: fixed;
+        top: 0;
+        right: -400px; /* hidden initially */
+        width: 400px;
+        height: 100%;
+        background: #fff;
+        border-left: 1px solid #ddd;
+        box-shadow: -2px 0 8px rgba(0,0,0,0.15);
+        transition: right 0.3s ease;
+        z-index: 1050;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .subuser-sidebar.open {
+        right: 0;
+    }
+
+    .subuser-sidebar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        background: #f8fafc;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .subuser-sidebar-header h5 {
+        margin: 0;
+        font-size: 1rem;
+        color: #2d3748;
+    }
+
+    .close-btn {
+        border: none;
+        background: transparent;
+        font-size: 1.5rem;
+        cursor: pointer;
+        line-height: 1;
+    }
+
+    .subuser-sidebar-content {
+        padding: 1rem;
+        overflow-y: auto;
+        flex: 1;
+    }
+
+    #subusersList .list-group-item {
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+
+    #subusersList .list-group-item:hover {
+        background-color:  rgba(128, 128, 128, 0.15) !important;
+    }
+
  
 
     @media (max-width: 578px) {
@@ -86,6 +143,22 @@
 
 </style>
 @endpush
+
+<!-- Right Sidebar -->
+<div id="subuserSidebar" class="subuser-sidebar card">
+    <div class="subuser-sidebar-header card-header">
+        <h5 id="sidebarSubuser" class="white-color"></h5>
+        <button class="close-btn" id="closesubuserSidebar">&times;</button>
+    </div>
+    <div class="subuser-sidebar-content">
+        <label for="subuserSearch">Search</label>
+        <input type="text" id="subuserSearch" class="form-control" placeholder="Search Subusers...">
+
+        <ul id="subusersList" class="list-group mt-3">
+            <!-- Users will be populated here -->
+        </ul>
+    </div>
+</div>
 
 
 

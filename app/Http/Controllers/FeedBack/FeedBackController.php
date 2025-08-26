@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\FeedBack;
 use App\Http\Controllers\Controller;
 use App\Models\FeedBearPost;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Monitors;
 use Illuminate\Support\Facades\Auth;
@@ -80,4 +81,26 @@ class FeedBackController extends Controller
         return view('feedbear.feature-requests', compact('feedbearPosts'));
     }
    
+    public function filter(Request $request)
+{
+    $query = FeedBearPost::query();
+
+    if ($request->search) {
+        $query->where('title', 'like', '%' . $request->search . '%')
+              ->orWhere('content', 'like', '%' . $request->search . '%');
+    }
+
+    if ($request->start_date && $request->end_date) {
+        $query->whereBetween('created_at', [
+            Carbon::createFromFormat('d-m-Y', $request->start_date)->startOfDay(),
+            Carbon::createFromFormat('d-m-Y', $request->end_date)->endOfDay()
+        ]);
+    }
+
+    $order = $request->order === 'asc' ? 'asc' : 'desc';
+    $posts = $query->orderBy('created_at', $order)->paginate(6); // paginated
+
+    return response()->json($posts);
+}
+
 }

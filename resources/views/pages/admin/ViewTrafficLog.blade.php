@@ -3,11 +3,13 @@
 
 @push('styles')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
 <style>
     .traffic-card {
         background: white;
         border-radius: 8px;
-        border: 1px solid #e2e8f0;
+        border: 1px solid rgba(128, 128, 128, 0.3);
         margin-bottom: 1rem;
         overflow: hidden;
     }
@@ -19,7 +21,7 @@
         align-items: center;
         padding: 0.75rem 1rem;
         background: #f8fafc;
-        border-bottom: 1px solid #e2e8f0;
+        border-bottom: 1px solid rgba(128, 128, 128, 0.3);
         box-shadow: 0 2px 4px rgba(0,0,0,0.03);
     }
     
@@ -104,7 +106,7 @@
         background: #f8fafc;
         padding: 0.5rem;
         border-radius: 4px;
-        border: 1px solid #e2e8f0;
+        border: 1px solid rgba(128, 128, 128, 0.3);
         word-break: break-all;
         white-space: pre-wrap;
     }
@@ -206,7 +208,6 @@
         font-size: 1.5rem;
         cursor: pointer;
         line-height: 1;
-        color: #333;
     }
 
     .ip-sidebar-content {
@@ -221,7 +222,7 @@
     }
 
     #usersList .list-group-item:hover {
-        background-color: #f0f0f0;
+        background-color:  rgba(128, 128, 128, 0.15) !important;
     }
 
 
@@ -264,7 +265,7 @@
         <label for="userSearch">Search</label>
         <input type="text" id="userSearch" class="form-control" placeholder="Search something...">
 
-        <ul id="usersList" class="list-group mt-3 gap-2">
+        <ul id="usersList" class="list-group mt-3">
             <!-- Users will be populated here -->
         </ul>
     </div>
@@ -273,68 +274,63 @@
 <div class="container-fluid">
     <h1 class="h3 mb-0 text-gray-800 white-color">Visitor Traffic Logs</h1><br>
     <div class="search-header">
-    
-            <!-- Filter Section -->
-            <div class="card filter-card">
-                <div class="card-body">
-                    <form method="GET" action="">
-                        <div class="row g-2">
-                            <div class="col-md-4">
-                                <label class="form-label small text-muted white-color">Search</label>
-                                <div class="input-group input-group-sm">
-                                    {{-- <span class="input-group-text bg-white border-end-0" style="border: none;">
-                                        <i class="fas fa-search fa-xs"></i>
-                                    </span> --}}
-                                    <input type="text" name="search" class="form-control form-control-sm" 
-                                        value="{{ request('search') }}" 
-                                        placeholder="IP, Browser, URL ,Platform, Name">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label small text-muted white-color">From Date</label>
-                                <input type="date" name="from_date" class="form-control form-control-sm" 
-                                    value="{{ request('from_date') }}">
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label small text-muted white-color">To Date</label>
-                                <input type="date" name="to_date" class="form-control form-control-sm" 
-                                    value="{{ request('to_date') }}">
-                            </div>
-                             <div class="col-md-2 d-flex flex-column align-items-stretch">
-                                <button type="submit" class="btn btn-primary w-100 mb-2 FilterButton">
-                                    <i class="fas fa-filter white-color"></i> Filter
-                                </button>
-                                <a href="{{ url()->current() }}" class="btn btn-secondary w-100">
-                                    <i class="fas fa-times white-color"></i> Clear
-                                </a>
-                            </div>
-                            </div>
-                    </form>
+        <!-- Filter Section -->
+        <div class="card filter-card">
+    <div class="card-body">
+        <form method="GET" action="">
+            <div class="row g-2 align-items-end">
+                <!-- Search -->
+                <div class="col-12 col-md-4">
+                    <label class="form-label small text-muted white-color">Search</label>
+                    <div class="input-group input-group-sm">
+                        <input type="text" name="search" class="form-control form-control-sm" 
+                               value="{{ request('search') }}" 
+                               placeholder="IP, Browser, URL, Platform, Name">
+                    </div>
+                </div>
+
+                <!-- Date Range -->
+                <div class="col-12 col-md-4">
+                    <label class="form-label small text-muted white-color">Date Range</label>
+                    <input type="text" id="date_range" name="date_range" 
+                           class="form-control form-control-sm" 
+                           value="{{ request('from_date') && request('to_date') ? request('from_date').' to '.request('to_date') : '' }}">
+                </div>
+
+                <!-- Buttons -->
+                <div class="col-12 col-md-4 d-flex gap-2">
+                    <button type="submit" class="btn btn-primary flex-fill FilterButton">
+                        <i class="fas fa-filter white-color"></i> Filter
+                    </button>
+                    <a href="{{ url()->current() }}" class="btn btn-secondary flex-fill FilterButton ">
+                        <i class="fas fa-times white-color"></i> Clear
+                    </a>
                 </div>
             </div>
+        </form>
+    </div>
+</div>
 
-
-    <!-- Logs List -->
-                <div class="traffic-list">
-                   @forelse($trafficLogs as $log)
-                    <div class="traffic-card mt-4 dark-bg">
-                    <!-- New Header with IP and Time -->
-                    <div class="traffic-header dark-bg">
-                        <div class="ip-display">
-                            <span class="detail-label white-color">IP:</span>
-                            <a href="#" class="ip-address" data-ip="{{ $log->ip }}">
-                                {{ $log->ip }}
-                            </a>
-                            @if($log->country !== 'Unknown')
-                            <img src="https://flagcdn.com/16x12/{{ strtolower($log->country) }}.png" class="flag">
-                        @endif
-                        
-                    </div>
-                    <div class="header-time white-color">
-                        {{ $log->created_at->format('M j, Y H:i:s') }}
-                    </div>
-                    </div>
-                    
+<!-- Logs List -->
+<div class="traffic-list">
+    @forelse($trafficLogs as $log)
+        <div class="traffic-card mt-4 dark-bg">
+            <!-- New Header with IP and Time -->
+            <div class="traffic-header dark-bg">
+                <div class="ip-display">
+                    <span class="detail-label white-color">IP:</span>
+                    <a href="#" class="ip-address" data-ip="{{ $log->ip }}">
+                        {{ $log->ip }}
+                    </a>
+                    @if($log->country !== 'Unknown')
+                        <img src="https://flagcdn.com/16x12/{{ strtolower($log->country) }}.png" class="flag">
+                    @endif
+                </div>
+                <div class="header-time white-color">
+                    {{ $log->created_at->format('M j, Y H:i:s') }}
+                </div>
+            </div>
+            
             <div class="traffic-body">
                 <!-- First Row: Browser, Platform, ISP -->
                 <div class="client-row">
@@ -352,30 +348,28 @@
                     </div>
                     <div class="detail-group">
                         @if (!empty($log->name))
-                                        <strong class="detail-label white-color">User name :</strong> 
-                                        <span class="detail-value white-color">{{ $log->name }}</span>
-                                        @endif
+                            <strong class="detail-label white-color">User name :</strong> 
+                            <span class="detail-value white-color">{{ $log->name }}</span>
+                        @endif
                     </div>
                     <div class="detail-group">
                         @if (!empty($log->email))
-                                        <strong class="detail-label white-color">User email :</strong> 
-                                        <span class="detail-value white-color">{{ $log->email }}</span>
-                                        @endif
+                            <strong class="detail-label white-color">User email :</strong> 
+                            <span class="detail-value white-color">{{ $log->email }}</span>
+                        @endif
                     </div>
                     <div class="detail-group">
                         @if (!empty($log->status))
-                                        <strong class="detail-label white-color">Status :</strong> 
-                                        <span class="detail-value white-color">{{ $log->status }}</span>
-                                        @endif
+                            <strong class="detail-label white-color">Status :</strong> 
+                            <span class="detail-value white-color">{{ $log->status }}</span>
+                        @endif
                     </div>
                     <div class="detail-group">
                         @if (!empty($log->reason))
-                                        <strong class="detail-label white-color">Reason:</strong><span class="detail-value white-color"> {{ $log->reason }}</span>
-                                        @endif
-            
+                            <strong class="detail-label white-color">Reason:</strong><span class="detail-value white-color"> {{ $log->reason }}</span>
+                        @endif
                     </div>
                 </div>
-                
                 <!-- Second Row: URL and Referrer -->
                 <div class="request-row">
                     <div class="url-group">
@@ -387,14 +381,11 @@
                         <div class="referrer-value dark-bg">{{ $log->referrer ?? 'Direct access' }}</div>
                     </div>
                 </div>
-
-               
                 <!-- Third Row: User Agent -->
                 <div class="user-agent-row">
                     <span class="detail-label white-color">User Agent:</span>
                     <div class="user-agent dark-bg">{{ $log->user_agent }}</div>
                 </div>
-                
                 <!-- Action Buttons -->
                 <div class="action-buttons">
                     @if(in_array($log->ip, $blocked_ips))
@@ -411,21 +402,21 @@
                                 <i class="fas fa-ban fa-xs"></i> Block
                             </button>
                         </form>
-                        @endif
-                    </div>
+                    @endif
                 </div>
             </div>
-           @empty
-            <div class="text-center p-4 bg-light border rounded">
+        </div>
+    @empty
+    <div class="text-center p-4">
         <p>No traffic logs available.</p>
     </div>
 @endforelse
-        </div>
+</div>
 
-    <!-- Pagination -->
-    <div class="mt-3 d-flex justify-content-center">
-        {{ $trafficLogs->appends(request()->query())->links('pagination::bootstrap-4') }}
-     </div>
+        <!-- Pagination -->
+        <div class="mt-3 d-flex justify-content-center">
+            {{ $trafficLogs->appends(request()->query())->links('pagination::bootstrap-4') }}
+        </div>
     </div>
 
     @push('scripts')
@@ -440,6 +431,19 @@
             toastr.error("{{ $errors->first() }}");
         </script>
     @endif
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        flatpickr("#date_range", {
+            mode: "range",
+            dateFormat: "Y-m-d",   // same format as your backend expects
+            defaultDate: [
+                "{{ request('from_date') }}", 
+                "{{ request('to_date') }}"
+            ].filter(Boolean)  // only pass non-empty
+        });
+    </script>
+
 @endpush
 
 @endsection

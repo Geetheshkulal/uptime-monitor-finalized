@@ -109,7 +109,7 @@
     }
 
     html.dark a,
-    .dark-mode a {
+    .dark-mode a:not(.introjs-skipbutton) {
         color: var(--color-bg-light) !important;
     }
 
