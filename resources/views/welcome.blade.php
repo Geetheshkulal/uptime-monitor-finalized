@@ -834,48 +834,50 @@
           </div>
         </div>
         
-        <div class="col-lg-4 animate__animated animate__fadeInUp">
-          <div class="card h-100 border-light shadow-sm popular-plan">
-            <div class="card-body p-4 text-center">
-              @foreach($plans as $plan) 
+        @foreach($plans as $plan)
+          <div class="col-lg-4 animate__animated animate__fadeInUp">
+            <div class="card h-100 border-light shadow-sm popular-plan">
+              <div class="card-body p-4 text-center">
                 <h3 class="fw-bold mb-2">{{ $plan->name }}</h3>
                 <div class="text-primary mb-4">
                   <span class="display-6 fw-bold">₹{{ $plan->amount }}</span>
                   <span class="text-muted">/month</span>
                 </div>
-              @endforeach
-               <ul style="text-align: left; list-style: none;">
-                @foreach($plan->features ?? [] as $feature)
-                <li class="mb-3 {{ !$feature['available'] ? 'feature-unavailable' : '' }}">
-                  @if($feature['available'])
-                      <i class="fas fa-check-circle" style="color: #065bef;"></i>
+
+                <ul style="text-align: left; list-style: none;">
+                  @foreach($plan->features ?? [] as $feature)
+                    <li class="mb-3 {{ !$feature['available'] ? 'feature-unavailable' : '' }}">
+                      @if($feature['available'])
+                        <i class="fas fa-check-circle" style="color: #065bef;"></i>
+                      @else
+                        <i class="fas fa-times-circle" style="color: #dc3545;"></i>
+                      @endif
+                      {{ $feature['name'] }}
+                    </li>
+                  @endforeach
+                </ul>
+
+                {{-- Get Started button --}}
+                @if(auth()->check())
+                  @hasrole('superadmin')
+                    <a href="{{ route('admin.dashboard') }}" class="btn btn-primary d-block">
+                      Get Started
+                    </a>
                   @else
-                      <i class="fas fa-times-circle" style="color: #dc3545;"></i>
-                  @endif
-                  {{ $feature['name'] }}
-              </li>
-            
-                @endforeach
-              </ul>
-              {{-- <a href="#" class="btn btn-primary d-block">Get Started</a> --}}
-              @if(auth()->check())
-                @hasrole('superadmin')
-                  <a href="{{ route('admin.dashboard') }}" class="btn btn-primary d-block">
+                    <a href="{{ route('monitoring.dashboard') }}" class="btn btn-outline-primary d-block">
+                      Get Started
+                    </a>
+                  @endhasrole
+                @else
+                  <a href="{{ route('login') }}" class="btn btn-outline-primary d-block">
                     Get Started
                   </a>
-                @else
-                <a href="{{ route('monitoring.dashboard') }}" class="btn btn-outline-primary d-block">
-                  Get Started
-                </a>
-                @endhasrole
-              @else
-                <a href="{{ route('login') }}" class="btn btn-outline-primary d-block">
-                  Get Started
-                </a>
-              @endif
+                @endif
+              </div>
             </div>
           </div>
-        </div>
+          @endforeach
+
       </div>
     </div>
   </section>

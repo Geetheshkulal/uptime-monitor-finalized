@@ -80,14 +80,14 @@
         }
 
         .dark-mode .badge-paused {
-        background-color: rgba(199, 146, 234, 0.15);
-        color: #d6bcfa; 
-}
+                background-color: rgba(199, 146, 234, 0.15);
+                color: #d6bcfa; 
+        }
 
-.badge-paused i.fa-crown {
-    color: gold;
-    margin-left: 4px;
-}
+        .badge-paused i.fa-crown {
+            color: gold;
+            margin-left: 4px;
+        }
 
         .badge-loading{
             background-color: rgba(255, 226, 80, 0.268);
@@ -184,20 +184,15 @@
             color: var(--primary);
         }
 
-        .introjs-button {
-            background-color: var(--primary);
-            border-radius: 0.25rem;
-            font-weight: 600;
-            color: white;
-            text-shadow: none;
-            
-        }
+        
 
         .introjs-button:hover {
             background-color: #2e59d9;
             color:white;
             cursor: pointer;
         } 
+
+        
         .introjs-overlay
         {
             pointer-events: none; 
@@ -207,55 +202,53 @@
             pointer-events: none;
         }
 
-    .spinner-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: var(--warning); /* or a custom color */
-    animation: pulse 1s infinite ease-in-out;
-}
-
-@keyframes pulse {
-    0%, 100% {
-        opacity: 0.4;
-        transform: scale(0.9);
-    }
-    50% {
-        opacity: 1;
-        transform: scale(1.2);
-    }
-}
-
-    @media (max-width: 578px) {
-
-     .AddMonitor{
-        /* width: 92px;
-        padding: 1px;
-        height: 50px; */
-        width: 144px;
-        padding: 8px;
-        height: 41px;
+        .spinner-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--warning); /* or a custom color */
+            animation: pulse 1s infinite ease-in-out;
         }
 
-    .dataTables_length {
-        text-align: left !important;
-        margin-left: 6px;
-        margin-bottom: 10px;
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.4;
+                transform: scale(0.9);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        @media (max-width: 578px) {
+
+        .AddMonitor{
+            /* width: 92px;
+            padding: 1px;
+            height: 50px; */
+            width: 144px;
+            padding: 8px;
+            height: 41px;
+        }
+
+        .dataTables_length {
+            text-align: left !important;
+            margin-left: 6px;
+            margin-bottom: 10px;
+        }
+
+        .dataTables_filter {
+            text-align: left !important;
+            margin-bottom: 10px;
+        }
+        /* .dataTables_filter{
+                margin-left: -25px;
+        } */
+
+        .page-content {
+            margin-bottom: 175px;
     }
-
-    .dataTables_filter {
-        text-align: left !important;
-        margin-bottom: 10px;
-    }
-     /* .dataTables_filter{
-            margin-left: -25px;
-    } */
-
-     .page-content {
-        margin-bottom: 175px;
-}
-   
-
 }
 
 .upgrade-gradient {
