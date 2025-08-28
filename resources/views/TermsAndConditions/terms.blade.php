@@ -162,6 +162,14 @@
         .navbar-toggler:focus {
             box-shadow: none !important;
         }
+        
+        p {
+  line-height: 2; 
+}
+
+h1,h2,h3,h4{
+  line-height: 1.8; 
+}
     </style>
 </head>
 
@@ -422,7 +430,7 @@
             <p>If you have any questions about these Terms and Conditions, You can contact us:</p>
             <ul>
                 <li>
-                    <p>By email: <a href="mailto:drishtipulse2025@gmail.com" class="text-decoration-none">drishtipulse2025@gmail.com</a>
+                    <p>By email: <a href="mailto:info@ditsolutions.net" class="text-decoration-none">info@ditsolutions.net</a>
                     </p>
                 </li>
                 <li>
@@ -519,7 +527,7 @@
               </p>
               <p class="mb-1 d-flex align-items-center">
                 <i class="fas fa-envelope text-primary me-2"></i>
-                <a href="mailto:drishtipulse2025@gmail.com" class="text-light text-decoration-none hover-text-primary transition">drishtipulse2025@gmail.com</a>
+                <a href="mailto:info@ditsolutions.net" class="text-light text-decoration-none hover-text-primary transition">info@ditsolutions.net</a>
               </p>
               <p class="mb-1 d-flex align-items-center">
                 <i class="fas fa-phone text-primary me-2"></i>

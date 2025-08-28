@@ -59,7 +59,7 @@
                                 </p>
                             </div>
 
-                            <p style="margin-bottom: 0;">If you have any questions, feel free to <a href="mailto:drishtipulse2025@gmail.com" style="color: #0066cc; text-decoration: none; font-weight: 500;">contact our support team</a>.</p>
+                            <p style="margin-bottom: 0;">If you have any questions, feel free to <a href="mailto:info@ditsolutions.net" style="color: #0066cc; text-decoration: none; font-weight: 500;">contact our support team</a>.</p>
                         </td>
                     </tr>
                     
@@ -115,7 +115,7 @@
                             </table>
                             
                             <p style="font-size: 14px; color: #666; margin: 20px 0 15px 0;">
-                                Have questions? Contact us at <a href="mailto:drishtipulse2025@gmail.com" style="color: #0066cc; text-decoration: none;">drishtipulse2025@gmail.com</a>
+                                Have questions? Contact us at <a href="mailto:info@ditsolutions.net" style="color: #0066cc; text-decoration: none;">info@ditsolutions.net</a>
                             </p>
 
                             

@@ -54,7 +54,7 @@
 
                             <p>If you have any updates to share, you can reply to this email or track the status via your account dashboard.</p>
 
-                            {{-- <p style="margin-bottom: 0;">If you have further questions, feel free to <a href="mailto:drishtipulse2025@gmail.com" style="color: #0066cc; text-decoration: none; font-weight: 500;">contact our support team</a>.</p> --}}
+                            {{-- <p style="margin-bottom: 0;">If you have further questions, feel free to <a href="mailto:info@ditsolutions.net" style="color: #0066cc; text-decoration: none; font-weight: 500;">contact our support team</a>.</p> --}}
                         </td>
                     </tr>
 
@@ -73,7 +73,7 @@
                             </table>
 
                             <p style="font-size: 14px; color: #666; margin: 20px 0 15px 0;">
-                                Need help? Email us at <a href="mailto:drishtipulse2025@gmail.com" style="color: #0066cc; text-decoration: none;">drishtipulse2025@gmail.com</a>
+                                Need help? Email us at <a href="mailto:info@ditsolutions.net" style="color: #0066cc; text-decoration: none;">info@ditsolutions.net</a>
                             </p>
 
                             <p style="font-size: 13px; color: #999; margin: 0;">

@@ -979,7 +979,7 @@
             </p>
             <p class="mb-1 d-flex align-items-center">
               <i class="fas fa-envelope text-primary me-2"></i>
-              <a href="mailto:drishtipulse2025@gmail.com" class="text-light text-decoration-none hover-text-primary transition">drishtipulse2025@gmail.com</a>
+              <a href="mailto:info@ditsolutions.net" class="text-light text-decoration-none hover-text-primary transition">info@ditsolutions.net</a>
             </p>
             <p class="mb-1 d-flex align-items-center">
               <i class="fas fa-phone text-primary me-2"></i>
