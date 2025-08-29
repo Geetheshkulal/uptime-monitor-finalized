@@ -141,13 +141,13 @@ class CashfreeResponseController extends Controller
         $timestamp = $request->header('x-webhook-timestamp');
         $signature = $request->header('x-webhook-signature');
 
-        // Log::info('Cashfree Webhook Received:', [
-        //     'payload' => $data,
-        //     'headers' => [
-        //         'timestamp' => $timestamp,
-        //         'signature' => $signature
-        //     ]
-        // ]);
+        Log::info('Cashfree Webhook Received:', [
+            'payload' => $data,
+            'headers' => [
+                'timestamp' => $timestamp,
+                'signature' => $signature
+            ]
+        ]);
 
 
         $isValid = app(CashfreeService::class)->verifyWebhookSignature(
@@ -162,6 +162,7 @@ class CashfreeResponseController extends Controller
         }
 
         // Process webhook events
+        Log::info('Processing Cashfree webhook event', ['event' => $data['type'] ?? 'unknown']);
         switch ($data['type'] ?? null) {
             case 'SUBSCRIPTION_PAYMENT_NOTIFICATION_INITIATED':
                 $this->handlePaymentInitiated($data['data']);

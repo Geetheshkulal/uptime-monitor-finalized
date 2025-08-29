@@ -9,7 +9,14 @@ use Illuminate\Support\Facades\Log;
 class AddPlanService
 {
     // protected $baseUrl = 'https://sandbox.cashfree.com/pg/plans';
-    protected $baseUrl = 'https://api.cashfree.com/pg/plans';
+    protected $baseUrl;
+
+    public function __construct()
+    {
+        $this->baseUrl = env('DRISHTI_PULSE_ENV') === 'local'
+            ? 'https://sandbox.cashfree.com/pg/plans'
+            : 'https://api.cashfree.com/pg/plans';
+    }
 
     // protected function headers()
     // {
@@ -31,11 +38,13 @@ class AddPlanService
             ])->post("{$this->baseUrl}", [
                 "plan_id" => $data['plan_id'],
                 "plan_name" => $data['name'],
-                "plan_type" => $data['plan_type'],
-                "plan_max_amount" => (float) $data['amount'],
+                "plan_type" => 'PERIODIC',
+                "plan_max_amount" => (float) $data['sale_price'],
                 "plan_currency" => $data['plan_currency'],
-                "plan_recurring_amount" => (float) $data['plan_recurring_amount'] ,
+                "plan_recurring_amount" => (float) $data['sale_price'] ,
                 "plan_interval_type" => $data['billing_cycle'] === 'monthly' ? 'MONTH' : 'YEAR',
+                "plan_max_cycles" => $data['billing_cycle'] === 'monthly' ? 12 : 1,
+                "plan_intervals" => 1
             ]);
     
             if ($response->failed()) {

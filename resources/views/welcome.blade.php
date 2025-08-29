@@ -793,44 +793,6 @@
       </div>
       
       <div class="row justify-content-center g-4">
-        <div class="col-lg-4 animate__animated animate__fadeInLeft">
-          <div class="card h-100 border-light shadow-sm">
-            <div class="card-body p-4 text-center">
-              <h3 class="fw-bold mb-2">Basic</h3>
-              <div class="text-primary mb-4">
-                <span class="display-6 fw-bold">₹0</span>
-                <span class="text-muted">/month</span>
-              </div>
-              <ul style="text-align: left; list-style: none;">
-                <li class="mb-3"><i class="fas fa-check-circle" style="color: #065bef;"></i> Monitor 5 websites</li>
-                <li class="mb-3"><i class="fas fa-check-circle" style="color: #065bef;"></i> 5-minute check</li>
-                <li class="mb-3"><i class="fas fa-check-circle" style="color: #065bef;"></i> Email alerts</li>
-                <li class="mb-3"><i class="fas fa-check-circle" style="color: #065bef;"></i> 1-Month history</li>
-                <li class="mb-3"><i class="fas fa-times-circle" style="color: #ea230d;"></i> Telegram alert unavailable</li>
-                <li class="mb-3"><i class="fas fa-times-circle" style="color: #ea230d;"></i> SSL expiry check unavailable</li>
-                <li class="mb-3">
-                  <i class="fas fa-times-circle" style="color: #ea230d;"></i>  Create and manage team members unavailable
-                </li>
-            </ul>
-            @if(auth()->check())
-            @hasrole('superadmin')
-              <a href="{{ route('admin.dashboard') }}" class="btn btn-primary d-block">
-                Get Started
-              </a>
-            @else
-            <a href="{{ route('monitoring.dashboard') }}" class="btn btn-outline-primary d-block">
-              Get Started
-            </a>
-            @endhasrole
-          @else
-            <a href="{{ route('login') }}" class="btn btn-outline-primary d-block">
-              Get Started
-            </a>
-          @endif
-            </div>
-          </div>
-        </div>
-        
         @foreach($plans as $plan)
           <div class="col-lg-4 animate__animated animate__fadeInUp">
             <div class="card h-100 border-light shadow-sm popular-plan">

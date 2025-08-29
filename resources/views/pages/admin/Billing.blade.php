@@ -84,6 +84,20 @@ input:checked + .slider:before {
    
 }
 
+/* Remove default background from tabs */
+    .nav-tabs .nav-link {
+        background-color: transparent !important;
+        border: none !important;
+        color: #6c757d;
+    }
+    .nav-tabs .nav-link.active {
+        background-color: transparent !important;
+        border: none !important;
+        color: #000; /* highlight active tab text */
+        font-weight: 600;
+        border-bottom: 2px solid #007bff !important; /* underline effect */
+    }
+
 
     </style>    
 @endpush
@@ -105,17 +119,18 @@ input:checked + .slider:before {
                 <!-- Card Body -->
                 <div class="card-body px-4 py-4">
                     <div class="table-responsive">
-                        <table class="table table-bordered dt-responsive nowrap" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table table-bordered " id="dataTable" width="100%" cellspacing="0">
                            
                          <thead>
                                 <tr>
                                     <th>Plan ID</th>
                                     <th>Plan Name</th>
                                     <th>Amount</th>
+                                    <th>Discount percentage</th>
+                                    <th>Sale Price</th>
                                     <th>Plan Type</th>
                                     <th>Plan recurring amount</th>
                                     <th>Period</th>
-                                    <th>Yearly Discount</th>
                                     <th>Active</th>
                                     <th>Actions</th>
                                 </tr>
@@ -126,10 +141,11 @@ input:checked + .slider:before {
                                         <td>{{ $subscription->plan_id }}</td>
                                         <td>{{ $subscription->name }}</td>
                                         <td>{{ number_format($subscription->amount, 2) }}</td>
+                                        <td>{{ $subscription->percentage_discount }}</td>
+                                        <td>{{ $subscription->sale_price }}</td>
                                         <td>{{ $subscription->plan_type ? $subscription->plan_type : 'N/A' }}</td>
                                         <td>{{ $subscription->plan_recurring_amount ? $subscription->plan_recurring_amount: 'N/A' }}</td>
                                         <td>{{ ucfirst($subscription->billing_cycle) }}</td>
-                                        <td>{{ $subscription->yearly_discount ? $subscription->yearly_discount.'%' : 'N/A' }}</td>
                                         <td>
                                             <label class="switch">
                                                 <input type="checkbox" class="toggle-status" 
@@ -169,108 +185,105 @@ input:checked + .slider:before {
 <div class="modal fade" id="addSubscriptionModal" tabindex="-1" role="dialog" aria-labelledby="addSubscriptionModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
+
             <div class="modal-header">
                 <h5 class="modal-title" id="addSubscriptionModalLabel">Add New Subscription Plan</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form method="POST" action="{{ route('add.billing') }}">
-                @csrf
-                <div class="modal-body">
-                    <div class="row">
-                    <div class="form-group col-md-6">
-                        <label for="plan_id">Plan ID</label>
-                        <input type="text" class="form-control" id="plan_id" name="plan_id" placeholder="Enter Cashfree Plan ID" required>
-                        <div class="invalid-feedback">
-                            This field is required.
-                        </div>
-                    </div>
-                
-                    <div class="form-group col-md-6">
-                        <label for="name">Plan Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="e.g., Basic, Pro" required>
-                        <div class="invalid-feedback">
-                            This field is required.
-                        </div>
-                    </div>
-                    </div>
 
-                    <div class="row">
-                    <div class="form-group col-md-6">
-                        <label for="billing_cycle">Billing Cycle</label>
-                        <select class="form-control" id="billing_cycle" name="billing_cycle" required>
-                            <option value="">Select Period</option>
-                            <option value="monthly">Monthly</option>
-                            <option value="yearly">Yearly</option>
-                        </select>
-                        <div class="invalid-feedback">
-                            This field is required.
-                        </div>
-                    </div>
+            <!-- Tabs -->
+            <ul class="nav nav-tabs nav-fill" id="subscriptionTabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="monthly-tab" data-toggle="tab" href="#monthly" role="tab" aria-controls="monthly" aria-selected="true">Monthly</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="yearly-tab" data-toggle="tab" href="#yearly" role="tab" aria-controls="yearly" aria-selected="false">Yearly</a>
+                </li>
+            </ul>
 
-                    <div class="form-group yearly-discount-group col-md-6">
-                        <label for="yearly_discount">Yearly Discount (%)</label>
-                        <input type="number" class="form-control" id="yearly_discount" name="yearly_discount" placeholder="e.g., 20%">
-                        <div class="invalid-feedback">
-                            This field is required.
-                        </div>
-                    </div>
-                    </div>
+            <div class="tab-content" id="subscriptionTabsContent">
+                <!-- Monthly Form -->
+                <div class="tab-pane fade show active" id="monthly" role="tabpanel" aria-labelledby="monthly-tab">
+                    <form method="POST" action="{{ route('add.billing') }}">
+                        @csrf
+                        <input type="hidden" name="billing_cycle" value="monthly">
+                        <div class="modal-body">
+                            <div class="row">
+                                <input type="text" class="form-control" id="plan_id" name="plan_id" hidden placeholder="Auto-generated">
 
-                     <div class="form-group">
-                        <label for="amount">Plan Amount (₹)</label>
-                        <input type="number" class="form-control" id="amount" name="amount" placeholder="e.g., 300" required>
-                        <div class="invalid-feedback">
-                            This field is required.
-                        </div>
-                    </div> 
+                                <div class="form-group col-md-6">
+                                    <label for="name">Plan Name</label>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="e.g., Basic, Pro" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="amount">Regular Price (₹)</label>
+                                    <input type="number" class="form-control" id="amount" name="amount" placeholder="e.g., 300" required>
+                                </div>
+                            </div>
 
-                    {{-- <div class="form-group">
-                        <label for="plan_type">Plan Type</label>
-                        <select class="form-control" id="plan_type" name="plan_type" required>
-                            <option value="">Select Type</option>
-                            <option value="PERIODIC">PERIODIC (Auto-renew)</option>
-                            <option value="ON_DEMAND">ON_DEMAND (Manual Pay)</option>
-                        </select>
-                        <div class="invalid-feedback">
-                            This field is required.
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="percentage_discount">Discount (%)</label>
+                                    <input type="number" class="form-control" id="percentage_discount" name="percentage_discount" placeholder="e.g., 15">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="sale_price">Sale Price (₹)</label>
+                                    <input type="number" class="form-control" id="sale_price" name="sale_price" placeholder="e.g., 250">
+                                </div>
+                            </div>
                         </div>
-                    </div> --}}
 
-                    <div class="form-group">
-                        <label>Plan Type</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="plan_type" id="plan_type" value="PERIODIC" checked required>
-                            <label class="form-check-label" for="plan_type_periodic">
-                                PERIODIC (Auto-renew)
-                            </label>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Add Monthly Plan</button>
                         </div>
-                        <div class="invalid-feedback">
-                            This field is required.
-                        </div>
-                    </div>
-
-                    
-                    <div class="form-group recurring-group">
-                        <label for="amount">Plan recurring amount (PERIODIC)</label>
-                        <input type="number" class="form-control" id="plan_recurring_amount" name="plan_recurring_amount" placeholder="e.g., 100" required>
-                        <div class="invalid-feedback">
-                            This field is required.
-                        </div>
-                    </div>
-                    
-
+                    </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Add Plan</button>
+
+                <!-- Yearly Form -->
+                <div class="tab-pane fade" id="yearly" role="tabpanel" aria-labelledby="yearly-tab">
+                    <form method="POST" action="{{ route('add.billing') }}">
+                        @csrf
+                        <input type="hidden" name="billing_cycle" value="yearly">
+                        <div class="modal-body">
+                            <div class="row">
+                                <input type="text" class="form-control" id="plan_id_yearly" name="plan_id" hidden placeholder="Auto-generated">
+                                <div class="form-group col-md-6">
+                                    <label for="name_yearly">Plan Name</label>
+                                    <input type="text" class="form-control" id="name_yearly" name="name" placeholder="e.g., Basic, Pro" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="amount_yearly">Regular Price (₹)</label>
+                                    <input type="number" class="form-control" id="amount_yearly" name="amount" placeholder="e.g., 3000" required>
+                                </div>
+                            </div>
+
+                        
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="percentage_discount_yearly">Discount (%)</label>
+                                    <input type="number" class="form-control" id="percentage_discount_yearly" name="percentage_discount" placeholder="e.g., 20">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="sale_price_yearly">Sale Price (₹)</label>
+                                    <input type="number" class="form-control" id="sale_price_yearly" name="sale_price" placeholder="e.g., 2500">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Add Yearly Plan</button>
+                        </div>
+                    </form>
                 </div>
-            </form>
+
+            </div>
         </div>
     </div>
 </div>
-
 
 
 <!-- Edit Subscription Modal -->
@@ -349,7 +362,6 @@ input:checked + .slider:before {
 @endforeach
 
 @push('scripts')
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -381,7 +393,8 @@ toastr.success("{{ session('success') }}");
             "searching": true,
             "ordering": true,
             "info": true,
-            "order": [[0, "asc"]]
+            "order": [[0, "asc"]],
+            "responsive": true
         });
 
 
@@ -476,6 +489,132 @@ toastr.success("{{ session('success') }}");
 </script>
 
 <script>
+$(document).ready(function () {
+    
+    function calculateSalePrice() {
+        let amount = parseFloat($("#amount").val());
+        let discount = parseFloat($("#percentage_discount").val());
+
+        if (!isNaN(amount) && !isNaN(discount)) {
+            let salePrice = amount - (amount * discount / 100);
+            $("#sale_price").val(salePrice.toFixed(2));
+        }
+    }
+
+    function calculateDiscount() {
+        let amount = parseFloat($("#amount").val());
+        let salePrice = parseFloat($("#sale_price").val());
+
+        if (!isNaN(amount) && !isNaN(salePrice) && amount > 0) {
+            let discount = ((amount - salePrice) / amount) * 100;
+            $("#percentage_discount").val(discount.toFixed(2));
+        }
+    }
+
+    // When typing in Discount %
+    $("#percentage_discount").on("input", function () {
+        calculateSalePrice();
+    });
+
+    // When typing in Sale Price
+    $("#sale_price").on("input", function () {
+        calculateDiscount();
+    });
+
+    // Recalculate if Regular Price changes
+    $("#amount").on("input", function () {
+        if ($("#percentage_discount").val()) {
+            calculateSalePrice();
+        } else if ($("#sale_price").val()) {
+            calculateDiscount();
+        }
+    });
+});
+</script>
+
+<script>
+$(document).ready(function () {
+
+    // ---------- MONTHLY ----------
+    function calculateSalePriceMonthly() {
+        let amount = parseFloat($("#amount").val());
+        let discount = parseFloat($("#percentage_discount").val());
+
+        if (!isNaN(amount) && !isNaN(discount)) {
+            let salePrice = amount - (amount * discount / 100);
+            $("#sale_price").val(salePrice.toFixed(2));
+        }
+    }
+
+    function calculateDiscountMonthly() {
+        let amount = parseFloat($("#amount").val());
+        let salePrice = parseFloat($("#sale_price").val());
+
+        if (!isNaN(amount) && !isNaN(salePrice) && amount > 0) {
+            let discount = ((amount - salePrice) / amount) * 100;
+            $("#percentage_discount").val(discount.toFixed(2));
+        }
+    }
+
+    $("#percentage_discount").on("input", function () {
+        calculateSalePriceMonthly();
+    });
+
+    $("#sale_price").on("input", function () {
+        calculateDiscountMonthly();
+    });
+
+    $("#amount").on("input", function () {
+        if ($("#percentage_discount").val()) {
+            calculateSalePriceMonthly();
+        } else if ($("#sale_price").val()) {
+            calculateDiscountMonthly();
+        }
+    });
+
+
+    // ---------- YEARLY ----------
+    function calculateSalePriceYearly() {
+        let amount = parseFloat($("#amount_yearly").val());
+        let discount = parseFloat($("#percentage_discount_yearly").val());
+
+        if (!isNaN(amount) && !isNaN(discount)) {
+            let salePrice = amount - (amount * discount / 100);
+            $("#sale_price_yearly").val(salePrice.toFixed(2));
+        }
+    }
+
+    function calculateDiscountYearly() {
+        let amount = parseFloat($("#amount_yearly").val());
+        let salePrice = parseFloat($("#sale_price_yearly").val());
+
+        if (!isNaN(amount) && !isNaN(salePrice) && amount > 0) {
+            let discount = ((amount - salePrice) / amount) * 100;
+            $("#percentage_discount_yearly").val(discount.toFixed(2));
+        }
+    }
+
+    $("#percentage_discount_yearly").on("input", function () {
+        calculateSalePriceYearly();
+    });
+
+    $("#sale_price_yearly").on("input", function () {
+        calculateDiscountYearly();
+    });
+
+    $("#amount_yearly").on("input", function () {
+        if ($("#percentage_discount_yearly").val()) {
+            calculateSalePriceYearly();
+        } else if ($("#sale_price_yearly").val()) {
+            calculateDiscountYearly();
+        }
+    });
+
+});
+</script>
+
+
+<script>
     document.addEventListener('DOMContentLoaded', function () {
         const billingCycle = document.getElementById('billing_cycle');
         const yearlyDiscountGroup = document.querySelector('.yearly-discount-group');
@@ -531,9 +670,21 @@ toastr.success("{{ session('success') }}");
             }
         });
     });
-    </script>
-    
+</script>
+<script>
+     function GenerateRandomID(prefix = "CF") {
+        console.log(prefix + "_" + Math.random().toString(36).substring(2, 10).toUpperCase());
+        return prefix + "_" + Math.random().toString(36).substring(2, 10).toUpperCase();
+    }
 
+
+    // When modal opens, generate IDs for both monthly & yearly
+    $('#addSubscriptionModal').on('show.bs.modal', function () {
+        $("#plan_id").val(GenerateRandomID("PLAN"));         // Monthly plan_id
+        $("#plan_id_yearly").val(GenerateRandomID("PLAN"));  // Yearly plan_id
+    });
+
+</script>
 @endpush
 
 @endsection

@@ -44,12 +44,16 @@ class CashfreeService
     try {
         $subscriptionId = 'sub_' . rand(1, 1000) . '_' . time();
 
+        $baseUrl = env('DRISHTI_PULSE_ENV') === 'local'
+            ? 'https://sandbox.cashfree.com/pg/subscriptions'
+            : 'https://api.cashfree.com/pg/subscriptions';
+
         $response = Http::withHeaders([
             'x-client-id' => config('services.cashfree.key'),
             'x-client-secret' => config('services.cashfree.secret'),
             'x-api-version' => '2025-01-01',
             'Content-Type' => 'application/json',
-        ])->post(config('services.cashfree.base_url'), [
+        ])->post($baseUrl, [
             'subscription_id' =>  $subscriptionId,
             'customer_details' => [
                 'customer_email' => $validated['email'],
@@ -96,16 +100,18 @@ class CashfreeService
 
         // Optional: handle failure
         if (!$response->successful()) {
+            Log::info(json_encode($response->body()));
             throw new \Exception($json['message'] ?? 'Cashfree API error');
         }
 
         return $response->json();
         
     } catch (\Exception $e) {
-        // Log::error('Cashfree Subscription API Failed', [
-        //     'userId' => auth()->id(),
-        //     'error' => $e->getMessage()
-        // ]);
+        Log::error('Cashfree Subscription API Failed', [
+            'userId' => auth()->id(),
+            'error' => $e->getMessage()
+        ]);
+        
         throw $e;
     }
 }

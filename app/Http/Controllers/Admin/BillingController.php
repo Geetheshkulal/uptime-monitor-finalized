@@ -19,17 +19,25 @@ class BillingController extends Controller
      public function AddBilling(Request $request, AddPlanService $cashfree)
      {
          $validated = $request->validate([
-             'plan_id' => 'required|unique:subscriptions,plan_id|max:100',
-             'name' => 'required|string|max:100',
-             'amount' => 'required|numeric|min:0',
-             'billing_cycle' => 'required|in:monthly,yearly',
-             'plan_type' => 'required|in:PERIODIC,ON_DEMAND',
-             'plan_recurring_amount' => 'nullable|numeric',
-             'yearly_discount' => 'nullable|numeric|min:0|max:100',
-             'is_active' => 'sometimes|boolean',
-         ],[
+            'plan_id' => 'required|unique:subscriptions,plan_id|max:100',
+            'name' => 'required|string|max:100',
+            'amount' => 'required|numeric|min:0',
+            'billing_cycle' => 'required|in:monthly,yearly',
+            // 'plan_type' => 'required|in:PERIODIC,ON_DEMAND',
+            'plan_recurring_amount' => 'nullable|numeric',
+            'yearly_discount' => 'nullable|numeric|min:0|max:100',
+            'is_active' => 'sometimes|boolean',
+
+            'percentage_discount' => 'nullable|numeric|min:0|max:100',
+            'sale_price' => 'nullable|numeric|min:0|lte:amount',
+        ],[
             'yearly_discount.max' => 'Yearly discount cannot be more than 100.',
+            'percentage_discount.max' => 'Percentage discount cannot be more than 100.',
+            'percentage_discount.min' => 'Percentage discount cannot be less than 0.',
+            'sale_price.lte' => 'Sale price cannot be greater than the original amount.',
+            'sale_price.min' => 'Sale price cannot be negative.',
         ]);
+
      
         $validated['plan_currency'] = 'INR';
         
@@ -41,13 +49,14 @@ class BillingController extends Controller
    
          Subscriptions::create([
             'plan_id' => $validated['plan_id'],
-             'name' => $validated['name'],
-             'amount' => $validated['amount'],
-             'plan_type' => $validated['plan_type'],
-             'billing_cycle' => $validated['billing_cycle'],
-             'plan_recurring_amount' => $validated['plan_recurring_amount'],
-             'yearly_discount' => $validated['yearly_discount'] ? $validated['yearly_discount'] : null,
-             'is_active' => $validated['is_active'] ?? true,
+            'name' => $validated['name'],
+            'amount' => $validated['amount'],
+            'plan_type' => 'PERIODIC',
+            'percentage_discount' => $validated['percentage_discount'] ? $validated['percentage_discount'] : null,
+            'sale_price' => $validated['sale_price'],
+            'billing_cycle' => $validated['billing_cycle'],
+            'plan_recurring_amount' => $validated['sale_price'],
+            'is_active' => $validated['is_active'] ?? true,
          ]);
      
          return redirect()->back()->with('success', 'Subscription added successfully');

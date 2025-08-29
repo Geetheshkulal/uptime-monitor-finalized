@@ -13,6 +13,8 @@ class Subscriptions extends Model
         'amount',
         'slug',
         'plan_type',
+        'percentage_discount',
+        'sale_price',
         'plan_recurring_amount',
         'billing_cycle',
         'monthly_discount',
