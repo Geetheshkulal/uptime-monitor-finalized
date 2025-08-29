@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\PushSubscription;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 //Controller for push notifications
 class PushNotificationController extends Controller
 {
     public function subscribe(Request $request)
     {
+       
         // Validate the incoming data
         $validated = $request->validate([
             'endpoint' => 'required|string',

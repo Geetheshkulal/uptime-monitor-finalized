@@ -9,6 +9,8 @@ use App\Models\Monitors;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Log;
+use App\Services\PwaNotificationService;
+use App\Models\User;
 
 //Controller for DNS
 class FeedBackController extends Controller
@@ -17,9 +19,12 @@ class FeedBackController extends Controller
     {
             $token = $request->header('token'); 
             $expectedToken = env('FEEDBEAR_WEBHOOK_TOKEN'); 
+            
+            // Log::info('FeedBear Webhook Token: ' . $token);
+            // Log::info('Expected Token: ' . $expectedToken);
 
             if ($token !== $expectedToken) {
-                // Log::warning('Invalid FeedBear token received', ['token' => $token]);
+                //  Log::warning('Invalid FeedBear token received', ['token' => $token]);
                 return response()->json(['message' => 'Invalid token'], 401);
             }
 
@@ -30,16 +35,16 @@ class FeedBackController extends Controller
                 case 'post_new':
                     $this->handleNewPost($data['payload']);
                     break;
-                case 'post_upvotes':
-                    $this->handlePostUpvote($data['payload']);
-                    break;
+                // case 'post_upvotes':
+                //     $this->handlePostUpvote($data['payload']);
+                //     break;
             }
             return response()->json(['message' => 'success']);
     }
 
     protected function handleNewPost(array $payload)
     {
-        FeedBearPost::updateOrCreate(
+        $feedback = FeedBearPost::updateOrCreate(
             ['post_id' => $payload['post_id']],
             [
                 'board_id' => $payload['board_id'],
@@ -53,6 +58,21 @@ class FeedBackController extends Controller
                 'created_at' => $payload['created'],
             ]
         );
+
+        $superAdmin = User::role('superadmin')->first();
+
+        if (!$superAdmin) {
+            return response()->json(['message' => 'No super admin found'], 404);
+        }
+        
+        app(PwaNotificationService::class)->sendToUser(
+            $superAdmin->id,
+            'New Feature Request',
+            "{$feedback->author_name} has submitted a new feature request: {$feedback->title}",
+            "/feedback"
+        );
+        
+
     }
 
     public function showFeatureRequests()

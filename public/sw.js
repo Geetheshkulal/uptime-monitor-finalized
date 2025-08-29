@@ -87,6 +87,9 @@ self.addEventListener("fetch", function(event) {
 
 
 self.addEventListener('push', function(event) {
+
+    console.log('Push event received:', event.data ? event.data.text() : 'No payload');
+    
     if (event.data) {
         const data = event.data.json();
         const title = data.title || "New Notification";
@@ -100,6 +103,7 @@ self.addEventListener('push', function(event) {
         event.waitUntil(self.registration.showNotification(title, options));
     }
 });
+
 
 self.addEventListener('notificationclick', function(event) {
     console.log('Notification clicked');

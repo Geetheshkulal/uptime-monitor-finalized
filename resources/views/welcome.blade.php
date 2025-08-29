@@ -123,9 +123,13 @@
     position: relative;
     border: 2px solid var(--primary-color);
     border-radius: 15px;
-    transform: translateY(-10px);
     box-shadow: 0 20px 40px rgba(67, 97, 238, 0.2);
   }
+
+  .popular-plan:hover {
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
   
   .popular-badge {
     position: absolute;
@@ -515,7 +519,6 @@
 }
 </style>
 
-
 @if (session('error'))
 <script>
     toastr.error("{{ session('error') }}");
@@ -744,7 +747,7 @@
                 <i class="fas fa-mobile-alt"></i>
               </div>
               <h3 class="h5 fw-bold">PWA Support</h3>
-              <p class="text-muted">Install our app on any device for offline access and native-like performance.</p>
+              <p class="text-muted">Enable Progressive Web App (PWA) support for seamless, app-like experiences, and real-time notifications.</p>
             </div>
           </div>
         </div>
@@ -788,7 +791,7 @@
     <div class="container">
       <div class="text-center mb-5">
         <br>
-        <h2 class="fw-bold mb-3 section-title animate__animated animate__fadeIn">Simple, Transparent Pricing</h2>
+        <h2 class="fw-bold mb-3 section-title animate__animated animate__fadeIn">Simple & Transparent Pricing</h2>
         <p class="text-muted mx-auto animate__animated animate__fadeIn animate__delay-1s" style="max-width: 600px;">Choose the plan that fits your needs. All plans include our core monitoring features.</p>
       </div>
       
@@ -901,35 +904,56 @@
             </a>
           </div>
         </div>
+
+         <!-- Useful Links -->
+         <div class="col-lg-3 col-md-6">
+          <h3 class="h6 fw-bold mb-3 text-uppercase small text-muted">Useful Links</h3>
+          <div class="d-flex flex-column gap-2 footer-links">
+            <a href="{{ route('privacy') }}" class="text-light text-decoration-none hover-text-primary transition">
+              <i class="fas fa-chevron-right me-1 text-primary opacity-50 fs-8"></i> Privacy Policy
+            </a>
+            <a href="{{ route('terms') }}" class="text-light text-decoration-none hover-text-primary transition">
+              <i class="fas fa-chevron-right me-1 text-primary opacity-50 fs-8"></i> Terms of Service
+            </a>
+            <a href="{{ route('cookies') }}" class="text-light text-decoration-none hover-text-primary transition">
+              <i class="fas fa-chevron-right me-1 text-primary opacity-50 fs-8"></i> Cookies Policy
+            </a>
+          </div>
+        </div>
       
         
         <!-- Contact Information - Added to fill empty space -->
         <div class="col-lg-3 col-md-6">
           <h3 class="h6 fw-bold mb-3 text-uppercase small text-muted">Contact Us</h3>
           <div class="d-flex flex-column gap-2">
+            <p class="mb-3 d-flex align-items-start">
+              <i class="fas fa-map-marker-alt text-primary me-2 mt-1"></i>
+              <a 
+                href="https://www.google.com/maps/place/Mangalore" 
+                target="_blank"
+                class="text-light text-decoration-none hover-text-primary transition"
+              >D IT Solutions Pvt. Ltd.
+              VSK Towers, 3rd Floor,
+              Kottara Chowki,
+              Mangaluru,
+              Karnataka
+              575 006
+                {{-- <span>Mangalore, Karnataka, India</span> --}}
+              </a>
+            </p>
             <p class="mb-1 d-flex align-items-center">
               <i class="fas fa-envelope text-primary me-2"></i>
               <a href="mailto:drishtipulse2025@gmail.com" class="text-light text-decoration-none hover-text-primary transition">drishtipulse2025@gmail.com</a>
             </p>
             <p class="mb-1 d-flex align-items-center">
               <i class="fas fa-phone text-primary me-2"></i>
-              <a href="tel:+18005551234" class="text-light text-decoration-none hover-text-primary transition">+91 8073462033</a>
+              <a href="+91 8073462033" class="text-light text-decoration-none hover-text-primary transition">+91 8073462033</a>
             </p>
-            <p class="mb-3 d-flex align-items-center">
-              <i class="fas fa-map-marker-alt text-primary me-2"></i>
-              <a 
-                href="https://www.google.com/maps/place/Mangalore" 
-                target="_blank" 
-                style="text-decoration: none; color: inherit;"
-              >
-                <span>Mangalore, Karnataka, India</span>
-              </a>
-            </p>
-            <div class="mt-2">
+            {{-- <div class="mt-2">
               <a href="{{ route('login') }}" class="btn btn-sm btn-outline-light">
                 <i class="fas fa-rocket me-2"></i> Start Your Free Trial
               </a>
-            </div>
+            </div> --}}
           </div>
         </div>
       </div>
@@ -938,14 +962,21 @@
       <hr class="my-4 bg-opacity-10">
   
       <!-- Copyright & Legal Links -->
-      <div class="row align-items-center">
-        <div class="col-md-6 text-center text-md-start">
-          <p class="mb-md-0 text-muted small">© 2025 DRISHTI PULSE. All rights reserved.</p>
+      {{-- <div class="row align-items-center">
+        <div class="col-md-8 text-center text-md-start">
+          <p class="mb-md-0 text-muted small">© 2025 | All rights reserved, Drishti Pulse | Powered By D IT Solutions Pvt. Ltd. Made with ❤️ in BHARAT.</p>
+            
         </div>
-        <div class="col-md-6 text-center text-md-end">
-          <a href="#" class="text-light text-decoration-none me-3 hover-text-primary transition small">Privacy Policy</a>
-          <a href="#" class="text-light text-decoration-none hover-text-primary transition small">Terms of Service</a>
-          <a href="#" class="text-light text-decoration-none ms-3 hover-text-primary transition small">Cookies Policy</a>
+        <div class="col-md-4 text-center text-md-end">
+          <a href="{{ route('privacy') }}" class="text-light text-decoration-none me-3 hover-text-primary transition small">Privacy Policy</a>
+          <a href="{{ route('terms') }}" class="text-light text-decoration-none hover-text-primary transition small">Terms of Service</a>
+          <a href="{{ route('cookies') }}" class="text-light text-decoration-none ms-3 hover-text-primary transition small">Cookies Policy</a>
+        </div>
+      </div> --}}
+      <div class="row align-items-center">
+        <div class="col-md-12 text-center mt-3">
+          <p class="text-muted small mb-0">© 2025 | All rights reserved, Drishti Pulse | Powered By D IT Solutions Pvt. Ltd.</p>   
+          <span class="text-muted bold">Made with ❤️ in BHARAT.</span>
         </div>
       </div>
     </div>

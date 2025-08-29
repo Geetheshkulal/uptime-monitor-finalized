@@ -83,6 +83,17 @@
     display: none !important;
         
     }
+
+    #monitoringTabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  #monitoringTabs .nav-item {
+    flex: 1 1 calc(50% - 8px);
+  }
+
 }
  </style>
 
@@ -166,6 +177,8 @@
  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
  <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/intro.min.js"></script>
+
+
 
  <script>
     // Validation helper functions

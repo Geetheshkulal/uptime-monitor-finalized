@@ -203,7 +203,6 @@ class MonitorJob
                 $process->setTimeout(300);
                 $process->run(); 
 
-
                 // Log::info('Job whatsapp output:' . Artisan::output());
                 Storage::delete('whatsapp-details.json');
             }
