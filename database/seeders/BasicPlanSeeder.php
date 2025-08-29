@@ -16,7 +16,6 @@ class BasicPlanSeeder extends Seeder
     public function run()
     {
         DB::table('subscriptions')->insert([
-            'id' => 1,
             'plan_id' => 'plan_basic',
             'name' => 'Basic',
             'amount' => 0,
