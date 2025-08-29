@@ -41,7 +41,7 @@
                                 <a href="{{ $url }}"  style="background: #3490dc; color: white; text-decoration: none; padding: 14px 30px; border-radius: 6px; font-weight: 600; display: inline-block; box-shadow: 0 3px 6px rgba(0,0,0,0.1); transition: all 0.2s ease;">View Ticket</a>
                             </div>
 
-                            <p style="margin-bottom: 0;">If you have any questions, feel free to <a href="mailto:drishtipulse2025@gmail.com" style="color: #0066cc; text-decoration: none; font-weight: 500;">contact our support team</a>.</p>
+                            <p style="margin-bottom: 0;">If you have any questions, feel free to <a href="mailto:info@ditsolutions.net" style="color: #0066cc; text-decoration: none; font-weight: 500;">contact our support team</a>.</p>
                         </td>
                     </tr>
 

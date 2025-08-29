@@ -104,7 +104,7 @@
                             </div>
 
                             <p style="font-size: 14px; color: #6b7280; margin: 15px 0; line-height: 1.5;">
-                                <a href="mailto:drishtipulse2025@gmail.com" style="color: #4f46e5; text-decoration: none;">drishtipulse2025@gmail.com</a><br>
+                                <a href="mailto:info@ditsolutions.net" style="color: #4f46e5; text-decoration: none;">info@ditsolutions.net</a><br>
                                 Drishti Pulse Support Team
                             </p>
 

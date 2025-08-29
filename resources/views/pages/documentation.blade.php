@@ -822,10 +822,10 @@
             <ul class="mb-0">
               <li>Navigate to the Status page section</li>
             <li>It will show button to share status page,click on that button</li>
-            <li>whitelist your ip address to make the status page public</li>
-            <li>click on enable public status page</li>
-            <li>now click on save settings button and your status page will be public</li>
-            <li>you can share the link with anyone to view the status page</li>
+            <li>Whitelist your ip address to make the status page public</li>
+            <li>Click on enable public status page</li>
+            <li>Now click on save settings button and your status page will be public</li>
+            <li>You can share the link with anyone to view the status page</li>
             </ul>
           </div>
         </div>
