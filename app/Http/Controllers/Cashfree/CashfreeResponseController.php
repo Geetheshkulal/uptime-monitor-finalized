@@ -141,13 +141,9 @@ class CashfreeResponseController extends Controller
         $timestamp = $request->header('x-webhook-timestamp');
         $signature = $request->header('x-webhook-signature');
 
-        // Log::info('Cashfree Webhook Received:', [
-        //     'payload' => $data,
-        //     'headers' => [
-        //         'timestamp' => $timestamp,
-        //         'signature' => $signature
-        //     ]
-        // ]);
+        Log::info('Cashfree Webhook Received:', [
+            'payload' => $data,
+        ]);
 
 
         $isValid = app(CashfreeService::class)->verifyWebhookSignature(

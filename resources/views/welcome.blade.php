@@ -401,7 +401,7 @@
   }
   
   .footer-links a:hover {
-    color: var(--accent-color) !important;
+    /* color: var(--accent-color) !important; */
     transform: translateX(5px);
   }
   
