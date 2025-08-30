@@ -7,6 +7,7 @@ use App\Models\HttpResponse;
 use App\Models\Monitors;
 use App\Models\PingResponse;
 use App\Models\PortResponse;
+use App\Models\Subscriptions;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -72,8 +73,11 @@ class MonitoringController extends Controller
       foreach ($monitors as $monitor) {
           $monitor->latestResponses = $this->getLatestResponsesByType($monitor);
       }
+
+      $basic_plan = Subscriptions::where('plan_id', 'plan_basic')
+                ->first();
   
-      return view('pages.MonitoringDashboard', compact('monitors', 'totalMonitors', 'upCount', 'downCount', 'hasMoreMonitors','pausedCount'));
+      return view('pages.MonitoringDashboard', compact('monitors', 'totalMonitors', 'upCount', 'downCount', 'hasMoreMonitors','pausedCount','basic_plan'));
   }
   
 
@@ -136,8 +140,10 @@ class MonitoringController extends Controller
     public function AddMonitoring()
     {
         $user = auth()->user();
+        $basic_plan = Subscriptions::where('plan_id', 'plan_basic')
+                ->first();
         if($user->hasRole('subuser')){
-            if($user->parentUser->status==='free' && $user->parentUser->monitors()->count()>=5){
+            if($user->parentUser->status==='free' && ($user->parentUser->monitors()->count()>=5 || !$basic_plan->is_active )){
                 return view('pages.SubUserPremiumNotPresent');
             }
         }

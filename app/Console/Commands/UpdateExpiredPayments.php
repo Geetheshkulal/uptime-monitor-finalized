@@ -52,22 +52,7 @@ class UpdateExpiredPayments extends Command
                 $this->info("Expired payment ID: {$payment->id} for user ID: {$user->id}");
             }
 
-            $monitors = Monitors::where('user_id', $user->id)
-            ->orderBy('created_at','asc')
-            ->get();
-
-            $monitorsToKeep = $monitors->take(5);
-            $monitorsToPause = $monitors->slice(5);
-
-            foreach ($monitorsToKeep as $monitor) {
-                $monitor->pause_on_expire = false;
-                $monitor->save();
-            }
-        
-            foreach ($monitorsToPause as $monitor) {
-                $monitor->pause_on_expire = true;
-                $monitor->save();
-            }
+            
 
         }
         return 0;

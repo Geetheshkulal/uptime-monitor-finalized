@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Subscriptions;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Services\AddPlanService;
+use Log;
 
 
 class BillingController extends Controller
@@ -12,6 +14,11 @@ class BillingController extends Controller
     
     public function Billing(){
         $subscriptions = Subscriptions::all();
+        $basic_plan = Subscriptions::where('plan_id', 'plan_basic')->first();
+        if (!$basic_plan) {
+            Log::warning('Basic plan (plan_id: plan_basic) not found in subscriptions table.');
+            return view('pages.admin.Billing', compact('subscriptions'))
+                ->with(['ErrorMessage' => 'Basic plan (plan_id: plan_basic) not found. May cause errors']);        }
         return view('pages.admin.Billing', compact('subscriptions'));
     }
 
@@ -76,6 +83,8 @@ class BillingController extends Controller
         $subscription = Subscriptions::findOrFail($id);
         $subscription->update($validated);
 
+        
+
         return redirect()->back()->with('success', 'Subscription edited successfully');
     }
 
@@ -101,6 +110,41 @@ class BillingController extends Controller
      // Toggle active status
      public function ToggleActive(Request $request, $id){
         $subscription = Subscriptions::findOrFail($id);
+
+        
+         // If basic plan is being deactivated, pause all free users' monitors
+        if($subscription->plan_id==='plan_basic'){
+            $free_users = User::where('status', 'free')->get();
+            if($request->is_active==='false'){
+                Log::info($subscription);
+                // Deactivate all users on basic plan
+            
+                foreach ($free_users as $user) {
+                    $user->monitors()->update(['pause_on_expire' => true]);
+                }
+            }else{
+                foreach ($free_users as $user) {
+                    $userMonitors = $user->monitors()
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+
+                    $monitorsToKeep = $userMonitors->take(5)->pluck('id');
+                    $monitorsToPause = $userMonitors->slice(5)->pluck('id');
+
+                    if ($monitorsToKeep->isNotEmpty()) {
+                        $user->monitors()
+                            ->whereIn('id', $monitorsToKeep)
+                            ->update(['pause_on_expire' => false]);
+                    }
+
+                    if ($monitorsToPause->isNotEmpty()) {
+                        $user->monitors()
+                            ->whereIn('id', $monitorsToPause)
+                            ->update(['pause_on_expire' => true]);
+                    }
+                }
+            }
+        }
         $subscription->update(['is_active' => !$subscription->is_active]);
 
         return response()->json(['success' => true, 'is_active' => $subscription->is_active]);
@@ -109,13 +153,13 @@ class BillingController extends Controller
     public function EditFeature(Subscriptions $subscription)
     {
         
-    /// Initialize with empty array if no features exist
-    $features = $subscription->features ?? [];
+        /// Initialize with empty array if no features exist
+        $features = $subscription->features ?? [];
 
-    return view('pages.admin.EditPlanFeatures', [
-        'subscription' => $subscription,
-        'features' => $features
-    ]);
+        return view('pages.admin.EditPlanFeatures', [
+            'subscription' => $subscription,
+            'features' => $features
+        ]);
 
     }
 

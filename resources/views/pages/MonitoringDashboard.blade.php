@@ -377,7 +377,11 @@
                             </div>
                             <div class="text-center text-md-left mb-3 mb-md-0">
                                 <h4 class="mb-1" style="color:yellow;">Upgrade to Premium</h4>
-                                <p class="mb-0">Some of your monitors are paused due to plan limits. Upgrade to Premium to activate all monitors.</p>
+                                @if($basic_plan && $basic_plan->is_active) 
+                                    <p class="mb-0">Some of your monitors are paused due to plan limits. Upgrade to Premium to activate all monitors.</p>
+                                @else
+                                    <p class="mb-0">Your Monitors are paused. Upgrade to Premium to activate the monitors.</p>
+                                @endif
                             </div>
                             {{-- <div class="mt-md-0 mt-2 ml-md-auto">
                                 <a href="{{ route('premium.page') }}" class="btn btn-primary AddMonitor" style="color:yellow;">
@@ -398,7 +402,13 @@
                                 </div>
                                 <div class="text-center text-md-left mb-3 mb-md-0">
                                     <h4 class="mb-1">Upgrade to Premium</h4>
-                                    <p class="mb-0">Your parent account is on Free plan. Some monitors are hidden. Ask the owner to upgrade.</p>
+                                    <p class="mb-0">Your parent account is on Free plan. 
+                                        @if($basic_plan && $basic_plan->is_active) 
+                                            <span>Some monitors are paused. Ask the owner to upgrade.</span>
+                                        @else
+                                            <span>Monitors are paused. Ask the owner to upgrade to Premium.</span>
+                                        @endif
+                                    </p>
                                 </div>
                             </div>
                         </div>

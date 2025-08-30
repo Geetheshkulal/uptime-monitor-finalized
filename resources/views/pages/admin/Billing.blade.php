@@ -380,22 +380,28 @@ input:checked + .slider:before {
 </script>
 @endif
 
-<script>
-
-@if (session('success'))
-toastr.success("{{ session('success') }}");
+@if (!empty($ErrorMessage))
+    <script>
+        toastr.error("{{ $ErrorMessage }}");
+    </script>
 @endif
 
 
-    $(document).ready(function () {
-        $('#dataTable').DataTable({
-            "paging": true,
-            "searching": true,
-            "ordering": true,
-            "info": true,
-            "order": [[0, "asc"]],
-            "responsive": true
-        });
+<script>
+@if (session('success'))
+    toastr.success("{{ session('success') }}");
+@endif
+
+
+$(document).ready(function () {
+    $('#dataTable').DataTable({
+        "paging": true,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "order": [[0, "asc"]],
+        "responsive": true
+    });
 
 
         // Show/hide discount fields selection

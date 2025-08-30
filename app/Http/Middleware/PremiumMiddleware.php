@@ -19,7 +19,6 @@ class PremiumMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         // Check if user is authenticated
-        Log::info('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
         if (!$request->user()) {
             return redirect()->route('login');
         }

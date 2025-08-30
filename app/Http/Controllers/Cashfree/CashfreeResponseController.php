@@ -219,7 +219,8 @@ class CashfreeResponseController extends Controller
                 'premium_end_date'=>Carbon::parse($data['subscription_details']['subscription_expiry_time'])->toDateString(),
             ];
 
-            User::where('id', $user->id)->update($updateUserTable);
+            //User is already updated in payment success function
+            // User::where('id', $user->id)->update($updateUserTable);
             UserSubscription::where('cashfree_subscription_id', $data['subscription_details']['subscription_id'])->update($updateData);         
 
     }
@@ -228,11 +229,10 @@ class CashfreeResponseController extends Controller
     private function handlePaymentSuccess(array $data)
     {
         // Log::info('cashfree successfull data', $data);
-                    
-                $userSubscription = UserSubscription::where('cashfree_subscription_id', $data['subscription_id'])->first();
-                $user = User::find($userSubscription->user_id);
+                
 
                 $userSubscription = UserSubscription::where('cashfree_subscription_id', $data['subscription_id'])->first();
+                $user = User::find($userSubscription->user_id);
                 $endDate = $userSubscription?->end_date;
                 $subscriptionId = $userSubscription?->subscription_id;
 
@@ -269,8 +269,10 @@ class CashfreeResponseController extends Controller
                     'premium_end_date'=> $endDate,
                 ];
 
-                User::where('id', $user->id)->update($updateUserTable);
-                Monitors::where('user_id', $user->id)->update(['pause_on_expire' => 0]);
+                
+
+                $user->update($updateUserTable);
+                
 
                 $filename = "invoice_{$data['cf_txn_id']}.pdf";
                 // $pdfPath = "public/invoices/{$filename}";

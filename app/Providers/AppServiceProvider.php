@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Models\Activity;
+use App\Models\User;
+use App\Observers\PauseMontiorObserver;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
@@ -33,5 +35,7 @@ class AppServiceProvider extends ServiceProvider
             }
             $activity->ip_address = Request::ip();
         });
+
+        User::observe(PauseMontiorObserver::class);
     }
 }
