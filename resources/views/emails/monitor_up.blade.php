@@ -9,7 +9,7 @@
 <body style="font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f5f7fa; margin: 0; padding: 0; color: #333333; -webkit-font-smoothing: antialiased;">
     <!-- Tracking Pixel -->
     <div style="display:none; font-size:0; line-height:0;">
-        <img src="{{ url('/track/' . $token . '.png') }}" 
+        <im+g src="{{ url('/track/' . $token . '.png') }}" 
              alt="" 
              width="1" 
              height="1" 
@@ -102,7 +102,7 @@
                             </table>
                             
                             <p style="font-size: 14px; color: #666; margin: 20px 0 15px 0;">
-                                Need help? Contact us at <a href="mailto:drishtipulse2025@gmail.com" style="color: #0066cc; text-decoration: none;">drishtipulse2025@gmail.com</a>
+                                Need help? Contact us at <a href="mailto:info@ditsolutions.net" style="color: #0066cc; text-decoration: none;">info@ditsolutions.net</a>
                             </p>
 
                             <p style="font-size: 13px; color: #999; margin: 0;">

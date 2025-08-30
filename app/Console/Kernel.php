@@ -19,6 +19,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('payments:expire-check')->daily();
         $schedule->command('users:free-trial-check')->daily();
         $schedule->command('coupons:deactivate-expired')->daily();
+        $schedule->command('ssl:notify')->daily();
     }
 
     /**

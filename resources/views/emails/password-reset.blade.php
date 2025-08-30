@@ -114,7 +114,7 @@
                             </table>
                             
                             <p style="font-size: 14px; color: #666; margin: 20px 0 15px 0;">
-                                Have questions? Contact us at <a href="mailto:drishtipulse2025@gmail.com" style="color: #0066cc; text-decoration: none;">drishtipulse2025@gmail.com</a>
+                                Have questions? Contact us at <a href="mailto:info@ditsolutions.net" style="color: #0066cc; text-decoration: none;">info@ditsolutions.net</a>
                             </p>
                             
                             <p style="font-size: 13px; color: #999; margin: 0;">

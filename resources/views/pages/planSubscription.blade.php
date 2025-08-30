@@ -612,7 +612,7 @@
                     India<br>
                     GSTIN: 29AAICD0310K1ZT<br>
                     Phone: +91 8073462033<br>
-                    Email: drishtipulse2025@gmail.com
+                    Email: info@ditsolutions.net
                 </div>
             </div>
             <div class="invoice-info">
@@ -702,7 +702,7 @@
         <div class="bill-footer">
             <div class="thank-you">Thank you for your business!</div>
             <div>This is computer generated receipt and does not require physical signature.</div>
-            <div>If you have any questions about this invoice, please contact our support at drishtipulse2025@gmail.com</div>
+            <div>If you have any questions about this invoice, please contact our support at info@ditsolutions.net</div>
         </div>
     </div>
 </div> --}}

@@ -162,6 +162,14 @@
         .navbar-toggler:focus {
             box-shadow: none !important;
         }
+
+        p {
+  line-height: 2; 
+}
+
+h1,h2,h3,h4{
+  line-height: 1.8; 
+}
     </style>
 </head>
 
@@ -295,9 +303,7 @@
                 <li>
                     <p><strong>Terms and Conditions</strong> (also referred as &quot;Terms&quot;) mean these Terms and
                         Conditions that form the entire agreement between You and the Company regarding the use of the
-                        Service. This Terms and Conditions agreement has been created with the help of the <a
-                            href="https://www.termsfeed.com/terms-conditions-generator/" target="_blank">Terms and
-                            Conditions Generator</a>.</p>
+                        Service.</p>
                 </li>
                 <li>
                     <p><strong>Third-party Social Media Service</strong> means any services or content (including data,
@@ -422,7 +428,7 @@
             <p>If you have any questions about these Terms and Conditions, You can contact us:</p>
             <ul>
                 <li>
-                    <p>By email: <a href="mailto:drishtipulse2025@gmail.com" class="text-decoration-none">drishtipulse2025@gmail.com</a>
+                    <p>By email: <a href="mailto:info@ditsolutions.net" class="text-decoration-none">info@ditsolutions.net</a>
                     </p>
                 </li>
                 <li>
@@ -519,7 +525,7 @@
               </p>
               <p class="mb-1 d-flex align-items-center">
                 <i class="fas fa-envelope text-primary me-2"></i>
-                <a href="mailto:drishtipulse2025@gmail.com" class="text-light text-decoration-none hover-text-primary transition">drishtipulse2025@gmail.com</a>
+                <a href="mailto:info@ditsolutions.net" class="text-light text-decoration-none hover-text-primary transition">info@ditsolutions.net</a>
               </p>
               <p class="mb-1 d-flex align-items-center">
                 <i class="fas fa-phone text-primary me-2"></i>

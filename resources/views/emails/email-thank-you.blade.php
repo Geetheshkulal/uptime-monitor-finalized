@@ -52,7 +52,7 @@
                               <img src="{{ asset('emails.png') }}" alt="Verified Animation" style="max-width: 200px; display: block; margin: 0 auto;">
                             </div>
 
-                            <p>If you didn’t verify your email recently or believe this was a mistake, please <a href="mailto:drishtipulse2025@gmail.com" style="color: #0066cc; font-weight: 500;">contact our support team</a>.</p>
+                            <p>If you didn’t verify your email recently or believe this was a mistake, please <a href="mailto:info@ditsolutions.net" style="color: #0066cc; font-weight: 500;">contact our support team</a>.</p>
                         </td>
                     </tr>
                     
@@ -108,7 +108,7 @@
                             </table>
 
                             <p style="font-size: 14px; color: #666; margin: 20px 0 15px 0;">
-                                Need help? Reach us at <a href="mailto:drishtipulse2025@gmail.com" style="color: #0066cc; text-decoration: none;">drishtipulse2025@gmail.com</a>
+                                Need help? Reach us at <a href="mailto:info@ditsolutions.net" style="color: #0066cc; text-decoration: none;">info@ditsolutions.net</a>
                             </p>
 
                             <p style="font-size: 13px; color: #999; margin: 0;">
