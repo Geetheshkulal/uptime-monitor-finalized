@@ -246,7 +246,6 @@ public function cancelSubscription($subscriptionId)
         'status'=> $hasActiveSubscription ? 'paid' : 'free',
     ];
    
-
     Payment::where('user_id', $user->id)
             ->where('cashfree_subscription_id', $subscriptionId)
             ->update($updatePaymentTableData);

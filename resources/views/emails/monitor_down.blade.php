@@ -49,12 +49,15 @@
                     <!-- Content -->
                     <tr>
                         <td style="padding: 40px 30px; font-size: 16px; line-height: 1.6;">
-                            <p style="margin-top: 0;">Hello,</p>
-                            <p><strong style="color:#3490dc;">{{ $monitor->url }}</strong> is currently <strong>DOWN</strong> as of <strong>{{ now() }}</strong>.</p>
-                            <p>Please investigate this issue as soon as possible to minimize downtime.</p>
+                            <p style="margin-top: 0;">Hello, {{ $monitor->user->name}}</p>
+                            <p>We have detected that <strong style="color:#3490dc;">{{ $monitor->url }}</strong> is currently <strong>DOWN.</p>
+                            <p>We will notify you once the monitor is back <strong>UP</strong>.</p>
 
                             <div style="background-color: #f8f9fa; border-left: 4px solid #3490dc; padding: 15px; margin: 30px 0; border-radius: 4px;">
-                                <p style="margin: 0 0 10px 0; font-weight: 600;">You are receiving this alert because you are subscribed to Drishti Pulse monitoring notifications.</p>
+                                    <li><strong>Monitor Name:</strong> {{ $monitor->name }}</li>
+                                    <li><strong>URL:</strong> {{ $monitor->url }}</li>
+                                    <li><strong>Cause:</strong> {{ $reason }}</li>
+                                    <li><strong>Last Checked:</strong> {{ now() }}</li>
                             </div>
                         </td>
                     </tr>
