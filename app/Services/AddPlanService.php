@@ -28,6 +28,10 @@ class AddPlanService
 
     public function createPlan($data)
     {
+        // log the cashfree key and secret being used
+        Log::info('Using Cashfree Key: ' . config('services.cashfree.key'));
+        Log::info('Using Cashfree Secret: ' . config('services.cashfree.secret'));
+        
         try {
             $response = Http::withHeaders([
                 'x-api-version' => '2025-01-01',

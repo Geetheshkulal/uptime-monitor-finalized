@@ -71,9 +71,19 @@
         .nav-tabs{
             border-bottom: none;
         }
-.nav-tabs .nav-link{
-    margin: 5px;
-}
+        .nav-tabs .nav-link{
+            margin: 5px;
+        }
+
+        .nav-tabs .nav-link.active {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+        }
+        .nav-tabs .nav-link:hover{
+            background-color:;
+            border: none;
+        }
 
 @media (max-width: 576px) {
     .introjs-tooltip,

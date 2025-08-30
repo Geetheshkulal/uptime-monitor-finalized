@@ -280,6 +280,7 @@
 .page-content {
    margin-bottom: 175px;
 }
+
 .eyeCancel{
     margin-top: -21px;
 }
@@ -287,11 +288,13 @@
 }
 
     .section-title {
+
         color: #4e73df;
         font-weight: 600;
         border-bottom: 1px solid #e3e6f0;
         padding-bottom: 8px;
         margin-bottom: 15px;
+        
     }
     .detail-row {
         display: flex;

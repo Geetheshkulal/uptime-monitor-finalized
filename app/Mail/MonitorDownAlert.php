@@ -15,11 +15,13 @@ class MonitorDownAlert extends Mailable
 
     public $monitor;
     public $token;
+    public $reason;
 
-    public function __construct(Monitors $monitor, string $token)
+    public function __construct(Monitors $monitor, string $token, string $reason)
     {
         $this->monitor = $monitor;
         $this->token = $token;
+        $this->reason = $reason;
     }
 
     public function envelope(): Envelope
@@ -35,7 +37,8 @@ class MonitorDownAlert extends Mailable
             view: 'emails.monitor_down',
             with: [
                 'monitor' => $this->monitor,
-                'token' => $this->token
+                'token' => $this->token,
+                'reason' => $this->reason,
             ]
         );
     }

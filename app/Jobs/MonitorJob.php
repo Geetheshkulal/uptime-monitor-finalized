@@ -113,7 +113,7 @@ class MonitorJob
     }
 
 
-    private function sendAlert(Monitors $monitor, string $status)
+    private function sendAlert(Monitors $monitor, string $status, string $reason)
     {
     $shouldAlert =
         ($status === 'down' && ($monitor->status === 'up' || $monitor->status === null)) ||
@@ -139,7 +139,7 @@ class MonitorJob
             ]);
 
             // Only for DOWN monitor
-            Mail::to($monitor->email)->send(new MonitorDownAlert($monitor, $token));
+            Mail::to($monitor->email)->queue(new MonitorDownAlert($monitor, $token, $reason));
 
             if ($monitor->telegram_bot_token && $monitor->telegram_id && $monitor->user->status !== 'free') {
                 $this->sendTelegramNotification($monitor);
@@ -383,6 +383,7 @@ class MonitorJob
         $status = 'down';
         $statusCode = 0;
         $responseTime = 0;
+        $reason = 'Connection timed out';
         // Log::info("Checking HTTP Monitor: {$monitor->id} ({$monitor->url})");
 
         for ($attempt = 0; $attempt < $monitor->retries; $attempt++) {
@@ -400,27 +401,28 @@ class MonitorJob
                     $status = 'up';
                 } else {
                     $status = 'down';
-                    // Log::warning("HTTP Monitor {$monitor->id} returned non-success status: {$statusCode}");
+                    $reason = $this->mapReason('http', $statusCode, $response->reason());
                 }
 
-                break; // Exit retry loop on success
+                break; 
 
             } catch (RequestException $e) {
                 // Log::error("HTTP RequestException (Monitor ID: {$monitor->id}): " . $e->getMessage());
                 $statusCode = $e->response ? $e->response->status() : 0;
 
-                // Handle specific HTTP errors
-                if ($statusCode === 403) {
-                    // Log::warning("HTTP Monitor {$monitor->id} returned 403 (Forbidden).");
-                }
+                $status = 'down';
+                $reason = $this->mapReason('http', $statusCode, $e->getMessage());
+                
             } catch (\Exception $e) {
                 // Log::error("General HTTP Exception (Monitor ID: {$monitor->id}): " . $e->getMessage());
-
+                $status = 'down';
                 // Handle timeouts and SSL errors
                 if (strpos($e->getMessage(), 'timed out') !== false) {
-                    $statusCode = 408; // Request Timeout
+                    $statusCode = 408; 
+                    $reason = $this->mapReason('http', 408);
                 } elseif (strpos($e->getMessage(), 'SSL') !== false) {
                     $statusCode = 495; // SSL Failure
+                    $reason = $this->mapReason('http', 495);
                 }
             }
 
@@ -430,6 +432,7 @@ class MonitorJob
             }
         }
 
+        // Log::info("HTTP Monitor {$monitor->id} status: {$status}, code: {$statusCode}, reason: {$reason}");
         // Store response in the http_response table
         try {
             HttpResponse::create([
@@ -445,77 +448,15 @@ class MonitorJob
         }
 
 
-        $this->createIncident($monitor, $status, 'HTTP');
+        // $this->createIncident($monitor, $status, 'HTTP');
+        $this->createIncident($monitor, $status, 'HTTP', $reason);
 
         // Send alert if status is down
         try {
-            $this->sendAlert($monitor, $status);
+            $this->sendAlert($monitor, $status, $reason);
         } catch (\Exception $e) {
             // Log::error('' . $e->getMessage());
         }
-    }
-
-
-
-    private function checkDnsRecords(Monitors $monitor)
-    {
-        $parsedDomain = parse_url($monitor->url, PHP_URL_HOST) ?? $monitor->url;
-
-        $dnsTypes = [
-            'A' => DNS_A,
-            'AAAA' => DNS_AAAA,
-            'CNAME' => DNS_CNAME,
-            'MX' => DNS_MX,
-            'NS' => DNS_NS,
-            'SOA' => DNS_SOA,
-            'TXT' => DNS_TXT,
-            'SRV' => DNS_SRV,
-        ];
-
-        $attempt = 0;
-        $records = null;
-        $startTime = microtime(true); // Start timing
-
-        while ($attempt < $monitor->retries) {
-            try {
-                $records = @dns_get_record($parsedDomain, $dnsTypes[$monitor->dns_resource_type] ?? DNS_A); // Suppress warnings
-                if ($records) {
-                    break; // Exit retry loop if records are found
-                }
-            } catch (\Exception $e) {
-                // Log::error("DNS check failed for {$monitor->url}: " . $e->getMessage());
-                break; // Exit on failure
-            }
-
-            $attempt++;
-            sleep(min(pow(2, $attempt), 5)); // Exponential backoff with a max wait of 5s
-        }
-
-        $responseTime = round((microtime(true) - $startTime) * 1000, 2); // Convert to ms
-        $status = $records ? 'up' : 'down';
-
-        // Store response in the dns_responses table
-        try {
-            DnsResponse::create([
-                'monitor_id' => $monitor->id,
-                'status' => $status,
-                'response_time' => $responseTime
-            ]);
-        } catch (\Exception $e) {
-            // Log::error("Failed to insert DNS response for {$monitor->url}: " . $e->getMessage());
-        }
-
-        $this->createIncident($monitor, $status, 'DNS');
-
-
-        try {
-            $this->sendAlert($monitor, $status);
-        } catch (\Exception $e) {
-            // Log::error('' . $e->getMessage());
-        }
-
-
-        return $records ?: null;
     }
 
     private function checkPort(Monitors $monitor)
@@ -526,6 +467,9 @@ class MonitorJob
         $startTime = microtime(true);
         $retries = $monitor->retries ?? 3; 
         $timeout = 5; 
+
+        $statusCode = '';
+        $reason = '';
 
         // Log::info("Checking port {$monitor->port} on {$monitor->url} with {$retries} retries.");
 
@@ -540,15 +484,21 @@ class MonitorJob
                     // Set a timeout for the socket
                     stream_set_timeout($connection, $timeout);
 
-                    // Check if the connection is actually successful
                     $status = 'up';
                     $responseTime = round((microtime(true) - $startTime) * 1000, 2); // Convert to ms
                     fclose($connection);
+
+                    $statusCode = 0;
                     break;
                 } else {
+
+                    $statusCode = (string) $errno;
+                    $reason = $this->mapReason('port', $statusCode, $errstr);
                     // Log::warning("Port check attempt $attempt failed: {$monitor->url}:{$monitor->port} - Error: $errstr ($errno)");
                 }
             } catch (\Exception $e) {
+                $statusCode = 'ETIMEDOUT';
+                $reason = 'Unexpected error during port check: ' . $e->getMessage();
                 // Log::error("Exception during port check attempt $attempt: " . $e->getMessage());
             }
 
@@ -573,10 +523,10 @@ class MonitorJob
 
         //Create an incident.
 
-        $this->createIncident($monitor, $status, 'PORT');
+        $this->createIncident($monitor, $status, 'PORT',$reason);
 
         try {
-            $this->sendAlert($monitor, $status);
+            $this->sendAlert($monitor, $status, $reason);
         } catch (\Exception $e) {
             // Log::error("Failed to send alert: " . $e->getMessage());
         }
@@ -588,6 +538,9 @@ class MonitorJob
 
     private function checkPing(Monitors $monitor)
     {
+        $statusCode = '';
+        $reason = '';
+
         try {
             $domain = parse_url($monitor->url, PHP_URL_HOST) ?? $monitor->url;
             $attempt = 0;
@@ -602,7 +555,19 @@ class MonitorJob
 
                 if ($resultCode === 0) {
                     $status = 'up';
+                    $reason = 'Ping successful';
                     break;
+                }else {
+                    // Map error for ping failure
+                    if (strpos(implode(' ', $output), '100% packet loss') !== false) {
+                        $statusCode = 'PACKETLOSS';
+                    } elseif (strpos(implode(' ', $output), 'unreachable') !== false) {
+                        $statusCode = 'UNREACHABLE';
+                    } else {
+                        $statusCode = 'TIMEOUT';
+                    }
+                
+                    $reason = $this->mapReason('ping', $statusCode);
                 }
 
                 $attempt++;
@@ -618,11 +583,11 @@ class MonitorJob
                 'response_time' => $responseTime
             ]);
 
-            $this->createIncident($monitor, $status, monitorType: 'PING');
+            $this->createIncident($monitor, $status,'PING', $reason);
 
             // Send alert and create incident
             try {
-                $this->sendAlert($monitor, $status);
+                $this->sendAlert($monitor, $status, $reason);
             } catch (\Exception $e) {
                 // Log::error($e->getMessage());
             }
@@ -636,16 +601,126 @@ class MonitorJob
         }
     }
 
-    //NEW INCIDENTS
-    private function createIncident(Monitors $monitor, string $status, string $monitorType)
+    private function checkDnsRecords(Monitors $monitor)
+    {
+        $parsedDomain = parse_url($monitor->url, PHP_URL_HOST) ?? $monitor->url;
+
+        $dnsTypes = [
+            'A' => DNS_A,
+            'AAAA' => DNS_AAAA,
+            'CNAME' => DNS_CNAME,
+            'MX' => DNS_MX,
+            'NS' => DNS_NS,
+            'SOA' => DNS_SOA,
+            'TXT' => DNS_TXT,
+            'SRV' => DNS_SRV,
+        ];
+
+        $attempt = 0;
+        $records = null;
+        $startTime = microtime(true); 
+        $statusCode = '';
+        $reason = '';
+
+        while ($attempt < $monitor->retries) {
+            try {
+                $records = @dns_get_record($parsedDomain, $dnsTypes[$monitor->dns_resource_type] ?? DNS_A); // Suppress warnings
+
+                if ($records) {
+                    $reason = 'record found';
+                    break; // Exit retry loop if records are found
+                }else {
+                    $reason = $this->mapReason('dns', 'NO_RECORD');
+                    throw new \Exception('No DNS records found');
+                }
+            } catch (\Exception $e) {
+                //  Log::error("DNS check failed for {$monitor->url}: " . $e->getMessage());
+                // break; // Exit on failure
+            }
+
+            $attempt++;
+            sleep(min(pow(2, $attempt), 5)); // Exponential backoff with a max wait of 5s
+        }
+
+        $responseTime = round((microtime(true) - $startTime) * 1000, 2); // Convert to ms
+        $status = $records ? 'up' : 'down';
+
+        // Store response in the dns_responses table
+        try {
+            DnsResponse::create([
+                'monitor_id' => $monitor->id,
+                'status' => $status,
+                'response_time' => $responseTime
+            ]);
+        } catch (\Exception $e) {
+            // Log::error("Failed to insert DNS response for {$monitor->url}: " . $e->getMessage());
+        }
+
+        $this->createIncident($monitor, $status, 'DNS', $reason);
+
+
+        try {
+            $this->sendAlert($monitor, $status, $reason);
+        } catch (\Exception $e) {
+            // Log::error('' . $e->getMessage());
+        }
+
+
+        return $records ?: null;
+    }
+
+    private function mapReason($type, $statusCode, $message = null)
+    {
+    $reasons = [
+        'http' => [
+            200 => 'OK - Server responded successfully',
+            400 => 'Bad Request',
+            401 => 'Unauthorized',
+            403 => 'Access denied',
+            404 => 'The requested resource could not be found',
+            408 => 'Request Timeout',
+            429 => 'Rate Limited',
+            500 => 'Internal Server Error',
+            502 => 'Bad Gateway',
+            503 => 'Service Unavailable',
+            504 => 'Gateway Timeout',
+            495 => 'SSL Handshake Failure',
+        ],
+        'dns' => [
+            'NO_RECORD'   => 'No DNS records found for the domain.',
+            'TIMEOUT'     => 'DNS query timed out – server did not respond.',
+            'NXDOMAIN'    => 'Domain does not exist (NXDOMAIN).',
+            'SERVFAIL'    => 'DNS server failed to complete the query.',
+            'FORMAT_ERROR'=> 'Invalid DNS query format.',
+        ],
+        'port' => [
+            '10060'        => 'Connection timed out – the host did not respond within the timeout period.',
+            '10061'        => 'Connection refused – the port is closed or the service is not running.',
+            'ENETUNREACH'  => 'Network unreachable – check routes or firewall rules.',
+            'EHOSTUNREACH' => 'Host unreachable – the server is down or unreachable.',
+        ],
+        'ping' => [
+            'PACKETLOSS' => 'Host unreachable – The server may be offline or blocking ICMP requests.',
+            'TIMEOUT'    => 'Timed out – the server did not respond within the expected time.',
+            'UNREACHABLE'=> 'Network unreachable – there might be routing issues or firewall restrictions.',
+            'UNKNOWN'    => 'Ping failed due to an unexpected error – check network connectivity or firewall settings.',
+        ]
+    ];
+
+    return $reasons[$type][$statusCode] ?? ($message ?: 'Unknown Error');
+}
+
+    // private function createIncident(Monitors $monitor, string $status, string $monitorType)
+    private function createIncident(Monitors $monitor, string $status, string $monitorType, string $reason)
     {
 
-        // If the status is 'down', we create an incident
+    //    Log::info("Creating incident for Monitor {$monitor->id} with status code {} and reason: {$reason}");
+
         if ($status === 'down') {
             // Check if there's an existing 'down' incident for the same monitor that's still open (no end_timestamp)
             $existingIncident = Incident::where('monitor_id', $monitor->id)
-                ->where('status', 'down')  // Looking for incidents that are 'down'
-                ->whereNull('end_timestamp')  // Ensure that the incident is still open
+                ->where('status', 'down')  
+                ->whereNull('end_timestamp')  
                 ->first();
 
             // If no existing open incident, create a new one
@@ -653,7 +728,7 @@ class MonitorJob
                 Incident::create([
                     'monitor_id' => $monitor->id,
                     'status' => 'down',
-                    'root_cause' => "{$monitorType} Monitoring Failed",  // Log the type of failure (e.g., Ping, DNS, HTTP)
+                    'root_cause' => $reason ?: "{$monitorType} Monitoring Failed",
                     'start_timestamp' => now(),
                     'updated_at' => now(),
                 ]);
@@ -668,7 +743,6 @@ class MonitorJob
                 ->whereNull('end_timestamp')  // Ensure it's open (still 'down')
                 ->first();
 
-            // If an open incident is found, mark it as resolved
             if ($incident) {
                 $incident->update([
                     'status' => 'up',

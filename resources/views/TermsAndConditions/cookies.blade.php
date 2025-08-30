@@ -90,7 +90,7 @@
         }
 
         .footer-links a:hover {
-            color: var(--accent-color) !important;
+            /* color: var(--accent-color) !important; */
             transform: translateX(5px);
         }
 
@@ -147,6 +147,7 @@
         font-size: 0.9rem;
       }
     }
+
         @media (max-width: 578px) {
             .auth-buttons .btn {
                 margin-top: 20px;
