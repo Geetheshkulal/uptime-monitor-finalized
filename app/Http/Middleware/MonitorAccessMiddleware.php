@@ -46,11 +46,10 @@ class MonitorAccessMiddleware
 
         // If user is unpaid, only allow access to the first 5 monitors
         if ($user->status === 'free') {
-            $allowedMonitorIds = $user->monitors()->orderBy('id')->limit(5)->pluck('id')->toArray();
-
-            if (!in_array($monitorId, $allowedMonitorIds)) {
+            $monitor = $user->monitors()->where('id', $monitorId)->first();
+            if ($monitor->pause_on_expire) {
                 return redirect()->route('premium.page')
-                    ->with('error', 'Upgrade to premium to access this monitor.');
+                    ->with('error', 'Upgrade to premium to access this monitor.');  
             }
         }
 

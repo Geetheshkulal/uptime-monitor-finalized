@@ -403,6 +403,13 @@
             </script>
         @endif
 
+        @if (!empty($ErrorMessage))
+            <script>
+                toastr.error("{{ $ErrorMessage }}");
+            </script>
+        @endif
+
+
         <script>
             @if (session('success'))
                 toastr.success("{{ session('success') }}");

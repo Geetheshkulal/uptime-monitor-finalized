@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Subscriptions;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,8 +28,10 @@ class LimitMonitorMiddleware
 
         // Check if free user has reached monitor limit
         $monitorCount = $user->monitors()->count();
+        $basic_plan = Subscriptions::where('plan_id', 'plan_basic')
+                        ->first();
         
-        if ($monitorCount >= 5) {
+        if ($user->hasRole('user') && $user->status === 'free' &&  ($monitorCount >= 5 || !$basic_plan->is_active)) {
             return redirect()->route('premium.page')
                 ->with('warning', 'You have reached the limit of 5 monitors on the free plan. Upgrade to premium to add more monitors.');
         }
