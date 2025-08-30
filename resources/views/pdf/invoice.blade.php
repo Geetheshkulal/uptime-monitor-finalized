@@ -159,7 +159,7 @@
                         India<br>
                         GSTIN: 22ABCDE1234F1Z5<br>
                         Phone: +91 8073462033<br>
-                        Email: drishtipulse2025@gmail.com
+                        Email: info@ditsolutions.net
                     </div>
                 </td>
                 <td style="text-align: right; vertical-align: top;">
