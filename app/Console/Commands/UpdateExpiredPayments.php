@@ -30,8 +30,9 @@ class UpdateExpiredPayments extends Command
 
          // Get users whose premium ends today and status is 'paid'
          $users = User::whereNot('status', 'free')
-         ->whereDate('premium_end_date', $today)
-         ->get();
+            ->whereDate('premium_end_date', '<=', $today)
+            ->get();
+
 
          foreach ($users as $user) {
             // Update the user's status and clear premium_end_date

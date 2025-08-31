@@ -25,11 +25,11 @@ class PauseMontiorObserver
         $oldStatus = $user->getOriginal('status');
         $newStatus = $user->status;
 
+
         // Case 1: User downgraded to free
         if ($newStatus === 'free' && $oldStatus !== 'free') {
             // check user's own basic plan subscription
             $basic_plan = Subscriptions::where('plan_id', 'plan_basic')
-                ->where('is_active', true)
                 ->first();
 
             if ($basic_plan) {
