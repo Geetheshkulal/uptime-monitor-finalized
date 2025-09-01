@@ -22,6 +22,16 @@
             border-bottom: none;
         }
 
+          .nav-tabs .nav-link.active {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+        }
+
+        html.dark-mode .nav-tabs .nav-link:hover{
+            border: 1px solid var(--primary) !important;
+        }
+        
 @media (max-width: 578px) {
     .dataTables_length {
         text-align: left !important;

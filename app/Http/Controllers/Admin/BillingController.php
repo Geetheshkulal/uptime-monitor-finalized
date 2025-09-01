@@ -50,7 +50,7 @@ class BillingController extends Controller
         
         $response = $cashfree->createPlan($validated);
 
-        if (isset($response['code']) && $response['code'] !== 'success') {
+        if(isset($response['code']) && $response['code'] !== 'success') {
             return back()->withErrors([$response['message'] ?? 'Plan creation failed'])->withInput();
         }
    
