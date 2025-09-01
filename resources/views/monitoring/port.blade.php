@@ -120,7 +120,8 @@ html.dark-mode .languages_wrapper::-webkit-scrollbar-thumb {
 
 datalist#portOptions {
   position: absolute;
-  background-color: rgb(255, 255, 255);
+  background-color: var(--white);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 90%;
   padding: 7px;
   max-height: 10rem;

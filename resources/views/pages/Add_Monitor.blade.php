@@ -80,9 +80,9 @@
             color: white;
             border: none;
         }
-        .nav-tabs .nav-link:hover{
-            background-color:;
-            border: none;
+
+        html.dark-mode .nav-tabs .nav-link:hover{
+            border: 1px solid var(--primary) !important;
         }
 
 @media (max-width: 576px) {
