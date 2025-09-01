@@ -215,12 +215,13 @@ class CashfreeResponseController extends Controller
             ];
 
             $updateUserTable=[
-                'status'=>'paid',
-                'premium_end_date'=>Carbon::parse($data['subscription_details']['subscription_expiry_time'])->toDateString(),
+                // 'status'=>'paid',
+                'premium_end_date'=> ($data['plan_details']['plan_type'] === 'ON_DEMAND') ? Carbon::now()->addYear() : $nextScheduleDate
             ];
 
+
             //User is already updated in payment success function
-            // User::where('id', $user->id)->update($updateUserTable);
+            User::where('id', $user->id)->update($updateUserTable);
             UserSubscription::where('cashfree_subscription_id', $data['subscription_details']['subscription_id'])->update($updateData);         
 
     }
@@ -266,7 +267,7 @@ class CashfreeResponseController extends Controller
 
                 $updateUserTable=[
                     'status'=>'paid',
-                    'premium_end_date'=> $endDate,
+                    // 'premium_end_date'=> $endDate,
                 ];
 
                 

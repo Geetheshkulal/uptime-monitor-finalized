@@ -41,12 +41,12 @@ class AddPlanService
             ])->post("{$this->baseUrl}", [
                 "plan_id" => $data['plan_id'],
                 "plan_name" => $data['name'],
-                "plan_type" => 'PERIODIC',
+                "plan_type" => $data['billing_cycle'] === 'monthly' ? 'PERIODIC':'ON_DEMAND',
                 "plan_max_amount" => (float) $data['sale_price'],
                 "plan_currency" => $data['plan_currency'],
                 "plan_recurring_amount" => (float) $data['sale_price'] ,
                 "plan_interval_type" => $data['billing_cycle'] === 'monthly' ? 'MONTH' : 'YEAR',
-                "plan_max_cycles" => $data['billing_cycle'] === 'monthly' ? 12 : 1,
+                // "plan_max_cycles" => $data['billing_cycle'] === 'monthly' ? 12 : 1,
                 "plan_intervals" => 1
             ]);
     

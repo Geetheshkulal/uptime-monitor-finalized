@@ -60,9 +60,7 @@ class PauseMontiorObserver
 
         // Case 2: User upgraded to paid/free_trial
         if (
-            in_array($newStatus, ['paid', 'free_trial']) &&
-            !in_array($oldStatus, ['paid'])
-        ) {
+            in_array($newStatus, ['paid', 'free_trial'])) {
             $user->monitors()->update(['pause_on_expire' => false]);
         }
 
