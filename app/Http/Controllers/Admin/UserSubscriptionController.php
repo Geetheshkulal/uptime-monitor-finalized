@@ -31,7 +31,11 @@ class UserSubscriptionController extends Controller
                 'x-client-id' => config('services.cashfree.key'),
                 'x-client-secret' => config('services.cashfree.secret'),
                 'x-api-version' => '2025-01-01'
-            ])->get(config('services.cashfree.details_url')."/{$cashfree_subscription_id}/payments");
+            ])->get(
+                (env('DRISHTI_PULSE_ENV') === 'local')?
+                "https://sandbox.cashfree.com/pg/subscriptions/{$cashfree_subscription_id}/payments":
+                "https://api.cashfree.com/pg/subscriptions/{$cashfree_subscription_id}/payments"
+            );
 
             if ($response->successful()) {
                 $payments = $response->json();

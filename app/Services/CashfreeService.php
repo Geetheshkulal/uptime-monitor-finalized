@@ -217,10 +217,13 @@ public function cancelSubscription($subscriptionId)
         'x-client-secret' => config('services.cashfree.secret'),
         'x-api-version' => '2025-01-01',
         'Content-Type' => 'application/json',
-    ])->post("https://sandbox.cashfree.com/pg/subscriptions/{$subscriptionId}/manage",[
-
-        'action' => 'CANCEL',
-    ]);
+    ])->post(
+        (env('DRISHTI_PULSE_ENV') === 'local')?
+        "https://sandbox.cashfree.com/pg/subscriptions/{$subscriptionId}/manage":
+        "https://api.cashfree.com/pg/subscriptions/{$subscriptionId}/manage",
+        [
+            'action' => 'CANCEL',
+        ]);
 
     if(!$response->successful()){
         throw new \Exception('Failed to fetch subscription details');

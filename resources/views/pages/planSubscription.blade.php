@@ -303,14 +303,11 @@
     .detail-label {
         flex: 1;
         font-weight: 600;
-        color: #5a5c69;
     }
     .detail-value {
         flex: 1;
-        color: #858796;
     }
     .subscription-section {
-        background: #f8f9fc;
         padding: 15px;
         border-radius: 5px;
         margin-bottom: 15px;
@@ -319,9 +316,7 @@
     .payment-method-details {
     margin-top: 10px;
 }
-.detail-row.indent {
-    margin-left: 20px;
-}
+
 .detail-row.indent .detail-label {
     font-weight: normal;
 }
