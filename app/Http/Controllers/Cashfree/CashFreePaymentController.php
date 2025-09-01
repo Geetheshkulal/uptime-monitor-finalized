@@ -69,7 +69,7 @@ class CashFreePaymentController extends Controller
                 'plan_interval_type' =>  $response['plan_details']['plan_interval_type'] ?? null,
                 'cashfree_subscription_id' => $response['subscription_id'] ?? null,
                 'start_date' => now(),
-                'end_date' => $response['subscription_expiry_time'],
+                'end_date' => ($response['plan_details']['plan_interval_type'] === 'MONTH')?null:now()->addYear(),
                 'status' => $response['subscription_status'] ?? 'INITIALIZED',
                 'payment_group' => $response['authorization_details']['payment_group'] ?? null,
                 'next_schedule_date' => $response['next_schedule_date'] ?? null,
