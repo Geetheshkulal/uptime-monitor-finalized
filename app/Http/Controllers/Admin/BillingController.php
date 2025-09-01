@@ -58,7 +58,7 @@ class BillingController extends Controller
             'plan_id' => $validated['plan_id'],
             'name' => $validated['name'],
             'amount' => $validated['amount'],
-            'plan_type' => 'PERIODIC',
+            'plan_type' =>  $validated['billing_cycle'] === 'monthly' ? 'PERIODIC':'ON_DEMAND',
             'percentage_discount' => $validated['percentage_discount'] ? $validated['percentage_discount'] : null,
             'sale_price' => $validated['sale_price'],
             'billing_cycle' => $validated['billing_cycle'],
