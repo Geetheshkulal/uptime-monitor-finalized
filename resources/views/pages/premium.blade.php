@@ -264,7 +264,7 @@
 
     .currency {
         font-size: 1.5rem;
-        vertical-align: super;
+        /* vertical-align: super; */
     }
 
     .period {
@@ -353,6 +353,9 @@
         color: #e0e0e0;
     }
 
+    .plan_type{
+        text-align: center;
+    }
     /* Responsive Design */
     @media (max-width: 768px) {
         .upgrade-container {
@@ -373,6 +376,18 @@
             top: 10px;
             right: 10px;
         }
+
+        .card-header-premium .price {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px; /* space between prices */
+  }
+
+  .card-header-premium .price del {
+    font-size: 20px;
+  }
+
     }
 </style>
 @endpush
@@ -408,16 +423,24 @@
                                     <div class="price" data-original="{{ $plan->amount }}" data-id="{{ $plan->id }}">
                                         @if($plan->percentage_discount > 0)
                                             <del>₹{{ round($plan->amount) }}</del>
-                                            ₹{{ round($plan->sale_price) }}
+                                            
+                                            <p>
+                                                ₹{{ round($plan->sale_price) }}
+                                                @if($plan->plan_id !=='plan_basic')
+                                                    <span class="currency">/</span>
+                                                    <span class="period">mo</span>
+                                                @endif
+                                            </p>
                                         @else
                                             ₹{{ round($plan->amount) }}
                                         @endif
 
-                                        @if($plan->plan_id !=='plan_basic')
-                                            <span class="currency">/</span><span class="period">mo</span>
-                                        @endif
+                                      
                                     </div>
                                 </div>
+                                 @if($plan->plan_id !=='plan_basic')
+                                    <p class="plan_type">Recurring Plan</p>
+                                @endif
                                 <ul class="features">
                                     @foreach ($plan->features ?? [] as $feature)
                                         <li class="{{ !$feature['available'] ? 'featured' : '' }}">
@@ -555,14 +578,29 @@
                                 <div class="card-front">
                                     <div class="card-content">
                                         <div class="card-header-premium">
-                                            <h2 class="white-color">${plan.name}</h2>
-                                            <div class="price" data-original="${plan.amount}" data-id="${plan.id}">
-                                                ${plan.percentage_discount > 0 ? `<del>₹${Math.round(plan.amount)}</del> ₹${Math.round(plan.sale_price)}` : `₹${Math.round(plan.amount)}`}
-                                                ${plan.plan_id !=='plan_basic' ? `
-                                                    <span class="currency">/</span><span class="period">${billing_cycle === 'yearly' ? 'yr' : 'mo'}</span>
-                                                ` : ''}
-                                            </div>
+                                        <h2 class="white-color">${plan.name}</h2>
+                                        <div class="price" data-original="${plan.amount}" data-id="${plan.id}">
+                                            ${
+                                                plan.percentage_discount > 0
+                                                    ? `
+                                                        <del>₹${Math.round(plan.amount)}</del>
+                                                        <p>
+                                                            ₹${Math.round(plan.sale_price)}
+                                                            ${plan.plan_id !== 'plan_basic'
+                                                                ? `<span class="currency">/</span>
+                                                                <span class="period">${billing_cycle === 'yearly' ? 'yr' : 'mo'}</span>`
+                                                                : ''
+                                                            }
+                                                        </p>
+                                                    `
+                                                    : `₹${Math.round(plan.amount)}`
+                                            }
                                         </div>
+                                    </div>
+
+                                        <p class="plan_type">
+                                           ${plan.plan_id !== 'plan_basic' ? (billing_cycle === 'yearly' ? 'One Time Payment' : 'Recurring Payment') : ''}
+                                        </p>
                                         <ul class="features">
                                             ${features.map(feature => `
                                                 <li class="${!feature.available ? 'featured' : ''}">
