@@ -29,8 +29,8 @@ class AddPlanService
     public function createPlan($data)
     {
         // log the cashfree key and secret being used
-        Log::info('Using Cashfree Key: ' . config('services.cashfree.key'));
-        Log::info('Using Cashfree Secret: ' . config('services.cashfree.secret'));
+        // Log::info('Using Cashfree Key: ' . config('services.cashfree.key'));
+        // Log::info('Using Cashfree Secret: ' . config('services.cashfree.secret'));
         
         try {
             $response = Http::withHeaders([
@@ -51,11 +51,11 @@ class AddPlanService
             ]);
     
             if ($response->failed()) {
-                Log::error('Cashfree Plan Creation Failed', [
-                    'status' => $response->status(),
-                    'body' => $response->body(),
-                    'input' => $data,
-                ]);
+                // Log::error('Cashfree Plan Creation Failed', [
+                //     'status' => $response->status(),
+                //     'body' => $response->body(),
+                //     'input' => $data,
+                // ]);
     
                 $message = $response->json()['message'] ?? 'Cashfree API Plan Creation Failed.';
                 throw new \Exception($message);
