@@ -114,7 +114,6 @@ html.dark-mode .languages_wrapper::-webkit-scrollbar-thumb {
 }
 
 
-/* Container ensures proper positioning */
 .col-md-4.position-relative {
   position: relative;
 }
@@ -123,7 +122,6 @@ datalist#portOptions {
   position: absolute;
   background-color: rgb(255, 255, 255);
   width: 90%;
-  /* width: calc(100% - 2px) !important;  */
   padding: 7px;
   max-height: 10rem;
   overflow-y: auto;
@@ -134,7 +132,7 @@ datalist#portOptions {
 }
 
 datalist#portOptions::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Edge */
+  display: none; 
 }
 
 /* Dropdown option items */
@@ -445,63 +443,6 @@ datalist#portOptions {
       }
     });
     </script>
-    
-
-{{-- <script>
-    const input = document.querySelector("#port"),
-        dropdown = document.querySelector(".dropdown"),
-        dropdownList = document.querySelector(".dropdown_wrapper"),
-        portItems = document.querySelectorAll("#ports span");
-
-    // Toggle dropdown
-    input.addEventListener("click", function(e) {
-        if (e.target === input) { 
-        dropdown.classList.toggle("active");
-        dropdownList.classList.toggle("active");
-        e.target.value !== "" && (e.target.value = "");
-        }
-    });
-
-    // Filter ports
-    input.addEventListener("input", function() {
-        dropdown.classList.add("active");
-        dropdownList.classList.add("active");
-        
-        let filter = input.value.toLowerCase().trim();
-        portItems.forEach(item => {
-            let txtVal = item.innerText.toLowerCase();
-            if (txtVal.includes(filter) && filter !== "") {
-                item.style.background = "#E9EFFF";
-                item.style.color = "#5B6278";
-            } else {
-                item.style.background = "";
-                item.style.color = "";
-            }
-        });
-    });
-
-    //Close when clicking outside
-    document.addEventListener("click", function(e) {
-        if (e.target.id !== "port" &&
-            !e.target.classList.contains("dropdown_wrapper") &&
-            !e.target.classList.contains("languages_wrapper")) {
-            dropdown.classList.remove("active");
-            dropdownList.classList.remove("active");
-        }
-    });
-
-    // Select port
-    portItems.forEach(item => {
-    item.addEventListener("click", function(e) {
-        input.value = e.target.dataset.value;
-        dropdown.classList.remove("active");
-        dropdownList.classList.remove("active");
-    });
-
-    
-})
-</script> --}}
-
 
     
 @endpush

@@ -42,6 +42,114 @@
         #dropdownMenuLink {
     display: none !important;
 }
+
+
+#ports {
+        overflow-y: auto;
+        height: inherit;
+    }
+    
+    #ports span {
+        display: block;
+        padding: 12px;
+        border-radius: 15px;
+        letter-spacing: .025rem;
+        color: var(--dark-border); 
+    }
+    
+    #ports span:hover {
+        background: var(--dark-list-hover);
+        color: var(--dark-active-list);
+        cursor: pointer;
+    }
+
+    .languages_wrapper::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+html.dark-mode .languages_wrapper {
+    background-color: #1a1a27 !important ;
+}
+
+html.dark-mode #ports span {
+    color: white;
+}
+
+
+html.dark-mode .languages_wrapper {
+    scrollbar-color: #1a1a27 #2c2c2c;
+}
+
+html.dark-mode .languages_wrapper::-webkit-scrollbar-track {
+    background: #2c2c2c;
+}
+
+html.dark-mode .languages_wrapper::-webkit-scrollbar-thumb {
+    background-color: #1a1a27;
+    border: 2px solid #2c2c2c;
+}
+
+
+.col-md-12.position-relative {
+  position: relative;
+}
+
+datalist#portOptions {
+  position: absolute;
+  background-color: rgb(255, 255, 255);
+  width: 95%;
+  padding: 7px;
+  max-height: 10rem;
+  overflow-y: auto;
+  display: none; 
+  z-index: 1000;
+  margin-top: 5px;
+  scrollbar-width: none;
+}
+
+datalist#portOptions::-webkit-scrollbar {
+  display: none; 
+}
+
+/* Dropdown option items */
+datalist#portOptions option {
+  padding: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  color: var(--blue);
+}
+
+datalist#portOptions option:hover,
+datalist#portOptions option.active {
+  background-color: #e6f0ff;
+}
+
+#portInput:focus {
+    box-shadow: none !important;
+    outline: none !important;
+    border: 1px solid var(--dark-input); 
+}
+
+html.dark-mode datalist#portOptions {
+  background-color: var(--color-card-dark);
+}
+
+html.dark-mode datalist#portOptions option {
+  color: var(--color-text-dark);
+}
+
+html.dark-mode datalist#portOptions option:hover,
+datalist#portOptions option.active {
+  background-color: var(--color-input-dark);
+}
+
+@media (max-width: 578px) {
+
+/* datalist#portOptions {
+  width: 93%;
+    } */
+
+}
        
     </style>
     <!-- Page Heading -->
@@ -260,7 +368,165 @@
         </div>
     </div>
 
+
+        <!-- Delete Confirmation Modal -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete this monitoring data?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <a href="#" id="deleteConfirmButton" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- edit Confirmation Modal -->
+        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel">Edit Monitoring</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+    
+                    <form action="{{ route('monitoring.update', $details->id) }}" id="editForm" method="POST">
+                        @csrf
+                        @method('POST')
+                        {{-- <input type="hidden" name="_method" value="POST">  --}}
+                        <input type="hidden" name="type" value="{{ $details->type }}">
+    
+                      <div class="modal-body">
+                                <div class="mb-3 col-md-12">
+                                    <label for="name" class="form-label">Friendly name</label>
+                                    <input id="name" class="form-control" name="name" type="text" placeholder="E.g. Google" value="{{ $details->name }}" required>
+                                </div>
+    
+                                <div class="row p-2">
+                                <div class="mb-3 col-md-6">
+                                    <label for="retries" class="form-label">Retries</label>
+                                    <input id="retries" class="form-control" name="retries" type="number" value="{{ $details->retries }}" required>
+                                </div>
+    
+                                <div class="mb-3 col-md-6">
+                                    <label for="interval" class="form-label">Interval (in minutes)</label>
+                                    <input 
+                                        id="interval"
+                                        class="form-control {{ auth()->user()->status === 'free' ? 'bg-light text-muted border-secondary' : '' }}"
+                                        name="interval"
+                                        type="number"
+                                        min="{{ auth()->user()->status === 'free' ? 5 : 1 }}"
+                                        max="10"
+                                        value="{{ old('interval', auth()->user()->status === 'free' ? max(5, $details->interval) : $details->interval) }}"
+                                        {{ auth()->user()->status === 'free' ? 'title=Only 5-10 minutes allowed for free users' : '' }}
+                                        required
+                                    >
+                                    @if (auth()->user()->status === 'free')
+                                        <small class="form-text text-muted">
+                                            Free users can set an interval between <strong>5 and 10 minutes</strong>. 
+                                            <a href="{{ route('premium.page') }}">Upgrade to premium <i class="fa-solid fa-crown" style="color: #FFD43B;"></i></a> to set a shorter interval.
+                                        </small>
+                                    @endif
+                                </div>
+                                </div>
+                                    
+    
+                                <div class="mb-3 col-md-12">
+                                    <label for="url" class="form-label">URL</label>
+                                    <input id="url" class="form-control" name="url" type="text" placeholder="E.g. https://www.google.com" value="{{ $details->url }}" required>
+                                    @error('url')
+                                        <p style="color: red; font-size: 14px;">{{ $message }}</p>
+                                    @enderror
+                                </div>
+    
+                                @if ($details->type == 'port')
+                                    {{-- <div class="mb-3 col-md-6">
+                                        <label for="port" class="form-label">Port</label>
+                                        <select id="port" class="form-control" name="port" required>
+                                            <option value="" disabled>Select Port</option>
+                                            @foreach ([21 => 'FTP', 22 => 'SSH / SFTP', 25 => 'SMTP', 53 => 'DNS', 80 => 'HTTP', 110 => 'POP3', 143 => 'IMAP', 443 => 'HTTPS', 465 => 'SMTP', 587 => 'SMTP', 993 => 'IMAP', 995 => 'POP3', 3306 => 'MySQL'] as $port => $label)
+                                                <option value="{{ $port }}" {{ $details->port == $port ? 'selected' : '' }}>{{ $label }} - {{ $port }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div> --}}
+    
+                                    <div class="col-md-12 mb-3 position-relative">
+                                        <label for="port" class="form-label">TCP port</label>
+                                        <input autocomplete="off" role="combobox" list="" id="portInput" name="port"
+                                               placeholder="E.g. 22, 80, 443" class="form-control mb-1"
+                                               value="{{ $details->port }}" type="text">
+                                        <datalist id="portOptions" role="listbox">
+                                            <option value="21">FTP (21)</option>
+                                            <option value="22">SSH (22)</option>
+                                            <option value="25">SMTP (25)</option>
+                                            <option value="53">DNS (53)</option>
+                                            <option value="80">HTTP (80)</option>
+                                            <option value="110">POP3 (110)</option>
+                                            <option value="143">IMAP (143)</option>
+                                            <option value="443">HTTPS (443)</option>
+                                            <option value="465">SMTP-SSL (465)</option>
+                                            <option value="587">SMTP-TLS (587)</option>
+                                            <option value="995">POP3 (995)</option>
+                                            <option value="3306">MySQL (3306)</option>
+                                        </datalist>
+                                    </div>
+                                @endif
+    
+                                @if ($details->type == 'dns')
+                                    <div class="mb-3 col-md-6">
+                                        <label for="dns_resource_type" class="form-label">DNS Resource Type</label>
+                                        <select id="dns_resource_type" class="form-control" name="dns_resource_type" required>
+                                            @foreach (['A', 'AAAA', 'CNAME', 'MX', 'NS', 'SOA', 'TXT', 'SRV', 'DNS_ALL'] as $type)
+                                                <option value="{{ $type }}" {{ $details->dns_resource_type == $type ? 'selected' : '' }}>{{ $type }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @endif
+    
+                                <div class="col-12 mt-3">
+                                    <h5 class="card-title">Notification</h5>
+                                </div>
+    
+                                <div class="mb-3 col-md-12">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input id="email" class="form-control" name="email" type="email" placeholder="example@gmail.com" value="{{ $details->email }}" required>
+                                </div>
+    
+                                <div class="mb-3 col-md-12">
+                                    <label for="telegram_id" class="form-label">Telegram ID (Optional)</label>
+                                    <input id="telegram_id" class="form-control" name="telegram_id" type="text" value="{{ $details->telegram_id }}">
+                                </div>
+    
+                                <div class="mb-3 col-md-12">
+                                    <label for="telegram_bot_token" class="form-label">Telegram Bot Token (Optional)</label>
+                                    <input id="telegram_bot_token" class="form-control" name="telegram_bot_token" type="text" value="{{ $details->telegram_bot_token }}">
+                                </div>
+                        </div>
+    
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="submit" id="editConfirmButton" class="btn btn-primary">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
     @push('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         
 
@@ -552,167 +818,102 @@
             }
 
         </script>
-    @endpush
 
-   
+<script>
+    function setEditUrl(id) {
+        let editForm = document.getElementById('editForm');
+        if (editForm) {
+            editForm.action = "/monitoring/edit/" + id; 
+        } else {
+            console.error("Edit form not found!");
+        }
+    }
+</script>
 
-    <!-- Delete Confirmation Modal -->
-    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Are you sure you want to delete this monitoring data?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <a href="#" id="deleteConfirmButton" class="btn btn-danger">Delete</a>
-                </div>
-            </div>
-        </div>
-    </div>
+<script>
+    function setDeleteUrl(id) {
+        let deleteButton = document.getElementById("deleteConfirmButton");
+        deleteButton.href = "/monitoring/delete/" + id; // Sets the GET request URL
+    }
+</script>
 
-    <!-- edit Confirmation Modal -->
-    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel">Edit Monitoring</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+<script>
+    const portInput = document.getElementById('portInput');
+    const portOptions = document.getElementById('portOptions');
+    let currentFocus = -1;
+    
+    // Show dropdown on focus
+    portInput.onfocus = function () {
+      portOptions.style.display = 'block';
+    //   portInput.style.borderRadius = "5px 5px 0 0";
+    };
+    
+    // Click to select an option
+    for (let option of portOptions.options) {
+      option.onclick = function () {
+        portInput.value = option.value;
+        portOptions.style.display = 'none';
+        // portInput.style.borderRadius = "5px";
+      }
+    }
+    
+    // Filter list based on input
+    portInput.oninput = function () {
+      currentFocus = -1;
+      let filter = portInput.value.toUpperCase();
+      for (let option of portOptions.options) {
+        option.style.display = option.value.toUpperCase().includes(filter)
+          ? "block"
+          : "none";
+      }
+    };
+    
+    // Keyboard navigation
+    portInput.onkeydown = function (e) {
+      if (e.keyCode == 40) {
+        // Down arrow
+        currentFocus++;
+        addActive(portOptions.options);
+      } else if (e.keyCode == 38) {
+        // Up arrow
+        currentFocus--;
+        addActive(portOptions.options);
+      } else if (e.keyCode == 13) {
+        // Enter
+        e.preventDefault();
+        if (currentFocus > -1) {
+          portOptions.options[currentFocus].click();
+        }
+      }
+    };
+    
+    function addActive(items) {
+      if (!items) return;
+      removeActive(items);
+      if (currentFocus >= items.length) currentFocus = 0;
+      if (currentFocus < 0) currentFocus = items.length - 1;
+      items[currentFocus].classList.add("active");
+    }
+    
+    function removeActive(items) {
+      for (let i = 0; i < items.length; i++) {
+        items[i].classList.remove("active");
+      }
+    }
+    
+    // Hide dropdown when clicking outside
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.col-md-12')) {
+        portOptions.style.display = 'none';
+        // portInput.style.borderRadius = "5px";
+      }
+    });
+    </script>
 
-                <form action="{{ route('monitoring.update', $details->id) }}" id="editForm" method="POST">
-                    @csrf
-                    @method('POST')
-                    {{-- <input type="hidden" name="_method" value="POST">  --}}
-                    <input type="hidden" name="type" value="{{ $details->type }}">
-
-                  <div class="modal-body">
-                            <div class="mb-3 col-md-12">
-                                <label for="name" class="form-label">Friendly name</label>
-                                <input id="name" class="form-control" name="name" type="text" placeholder="E.g. Google" value="{{ $details->name }}" required>
-                            </div>
-
-                            <div class="row p-2">
-                            <div class="mb-3 col-md-6">
-                                <label for="retries" class="form-label">Retries</label>
-                                <input id="retries" class="form-control" name="retries" type="number" value="{{ $details->retries }}" required>
-                            </div>
-
-                            <div class="mb-3 col-md-6">
-                                <label for="interval" class="form-label">Interval (in minutes)</label>
-                                <input 
-                                    id="interval"
-                                    class="form-control {{ auth()->user()->status === 'free' ? 'bg-light text-muted border-secondary' : '' }}"
-                                    name="interval"
-                                    type="number"
-                                    min="{{ auth()->user()->status === 'free' ? 5 : 1 }}"
-                                    max="10"
-                                    value="{{ old('interval', auth()->user()->status === 'free' ? max(5, $details->interval) : $details->interval) }}"
-                                    {{ auth()->user()->status === 'free' ? 'title=Only 5-10 minutes allowed for free users' : '' }}
-                                    required
-                                >
-                                @if (auth()->user()->status === 'free')
-                                    <small class="form-text text-muted">
-                                        Free users can set an interval between <strong>5 and 10 minutes</strong>. 
-                                        <a href="{{ route('premium.page') }}">Upgrade to premium <i class="fa-solid fa-crown" style="color: #FFD43B;"></i></a> to set a shorter interval.
-                                    </small>
-                                @endif
-                            </div>
-                            </div>
-
-                            <div class="mb-3 col-md-12">
-                                <label for="url" class="form-label">URL</label>
-                                <input id="url" class="form-control" name="url" type="text" placeholder="E.g. https://www.google.com" value="{{ $details->url }}" required>
-                                @error('url')
-                                    <p style="color: red; font-size: 14px;">{{ $message }}</p>
-                                @enderror
-                            </div>
-
-                            @if ($details->type == 'port')
-                                <div class="mb-3 col-md-6">
-                                    <label for="port" class="form-label">Port</label>
-                                    <select id="port" class="form-control" name="port" required>
-                                        <option value="" disabled>Select Port</option>
-                                        @foreach ([21 => 'FTP', 22 => 'SSH / SFTP', 25 => 'SMTP', 53 => 'DNS', 80 => 'HTTP', 110 => 'POP3', 143 => 'IMAP', 443 => 'HTTPS', 465 => 'SMTP', 587 => 'SMTP', 993 => 'IMAP', 995 => 'POP3', 3306 => 'MySQL'] as $port => $label)
-                                            <option value="{{ $port }}" {{ $details->port == $port ? 'selected' : '' }}>{{ $label }} - {{ $port }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            @endif
-
-                            @if ($details->type == 'dns')
-                                <div class="mb-3 col-md-6">
-                                    <label for="dns_resource_type" class="form-label">DNS Resource Type</label>
-                                    <select id="dns_resource_type" class="form-control" name="dns_resource_type" required>
-                                        @foreach (['A', 'AAAA', 'CNAME', 'MX', 'NS', 'SOA', 'TXT', 'SRV', 'DNS_ALL'] as $type)
-                                            <option value="{{ $type }}" {{ $details->dns_resource_type == $type ? 'selected' : '' }}>{{ $type }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            @endif
-
-                            <div class="col-12 mt-3">
-                                <h5 class="card-title">Notification</h5>
-                            </div>
-
-                            <div class="mb-3 col-md-12">
-                                <label for="email" class="form-label">Email</label>
-                                <input id="email" class="form-control" name="email" type="email" placeholder="example@gmail.com" value="{{ $details->email }}" required>
-                            </div>
-
-                            <div class="mb-3 col-md-12">
-                                <label for="telegram_id" class="form-label">Telegram ID (Optional)</label>
-                                <input id="telegram_id" class="form-control" name="telegram_id" type="text" value="{{ $details->telegram_id }}">
-                            </div>
-
-                            <div class="mb-3 col-md-12">
-                                <label for="telegram_bot_token" class="form-label">Telegram Bot Token (Optional)</label>
-                                <input id="telegram_bot_token" class="form-control" name="telegram_bot_token" type="text" value="{{ $details->telegram_bot_token }}">
-                            </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" id="editConfirmButton" class="btn btn-primary">Update</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    @push('scripts')
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
-        <script>
-            function setEditUrl(id) {
-                let editForm = document.getElementById('editForm');
-                if (editForm) {
-                    editForm.action = "/monitoring/edit/" + id; 
-                } else {
-                    console.error("Edit form not found!");
-                }
-            }
-        </script>
-
-        <script>
-            function setDeleteUrl(id) {
-                let deleteButton = document.getElementById("deleteConfirmButton");
-                deleteButton.href = "/monitoring/delete/" + id; // Sets the GET request URL
-            }
-        </script>
-
-        <script>
-            @if (session('success'))
-                toastr.success("{{ session('success') }}");
-            @endif
-        </script>
+<script>
+    @if (session('success'))
+        toastr.success("{{ session('success') }}");
+    @endif
+</script>
     @endpush
 @endsection
