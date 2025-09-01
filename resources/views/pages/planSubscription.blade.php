@@ -251,8 +251,15 @@
     overflow-x: auto;            /* Still scrollable */
 }
 
+.tooltip-inner {
+    background-color: #0e55e1 !important; 
+    color: #ffffff !important;           
+}
 
-
+.tooltip.bs-tooltip-top .arrow::before,
+.tooltip.bs-tooltip-auto[x-placement^="top"] .arrow::before {
+    border-top-color: #0e55e1 !important;
+}
 
 @media (max-width: 578px) {
 
@@ -476,12 +483,16 @@
                                             data-toggle="modal" 
                                             data-target="#subscriptionDetailsModal"
                                             data-subscription="{{ json_encode($subscription) }}"
-                                            data-payment ="{{json_encode($payments->get($subscription->cashfree_subscription_id))}}" style="color: #2c4ee5; cursor: pointer;">
+                                            data-payment ="{{json_encode($payments->get($subscription->cashfree_subscription_id))}}" 
+                                            title="View"
+                                            style="color: #2c4ee5; cursor: pointer;">
                                         </button>
                                         
                                         @if($subscription->status === 'ACTIVE')
                                             <!-- Ban icon triggers delete modal -->
-                                            <a href="#" data-toggle="modal" data-target="#cancelSubscriptionModal{{ $subscription->id }}">
+                                            <a href="#" data-toggle="modal"
+                                             title="Cancel"
+                                             data-target="#cancelSubscriptionModal{{ $subscription->id }}">
                                                 <i class="fas fa-ban" style="color: #f91a1a; cursor: pointer;"></i>
                                             </a>
                                             @endif
@@ -706,7 +717,6 @@
 </div> --}}
 
 @push('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
@@ -719,7 +729,16 @@
 <script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
+<!-- Load Tippy.js after Bootstrap -->
+<script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
+<script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
+
+
 <script>
+
+$(function () {
+  $('[title]').tooltip();
+});
 
 let dataTable;
 
