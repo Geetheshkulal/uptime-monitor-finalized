@@ -194,24 +194,21 @@
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
+.text-gold {
+    color: #ffc107;
+}
 
-    
-    .text-gold {
-        color: #ffc107;
-    }
-    
-    .btn-gold {
-        background-color: #ffc107;
-        color: #000;
-    }
+.btn-gold {
+    background-color: #ffc107;
+    color: #000;
+}
 
-    @media (max-width: 576px) {
+@media (max-width: 576px) {
     .introjs-tooltip,
     .introjs-overlay,
     .introjs-floating,
     .introjs-helperLayer {
-    display: none !important;
-        
+        display: none !important;  
     }
 }
 </style>
