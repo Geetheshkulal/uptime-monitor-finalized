@@ -252,7 +252,7 @@ class CashfreeResponseController extends Controller
                     'transaction_id' => $data['cf_txn_id'],
                     'payment_type' => $data['authorization_details']['payment_group'],
                     'start_date' => now(),
-                    'end_date' => $endDate,
+                    'end_date' => ($userSubscription->plan_interval_type === 'MONTH')?null:now()->addYear(),
                     'address_1' => $user->address_1, 
                     'address_2' => $user->address_2, 
                     'place' => $user->place, 
@@ -262,6 +262,8 @@ class CashfreeResponseController extends Controller
                     'district' => $user->district,
                     'gstin' => $user->gstin,
                 ];
+
+                Log::info('Payment Data:', $paymentData);
 
                 $payment = Payment::create($paymentData);
 

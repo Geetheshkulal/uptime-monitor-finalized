@@ -147,6 +147,7 @@
             border-bottom: 1px solid #eee;
         }
 
+
         .bill-table {
             width: 100%;
             border-collapse: collapse;
@@ -449,7 +450,14 @@
                                 @forelse($subscriptions as $subscription)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $subscription->plan_name }}</td>
+                                    <td>
+                                        {{ $subscription->plan_name }}
+                                        @if($subscription->plan_interval_type === 'MONTH')
+                                            <span class="badge badge-info">Monthly</span>
+                                        @else
+                                            <span class="badge badge-primary">Yearly</span>
+                                        @endif
+                                    </td>
                                     <td>₹{{ number_format($subscription->plan_max_amount, 2) }}</td>
                                     <td>
                                         {{ $subscription->cashfree_subscription_id ?? 'N/A' }}
@@ -458,7 +466,7 @@
                                     <td>{{ \Carbon\Carbon::parse($subscription->start_date)->format('d M Y') }}</td>
                                     {{-- <td>{{ \Carbon\Carbon::parse($subscription->end_date)->format('d M Y') }}</td> --}}
                                     <td>
-                                        @if($subscription->next_schedule_date)
+                                        @if($subscription->next_schedule_date && $subscription->status !== 'CANCELLED')
                                             {{ \Carbon\Carbon::parse($subscription->next_schedule_date)->format('d M Y') }}
                                         @else
                                             N/A
@@ -931,11 +939,7 @@ $(document).ready(function() {
                     day: 'numeric',
                     month: 'short',
                     year: 'numeric'
-                }) + (dateString.includes('T') ? ', ' + date.toLocaleTimeString('en-IN', {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    hour12: true
-                }) : '');
+                });
             }
     
             // Set header
@@ -975,7 +979,7 @@ $(document).ready(function() {
                                 if (value !== null && value !== undefined && value !== '') {
                                     paymentMethodHtml += `
                                         <div class="detail-row indent">
-                                            <span class="detail-label">${key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</span>
+                                            <span class="detail-label" style=" font-weight:600;">${key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</span>
                                             <span class="detail-value">${value || '--'}</span>
                                         </div>
                                     `;
