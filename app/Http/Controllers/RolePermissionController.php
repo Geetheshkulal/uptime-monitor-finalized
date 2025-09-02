@@ -13,7 +13,7 @@ class RolePermissionController extends Controller
     //Edit permissions in role
     public function EditRolePermissions($id)
     {
-        $blockedIds =['superadmin', 'user','subuser'];
+        $blockedIds =['superadmin'];
 
         $role = Role::findOrFail($id);
 

@@ -2,29 +2,6 @@
 @push('styles')
     
 <style>
-     :root {
-  --dark-body-bg: #232429;
-  --light-body-bg:  #fff ;
-  
-  --dark-input: #323741;
-  --light-input: #ffffff;
-  
-  --dark-border: #484D5A;
-  --light-border: #B8BCCB;
-  
-  --dark-inactive-list: #A2AABE;
-  --light-inactive-list: #7C8294;
-  
-  --dark-active-list: #ffffff;
-  --light-active-list: #1C5EFF;
-  
-  --dark-list-hover: #1C5EFF;
-  --light-list-hover: #E9EFFF;
-  
-  --dark-toggle-bg: #1B1D22;
-  --light-toggle-bg: #ffffff;
-  
-}
     .dropdown {
         position: relative;
     }
@@ -34,7 +11,7 @@
         position: absolute;
         right: 5px;
         top: 8px;
-        color: var(--dark-active-list);
+        color: var(--white);
     }
     
     .dropdown.active:after {
@@ -63,7 +40,7 @@
         height: 100%;
         padding: 8px;
         padding-right: 0;
-        background: var(--light-body-bg);
+        background: var(--white);
         /* border: 2px solid var(--dark-border); */
         border-radius: 15px;
     }
@@ -78,39 +55,39 @@
         padding: 12px;
         border-radius: 15px;
         letter-spacing: .025rem;
-        color: var(--dark-border); 
+        /* color: var(--dark-border);  */
     }
     
     #ports span:hover {
-        background: var(--dark-list-hover);
-        color: var(--dark-active-list);
+        background: var(--primary);
+        color: var(--white);
         cursor: pointer;
     }
 
     .languages_wrapper::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: var(--white);
 }
 
 html.dark-mode .languages_wrapper {
-    background-color: #1a1a27 !important ;
+    background-color: var(--color-card-dark)!important ;
 }
 
 html.dark-mode #ports span {
-    color: white;
+    color: var(--white);
 }
 
 
 html.dark-mode .languages_wrapper {
-    scrollbar-color: #1a1a27 #2c2c2c;
+    scrollbar-color: var(--color-card-dark) var( --color-card-accent-dark);
 }
 
 html.dark-mode .languages_wrapper::-webkit-scrollbar-track {
-    background: #2c2c2c;
+    background: var( --color-card-accent-dark);
 }
 
 html.dark-mode .languages_wrapper::-webkit-scrollbar-thumb {
-    background-color: #1a1a27;
-    border: 2px solid #2c2c2c;
+    background-color: var(--color-card-dark);
+    border: 2px solid var( --color-card-accent-dark);
 }
 
 
@@ -141,7 +118,7 @@ datalist#portOptions option {
   padding: 4px;
   font-size: 16px;
   cursor: pointer;
-  color: var(--blue);
+  color: var(--primary);
 }
 
 datalist#portOptions option:hover,
@@ -152,7 +129,7 @@ datalist#portOptions option.active {
 #portInput:focus {
     box-shadow: none !important;
     outline: none !important;
-    border: 1px solid var(--dark-input); 
+    border: 2px solid var(--primary); 
 }
 
 html.dark-mode datalist#portOptions {

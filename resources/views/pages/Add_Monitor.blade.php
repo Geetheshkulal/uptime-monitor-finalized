@@ -112,7 +112,7 @@
         <div class="col-12">
             <div class="page-title-box d-flex align-items-center justify-content-between">
                 <h1 class="h3 mb-0 ml-lg-3">Add Monitoring</h1>
-                <a href="{{ route('monitoring.dashboard') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                <a href="{{ route('monitoring.dashboard') }}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm">
                     <i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to Dashboard
                 </a>
             </div>

@@ -309,13 +309,13 @@
     <div class="d-flex justify-content-between mb-3">
         @if(auth()->user()->hasRole('superadmin'))
             <div>
-                <a href="{{ route('tickets') }}" class="btn btn-primary">
+                <a href="{{ route('tickets') }}" class="btn btn-secondary">
                     <i class="fas fa-arrow-left"></i> Back to tickets
                 </a>
             </div>
         @else
             <div>
-                <a href="{{ route('display.tickets') }}" class="btn btn-primary">
+                <a href="{{ route('display.tickets') }}" class="btn btn-secondary">
                     <i class="fas fa-arrow-left"></i> Back to tickets
                 </a>
             </div>

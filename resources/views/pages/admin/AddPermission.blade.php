@@ -5,24 +5,22 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
 <style>
-    /* * {
-        border-radius: 0 !important;
-    } */
+   
      .select-enhanced {
         padding: 0.6rem 1rem;
-        border: 1px solid #dee2e6;
+        border: 1px solid var(--gray-light);
         border-radius: 6px;
         transition: border-color 0.2s, box-shadow 0.2s;
         cursor: pointer;
     }
     
     .select-enhanced:hover {
-        border-color: #adb5bd;
+        border-color: var(--gray-light);
     }
     
     .select-enhanced:focus {
-        border-color: #86b7fe;
-        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+        border-color: var(--primary);
+        /* box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25); */
         outline: none;
     }
     

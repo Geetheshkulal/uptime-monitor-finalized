@@ -409,10 +409,10 @@ h1,h2,h3,h4{
         <div class="col-lg-3 col-md-6">
           <h3 class="h6 fw-bold mb-3 text-uppercase small text-muted">Product</h3>
           <div class="d-flex flex-column gap-2 footer-links">
-            <a href="#features" class="text-light text-decoration-none hover-text-primary transition">
+            <a href="/#features" class="text-light text-decoration-none hover-text-primary transition">
               <i class="fas fa-chevron-right me-1 text-primary opacity-50 fs-8"></i> Features
             </a>
-            <a href="#pricing" class="text-light text-decoration-none hover-text-primary transition">
+            <a href="/#pricing" class="text-light text-decoration-none hover-text-primary transition">
               <i class="fas fa-chevron-right me-1 text-primary opacity-50 fs-8"></i> Pricing
             </a>
             <a href="/changelog" class="text-light text-decoration-none hover-text-primary transition">
@@ -463,7 +463,7 @@ h1,h2,h3,h4{
             </p>
             <p class="mb-1 d-flex align-items-center">
               <i class="fas fa-phone text-primary me-2"></i>
-              <a href="+91 8073462033" class="text-light text-decoration-none hover-text-primary transition">+91 8073462033</a>
+              <a href="tel:+91 8073462033" class="text-light text-decoration-none hover-text-primary transition">+91 8073462033</a>
             </p>
             {{-- <div class="mt-2">
               <a href="{{ route('login') }}" class="btn btn-sm btn-outline-light">

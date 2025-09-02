@@ -16,7 +16,7 @@
 </head>
 <style>
 * {
-    border-radius: 0 !important;
+    border-radius: 3px !important;
  }
 </style>
 

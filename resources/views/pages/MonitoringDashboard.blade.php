@@ -242,6 +242,7 @@
             text-align: left !important;
             margin-bottom: 10px;
         }
+        
         /* .dataTables_filter{
                 margin-left: -25px;
         } */

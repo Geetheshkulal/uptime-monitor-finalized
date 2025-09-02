@@ -42,8 +42,6 @@
         }
         
         .btn-primary {
-            background-color: #4e73df;
-            border-color: #4e73df;
             padding: 0.75rem 1rem;
             font-weight: 600;
             letter-spacing: 0.5px;
@@ -51,8 +49,6 @@
         }
         
         .btn-primary:hover {
-            background-color: #2e59d9;
-            border-color: #2e59d9;
             transform: translateY(-1px);
         }
         
@@ -67,7 +63,7 @@
         }
         
         .form-control-user:focus {
-            border-color: #2e59d9 !important;
+            border-color: var(--primary) !important;
             box-shadow: none !important;
             /* box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25); */
         }
@@ -75,12 +71,12 @@
         .password-text {
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
-            color: #4e73df;
+            color: var(--primary);
             font-weight: 700;
         }
         
         .password-subtext {
-            color: #858796;
+            color: var(--secondary);
             font-size: 0.9rem;
             margin-bottom: 2rem;
         }
@@ -88,18 +84,18 @@
         .password-footer {
             margin-top: 1.5rem;
             font-size: 0.9rem;
-            color: #858796;
+            color: var(--secondary);
         }
         
         .password-footer a {
-            color: #4e73df;
+            color: var(--primary);
             font-weight: 600;
             text-decoration: none;
             transition: all 0.3s;
         }
         
         .password-footer a:hover {
-            color: #2e59d9;
+            color: var(--primary);
             text-decoration: underline;
         }
         
@@ -108,7 +104,7 @@
             text-align: center;
             margin: 1.5rem 0;
             font-size: 0.8rem;
-            color: #b7b9cc;
+            color: var(--secondary);
         }
         
         .divider:before {
@@ -197,10 +193,10 @@
 
                                         <div class="text-center password-footer">
                                             <div class="mb-2">
-                                                <a href="{{ route('login') }}">Already have an account? Login!</a>
+                                                Already have an account?<a href="{{ route('login') }}" class="text-decoration-none"> Login!</a>
                                             </div>
                                             <div>
-                                                <a href="{{ route('register') }}">Create an Account!</a>
+                                                <a href="{{ route('register') }}" class="text-decoration-none">Create an Account!</a>
                                             </div>
                                         </div>
                                     </form>

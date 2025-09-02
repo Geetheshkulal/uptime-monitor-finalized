@@ -64,7 +64,7 @@
     }
 
     .text-gold {
-        color: gold !important;
+        color: var(--gold) !important;
     }
 
     .trial-banner {
@@ -73,7 +73,6 @@
         transition: all 0.3s ease;
         margin: 0 0.25rem;
         overflow: hidden;
-        background: linear-gradient(135deg, #6e45e2 0%, #88d3ce 100%);
         border-radius: 8px !important;
     }
 
@@ -91,7 +90,7 @@
 
     .trial-icon {
         background: rgba(255, 255, 255, 0.25) !important;
-        color: #fff !important;
+        color: var(--white) !important;
     }
 
     .trial-notice span {
@@ -100,7 +99,7 @@
 
     .upgrade-btn {
         background: linear-gradient(to right, #f83600 0%, #f9d423 100%);
-        color: white !important;
+        color: var(--white) !important;
         font-weight: 600;
         padding: 0.4rem 1rem;
         border: none;
@@ -116,7 +115,7 @@
     .upgrade-btn:hover {
         transform: translateY(-1px);
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-        color: white !important;
+        color: var(--white) !important;
         text-decoration: none !important;
     }
 
@@ -131,7 +130,7 @@
 
     .alert-info {
         background: linear-gradient(135deg, #8597df 0%, #2f07f9 100%);
-        color: white;
+        color: var(--white);
         border: none;
         border-radius: 15px;
         padding: 13px 19px;
@@ -218,7 +217,7 @@
     }
 
     #accordionSidebar {
-        background-color: #4e73df;
+        background-color: var(--primary) ;
     }
 
 
