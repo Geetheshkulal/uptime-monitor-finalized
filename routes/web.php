@@ -165,7 +165,7 @@ Route::middleware(['auth', 'verified', 'CheckUserSession', 'blockIp'])->group(fu
 
     Route::get('/ssl-check', [SslCheckController::class, 'index'])->name('ssl.check');
     Route::get('/ssl/history', [SslCheckController::class, 'history'])->name('ssl.history');
-    Route::post('/ssl-check', [SslCheckController::class, 'check'])->name('ssl.check.domain');
+    Route::post('/ssl-check', [SslCheckController::class, 'check'])->middleware('premium_middleware')->name('ssl.check.domain');
 
     Route::get('/incidents', [IncidentController::class, 'incidents'])->middleware('role:user|subuser')->middleware('permission:see.incidents')->name('incidents');
     Route::get('/incidents/fetch', [IncidentController::class, 'fetchIncidents'])->name('incidents.fetch'); 

@@ -268,10 +268,10 @@
         <div style="margin-top: 20px; font-size: 12px;">
             <div><strong>Payment Method:</strong> {{ strtoupper($payment->payment_type) }}</div>
             <div><strong>Transaction Id:</strong> {{ strtoupper($payment->transaction_id) }}</div>
-            <div><strong>Subscription Period:</strong> 
+            {{-- <div><strong>Subscription Period:</strong> 
                 {{ \Carbon\Carbon::parse($payment->start_date)->format('d M Y') }} to 
                 {{ \Carbon\Carbon::parse($payment->end_date)->format('d M Y') }}
-            </div>
+            </div> --}}
         </div>
 
         <table width="100%" style="margin-top: 40px; font-size: 11px;">
