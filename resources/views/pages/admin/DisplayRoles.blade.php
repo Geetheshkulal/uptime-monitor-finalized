@@ -8,9 +8,7 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap4.min.css">
 
 <style>
-    /* * {
-        border-radius: 0 !important;
-    } */
+
 
     @media (max-width: 430px) {
     .dataTables_length {

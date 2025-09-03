@@ -10,8 +10,8 @@
     position: fixed;
     right: 0;
     top: 12%;
-    background: #084bbf;
-    color: white;
+    background: var(--primary);
+    color: var(--white);
     padding: 10px 35px;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
@@ -25,8 +25,8 @@
     top: 20%;
     height: 100%;
     width: 260px;
-    background-color: #1363d1;
-    color: white;
+    background-color: var(--primary);
+    color: var(--white);
     overflow-y: auto;
     transition: right 0.3s ease-in-out;
     z-index: 1049;

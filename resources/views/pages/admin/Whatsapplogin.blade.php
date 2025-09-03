@@ -12,7 +12,7 @@
         max-width: 500px;
         margin: 2rem auto;
         padding: 2rem;
-        background: white;
+        background: var(--white);
         border-radius: 12px;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         text-align: center;
@@ -20,10 +20,10 @@
     
     .qr-container {
         padding: 1.5rem;
-        background: #f8f9fa;
+        background: var(--light);
         border-radius: 8px;
         margin: 1.5rem 0;
-        border: 1px dashed #ddd;
+        border: 1px dashed var(--gray-light);
     }
     
     .qr-code {
@@ -31,7 +31,7 @@
         height: 280px;
         margin: 0 auto;
         padding: 10px;
-        background: white;
+        background: var(--white);
         border-radius: 4px;
     }
     
@@ -44,8 +44,8 @@
     }
     
     .btn-whatsapp {
-        background: #25D366;
-        color: white;
+        background: var(--success);
+        color: var(--white);
         padding: 0.6rem 1.5rem;
         border-radius: 50px !important;
         font-weight: 600;
@@ -54,7 +54,8 @@
     }
     
     .btn-whatsapp:hover {
-        background: lightgreen;
+        background: var(--success);
+        color: var(--white);
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
     }
@@ -62,8 +63,8 @@
     .instructions {
         margin-top: 1.5rem;
         padding: 1rem;
-        background: #f0f8ff;
-        border-left: 4px solid #25D366;
+        background: var(--light);
+        border-left: 4px solid var(--success);
         border-radius: 0 4px 4px 0;
         text-align: left;
     }

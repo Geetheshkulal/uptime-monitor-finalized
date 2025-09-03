@@ -24,7 +24,7 @@
 
           .nav-tabs .nav-link.active {
             background-color: var(--primary);
-            color: white;
+            color: var(--white);
             border: none;
         }
 
