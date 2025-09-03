@@ -312,7 +312,7 @@ Route::group(['middleware' => ['auth', 'blockIp']], function () {
     
     Route::get('/get/subusers/{id}', [UserController::class, 'GetSubUsers'])->name('get.sub.users');
 
-    Route::delete('/completely/delete/user/{id}', [UserController::class, 'CompletelyDeleteUser'])->middleware('premium_middleware')->name('completely.delete.user');
+    Route::delete('/completely/delete/user/{id}', [UserController::class, 'CompletelyDeleteUser'])->name('completely.delete.user');
 
     Route::get('/sub-user/{id}/edit', [UserController::class, 'EditSubUser'])->name('edit.sub.user');
 
