@@ -5,36 +5,36 @@
 
 
     /* admin page darm mode styles */
-    :root {
-  /* Light Mode Colors */
-  --color-bg-light:  #ffffff;
-  --color-text-light: #181818;
-  --color-primary-light: #4e73df;
-  --color-secondary-light: #6c757d;
-  --color-border-light: #ddd;
-  
-  /* Dark Mode Colors */
-  --color-bg-dark:#181818;
-  --color-card-dark: #1a1a27;
-  --color-card-alt-dark: #1e1e2f;
-  --color-card-accent-dark: #2b2b2b;
-  
-  --color-text-dark: #e0e0e0;
-  --color-text-muted-dark: #a0a0c0;
-  --color-primary-dark: #4e73df;
-  --color-border-dark: #2d2d42;
-  
-  /* Status Colors */
-  --color-success: #28a745;
-  --color-danger: #dc3545;
-  --color-warning: #ffc107;
-  
-  /* Input/Select Colors */
-  --color-input-dark: #2e2e2e;
-  --color-input-border-dark: #444;
- 
-  /* Gradient for upgrade cards */
-  --gradient-upgrade-dark: linear-gradient(90deg, var(--color-card-alt-dark), #2e2e4d, #3f3f6b);
+:root {
+    /* Light Mode Colors */
+    --color-bg-light:  #ffffff;
+    --color-text-light: #181818;
+    --color-primary-light: #4e73df;
+    --color-secondary-light: #6c757d;
+    --color-border-light: #ddd;
+    
+    /* Dark Mode Colors */
+    --color-bg-dark:#181818;
+    --color-card-dark: #1a1a27;
+    --color-card-alt-dark: #1e1e2f;
+    --color-card-accent-dark: #2b2b2b;
+    
+    --color-text-dark: #e0e0e0;
+    --color-text-muted-dark: #a0a0c0;
+    --color-primary-dark: #4e73df;
+    --color-border-dark: #2d2d42;
+    
+    /* Status Colors */
+    --color-success: #28a745;
+    --color-danger: #dc3545;
+    --color-warning: #ffc107;
+    
+    /* Input/Select Colors */
+    --color-input-dark: #2e2e2e;
+    --color-input-border-dark: #444;
+    
+    /* Gradient for upgrade cards */
+    --gradient-upgrade-dark: linear-gradient(90deg, var(--color-card-alt-dark), #2e2e4d, #3f3f6b);
 }
 
 

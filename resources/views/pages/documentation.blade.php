@@ -6,12 +6,10 @@
   <title>Drishti pulse | Documentation</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ asset('frontend/assets/css/sb-admin-2.css') }}">
+
   <style>
     :root {
-      --primary-color: #4e73df;
-      --primary-dark: #0a58ca;
-      --accent-color: #ffc107;
-      --white: #ffffff;
       --sidebar-width: 280px;
       --sidebar-width-mobile: 240px;
     }
@@ -21,15 +19,15 @@
       min-height: 100vh;
       margin: 0;
       font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-      background-color: #f8f9fa;
-      color: #333;
+      background-color: var(--light);
+      color: var(--text-primary);
       overflow-x: hidden;
     }
 
     .sidebar {
       width: var(--sidebar-width);
-      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-      color: white;
+      background: linear-gradient(135deg, var(--blue), var(--primary-hover));
+      color: var(--white)e;
       padding: 20px 0;
       box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
       position: fixed;
@@ -47,7 +45,7 @@
       padding: 40px;
       overflow-y: auto;
       position: relative;
-      background-color: #f8f9fa;
+      background-color: var(--light);
       min-height: 94vh;
       transition: margin-left 0.3s ease-in-out;
     }
@@ -58,8 +56,8 @@
       top: 0;
       left: 0;
       right: 0;
-      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-      color: white;
+      background: linear-gradient(135deg, var(--blue), var(--primary-hover));
+      color: var(--white);
       padding: 11px 20px;
       z-index: 999;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -77,10 +75,6 @@
     }
 
     .hamburger {
-      /* position: absolute;
-      right: 20px;
-      top: 50%;
-      transform: translateY(-50%); */
       cursor: pointer;
       font-size: 1.5rem;
     }
@@ -95,12 +89,12 @@
       font-weight: 600;
       margin: 0;
       font-size: 1.25rem;
-      color: white;
+      color: var(--white);
     }
 
     .sidebar-header a {
       text-decoration: none;
-      color: white;
+      color: var(--white);
     }
 
     .nav-menu {
@@ -128,18 +122,18 @@
     .nav-menu a:hover {
       background-color: rgba(255, 255, 255, 0.1);
       border-left: 4px solid var(--white);
-      color: white;
+      color: var(--white);
     }
 
     .nav-menu a.active {
       background-color: rgba(255, 255, 255, 0.15);
       border-left: 4px solid var(--white);
-      color: white;
+      color: var(--white);
     }
 
     .badge-premium {
       background-color: rgba(255, 193, 7, 0.2);
-      color: gold;
+      color: var(--gold);
       font-size: 0.7rem;
       font-weight: 600;
       padding: 3px 8px;
@@ -152,7 +146,7 @@
       margin: 20px 25px;
       display: flex;
       align-items: center;
-      background-color: var(--primary-color);
+      background-color: var(--blue);
       color: white;
       border: none;
       padding: 10px 15px;
@@ -163,7 +157,7 @@
     }
 
     .back-btn:hover {
-      background-color: var(--primary-dark);
+      background-color: var(--primary-hover);
       transform: translateY(-1px);
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
@@ -193,7 +187,7 @@
     }
 
     h2 {
-      color: var(--primary-color);
+      color: var(--blue);
       font-weight: 600;
       margin: 0;
     }
@@ -235,7 +229,7 @@
     .img-preview {
       border-radius: 8px;
       box-shadow: 0 3px 15px rgba(0,0,0,0.1);
-      border: 1px solid #e0e0e0;
+      border: 1px solid var(--gray-light);
       transition: transform 0.3s;
     }
 
@@ -245,21 +239,21 @@
 
     .feature-icon {
       font-size: 1.5rem;
-      color: var(--primary-color);
+      color: var(--blue);
       margin-right: 10px;
     }
 
     .highlight {
-      background-color: #f8f9fa;
+      background-color: var(--light);
       padding: 30px;
       border-radius: 8px;
-      border-left: 4px solid var(--primary-color);
+      border-left: 4px solid var(--blue);
       margin: 20px 0;
     }
 
     .highlight pre {
       margin: 0;
-      color: #333;
+      color:var(--text-primary);
     }
 
     /* Mobile Responsive Styles */

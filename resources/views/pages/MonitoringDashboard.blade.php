@@ -11,23 +11,6 @@
 
 
     <style>
-        :root {
-            --primary: #4e73df;
-            --primary-light: #e3f2fd;
-            --success: #1cc88a;
-            --danger: #e74a3b;
-            --warning: #f6c23e;
-            --info: purple;
-            --gray: #858796;
-            --light-gray: #f8f9fc;
-            --dark-gray: #5a5c69;
-        }
-
-        /* body {
-            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
-            color: var(--dark-gray);
-        } */
-
         .card {
             border: none;
             border-radius: 0.35rem;
@@ -41,8 +24,8 @@
         }
 
         .card-header {
-            background-color: #f8f9fc;
-            border-bottom: 1px solid #e3e6f0;
+            background-color: var(--light);
+            border-bottom: 1px solid var(--gray-light);
             font-weight: 600;
             padding: 1rem 1.35rem;
         }
@@ -80,12 +63,12 @@
         }
 
         .dark-mode .badge-paused {
-                background-color: rgba(199, 146, 234, 0.15);
-                color: #d6bcfa; 
+            background-color: rgba(199, 146, 234, 0.15);
+            color: var(--dark-mode-paused); 
         }
 
         .badge-paused i.fa-crown {
-            color: gold;
+            color: var(--gold);
             margin-left: 4px;
         }
 
@@ -117,8 +100,8 @@
         }
 
         .btn-primary:hover {
-            background-color: #2e59d9;
-            border-color: #2653d4;
+            background-color: var(--primary-hover);
+            border-color: var(--primary-hover);
         }
 
         .btn-view {
@@ -187,7 +170,7 @@
         
 
         .introjs-button:hover {
-            background-color: #2e59d9;
+            background-color: var(--primary-hover);
             color:white;
             cursor: pointer;
         } 
@@ -224,9 +207,6 @@
         @media (max-width: 578px) {
 
         .AddMonitor{
-            /* width: 92px;
-            padding: 1px;
-            height: 50px; */
             width: 144px;
             padding: 8px;
             height: 41px;
@@ -242,9 +222,6 @@
             text-align: left !important;
             margin-bottom: 10px;
         }
-        /* .dataTables_filter{
-                margin-left: -25px;
-        } */
 
         .page-content {
             margin-bottom: 175px;
@@ -260,8 +237,7 @@
     .introjs-overlay,
     .introjs-floating,
     .introjs-helperLayer {
-    display: none !important;
-        
+        display: none !important;     
     }
 }
 

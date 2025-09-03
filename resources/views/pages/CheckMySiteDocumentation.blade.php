@@ -3,13 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title>UP_TIME Monitoring System - Documentation</title>
+  <link rel="stylesheet" href="{{ asset('frontend/assets/css/sb-admin-2.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     :root {
-      --primary-color: #0d6efd;
-      --primary-dark: #0a58ca;
-      --accent-color: #ffc107;
       --sidebar-width: 280px;
     }
     
@@ -19,8 +17,8 @@
       min-height: 100vh;
       margin: 0;
       font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-      background-color: #f8f9fa;
-      color: #333;
+      background-color: var(--light);
+      color: var(--text-primary);
       position: sticky;
       top: 0;
       height: 100vh;
@@ -28,8 +26,8 @@
 
     .sidebar {
       width: var(--sidebar-width);
-      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-      color: white;
+      background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+      color: var(--white);
       padding: 30px 0;
       box-shadow: 2px 0 10px rgba(0,0,0,0.1);
       position: relative;
@@ -71,14 +69,14 @@
 
     .sidebar a:hover {
       background-color: rgba(255, 255, 255, 0.1);
-      border-left: 4px solid var(--accent-color);
-      color: white;
+      border-left: 4px solid var(--gold);
+      color: var(--white);
     }
 
     .sidebar a.active {
       background-color: rgba(255, 255, 255, 0.15);
-      border-left: 4px solid var(--accent-color);
-      color: white;
+      border-left: 4px solid var(--gold);
+      color: var(--white);
     }
 
 
@@ -93,8 +91,8 @@
       position: absolute;
       top: 20px;
       right: 20px;
-      background-color: var(--primary-color);
-      color: white;
+      background-color: var(--primary);
+      color: var(--white);
       border: none;
       padding: 8px 16px;
       border-radius: 4px;
@@ -105,7 +103,7 @@
     }
 
     .back-btn:hover {
-      background-color: var(--primary-dark);
+      background-color: var(--primary-hover);
       transform: translateY(-1px);
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
@@ -131,17 +129,17 @@
     .content-header {
       margin-bottom: 30px;
       padding-bottom: 15px;
-      border-bottom: 1px solid #e0e0e0;
+      border-bottom: 1px solid var(--gray-light);
     }
 
     h2 {
-      color: var(--primary-color);
+      color: var(--primary);
       font-weight: 600;
       margin: 0;
     }
 
     .content p {
-      color: #555;
+      color: var(--dark);
       line-height: 1.7;
       margin-bottom: 20px;
     }
@@ -177,7 +175,7 @@
     .img-preview {
       border-radius: 8px;
       box-shadow: 0 3px 15px rgba(0,0,0,0.1);
-      border: 1px solid #e0e0e0;
+      border: 1px solid var(--gray-light);
       transition: transform 0.3s;
     }
 
@@ -187,21 +185,21 @@
 
     .feature-icon {
       font-size: 1.5rem;
-      color: var(--primary-color);
+      color: var(--primary);
       margin-right: 10px;
     }
 
     .highlight {
-      background-color: #f8f9fa;
+      background-color: var(--light);
       padding: 30px;
       border-radius: 8px;
-      border-left: 4px solid var(--primary-color);
+      border-left: 4px solid var(--primary);
       margin: 20px 0;
     }
 
     .highlight pre {
       margin: 0;
-      color: #333;
+      color: var(--text-primary);
     }
 
     @media (max-width: 992px) {
@@ -236,7 +234,7 @@
       .nav-menu a:hover, 
       .nav-menu a.active {
         border-left: none;
-        border-bottom: 3px solid var(--accent-color);
+        border-bottom: 3px solid var(--gold);
       }
       
       .content {
@@ -251,11 +249,11 @@
     }
     .monitor-module-doc {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #ffffff;
+    background-color: var(--white);
     padding: 30px;
     border-radius: 16px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
-    color: #333;
+    color: var(--text-primary);
     line-height: 1.7;
     max-width: 100%;
     }
@@ -263,38 +261,38 @@
     .doc-header h2 {
         font-size: 28px;
         font-weight: bold;
-        color: #007bff;
+        color: var(--primary);
         margin-bottom: 10px;
     }
 
     .doc-header p {
         font-size: 16px;
-        color: #666;
+        color: var(--dark);
     }
 
     .doc-section {
         margin-top: 40px;
         padding: 20px;
-        border-left: 4px solid #007bff;
-        background-color: #f9f9f9;
+        border-left: 4px solid var(--primary);
+        background-color: var(--light);
         border-radius: 12px;
         box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.02);
     }
 
     .doc-section h3 {
         font-size: 22px;
-        color: #333;
+        color: var(--text-primary);
         margin-bottom: 10px;
     }
 
     .doc-section p {
         font-size: 15px;
-        color: #555;
+        color: var(--dark);
     }
 
     pre {
-        background-color: #2d2d2d;
-        color: #f8f8f2;
+        background-color: var(--text-primary);
+        color: var(--light);
         padding: 15px;
         border-radius: 10px;
         overflow-x: auto;
@@ -311,18 +309,18 @@
     .doc-footer {
         margin-top: 50px;
         padding-top: 20px;
-        border-top: 1px solid #ddd;
+        border-top: 1px solid var(--gray-light);
     }
 
     .doc-footer h4 {
         font-size: 20px;
-        color: #007bff;
+        color: var(--primary);
         margin-bottom: 10px;
     }
     
 
     pre code .comment {
-        color: green; /* Comment color */
+        color: var(--green); /* Comment color */
     }
 
   </style>

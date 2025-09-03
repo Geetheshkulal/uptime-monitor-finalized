@@ -6,30 +6,18 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 <style>
     :root {
-        --primary-color: #4e73df;
-        --primary-light: #f0f2ff;
-        --success-color: #10b981;
-        --success-light: #e6fcf5;
-        --warning-color: #f59e0b;
-        --warning-light: #fff9e6;
-        --danger-color: #ef4444;
-        --danger-light: #ffebee;
-        --light-color: #f9fafb;
-        --dark-color: #1f2937;
-        --gray-color: #6b7280;
-        --gray-light: #f3f4f6;
         --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 4px 12px rgba(0, 0, 0, 0.02);
     }
 
     body {
-        background-color: #f9fafb;
+        background-color: var(--white);
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         line-height: 1.5;
-        color: var(--dark-color);
+        color: var(--text-primary);
     }
 
     .status-header {
-        background: linear-gradient(135deg, var(--primary-color), #4e73df);
+        background: linear-gradient(135deg, var(--primary), #4e73df);
         color: white;
         border-radius: 12px;
         padding: 1.75rem 2rem;
@@ -73,8 +61,8 @@
 
     .tooltip-text {
         visibility: hidden;
-        background-color: var(--dark-color);
-        color: #fff;
+        background-color: var(--text-primary);
+        color: var(--white);
         text-align: center;
         border-radius: 8px;
         padding: 8px 12px;
@@ -90,7 +78,7 @@
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         transform: translateX(-50%) translateY(5px);
         pointer-events: none;
-        border-left: 3px solid var(--primary-color);
+        border-left: 3px solid var(--primary);
         line-height: 1.4;
     }
 
@@ -124,9 +112,9 @@
     .card-header {
         border-bottom: 1px solid var(--gray-light);
         padding: 1.25rem 1.5rem;
-        background: white;
+        background: var(--white);
         font-weight: 600;
-        color: var(--dark-color);
+        color: var(--text-primary);
     }
 
     .hover-shadow {
@@ -147,15 +135,15 @@
     }
 
     .text-gray-800 {
-        color: var(--dark-color);
+        color: var(--text-primary);
     }
 
     .text-gray-500 {
-        color: var(--gray-color);
+        color: var(--dark);
     }
 
     .text-primary {
-        color: var(--primary-color) !important;
+        color: var(--primary) !important;
     }
 
     .bg-success-100 {
@@ -167,15 +155,15 @@
     }
 
     .text-success-800 {
-        color: var(--success-color);
+        color: var(--success);
     }
 
     .text-danger-800 {
-        color: var(--danger-color);
+        color: var(--danger);
     }
 
     .text-warning-800 {
-        color: var(--warning-color);
+        color: var(--warning);
     }
 
     .bg-warning-100 {
@@ -183,7 +171,7 @@
     }
 
     .bg-light {
-        background-color: var(--light-color) !important;
+        background-color: var(--light) !important;
     }
 
     .flex {
@@ -236,13 +224,13 @@
     .monitor-name {
         font-size: 1rem;
         font-weight: 600;
-        color: var(--dark-color);
+        color: var(--text-primary);
         margin-right: 0.75rem;
     }
 
     .monitor-url {
         font-size: 0.8rem;
-        color: var(--gray-color);
+        color: var(--dark);
         font-weight: 400;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -256,7 +244,7 @@
         justify-content: flex-end;
         margin-top: 0.75rem;
         font-size: 0.7rem;
-        color: var(--gray-color);
+        color: var(--dark);
         flex-wrap: wrap;
         gap: 0.75rem;
     }
@@ -276,12 +264,12 @@
     .monitor-stats {
         display: flex;
         justify-content: space-between;
-        background: var(--light-color);
+        background: var(--light);
         padding: 0.9rem 1.2rem;
         border-radius: 8px;
         margin-top: 1rem;
         font-size: 0.85rem;
-        color: var(--dark-color);
+        color: var(--text-primary);
         border: 1px solid var(--gray-light);
     }
 
@@ -307,19 +295,19 @@
     }
 
     .status-indicator-up {
-        background-color: var(--success-color);
+        background-color: var(--success);
     }
 
     .status-indicator-up::after {
-        background-color: var(--success-color);
+        background-color: var(--success);
     }
 
     .status-indicator-down {
-        background-color: var(--danger-color);
+        background-color: var(--danger-light);
     }
 
     .status-indicator-down::after {
-        background-color: var(--danger-color);
+        background-color: var(--danger-light);
     }
 
     .status-indicator:hover::after {
@@ -328,13 +316,13 @@
 
     .stat-value {
         font-weight: 600;
-        color: var(--dark-color);
+        color: var(--text-primary);
     }
 
     .page-title {
         font-size: 1.75rem;
         font-weight: 700;
-        color: white;
+        color: var(--white);
         margin-bottom: 0.25rem;
         letter-spacing: -0.5px;
     }
@@ -373,8 +361,8 @@
 
     /* Button styles */
     .btn-primary {
-        background-color: var(--primary-color);
-        border-color: var(--primary-color);
+        background-color: var(--primary);
+        border-color: var(--primary);
         padding: 0.5rem 1.25rem;
         border-radius: 8px;
         font-weight: 500;
@@ -382,8 +370,8 @@
     }
 
     .btn-primary:hover {
-        background-color: #2e59d9;
-        border-color: #2653d4;
+        background-color: var(--primary-hover);
+        border-color: var(--primary-hover);
         transform: translateY(-1px);
         box-shadow: 0 4px 8px rgba(91, 103, 218, 0.2);
     }
@@ -439,75 +427,75 @@
 
     @media (max-width: 430px) {
 
-     .status-page{
-        width: 162px;
-        height: 60px;
+        .status-page{
+            width: 162px;
+            height: 60px;
         }
 
-         .monitor-card {
-        padding: 1rem;
-        margin: 0 0.5rem;
-        border-radius: 8px;
-    }
+        .monitor-card {
+            padding: 1rem;
+            margin: 0 0.5rem;
+            border-radius: 8px;
+        }
 
-    .monitor-name {
-        display: block;
-        font-size: 0.95rem;
-        margin-bottom: 2px;
-    }
+        .monitor-name {
+            display: block;
+            font-size: 0.95rem;
+            margin-bottom: 2px;
+        }
 
-    .monitor-url {
-        display: block;
-        font-size: 0.8rem;
-        color: #6c757d;
-        margin-left: 0;
-        word-break: break-word;
-    }
+        .monitor-url {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--dark);
+            margin-left: 0;
+            word-break: break-word;
+        }
 
-    .bars-container {
-        overflow-x: auto;
-        padding-bottom: 0.5rem;
-    }
+        .bars-container {
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
 
-    .bar-segment-wrapper {
-        width: 12px;
-        margin-right: 3px;
-    }
+        .bar-segment-wrapper {
+            width: 12px;
+            margin-right: 3px;
+        }
 
-    .uptime-legend {
-        flex-direction: row;
-        font-size: 0.75rem;
-    }
+        .uptime-legend {
+            flex-direction: row;
+            font-size: 0.75rem;
+        }
 
-    .legend-item {
-        margin-bottom: 5px;
-    }
+        .legend-item {
+            margin-bottom: 5px;
+        }
 
-    .monitor-stats {
-        font-size: 0.8rem;
-        gap: 0.3rem;
-    }
+        .monitor-stats {
+            font-size: 0.8rem;
+            gap: 0.3rem;
+        }
 
-    .status-badge {
-        font-size: 0.75rem;
-        padding: 0.2rem 0.4rem;
-    }
+        .status-badge {
+            font-size: 0.75rem;
+            padding: 0.2rem 0.4rem;
+        }
 
-    .card-header h6 {
-        font-size: 1rem;
-    }
+        .card-header h6 {
+            font-size: 1rem;
+        }
 
-    .flex {
-        flex-wrap: wrap;
-        gap: 5px;
-    }
+        .flex {
+            flex-wrap: wrap;
+            gap: 5px;
+        }
 
-    .monitor-card .flex.justify-between {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
+        .monitor-card .flex.justify-between {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
     }
-}
 </style>
 @endpush
 
@@ -572,15 +560,15 @@
 
                             <div class="uptime-legend">
                                 <div class="legend-item">
-                                    <div class="legend-color" style="background-color: var(--success-color);"></div>
+                                    <div class="legend-color" style="background-color: var(--success);"></div>
                                     <span>100-95%</span>
                                 </div>
                                 <div class="legend-item">
-                                    <div class="legend-color" style="background-color: var(--warning-color);"></div>
+                                    <div class="legend-color" style="background-color: var(--warning);"></div>
                                     <span>94-80%</span>
                                 </div>
                                 <div class="legend-item">
-                                    <div class="legend-color" style="background-color: var(--danger-color);"></div>
+                                    <div class="legend-color" style="background-color: var(--danger);"></div>
                                     <span><80%></span>
                                 </div>
                                 <div class="legend-item">

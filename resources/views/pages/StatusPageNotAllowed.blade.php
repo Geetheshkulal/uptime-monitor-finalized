@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Access Denied</title>
+    <link rel="stylesheet" href="{{ asset('frontend/assets/css/sb-admin-2.css') }}">
     <style>
         body {
             margin: 0;
             padding: 1rem;
             font-family: system-ui, sans-serif;
-            background-color: #f8f9fa;
-            color: #dc3545;
+            background-color: var(--light);
+            color: var(--danger);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -19,8 +20,8 @@
 
         .message {
             text-align: center;
-            border: 1px solid #dc3545;
-            background-color: #fff;
+            border: 1px solid var(--danger);
+            background-color: var(--white);
             padding: 1rem 1.5rem;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
@@ -31,6 +32,7 @@
             margin: 0;
         }
     </style>
+
 </head>
 <body>
     <div class="message">

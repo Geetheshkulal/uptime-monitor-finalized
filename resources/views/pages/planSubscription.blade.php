@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap4.min.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <link rel="stylesheet" href="{{ asset('frontend/assets/css/sb-admin-2.css') }}">
 
     <style>
         /* Table styles */
@@ -24,9 +25,9 @@
         .table thead th {
             border: none;
             font-weight: 700;
-            color: #858796;
+            color: var(--secondary);
             padding: 1rem;
-            background: #f8f9fc;
+            background: var(--light);
         }
         
         .table td {
@@ -81,7 +82,7 @@
             align-items: flex-start;
             margin-bottom: 30px;
             padding-bottom: 20px;
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 1px solid var(--gray-light);
         }
 
         .company-info {
@@ -242,93 +243,83 @@
             padding-top: 5px;
             font-size: 12px;
         }
-    body.dark-mode .skeleton{
-        background-color: #1e1e2f !important;
+    
+        body.dark-mode .skeleton{
+            background-color: #1e1e2f !important;
+        }
+
+        .table-responsive {
+        scrollbar-width: none;       /* Firefox */
+        -ms-overflow-style: none;    /* IE 10+ */
+        overflow-x: auto;            /* Still scrollable */
     }
 
-    .table-responsive {
-    scrollbar-width: none;       /* Firefox */
-    -ms-overflow-style: none;    /* IE 10+ */
-    overflow-x: auto;            /* Still scrollable */
-}
-
-.tooltip-inner {
-    background-color: #0e55e1 !important; 
-    color: #ffffff !important;           
-}
-
-.tooltip.bs-tooltip-top .arrow::before,
-.tooltip.bs-tooltip-auto[x-placement^="top"] .arrow::before {
-    border-top-color: #0e55e1 !important;
-}
-
-@media (max-width: 578px) {
-
-/* .dataTables_length {
-   text-align: left !important;
-   margin-left: 2px;
-   margin-bottom: 10px;
-}
-
-.dataTables_filter{
-    margin-left: -33px
-} */
-
-.dataTables_length {
-        text-align: left !important;
-        margin-left: 6px;
-        margin-bottom: 10px;
+    .tooltip-inner {
+        background-color: #0e55e1 !important; 
+        color: #ffffff !important;           
     }
 
-    .dataTables_filter {
-        text-align: left !important;
-        margin-bottom: 10px;
+    .tooltip.bs-tooltip-top .arrow::before,
+    .tooltip.bs-tooltip-auto[x-placement^="top"] .arrow::before {
+        border-top-color: #0e55e1 !important;
     }
 
-.page-content {
-   margin-bottom: 175px;
-}
+    @media (max-width: 578px) {
+        .dataTables_length {
+                text-align: left !important;
+                margin-left: 6px;
+                margin-bottom: 10px;
+            }
 
-.eyeCancel{
-    margin-top: -21px;
-}
+            .dataTables_filter {
+                text-align: left !important;
+                margin-bottom: 10px;
+            }
 
-}
+        .page-content {
+            margin-bottom: 175px;
+        }
 
-    .section-title {
+        .eyeCancel{
+            margin-top: -21px;
+        }
 
-        color: #4e73df;
-        font-weight: 600;
-        border-bottom: 1px solid #e3e6f0;
-        padding-bottom: 8px;
-        margin-bottom: 15px;
-        
-    }
-    .detail-row {
-        display: flex;
-        margin-bottom: 10px;
-    }
-    .detail-label {
-        flex: 1;
-        font-weight: 600;
-    }
-    .detail-value {
-        flex: 1;
-    }
-    .subscription-section {
-        padding: 15px;
-        border-radius: 5px;
-        margin-bottom: 15px;
-    }
+        }
 
-    .payment-method-details {
-    margin-top: 10px;
-}
+        .section-title {
 
-.detail-row.indent .detail-label {
-    font-weight: normal;
-}
-</style>
+            color: #4e73df;
+            font-weight: 600;
+            border-bottom: 1px solid #e3e6f0;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            
+        }
+        .detail-row {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        .detail-label {
+            flex: 1;
+            font-weight: 600;
+        }
+        .detail-value {
+            flex: 1;
+        }
+        .subscription-section {
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .payment-method-details {
+            margin-top: 10px;
+        }
+
+        .detail-row.indent .detail-label {
+            font-weight: normal;
+        }
+    </style>
 @endpush
 
 {{-- <div id="content-wrapper" class="d-flex flex-column">
