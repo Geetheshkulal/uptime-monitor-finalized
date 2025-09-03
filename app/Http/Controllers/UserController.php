@@ -25,7 +25,7 @@ class UserController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required|min:3',
             'phone' => 'nullable|string|digits:10|unique:users,phone',
-            'role' => 'required|exists:roles,id', 
+            'role' => 'required|exists:roles,id',
             'premium_end_date' => 'nullable|date',
         ]);
 
@@ -40,7 +40,7 @@ class UserController extends Controller
                 'premium_end_date' => null,
                 'last_login_ip' => $request->ip(),
                 'status_page_hash' => Str::random(32),
-                'email_verified_at'=>now()
+                'email_verified_at' => now()
             ]);
 
             // Find role and attach to user
@@ -48,7 +48,7 @@ class UserController extends Controller
             if ($role) {
                 $user->roles()->attach($role->id);
             } else {
-                Log::warning("Role not found: " . $validated['role']);
+                //Log::warning("Role not found: " . $validated['role']);
             }
 
             //Record activity
@@ -70,47 +70,48 @@ class UserController extends Controller
 
             return redirect()->route('display.users')->with('success', 'User created successfully');
         } catch (\Exception $e) {
-            Log::error("User creation error: " . $e->getMessage());
+            //Log::error("User creation error: " . $e->getMessage());
 
             return back()->with('error', 'User creation failed. Please try again.');
         }
     }
 
-        //Display all users  (for superadmin)
-        public function DisplayCustomers(Request $request)
-        {
-            $roles = Role::whereNot('name','superadmin')->whereNot('name','subuser')->whereNot('name','user')->get();
+    //Display all users  (for superadmin)
+    public function DisplayCustomers(Request $request)
+    {
+        $roles = Role::whereNot('name', 'superadmin')->whereNot('name', 'subuser')->whereNot('name', 'user')->get();
 
-            // Basic search functionality
-            $search = $request->input('search');
-            
-            $users = User::withTrashed()->with('roles')->whereDoesntHave('roles', function ($q) {
-                                $q->where('name', 'subuser');
-                            })
-                        ->when($search, function($query) use ($search) {
-                            $query->where('name', 'like', "%{$search}%")
-                                ->orWhere('email', 'like', "%{$search}%")
-                                ->orWhere('phone', 'like', "%{$search}%");
-                        })
-                        ->orderBy('name')
-                        ->paginate(10); // 10 users per page
+        // Basic search functionality
+        $search = $request->input('search');
 
-            $customerCount = User::withTrashed()->role('user')->count();
+        $users = User::withTrashed()->with('roles')->whereDoesntHave('roles', function ($q) {
+            $q->where('name', 'subuser');
+        })
+            ->when($search, function ($query) use ($search) {
+                $query->where('name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('phone', 'like', "%{$search}%");
+            })
+            ->orderBy('name')
+            ->paginate(10); // 10 users per page
 
-            $userCount =    User::whereDoesntHave('roles', function ($q) {
-                                $q->where('name', 'user');
-                            })->count();
+        $customerCount = User::withTrashed()->role('user')->count();
 
-            return view('pages.admin.DisplayUsers', compact('users','roles','customerCount','userCount'));
-        }
+        $userCount =    User::whereDoesntHave('roles', function ($q) {
+            $q->where('name', 'user')
+              ->orWhere('name', 'subuser');
+        })->count();
 
-        //Show details of a particular user
+        return view('pages.admin.DisplayUsers', compact('users', 'roles', 'customerCount', 'userCount'));
+    }
 
-        public function ShowUser($id)
-        {
-            $user = User::withTrashed()->with('roles')->findOrFail($id);
+    //Show details of a particular user
 
-            activity()
+    public function ShowUser($id)
+    {
+        $user = User::withTrashed()->with('roles')->findOrFail($id);
+
+        activity()
             ->causedBy(auth()->user()) // super admin
             ->performedOn($user)       // the user being viewed
             ->inLog('user_management')
@@ -124,177 +125,170 @@ class UserController extends Controller
             ])
             ->log("viewed user details");
 
-            return view('pages.admin.ViewUserDetails', compact('user'));
+        return view('pages.admin.ViewUserDetails', compact('user'));
+    }
+
+    //Edit user data page
+    public function EditUsers($id)
+    {
+        $user = User::withTrashed()->findOrFail($id);
+        $roles = Role::whereNot('name', 'superadmin')->get();
+
+        if ($user->hasRole('user') || $user->hasRole('superadmin')) {
+            abort(404, 'Page not found.');
         }
 
-        
-         //Edit user data page
-        public function EditUsers($id)
-        {
-            $user = User::withTrashed()->findOrFail($id);
-            $roles = Role::whereNot('name','superadmin')->get();
+        return view('pages.admin.EditUsers', compact('user', 'roles'));
+    }
 
-            if($user->hasRole('user')||$user->hasRole('superadmin')){
-                abort(404, 'Page not found.');
-            }
-            
-            return view('pages.admin.EditUsers', compact('user', 'roles'));
-        }
+    public function UpdateUsers(Request $request, $id)
+    {
+        $user = User::withTrashed()->findOrFail($id);
 
-        //Update User
-        public function UpdateUsers(Request $request, $id)
-        {
-            $user = User::withTrashed()->findOrFail($id);
+        $oldValues = [
+            'name' => $user->name,
+            'email' => $user->email,
+            'phone' => $user->phone,
+            'role' => $user->roles->pluck('name')->first() ?? 'none',
+            'status' => $user->status,
+            'premium_end_date' => $user->premium_end_date ? $user->premium_end_date->format('Y-m-d') : null
+        ];
 
-            $oldValues = [
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'phone' => 'nullable|string|max:20|unique:users,phone',
+            'role' => 'required|exists:roles,id',
+            'status' => 'nullable|in:free,free_trial,paid',
+            'premium_end_date' => 'nullable|date|after_or_equal:today'
+        ]);
+
+        try {
+            // Update basic user info
+            $user->update([
+                'name' => $validated['name'],
+                'email' => strtolower($request->email),
+                'phone' => $validated['phone'],
+                'status' => $request->status ?? $user->status,
+                'premium_end_date' => $request->premium_end_date ?? $user->premium_end_date,
+            ]);
+
+            // Update role
+            $role = Role::findById($validated['role']);
+            $user->syncRoles([$role->name]);
+
+            $newValues = [
                 'name' => $user->name,
                 'email' => $user->email,
                 'phone' => $user->phone,
-                'role' => $user->roles->pluck('name')->first() ?? 'none',
+                'role' => $role->name,
                 'status' => $user->status,
                 'premium_end_date' => $user->premium_end_date ? $user->premium_end_date->format('Y-m-d') : null
             ];
 
-            $validated = $request->validate([
-                'name' => 'required|string|max:255',
-                'email' => 'required|email|unique:users,email,'.$user->id,
-                'phone' => 'nullable|string|max:20|unique:users,phone',
-                'role' => 'required|exists:roles,id',
-                'status' => 'nullable|in:free,free_trial,paid',
-                'premium_end_date' => 'nullable|date|after_or_equal:today'
-            ]);
-        
-            try {
-                // Update basic user info
-                $user->update([
-                    'name' => $validated['name'],
-                    'email' => strtolower($request->email),
-                    'phone' => $validated['phone'],
-                    'status' => $request->status ?? $user->status,
-                    'premium_end_date' => $request->premium_end_date ?? $user->premium_end_date,
-                ]);
-        
-                // Update role
-                $role = Role::findById($validated['role']);
-                $user->syncRoles([$role->name]);
-
-                $newValues = [
-                    'name' => $user->name,
-                    'email' => $user->email,
-                    'phone' => $user->phone,
-                    'role' => $role->name,
-                    'status' => $user->status,
-                    'premium_end_date' => $user->premium_end_date ? $user->premium_end_date->format('Y-m-d') : null
-                ];
-
-                activity()
+            activity()
                 ->causedBy(auth()->user()) // Who made the change
                 ->performedOn($user)       // Which user was updated
                 ->inLog('user_update')
                 ->event('user updated')
                 ->withProperties([
                     'edited_by' => auth()->user()->name,
-                    'edited_by_email'=>auth()->user()->email,
+                    'edited_by_email' => auth()->user()->email,
                     'old' => $oldValues,
                     'new' => $newValues,
                 ])
                 ->log('User details updated');
-        
-                return redirect()->route('display.users', $user->id)
-                    ->with('success', 'User updated successfully!');
-                    
-            } catch (\Exception $e) {
-                return back()->with('error', 'Error updating user: '.$e->getMessage());
-            }
+
+            return redirect()->route('display.users', $user->id)
+                ->with('success', 'User updated successfully!');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Error updating user: ' . $e->getMessage());
         }
+    }
 
-       
-        public function  UpdateStatusUsers(Request $request, $id)
-        {
-            $user = User::findOrFail($id);
+    public function  UpdateStatusUsers(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
 
-            $oldValues = [
-                'status' => $user->status,
-                'premium_end_date' => $user->premium_end_date ? $user->premium_end_date : null,
-                'free_trial_days' => $user->free_trial_days ? $user->free_trial_days : null
+        $oldValues = [
+            'status' => $user->status,
+            'premium_end_date' => $user->premium_end_date ? $user->premium_end_date : null,
+            'free_trial_days' => $user->free_trial_days ? $user->free_trial_days : null
+        ];
+
+        $validated = $request->validate([
+            'status' => 'nullable|in:free,free_trial,paid',
+            'premium_end_date' => 'nullable|date|after_or_equal:today',
+            'free_trial_days' => 'nullable|integer|min:0|max:10',
+        ]);
+
+        try {
+
+            $newStatus = $request->status ?? $user->status;
+
+            $premiumEndDate = in_array($newStatus, ['free', 'free_trial']) ? null : $request->premium_end_date;
+            // Update basic user info
+            $user->update([
+                'status' => $newStatus,
+                'premium_end_date' => $premiumEndDate,
+                'free_trial_days' => $validated['free_trial_days'] ?? $user->free_trial_days,
+            ]);
+
+            $newValues = [
+                'status' => $newStatus,
+                'premium_end_date' => $premiumEndDate,
+                'free_trial_days' => $request->free_trial_days ?? $user->free_trial_days,
             ];
 
-            $validated = $request->validate([
-                'status' => 'nullable|in:free,free_trial,paid',
-                'premium_end_date' => 'nullable|date|after_or_equal:today',
-                'free_trial_days' => 'nullable|integer|min:0|max:10',
-            ]);
-        
-            try {
-
-                $newStatus = $request->status ?? $user->status;
-
-                $premiumEndDate = in_array($newStatus, ['free','free_trial']) ? null : $request->premium_end_date;
-                // Update basic user info
-                $user->update([
-                    'status' => $newStatus,
-                    'premium_end_date' => $premiumEndDate,
-                    'free_trial_days' => $validated['free_trial_days'] ?? $user->free_trial_days,
-                ]);
-        
-                $newValues = [
-                    'status' => $newStatus,
-                    'premium_end_date' => $premiumEndDate,
-                    'free_trial_days' => $request->free_trial_days ?? $user->free_trial_days,
-                ];
-
-                activity()
-                ->causedBy(auth()->user()) 
-                ->performedOn($user)       
+            activity()
+                ->causedBy(auth()->user())
+                ->performedOn($user)
                 ->inLog('user_update')
                 ->event('user updated')
                 ->withProperties([
                     'edited_by' => auth()->user()->name,
-                    'edited_by_email'=>auth()->user()->email,
+                    'edited_by_email' => auth()->user()->email,
                     'old' => $oldValues,
                     'new' => $newValues,
                 ])
                 ->log('User status details updated');
-        
-                return redirect()->route('display.users', $user->id)
-                    ->with('success', 'User updated successfully!');
-                    
-            } catch (\Exception $e) {
-                return back()->with('error', 'Error updating user: '.$e->getMessage());
-            }
+
+            return redirect()->route('display.users', $user->id)
+                ->with('success', 'User updated successfully!');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Error updating user: ' . $e->getMessage());
         }
+    }
+
+    //Disable (soft delete) a particular user
+    public function DeleteUser($id)
+    {
+        try {
+            // Prevent deleting yourself
+            if ($id === auth()->id()) {
+                return redirect()->route('display.users')->with('error', 'You cannot delete your own account!');
+            }
+
+            $user = User::findOrFail($id);
+
+            Log::info('User to be deleted: ', $user->toArray());
 
 
-        //Disable (soft delete) a particular user
-        public function DeleteUser($id)
-        {
-            try {
-                // Prevent deleting yourself
-                if ($id === auth()->id()) {
-                    return redirect()->route('display.users')->with('error', 'You cannot delete your own account!');
-                }
+            //cannot delete superadmin
+            if ($user->hasRole('superadmin')) {
+                return redirect()->route('display.users')->with('error', 'Superadmin cannot be deleted.');
+            }
 
-                $user = User::findOrFail($id);
+            $deletedUserInfo = [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+            ];
 
-                Log::info('User to be deleted: ', $user->toArray());
+            $user->delete();
 
-
-                //cannot delete superadmin
-                if($user->hasRole('superadmin')){
-                    return redirect()->route('display.users')->with('error', 'Superadmin cannot be deleted.');
-
-                }
-
-                $deletedUserInfo = [
-                    'id' => $user->id,
-                    'name' => $user->name,
-                    'email' => $user->email,
-                ];
-
-                $user->delete();
-
-                //Record activity
-                activity()
+            //Record activity
+            activity()
                 ->causedBy(auth()->user())       // who deleted
                 ->performedOn($user)             // which user was deleted
                 ->inLog('user_update')
@@ -307,134 +301,129 @@ class UserController extends Controller
                 ->log('A user account was deleted');
 
 
-                return redirect()->route('display.users')
-                    ->with('success', 'User disabled successfully!');
-                    
-            } catch (\Exception $e) {
-                return redirect()->route('display.users')
-                    ->with('error', 'Error disabling user: ' . $e->getMessage());
-            }
+            return redirect()->route('display.users')
+                ->with('success', 'User disabled successfully!');
+        } catch (\Exception $e) {
+            return redirect()->route('display.users')
+                ->with('error', 'Error disabling user: ' . $e->getMessage());
+        }
+    }
+
+    public function DisplaySubUsers()
+    {
+        $user = auth()->user();
+
+        if ($user->is_sub_user) {
+            abort(403, 'Sub-users cannot view other sub-users.');
         }
 
-        public function DisplaySubUsers()
-        {
-            $user = auth()->user();
+        $subUsers = User::withTrashed()->where('parent_user_id', $user->id)->get();
 
-            if ($user->is_sub_user){
-                abort(403, 'Sub-users cannot view other sub-users.');
-            }
-
-            $subUsers = User::withTrashed()->where('parent_user_id', $user->id)->get();
-
-            if (auth()->user()->status === 'free') {
-                session()->flash('showPremiumModal', true);
-            }
-            
-            return view('pages.DisplaySubUsers', compact('subUsers'));
+        if (auth()->user()->status === 'free') {
+            session()->flash('showPremiumModal', true);
         }
 
-        public function StoreSubUser(Request $request)
-        {
-            $request->validate([
-                'name' => 'required|string|max:255',
-                'email' => 'required|email|unique:users',
-                'password' => 'required|min:3',
-                'phone' => 'required|nullable|string|digits:10|unique:users,phone',
-            ]);
+        return view('pages.DisplaySubUsers', compact('subUsers'));
+    }
 
-            $parentUser = auth()->user();
-            
+    public function StoreSubUser(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:3',
+            'phone' => 'required|nullable|string|digits:10|unique:users,phone',
+        ]);
 
-            // Optional: Ensure only main users can create sub-users
-            if ($parentUser->is_sub_user) {
-                return redirect()->back()->with('error', 'Sub-users cannot create other users.');
-            }
+        $parentUser = auth()->user();
 
-            $subUser = User::create([
-                'name'            => $request->name,
-                'email'           => strtolower($request->email),
-                'password'        => Hash::make($request->password),
-                'status'          => 'subuser',
-                'phone'           => $request->phone,
-                'parent_user_id'  => $parentUser->id,
-                'email_verified_at' => now(),
-            ]);
 
-            // Assign role using Spatie
-            $subUser->assignRole('subuser');
-
-            $subUser->givePermissionTo('see.monitors');
-
-            return redirect()->back()->with('success', 'Sub-user added successfully.');
+        // Optional: Ensure only main users can create sub-users
+        if ($parentUser->is_sub_user) {
+            return redirect()->back()->with('error', 'Sub-users cannot create other users.');
         }
 
-        public function EditSubUserPermissions($id)
-        {
-            $user = User::findOrFail($id);
+        $subUser = User::create([
+            'name'            => $request->name,
+            'email'           => strtolower($request->email),
+            'password'        => Hash::make($request->password),
+            'status'          => 'subuser',
+            'phone'           => $request->phone,
+            'parent_user_id'  => $parentUser->id,
+            'email_verified_at' => now(),
+        ]);
 
-            $targetGroups = ['monitor', 'status_page', 'incident'];
+        // Assign role using Spatie
+        $subUser->assignRole('subuser');
 
-            // Filter permissions by allowed groups
-            $permissions = Permission::whereIn('group_name', $targetGroups)->get();
+        $subUser->givePermissionTo('see.monitors');
 
-            $groupedPermissions = $permissions->groupBy('group_name');
+        return redirect()->back()->with('success', 'Sub-user added successfully.');
+    }
 
-            $permission_groups = DB::table('permissions')
-                ->select('group_name')
-                ->whereIn('group_name', $targetGroups)
-                ->groupBy('group_name')
-                ->get();
+    public function EditSubUserPermissions($id)
+    {
+        $user = User::findOrFail($id);
 
-            return view('pages.EditSubUserPermissions', compact('user', 'groupedPermissions', 'permission_groups'));
+        $targetGroups = ['monitor', 'status_page', 'incident'];
+
+        // Filter permissions by allowed groups
+        $permissions = Permission::whereIn('group_name', $targetGroups)->get();
+
+        $groupedPermissions = $permissions->groupBy('group_name');
+
+        $permission_groups = DB::table('permissions')
+            ->select('group_name')
+            ->whereIn('group_name', $targetGroups)
+            ->groupBy('group_name')
+            ->get();
+
+        return view('pages.EditSubUserPermissions', compact('user', 'groupedPermissions', 'permission_groups'));
+    }
+
+    public function UpdateSubUserPermissions(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $permissions = $request->input('permission', []);
+
+        $user->syncPermissions($permissions);
+
+        return redirect()->route('display.sub.users')->with('success', 'Permissions updated successfully.');
+    }
+
+    public function statusPageSettings()
+    {
+        /** @var \App\Models\User $user */
+        $user = auth()->user();
+
+        if ($user->hasRole('subuser')) {
+            $user = $user->parentUser;
         }
 
-        public function UpdateSubUserPermissions(Request $request, $id)
-        {
-            $user = User::findOrFail($id);
+        $whitelistedIPs = Whitelist::where('user_id', $user->id)->first();
 
-            $permissions = $request->input('permission', []);
-            
-            $user->syncPermissions($permissions);
+        // Auto-generate unique hash if doesn't exist
 
-            return redirect()->route('display.sub.users')->with('success', 'Permissions updated successfully.');
+        if (!$user->status_page_hash) {
+            $user->status_page_hash = Str::random(32);
+            $user->save();
         }
 
+        return view('user.status-settings', [
+            'user' => $user,
+            'publicUrl' => route('public.status', $user->status_page_hash),
+            'iframeCode' => '<iframe src="' . route('public.status', $user->status_page_hash) . '" width="100%" height="600" style="border:none;"></iframe>',
+            'whitelist' => $whitelistedIPs
+        ]);
+    }
 
-        public function statusPageSettings()
-        {
-            /** @var \App\Models\User $user */
-            $user = auth()->user();
-
-            if($user->hasRole('subuser')){
-                $user = $user->parentUser;
-            }
-
-            $whitelistedIPs = Whitelist::where('user_id',$user->id)->first();
-        
-            // Auto-generate unique hash if doesn't exist
-            
-            if (!$user->status_page_hash) {
-                $user->status_page_hash = Str::random(32);
-                $user->save(); 
-            }
-        
-            return view('user.status-settings', [
-                'user' => $user,
-                'publicUrl' => route('public.status', $user->status_page_hash),
-                'iframeCode' => '<iframe src="'.route('public.status', $user->status_page_hash).'" width="100%" height="600" style="border:none;"></iframe>',
-                'whitelist' => $whitelistedIPs
-            ]);
-        }
-
-    /**
-     * Update status page settings
-     */
     public function updateStatusPageSettings(Request $request)
     {
         /** @var \App\Models\User $user */
         $user = auth()->user();
 
-        if($user->hasRole('subuser')){
+        if ($user->hasRole('subuser')) {
             $user = $user->parentUser;
         }
 
@@ -455,21 +444,23 @@ class UserController extends Controller
 
     public function UpdateBillingInfo(Request $request)
     {
-        $request->validate([
-            // Billing info validation
-            'address_1' => ['required', 'string', 'max:255'],
-            'address_2' => ['nullable', 'string', 'max:255'],
-            'place'     => ['required', 'string', 'max:100'],
-            'district'  => ['required', 'string', 'max:100'],
-            'state'     => ['required', 'string', 'max:100'],
-            'pincode' => ['required', 'digits:6'],
-            'country'   => ['required', 'string', 'max:100'],
-            'gstin'     => ['nullable', 'string', 'max:25'],
-        ],
-        [
-            'pincode.digits' => 'The pincode must be exactly 6 digits.',
-            'pincode.required' => 'The pincode field is required.',
-        ]);
+        $request->validate(
+            [
+                // Billing info validation
+                'address_1' => ['required', 'string', 'max:255'],
+                'address_2' => ['nullable', 'string', 'max:255'],
+                'place'     => ['required', 'string', 'max:100'],
+                'district'  => ['required', 'string', 'max:100'],
+                'state'     => ['required', 'string', 'max:100'],
+                'pincode' => ['required', 'digits:6'],
+                'country'   => ['required', 'string', 'max:100'],
+                'gstin'     => ['nullable', 'string', 'max:25'],
+            ],
+            [
+                'pincode.digits' => 'The pincode must be exactly 6 digits.',
+                'pincode.required' => 'The pincode field is required.',
+            ]
+        );
 
         $user = auth()->user();
 
@@ -487,7 +478,8 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'Billing info updated successfully!');
     }
 
-    public function RestoreUser($id){
+    public function RestoreUser($id)
+    {
         $user = User::withTrashed()->findOrFail($id);
 
         if ($user->trashed()) {
@@ -495,26 +487,29 @@ class UserController extends Controller
         }
 
         return redirect()->route('display.users')
-                    ->with('success', 'User restored successfully!');
+            ->with('success', 'User restored successfully!');
     }
 
-    public function DeleteSubUser($id){
+    public function DeleteSubUser($id)
+    {
         $user = User::findOrFail($id);
         $user->forceDelete();
         return redirect()->route('display.sub.users')
-                    ->with('success', 'User deleted successfully!');
+            ->with('success', 'User deleted successfully!');
     }
 
-    public function CompletelyDeleteUser($id){
+    public function CompletelyDeleteUser($id)
+    {
         $user = User::withTrashed()->findOrFail($id);
         $user->forceDelete();
         return redirect()->route('display.users')
-                    ->with('success', 'User deleted successfully!');
+            ->with('success', 'User deleted successfully!');
     }
 
-    public function GetSubUsers($id){
+    public function GetSubUsers($id)
+    {
         $subUsers = User::withTrashed()->where('parent_user_id', $id)->get();
-        
+
         return response()->json($subUsers);
     }
 }

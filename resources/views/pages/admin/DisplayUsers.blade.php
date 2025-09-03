@@ -143,6 +143,7 @@
 }
 
 </style>
+
 @endpush
 
 <!-- Right Sidebar -->
@@ -205,11 +206,14 @@
                 <div x-show="activeTab === 'users'">
                     @include('partials.users-table', ['users' => $users])
                 </div>
+
             </div>
         </div>
     </div>
 </div>
 
+
+{{-- Add new user modal --}}
 <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -232,6 +236,7 @@
                                 @enderror
                             </div>
                         </div>
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="email">Email Address*</label>
@@ -241,6 +246,7 @@
                                 @enderror
                             </div>
                         </div>
+
                     </div>
                     
                     <div class="row">
@@ -248,7 +254,6 @@
                             <div class="form-group">
                                 <label for="password">Password*</label>
                                 <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password">
-                                {{-- <span class="fas fa-eye password-toggle" id="togglePassword"></span> --}}
                                 @error('password')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -304,11 +309,11 @@
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-
 <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap4.min.js"></script>
 
 <script>
+
     toastr.options = {
         "closeButton": true,
         "progressBar": true,
@@ -385,13 +390,13 @@ function tabHandler(defaultTab) {
                         order: [[0, 'asc']],
                         columnDefs: [{ orderable: false, targets: -1 }]
                     });
+
                     this.usersInitialized = true;
                 }
             });
         }
     };
 }
-
 
 
 document.getElementById('showPasswordCheckbox').addEventListener('change', function () {
@@ -406,17 +411,26 @@ $(document).ready(function() {
 });
 @endif
 
-@if($errors->any())
 
-    $(document).ready(function() {
-        @foreach ($errors->all() as $error)
-            toastr.error("{{ $error }}");
-        @endforeach
-    });
 
-@endif
+// @if($errors->any())
 
+//     $(document).ready(function() {
+//         @foreach ($errors->all() as $error)
+//             toastr.error("{{ $error }}");
+//         @endforeach
+//     });
+
+// @endif
 
 </script>
+
+@if ($errors->any())
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        $('#addUserModal').modal('show');
+    });
+</script>
+@endif
 @endpush
 @endsection
