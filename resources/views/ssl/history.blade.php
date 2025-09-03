@@ -8,17 +8,17 @@
 
 <style>
     .custom-bg-danger{
-        background-color:  #ff4d4d;
-        color: white;
+        background-color: var(--danger);
+        color: var(--white);
     }
     .custom-bg-warning {
-    background-color: #ffcc00;
-    color: black; 
+    background-color: var(--warning);
+    color: var(--dark); 
   }
 
 .custom-bg-success {
-    background-color: #4caf50; 
-    color: white; 
+    background-color: var(--success); 
+    color: var(--white); 
 }
 .custom-bg-danger,
 .custom-bg-warning,

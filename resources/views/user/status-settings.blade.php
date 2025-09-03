@@ -24,8 +24,8 @@
     .tag {
       display: inline-flex;
       align-items: center;
-      background-color: #e9ecef;
-      color: #495057;
+      background-color: var(--gray-light);
+      color: var(--secondary);
       padding: 0.25rem 0.5rem;
       border-radius: 20px;
       margin: 0.25rem;
@@ -38,11 +38,11 @@
       margin-left: 0.4rem;
       cursor: pointer;
       line-height: 1;
-      color: #6c757d;
+      color: var(--secondary);
     }
-    .tag .remove-btn:hover {
+    /* .tag .remove-btn:hover {
       color: #dc3545;
-    }
+    } */
 
     @media (max-width: 430px) {
 

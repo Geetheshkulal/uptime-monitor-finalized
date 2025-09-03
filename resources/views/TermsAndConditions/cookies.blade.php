@@ -29,6 +29,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
+    {{-- <link rel="stylesheet" href="{{ asset('frontend/assets/css/sb-admin-2.css') }}"> --}}
+
     <style>
 
         :root {
@@ -55,6 +57,7 @@
 
         .btn-primary {
             background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+
             border: none;
             box-shadow: 0 5px 15px rgba(67, 97, 238, 0.4);
         }
@@ -79,7 +82,7 @@
         }
 
         .navbar.scrolled {
-            background-color: white !important;
+            background-color: var(--white) !important;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
             padding: 10px 0;
         }
@@ -124,11 +127,11 @@
         }
 
         .hover-text-primary:hover {
-            color: #0d6efd !important;
+            color: var(--primary-hover) !important;
         }
 
         .text-muted {
-            color: #6c757d !important;
+            /* color: #6c757d !important; */
         }
 
         .bg-opacity-10 {

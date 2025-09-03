@@ -61,7 +61,7 @@
 
 body.dark-mode .responsive-tabs .nav-link.active {
     background-color:rgb(15, 43, 92) !important;
-    color: white !important;
+    color: var(--white) !important;
     border:none;
      transition: background-color 0.3s, color 0.3s;
 }
@@ -70,7 +70,8 @@ body.dark-mode .responsive-tabs .nav-link.active {
 @endpush
 <div class="container-fluid">
     <div class="row d-flex flex-column-reverse flex-lg-row">
-        <div class="col-lg-8 col-md-12">
+        {{-- <div class="col-lg-8 col-md-12"> --}}
+            <div class="col-lg-12 col-md-12">
             <div class="d-sm-flex align-items-center justify-content-between mb-3">
                 <h1 class="h3 mb-0 text-gray-800 white-color">Profile Management</h1>
             </div>
