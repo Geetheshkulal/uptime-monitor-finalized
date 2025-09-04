@@ -18,8 +18,8 @@
     }
     
     .card-header {
-        background-color: #f8f9fc;
-        border-bottom: 1px solid #e3e6f0;
+        background-color: var(--light);
+        border-bottom: 1px solid var(--gray-light);
         font-weight: 600;
         padding: 1rem 1.35rem;
     }
@@ -33,15 +33,15 @@
     .table thead th {
         border: none;
         font-weight: 700;
-        color: #858796;
+        color: var(--secondary);
         padding: 1rem;
-        background: #f8f9fc;
+        background: var(--light);
     }
     
     .table td {
         padding: 1rem;
         vertical-align: middle;
-        border-top: 1px solid #e3e6f0;
+        border-top: 1px solid var(--gray-light);
     }
     
     /* Status badges matching your design */
@@ -57,17 +57,17 @@
     
     .badge-up {
         background-color: rgba(28, 200, 138, 0.1);
-        color: #1cc88a;
+        color: var(--success);
     }
     
     .badge-down {
         background-color: rgba(231, 74, 59, 0.1);
-        color: #e74a3b;
+        color: var(--danger);
     }
     
     .badge-paused {
         background-color: rgba(54, 185, 204, 0.1);
-        color: #36b9cc;
+        color: var(--info);
     }
     
     .status-dot {
@@ -79,13 +79,13 @@
     
     /* URL styling */
     .monitor-url {
-        color: #4e73df;
+        color: var(--primary);
         font-weight: 500;
     }
     
     .monitor-name {
         font-size: 0.8rem;
-        color: #858796;
+        color: var(--secondary);
         display: block;
     }
     
@@ -97,7 +97,7 @@
     
     .empty-state i {
         font-size: 2rem;
-        color: #dddfeb;
+        color: var(--gray-light);
         margin-bottom: 1rem;
     }
      .custom-spacing {
@@ -106,30 +106,20 @@
     }
     
     body.dark-mode .skeleton{
-        background-color: #1e1e2f !important;
+        background-color: var(--text-primary) !important;
     }
 
     @media (max-width: 768px) {
         .table-responsive {
             border: 0;
         }
-    .custom-spacing {
-        margin-left: 1.5rem; 
-        margin-right: 1.5rem;
-    } 
+        .custom-spacing {
+            margin-left: 1.5rem; 
+            margin-right: 1.5rem;
+        } 
     }
 
 @media (max-width: 578px) {
-
-/* .dataTables_length {
-   text-align: left !important;
-   margin-left: 2px;
-   margin-bottom: 10px;
-}
-.dataTables_filter{
-            margin-left: -25px;
-    } */
-
     .dataTables_length {
         text-align: left !important;
         margin-left: 6px;
@@ -141,9 +131,9 @@
         margin-bottom: 10px;
     }
 
-.page-content {
-   margin-bottom: 175px;
-}
+    .page-content {
+        margin-bottom: 175px;
+    }
 
 }
 </style>

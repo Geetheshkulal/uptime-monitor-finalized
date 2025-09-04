@@ -10,7 +10,6 @@
     :root {
         /* Colors */
         --primary: #6366f1;
-        --primary-dark: #4f46e5;
         --secondary: #8b5cf6;
         --accent: #ec4899;
         --text-dark: #1f2937;

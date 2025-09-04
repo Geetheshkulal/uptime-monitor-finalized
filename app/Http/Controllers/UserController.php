@@ -124,7 +124,7 @@ class UserController extends Controller
 
         $userCount = User::whereDoesntHave('roles', function ($q) {
             $q->where('name', 'user')
-            ->orWhere('name', 'subuser');
+                ->orWhere('name', 'subuser');
         })->count();
 
         return view('pages.admin.DisplayUsers', compact('users', 'customers', 'roles', 'customerCount', 'userCount'));
@@ -183,7 +183,7 @@ class UserController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
-            'phone' => 'nullable|string|max:20|unique:users,phone',
+            'phone' => 'nullable|string|max:20|unique:users,phone,' . $user->id,
             'role' => 'required|exists:roles,id',
             'status' => 'nullable|in:free,free_trial,paid',
             'premium_end_date' => 'nullable|date|after_or_equal:today'

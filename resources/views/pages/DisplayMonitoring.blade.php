@@ -18,10 +18,10 @@
         }
         #status-heartbeat
         {
-        display: inline-block;
-        width: 36px;
-        height: 22px;
-        margin-right: 8px;
+            display: inline-block;
+            width: 36px;
+            height: 22px;
+            margin-right: 8px;
         }
         .btn {
             border-radius: 0.35rem;
@@ -35,123 +35,111 @@
         }
 
         .btn-primary:hover {
-            background-color: #2e59d9;
-            border-color: #2653d4;
+            background-color: var(--primary-hover);
+            border-color: var(--primary-hover);
         }  
 
         #dropdownMenuLink {
-    display: none !important;
-}
+            display: none !important;
+        }
 
-
-#ports {
-        overflow-y: auto;
-        height: inherit;
-    }
+        #ports {
+            overflow-y: auto;
+            height: inherit;
+        }
     
-    #ports span {
-        display: block;
-        padding: 12px;
-        border-radius: 15px;
-        letter-spacing: .025rem;
-        color: var(--dark-border); 
-    }
+        #ports span {
+            display: block;
+            padding: 12px;
+            border-radius: 15px;
+            letter-spacing: .025rem;
+            color: var(--dark-border); 
+        }
     
-    #ports span:hover {
-        background: var(--dark-list-hover);
-        color: var(--dark-active-list);
-        cursor: pointer;
-    }
+        #ports span:hover {
+            background: var(--dark-list-hover);
+            color: var(--dark-active-list);
+            cursor: pointer;
+        }
 
-    .languages_wrapper::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
+        .languages_wrapper::-webkit-scrollbar-track {
+            background: var(--light);
+        }
 
-html.dark-mode .languages_wrapper {
-    background-color: #1a1a27 !important ;
-}
+        html.dark-mode .languages_wrapper {
+            background-color: var(--text-primary) !important ;
+        }
 
-html.dark-mode #ports span {
-    color: white;
-}
+        html.dark-mode #ports span {
+            color: var(--white);
+        }
 
+        html.dark-mode .languages_wrapper {
+            scrollbar-color: var(--text-primary);
+        }
 
-html.dark-mode .languages_wrapper {
-    scrollbar-color: #1a1a27 #2c2c2c;
-}
+        html.dark-mode .languages_wrapper::-webkit-scrollbar-track {
+            background: var(--text-primary);
+        }
 
-html.dark-mode .languages_wrapper::-webkit-scrollbar-track {
-    background: #2c2c2c;
-}
+        html.dark-mode .languages_wrapper::-webkit-scrollbar-thumb {
+            background-color: var(--color-card-dark);
+            border: 2px solid var(--color-input-dark);
+        }
 
-html.dark-mode .languages_wrapper::-webkit-scrollbar-thumb {
-    background-color: #1a1a27;
-    border: 2px solid #2c2c2c;
-}
+        .col-md-12.position-relative {
+            position: relative;
+        }
 
+        datalist#portOptions {
+            position: absolute;
+            /* background-color: rgb(255, 255, 255); */
+            background-color: var(--white);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 95%;
+            padding: 7px;
+            max-height: 10rem;
+            overflow-y: auto;
+            display: none; 
+            z-index: 1000;
+            margin-top: 5px;
+            scrollbar-width: none;
+        }
 
-.col-md-12.position-relative {
-  position: relative;
-}
+        datalist#portOptions::-webkit-scrollbar {
+            display: none; 
+        }
 
-datalist#portOptions {
-  position: absolute;
-  /* background-color: rgb(255, 255, 255); */
-  background-color: var(--white);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 95%;
-  padding: 7px;
-  max-height: 10rem;
-  overflow-y: auto;
-  display: none; 
-  z-index: 1000;
-  margin-top: 5px;
-  scrollbar-width: none;
-}
+        /* Dropdown option items */
+        datalist#portOptions option {
+            padding: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            color: var(--blue);
+        }
 
-datalist#portOptions::-webkit-scrollbar {
-  display: none; 
-}
+        datalist#portOptions option:hover,
+        datalist#portOptions option.active {
+            background-color: var(--gray-light);
+        }
 
-/* Dropdown option items */
-datalist#portOptions option {
-  padding: 4px;
-  font-size: 16px;
-  cursor: pointer;
-  color: var(--blue);
-}
+        #portInput:focus {
+            box-shadow: none !important;
+            outline: none !important;
+        }
 
-datalist#portOptions option:hover,
-datalist#portOptions option.active {
-  background-color: #e6f0ff;
-}
+        html.dark-mode datalist#portOptions {
+            background-color: var(--color-card-dark);
+        }
 
-#portInput:focus {
-    box-shadow: none !important;
-    outline: none !important;
-}
+        html.dark-mode datalist#portOptions option {
+            color: var(--color-text-dark);
+        }
 
-html.dark-mode datalist#portOptions {
-  background-color: var(--color-card-dark);
-}
-
-html.dark-mode datalist#portOptions option {
-  color: var(--color-text-dark);
-}
-
-html.dark-mode datalist#portOptions option:hover,
-datalist#portOptions option.active {
-  background-color: var(--color-input-dark);
-}
-
-@media (max-width: 578px) {
-
-/* datalist#portOptions {
-  width: 93%;
-    } */
-
-}
-       
+        html.dark-mode datalist#portOptions option:hover,
+        datalist#portOptions option.active {
+            background-color: var(--color-input-dark);
+        }
     </style>
     <!-- Page Heading -->
     <div class="container-fluid">

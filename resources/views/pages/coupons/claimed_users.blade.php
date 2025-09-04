@@ -11,7 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <style>
-           * {
+        * {
             border-radius: 3px !important;
         }
 
@@ -24,7 +24,7 @@
         .filter-container label {
             margin-bottom: 0;
             font-weight: 600;
-            color: #6e707e;
+            color: var(--gray-dark);
         }
 
 </style>

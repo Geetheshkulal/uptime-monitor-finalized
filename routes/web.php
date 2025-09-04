@@ -103,7 +103,7 @@ Route::middleware(['auth', 'blockIp'])->group(function () {
 
 Route::get('/', function () {
     $plans = Subscriptions::where('is_active', 1)->get();
-    return view('welcome', compact('plans'));
+    return view('landing.landing', compact('plans'));
 })->middleware('blockIp', 'log.traffic');
 
 Route::get('latestUpdates', function () {
@@ -315,7 +315,7 @@ Route::group(['middleware' => ['auth', 'blockIp']], function () {
     
     Route::get('/get/subusers/{id}', [UserController::class, 'GetSubUsers'])->name('get.sub.users');
 
-    Route::delete('/completely/delete/user/{id}', [UserController::class, 'CompletelyDeleteUser'])->middleware('premium_middleware')->name('completely.delete.user');
+    Route::delete('/completely/delete/user/{id}', [UserController::class, 'CompletelyDeleteUser'])->name('completely.delete.user');
 
     Route::get('/sub-user/{id}/edit', [UserController::class, 'EditSubUser'])->name('edit.sub.user');
 

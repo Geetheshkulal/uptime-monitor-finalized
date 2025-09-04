@@ -14,6 +14,7 @@
             }, 500);
         };
     </script>
+    <link rel="stylesheet" href="{{ asset('frontend/assets/css/sb-admin-2.css') }}">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -22,12 +23,12 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f5f5f5;
+            background-color: var(--light);
         }
         .message-box {
             text-align: center;
             padding: 30px;
-            background: white;
+            background: var(--white);
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             max-width: 400px;
@@ -37,10 +38,10 @@
             margin-bottom: 20px;
         }
         .success {
-            color: #4CAF50;
+            color: var(--success);
         }
         .processing {
-            color: #FFC107;
+            color: var(--warning);
         }
     </style>
 </head>

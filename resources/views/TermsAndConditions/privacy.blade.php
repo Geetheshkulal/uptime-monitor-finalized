@@ -1,152 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('welcome')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-    <title>Privacy Policy | Drishti Pulse</title>
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    <!-- PWA -->
-    <link rel="manifest" href="{{ asset('manifest.json') }}">
-    <meta name="theme-color" content="#6777ef">
-    <link rel="apple-touch-icon" href="{{ asset('mainlogo.png') }}">
-
-    <!-- Toastr CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-
-    <!-- Animate.css -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-
+@push('styles')
     <style>
-
-        :root {
-            --primary-color: #5d75ca;
-            --secondary-color: #4e73df;
-            --accent-color: #4cc9f0;
-            --dark-color: #1a1a2e;
-            --light-color: #f8f9fa;
-        }
-
-        html,
-        body {
-            font-family: 'Poppins', sans-serif;
-            overflow-x: hidden;
-        }
-
-        .btn {
-            border-radius: 50px !important;
-            padding: 12px 28px !important;
-            font-weight: 600 !important;
-            transition: all 0.3s ease !important;
-            letter-spacing: 0.5px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            border: none;
-            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.4);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(67, 97, 238, 0.6);
-        }
-
-        .btn-light {
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn-light:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        .navbar {
-            padding: 15px 0;
-            transition: all 0.3s ease;
-        }
-
-        .navbar.scrolled {
-            background-color: white !important;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            padding: 10px 0;
-        }
-
-        .footer-links a {
-            transition: all 0.3s ease;
-            display: inline-block;
-        }
-
-        .footer-links a:hover {
-            /* color: var(--accent-color) !important; */
-            transform: translateX(5px);
-        }
-
-        .social-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .social-icon:hover {
-            background: var(--accent-color);
-            transform: translateY(-5px);
-        }
-
         .terms-content {
-      font-size: 0.95rem;
-      line-height: 1.7;
-    }
-
-        .transition {
-            transition: all 0.3s ease;
-        }
-
-        .hover-opacity-100:hover {
-            opacity: 1 !important;
-        }
-
-        .hover-text-primary:hover {
-            color: #0d6efd !important;
-        }
-
-        .text-muted {
-            color: #6c757d !important;
-        }
-
-        .bg-opacity-10 {
-            opacity: 0.1;
-        }
-
-        .fs-8 {
-            font-size: 0.7rem;
+            font-size: 0.95rem;
+            line-height: 1.7;
         }
 
         @media (max-width: 768px) {
-      .terms-content h1, .terms-content h2 {
-        font-size: 1.5rem;
-      }
-      .terms-content {
-        font-size: 0.9rem;
-      }
-    }
+
+            .terms-content h1,
+            .terms-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .terms-content {
+                font-size: 0.9rem;
+            }
+        }
+
         @media (max-width: 578px) {
             .auth-buttons .btn {
                 margin-top: 20px;
@@ -159,350 +31,226 @@
             }
         }
 
-        .navbar-toggler:focus {
-            box-shadow: none !important;
+        p {
+            line-height: 2;
         }
 
-        p {
-  line-height: 2; 
-}
-
-h1,h2,h3,h4{
-  line-height: 1.8; 
-}
+        h1,
+        h2,
+        h3,
+        h4 {
+            line-height: 1.8;
+        }
     </style>
-</head>
+@endpush
 
-<body>
-       <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
-
-    <div class="container">
-      
-      <a class="navbar-brand text-primary fw-bold d-flex align-items-center" href="/">
-        <i class="fas fa-heartbeat me-2"></i>DRISHTI PULSE
-      </a>
-      
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <!-- Left-aligned navigation items -->
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url('/#features') }}">Features</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url('/#how-it-works') }}">How It Works</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url('/#pricing') }}">Pricing</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ route('documentation.page') }}">User Docs</a>
-          </li>
-        </ul>
-        
-        <!-- Right-aligned items -->
-        <div class="d-flex align-items-center">
-          
-          <!-- Auth buttons -->
-          @if (Route::has('login'))
-            @auth
-              @hasrole('superadmin')
-                <a href="{{ route('admin.dashboard') }}" class="btn btn-primary btn-sm">Admin Dashboard</a>
-              @else
-                <a href="{{ route('monitoring.dashboard') }}" class="btn btn-primary btn-sm">Dashboard</a>
-              @endhasrole
-            @else
-            <div class="auth-buttons d-flex">
-            <a href="{{ route('login') }}" class="btn btn-primary btn-sm me-2">
-              <i class="fas fa-sign-in-alt me-1"></i> Login
-            </a>
-            <a href="{{ route('register') }}" class="btn btn-primary btn-sm">
-              <i class="fas fa-user-plus me-1"></i> Register
-            </a>
-          </div>
-            @endauth 
-          @endif
-        </div>
-      </div>
-    </div>
-  </nav>
-
+@section('content')
     <section id="terms" class="py-5 bg-light">
         <div class="container terms-content mt-5">
             <h1 class="mb-3">Privacy Policy</h1>
             <p class="text-muted">Last updated: August 25, 2025</p>
-            <p>This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.</p>
-            <p>We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy.</p>
+            <p>This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your
+                information when You use the Service and tells You about Your privacy rights and how the law protects You.
+            </p>
+            <p>We use Your Personal data to provide and improve the Service. By using the Service, You agree to the
+                collection and use of information in accordance with this Privacy Policy.</p>
             <h2>Interpretation and Definitions</h2>
             <h3>Interpretation</h3>
-            <p>The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.</p>
+            <p>The words of which the initial letter is capitalized have meanings defined under the following conditions.
+                The following definitions shall have the same meaning regardless of whether they appear in singular or in
+                plural.</p>
             <h3>Definitions</h3>
             <p>For the purposes of this Privacy Policy:</p>
             <ul>
-            <li>
-            <p><strong>Account</strong> means a unique account created for You to access our Service or parts of our Service.</p>
-            </li>
-            <li>
-            <p><strong>Company</strong> (referred to as either &quot;the Company&quot;, &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot; in this Agreement) refers to Damodar IT Solutions Pvt. Ltd, Damodar It Solutions, 3rd Floor, VSK Towers, Kottara Chowki, Mangaluru, Karnataka, 575 006..</p>
-            </li>
-            <li>
-            <p><strong>Cookies</strong> are small files that are placed on Your computer, mobile device or any other device by a website, containing the details of Your browsing history on that website among its many uses.</p>
-            </li>
-            <li>
-            <p><strong>Country</strong> refers to: Karnataka,  India</p>
-            </li>
-            <li>
-            <p><strong>Device</strong> means any device that can access the Service such as a computer, a cellphone or a digital tablet.</p>
-            </li>
-            <li>
-            <p><strong>Personal Data</strong> is any information that relates to an identified or identifiable individual.</p>
-            </li>
-            <li>
-            <p><strong>Service</strong> refers to the Website.</p>
-            </li>
-            <li>
-            <p><strong>Service Provider</strong> means any natural or legal person who processes the data on behalf of the Company. It refers to third-party companies or individuals employed by the Company to facilitate the Service, to provide the Service on behalf of the Company, to perform services related to the Service or to assist the Company in analyzing how the Service is used.</p>
-            </li>
-            <li>
-            <p><strong>Usage Data</strong> refers to data collected automatically, either generated by the use of the Service or from the Service infrastructure itself (for example, the duration of a page visit).</p>
-            </li>
-            <li>
-            <p><strong>Website</strong> refers to Drishtipulse, accessible from <a href="https://drishtipulse.in/" rel="external nofollow noopener" target="_blank">https://drishtipulse.in/</a></p>
-            </li>
-            <li>
-            <p><strong>You</strong> means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.</p>
-            </li>
+                <li>
+                    <p><strong>Account</strong> means a unique account created for You to access our Service or parts of our
+                        Service.</p>
+                </li>
+                <li>
+                    <p><strong>Company</strong> (referred to as either &quot;the Company&quot;, &quot;We&quot;,
+                        &quot;Us&quot; or &quot;Our&quot; in this Agreement) refers to Damodar IT Solutions Pvt. Ltd,
+                        Damodar It Solutions, 3rd Floor, VSK Towers, Kottara Chowki, Mangaluru, Karnataka, 575 006..</p>
+                </li>
+                <li>
+                    <p><strong>Cookies</strong> are small files that are placed on Your computer, mobile device or any other
+                        device by a website, containing the details of Your browsing history on that website among its many
+                        uses.</p>
+                </li>
+                <li>
+                    <p><strong>Country</strong> refers to: Karnataka, India</p>
+                </li>
+                <li>
+                    <p><strong>Device</strong> means any device that can access the Service such as a computer, a cellphone
+                        or a digital tablet.</p>
+                </li>
+                <li>
+                    <p><strong>Personal Data</strong> is any information that relates to an identified or identifiable
+                        individual.</p>
+                </li>
+                <li>
+                    <p><strong>Service</strong> refers to the Website.</p>
+                </li>
+                <li>
+                    <p><strong>Service Provider</strong> means any natural or legal person who processes the data on behalf
+                        of the Company. It refers to third-party companies or individuals employed by the Company to
+                        facilitate the Service, to provide the Service on behalf of the Company, to perform services related
+                        to the Service or to assist the Company in analyzing how the Service is used.</p>
+                </li>
+                <li>
+                    <p><strong>Usage Data</strong> refers to data collected automatically, either generated by the use of
+                        the Service or from the Service infrastructure itself (for example, the duration of a page visit).
+                    </p>
+                </li>
+                <li>
+                    <p><strong>Website</strong> refers to Drishtipulse, accessible from <a href="https://drishtipulse.in/"
+                            rel="external nofollow noopener" target="_blank">https://drishtipulse.in/</a></p>
+                </li>
+                <li>
+                    <p><strong>You</strong> means the individual accessing or using the Service, or the company, or other
+                        legal entity on behalf of which such individual is accessing or using the Service, as applicable.
+                    </p>
+                </li>
             </ul>
             <h2>Collecting and Using Your Personal Data</h2>
             <h3>Types of Data Collected</h3>
             <h4>Personal Data</h4>
-            <p>While using Our Service, We may ask You to provide Us with certain personally identifiable information that can be used to contact or identify You. Personally identifiable information may include, but is not limited to:</p>
+            <p>While using Our Service, We may ask You to provide Us with certain personally identifiable information that
+                can be used to contact or identify You. Personally identifiable information may include, but is not limited
+                to:</p>
             <ul>
-            <li>
-            <p>Email address</p>
-            </li>
-            <li>
-            <p>First name and last name</p>
-            </li>
-            <li>
-            <p>Phone number</p>
-            </li>
-            <li>
-            <p>Address, State, Province, ZIP/Postal code, City</p>
-            </li>
-            <li>
-            <p>Usage Data</p>
-            </li>
+                <li>
+                    <p>Email address</p>
+                </li>
+                <li>
+                    <p>First name and last name</p>
+                </li>
+                <li>
+                    <p>Phone number</p>
+                </li>
+                <li>
+                    <p>Address, State, Province, ZIP/Postal code, City</p>
+                </li>
+                <li>
+                    <p>Usage Data</p>
+                </li>
             </ul>
             <h4>Usage Data</h4>
             <p>Usage Data is collected automatically when using the Service.</p>
-            <p>Usage Data may include information such as Your Device's Internet Protocol address (e.g. IP address), browser type, browser version, the pages of our Service that You visit, the time and date of Your visit, the time spent on those pages, unique device identifiers and other diagnostic data.</p>
-            <p>When You access the Service by or through a mobile device, We may collect certain information automatically, including, but not limited to, the type of mobile device You use, Your mobile device unique ID, the IP address of Your mobile device, the type of mobile Internet browser You use, unique device identifiers and other diagnostic data.</p>
-            <p>We may also collect information that Your browser sends whenever You visit our Service or when You access the Service by or through a mobile device.</p>
-           
-            <p>For more information about the cookies we use and your choices regarding cookies, please visit our Cookies Policy.</p>
+            <p>Usage Data may include information such as Your Device's Internet Protocol address (e.g. IP address), browser
+                type, browser version, the pages of our Service that You visit, the time and date of Your visit, the time
+                spent on those pages, unique device identifiers and other diagnostic data.</p>
+            <p>When You access the Service by or through a mobile device, We may collect certain information automatically,
+                including, but not limited to, the type of mobile device You use, Your mobile device unique ID, the IP
+                address of Your mobile device, the type of mobile Internet browser You use, unique device identifiers and
+                other diagnostic data.</p>
+            <p>We may also collect information that Your browser sends whenever You visit our Service or when You access the
+                Service by or through a mobile device.</p>
+
+            <p>For more information about the cookies we use and your choices regarding cookies, please visit our Cookies
+                Policy.</p>
             <h3>Use of Your Personal Data</h3>
             <p>The Company may use Personal Data for the following purposes:</p>
             <ul>
-            <li>
-            <p><strong>To provide and maintain our Service</strong>, including to monitor the usage of our Service.</p>
-            </li>
-            <li>
-            <p><strong>To manage Your Account:</strong> to manage Your registration as a user of the Service. The Personal Data You provide can give You access to different functionalities of the Service that are available to You as a registered user.</p>
-            </li>
-            <li>
-            <p><strong>For the performance of a contract:</strong> the development, compliance and undertaking of the purchase contract for the products, items or services You have purchased or of any other contract with Us through the Service.</p>
-            </li>
-            <li>
-            <p><strong>To contact You:</strong> To contact You by email, telephone calls, SMS, or other equivalent forms of electronic communication, such as a mobile application's push notifications regarding updates or informative communications related to the functionalities, products or contracted services, including the security updates, when necessary or reasonable for their implementation.</p>
-            </li>
-            <li>
-            <p><strong>To provide You</strong> with news, special offers and general information about other goods, services and events which we offer that are similar to those that you have already purchased or enquired about unless You have opted not to receive such information.</p>
-            </li>
-            <li>
-            <p><strong>To manage Your requests:</strong> To attend and manage Your requests to Us.</p>
-            </li>
-            <li>
-              <p><strong>With Your Consent:</strong> We may share and disclose information with your consent or at your direction. For example, we may share your information with third parties with which you authorize us to do so, such as the social media services that you connect to our site.</p>
-            </li>
+                <li>
+                    <p><strong>To provide and maintain our Service</strong>, including to monitor the usage of our Service.
+                    </p>
+                </li>
+                <li>
+                    <p><strong>To manage Your Account:</strong> to manage Your registration as a user of the Service. The
+                        Personal Data You provide can give You access to different functionalities of the Service that are
+                        available to You as a registered user.</p>
+                </li>
+                <li>
+                    <p><strong>For the performance of a contract:</strong> the development, compliance and undertaking of
+                        the purchase contract for the products, items or services You have purchased or of any other
+                        contract with Us through the Service.</p>
+                </li>
+                <li>
+                    <p><strong>To contact You:</strong> To contact You by email, telephone calls, SMS, or other equivalent
+                        forms of electronic communication, such as a mobile application's push notifications regarding
+                        updates or informative communications related to the functionalities, products or contracted
+                        services, including the security updates, when necessary or reasonable for their implementation.</p>
+                </li>
+                <li>
+                    <p><strong>To provide You</strong> with news, special offers and general information about other goods,
+                        services and events which we offer that are similar to those that you have already purchased or
+                        enquired about unless You have opted not to receive such information.</p>
+                </li>
+                <li>
+                    <p><strong>To manage Your requests:</strong> To attend and manage Your requests to Us.</p>
+                </li>
+                <li>
+                    <p><strong>With Your Consent:</strong> We may share and disclose information with your consent or at
+                        your direction. For example, we may share your information with third parties with which you
+                        authorize us to do so, such as the social media services that you connect to our site.</p>
+                </li>
             </ul>
             <h3>Retention of Your Personal Data</h3>
-            <p>The Company will retain Your Personal Data only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use Your Personal Data to the extent necessary to comply with our legal obligations (for example, if we are required to retain your data to comply with applicable laws), resolve disputes, and enforce our legal agreements and policies.</p>
-            <p>The Company will also retain Usage Data for internal analysis purposes. Usage Data is generally retained for a shorter period of time, except when this data is used to strengthen the security or to improve the functionality of Our Service, or We are legally obligated to retain this data for longer time periods.</p>
+            <p>The Company will retain Your Personal Data only for as long as is necessary for the purposes set out in this
+                Privacy Policy. We will retain and use Your Personal Data to the extent necessary to comply with our legal
+                obligations (for example, if we are required to retain your data to comply with applicable laws), resolve
+                disputes, and enforce our legal agreements and policies.</p>
+            <p>The Company will also retain Usage Data for internal analysis purposes. Usage Data is generally retained for
+                a shorter period of time, except when this data is used to strengthen the security or to improve the
+                functionality of Our Service, or We are legally obligated to retain this data for longer time periods.</p>
             <h3>Delete Your Personal Data</h3>
-            <p>You have the right to delete or request that We assist in deleting the Personal Data that We have collected about You.</p>
+            <p>You have the right to delete or request that We assist in deleting the Personal Data that We have collected
+                about You.</p>
             <p>Our Service may give You the ability to delete certain information about You from within the Service.</p>
-            <p>You may update, amend, or delete Your information at any time by signing in to Your Account, if you have one, and visiting the account settings section that allows you to manage Your personal information. You may also contact Us to request access to, correct, or delete any personal information that You have provided to Us.</p>
-            <p>Please note, however, that We may need to retain certain information when we have a legal obligation or lawful basis to do so.</p>
+            <p>You may update, amend, or delete Your information at any time by signing in to Your Account, if you have one,
+                and visiting the account settings section that allows you to manage Your personal information. You may also
+                contact Us to request access to, correct, or delete any personal information that You have provided to Us.
+            </p>
+            <p>Please note, however, that We may need to retain certain information when we have a legal obligation or
+                lawful basis to do so.</p>
             <h3>DisclosurYour Personal Data</h3>
             <h4>Business Transactions</h4>
-            <p>If the Company is involved in a merger, acquisition or asset sale, Your Personal Data may be transferred. We will provide notice before Your Personal Data is transferred and becomes subject to a different Privacy Policy.</p>
+            <p>If the Company is involved in a merger, acquisition or asset sale, Your Personal Data may be transferred. We
+                will provide notice before Your Personal Data is transferred and becomes subject to a different Privacy
+                Policy.</p>
             <h4>Law enforcement</h4>
-            <p>Under certain circumstances, the Company may be required to disclose Your Personal Data if required to do so by law or in response to valid requests by public authorities (e.g. a court or a government agency).</p>
+            <p>Under certain circumstances, the Company may be required to disclose Your Personal Data if required to do so
+                by law or in response to valid requests by public authorities (e.g. a court or a government agency).</p>
             <h4>Other legal requirements</h4>
             <p>The Company may disclose Your Personal Data in the good faith belief that such action is necessary to:</p>
             <ul>
-            <li>Comply with a legal obligation</li>
-            <li>Protect and defend the rights or property of the Company</li>
-            <li>Prevent or investigate possible wrongdoing in connection with the Service</li>
-            <li>Protect the personal safety of Users of the Service or the public</li>
-            <li>Protect against legal liability</li>
+                <li>Comply with a legal obligation</li>
+                <li>Protect and defend the rights or property of the Company</li>
+                <li>Prevent or investigate possible wrongdoing in connection with the Service</li>
+                <li>Protect the personal safety of Users of the Service or the public</li>
+                <li>Protect against legal liability</li>
             </ul>
             <h3>Security of Your Personal Data</h3>
-            <p>The security of Your Personal Data is important to Us, but remember that no method of transmission over the Internet, or method of electronic storage is 100% secure. While We strive to use commercially acceptable means to protect Your Personal Data, We cannot guarantee its absolute security.</p>
+            <p>The security of Your Personal Data is important to Us, but remember that no method of transmission over the
+                Internet, or method of electronic storage is 100% secure. While We strive to use commercially acceptable
+                means to protect Your Personal Data, We cannot guarantee its absolute security.</p>
             <h2>Links to Other Websites</h2>
-            <p>Our Service may contain links to other websites that are not operated by Us. If You click on a third party link, You will be directed to that third party's site. We strongly advise You to review the Privacy Policy of every site You visit.</p>
-            <p>We have no control over and assume no responsibility for the content, privacy policies or practices of any third party sites or services.</p>
+            <p>Our Service may contain links to other websites that are not operated by Us. If You click on a third party
+                link, You will be directed to that third party's site. We strongly advise You to review the Privacy Policy
+                of every site You visit.</p>
+            <p>We have no control over and assume no responsibility for the content, privacy policies or practices of any
+                third party sites or services.</p>
             <h2>Changes to this Privacy Policy</h2>
-            <p>We may update Our Privacy Policy from time to time. We will notify You of any changes by posting the new Privacy Policy on this page.</p>
-            <p>We will let You know via email and/or a prominent notice on Our Service, prior to the change becoming effective and update the &quot;Last updated&quot; date at the top of this Privacy Policy.</p>
-            <p>You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.</p>
+            <p>We may update Our Privacy Policy from time to time. We will notify You of any changes by posting the new
+                Privacy Policy on this page.</p>
+            <p>We will let You know via email and/or a prominent notice on Our Service, prior to the change becoming
+                effective and update the &quot;Last updated&quot; date at the top of this Privacy Policy.</p>
+            <p>You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy
+                are effective when they are posted on this page.</p>
             <h2>Contact Us</h2>
             <p>If you have any questions about this Privacy Policy, You can contact us:</p>
             <ul>
-            <li>
-                <p>By email: <a href="mailto:info@ditsolutions.net" class="text-decoration-none">info@ditsolutions.net</a>
-            </li>
-            <li>
-            <p>By visiting this page on our website: <a class="text-decoration-none" href="https://drishtipulse.in/" rel="external nofollow noopener" target="_blank">https://drishtipulse.in/</a></p>
-            </li>
-            <li>
-            <p>By phone number: 8073462033</p>
-            </li>
+                <li>
+                    <p>By email: <a href="mailto:info@ditsolutions.net" class="text-decoration-none">info@ditsolutions.net</a>
+                </li>
+                <li>
+                    <p>By visiting this page on our website: <a class="text-decoration-none" href="https://drishtipulse.in/"
+                            rel="external nofollow noopener" target="_blank">https://drishtipulse.in/</a></p>
+                </li>
+                <li>
+                    <p>By phone number: 8073462033</p>
+                </li>
             </ul>
         </div>
     </section>
-
-   <!-- Footer -->
-   <footer class="bg-dark text-light py-5">
-    <div class="container">
-      <div class="row gy-4">
-        
-        <!-- Company Info -->
-        <div class="col-lg-3 col-md-6">
-          <div class="d-flex align-items-center mb-3">
-            <i class="fas fa-heartbeat text-primary me-2 fs-4"></i>
-            <h3 class="h5 fw-bold mb-0">DRISHTI PULSE</h3>
-          </div>
-          <p class="mb-3 text-muted">Enterprise-grade website monitoring for businesses of all sizes.</p>
-          <!-- <div class="d-flex gap-3">
-            <a href="#" class="social-icon text-light opacity-75 hover-opacity-100 transition">
-              <i class="fab fa-twitter"></i>
-            </a>
-            <a href="#" class="social-icon text-light opacity-75 hover-opacity-100 transition">
-              <i class="fab fa-facebook"></i>
-            </a>
-            <a href="#" class="social-icon text-light opacity-75 hover-opacity-100 transition">
-              <i class="fab fa-linkedin"></i>
-            </a>
-            <a href="#" class="social-icon text-light opacity-75 hover-opacity-100 transition">
-              <i class="fab fa-github"></i>
-            </a>
-          </div> -->
-        </div>
-  
-        <!-- Product Links -->
-        <div class="col-lg-3 col-md-6">
-          <h3 class="h6 fw-bold mb-3 text-uppercase small text-muted">Product</h3>
-          <div class="d-flex flex-column gap-2 footer-links">
-            <a href="/#features" class="text-light text-decoration-none hover-text-primary transition">
-              <i class="fas fa-chevron-right me-1 text-primary opacity-50 fs-8"></i> Features
-            </a>
-            <a href="/#pricing" class="text-light text-decoration-none hover-text-primary transition">
-              <i class="fas fa-chevron-right me-1 text-primary opacity-50 fs-8"></i> Pricing
-            </a>
-            <a href="/changelog" class="text-light text-decoration-none hover-text-primary transition">
-              <i class="fas fa-chevron-right me-1 text-primary opacity-50 fs-8"></i> Changelog
-            </a>
-          </div>
-        </div>
-
-         <!-- Useful Links -->
-         <div class="col-lg-3 col-md-6">
-          <h3 class="h6 fw-bold mb-3 text-uppercase small text-muted">Useful Links</h3>
-          <div class="d-flex flex-column gap-2 footer-links">
-            <a href="{{ route('privacy') }}" class="text-light text-decoration-none hover-text-primary transition">
-              <i class="fas fa-chevron-right me-1 text-primary opacity-50 fs-8"></i> Privacy Policy
-            </a>
-            <a href="{{ route('terms') }}" class="text-light text-decoration-none hover-text-primary transition">
-              <i class="fas fa-chevron-right me-1 text-primary opacity-50 fs-8"></i> Terms of Service
-            </a>
-            <a href="{{ route('cookies') }}" class="text-light text-decoration-none hover-text-primary transition">
-              <i class="fas fa-chevron-right me-1 text-primary opacity-50 fs-8"></i> Cookies Policy
-            </a>
-          </div>
-        </div>
-      
-        
-        <!-- Contact Information - Added to fill empty space -->
-        <div class="col-lg-3 col-md-6">
-          <h3 class="h6 fw-bold mb-3 text-uppercase small text-muted">Contact Us</h3>
-          <div class="d-flex flex-column gap-2">
-            <p class="mb-3 d-flex align-items-start">
-              <i class="fas fa-map-marker-alt text-primary me-2 mt-1"></i>
-              <a 
-                href="https://www.google.com/maps/place/Mangalore" 
-                target="_blank"
-                class="text-light text-decoration-none hover-text-primary transition"
-              >D IT Solutions Pvt. Ltd.
-              VSK Towers, 3rd Floor,
-              Kottara Chowki,
-              Mangaluru,
-              Karnataka
-              575 006
-                {{-- <span>Mangalore, Karnataka, India</span> --}}
-              </a>
-            </p>
-            <p class="mb-1 d-flex align-items-center">
-              <i class="fas fa-envelope text-primary me-2"></i>
-              <a href="mailto:info@ditsolutions.net" class="text-light text-decoration-none hover-text-primary transition">info@ditsolutions.net</a>
-            </p>
-            <p class="mb-1 d-flex align-items-center">
-              <i class="fas fa-phone text-primary me-2"></i>
-              <a href="tel:+91 8073462033" class="text-light text-decoration-none hover-text-primary transition">+91 8073462033</a>
-            </p>
-            {{-- <div class="mt-2">
-              <a href="{{ route('login') }}" class="btn btn-sm btn-outline-light">
-                <i class="fas fa-rocket me-2"></i> Start Your Free Trial
-              </a>
-            </div> --}}
-          </div>
-        </div>
-      </div>
-  
-      <!-- Footer Divider -->
-      <hr class="my-4 bg-opacity-10">
-  
-      <!-- Copyright & Legal Links -->
-      {{-- <div class="row align-items-center">
-        <div class="col-md-8 text-center text-md-start">
-          <p class="mb-md-0 text-muted small">© 2025 | All rights reserved, Drishti Pulse | Powered By D IT Solutions Pvt. Ltd. Made with ❤️ in BHARAT.</p>
-            
-        </div>
-        <div class="col-md-4 text-center text-md-end">
-          <a href="{{ route('privacy') }}" class="text-light text-decoration-none me-3 hover-text-primary transition small">Privacy Policy</a>
-          <a href="{{ route('terms') }}" class="text-light text-decoration-none hover-text-primary transition small">Terms of Service</a>
-          <a href="{{ route('cookies') }}" class="text-light text-decoration-none ms-3 hover-text-primary transition small">Cookies Policy</a>
-        </div>
-      </div> --}}
-      <div class="row align-items-center">
-        <div class="col-md-12 text-center mt-3">
-          <p class="text-muted small mb-0">© 2025 | All rights reserved, Drishti Pulse | Powered By D IT Solutions Pvt. Ltd.</p>   
-          <span class="text-muted bold">Made with ❤️ in BHARAT.</span>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-
-    <!-- Bootstrap Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-</body>
-
-</html>
+@endsection

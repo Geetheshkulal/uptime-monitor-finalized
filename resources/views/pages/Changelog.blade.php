@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Changelog - Drishti Pulse</title>
 
+  <link rel="stylesheet" href="{{ asset('frontend/assets/css/sb-admin-2.css') }}">
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <!-- Font Awesome -->
@@ -21,7 +22,7 @@
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      background-color: #f8f9fa;
+      background-color: var(--light);
       padding-top: 70px;
     }
 
@@ -38,25 +39,25 @@
     /* Changelog content */
     .version-section {
       padding: 2rem 0;
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid var(--gray-light);
       scroll-margin-top: 100px;
     }
 
     .version-title {
       font-weight: 600;
-      color: #6777ef;
+      color: var(--blue);
       margin-bottom: 1rem;
     }
 
     .version-date {
-      color: #6c757d;
+      color: var(--secondary);
       font-size: 0.9rem;
       margin-bottom: 1rem;
     }
 
     .version-subtitle {
       font-weight: 500;
-      color: #495057;
+      color: var(--dark);
       margin-bottom: 1rem;
     }
 
@@ -74,14 +75,14 @@
       max-height: 400px;
       overflow-y: auto;
       margin-top: 15px;
-      border-top: 1px solid #eee;
+      border-top: 1px solid var(--gray-light);
       padding-top: 15px;
     }
 
     .version-nav .nav-link {
       padding: 0.3rem 0.5rem;
       font-size: 0.85rem;
-      color: #6c757d;
+      color: var(--dark);
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -98,20 +99,20 @@
     }
 
     .pagination .page-link {
-      color: #6777ef;
-      border: 1px solid #dee2e6;
+      color: var(--primary);
+      border: 1px solid var(--gray-light);
       border-radius: 4px;
     }
 
     .pagination .page-item.active .page-link {
-      background-color: #6777ef;
-      border-color: #6777ef;
+      background-color: var(--primary);
+      border-color: var(--primary);
       color: white;
     }
 
     .pagination-info {
       text-align: center;
-      color: #6c757d;
+      color: var(--dark);
       margin-bottom: 1rem;
     }
 
@@ -121,32 +122,32 @@
 
     /* Responsive - Sidebar above on mobile */
    @media (max-width: 992px) {
-  .changelog-sidebar {
-    position: relative;
-    top: auto;
-    margin-bottom: 2rem;
-    max-height: none;
-    overflow-y: visible;
-  }
+    .changelog-sidebar {
+      position: relative;
+      top: auto;
+      margin-bottom: 2rem;
+      max-height: none;
+      overflow-y: visible;
+    }
   
-  .row {
-    flex-direction: column;
-  }
+    .row {
+      flex-direction: column;
+    }
   
-  .col-lg-3 {
-    order: -1;
-  }
-  
-  .form-check {
-    display: inline-block;
-    margin-right: 15px;
-  }
-  
-  .version-nav {
-    max-height: 200px;
-    overflow-y: auto;
-    margin-top: 15px;
-  }
+    .col-lg-3 {
+      order: -1;
+    }
+    
+    .form-check {
+      display: inline-block;
+      margin-right: 15px;
+    }
+    
+    .version-nav {
+      max-height: 200px;
+      overflow-y: auto;
+      margin-top: 15px;
+    }
   }
   </style>
 </head>

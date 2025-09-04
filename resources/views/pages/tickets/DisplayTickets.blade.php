@@ -11,35 +11,23 @@
 
     <style>
         html, body {
-    height: 100%;
-    margin: 0;
-}
+            height: 100%;
+            margin: 0;
+        }
 
-#content-wrapper {
-    min-height: 100vh; 
-    display: flex;
-    flex-direction: column;
-}
+        #content-wrapper {
+            min-height: 100vh; 
+            display: flex;
+            flex-direction: column;
+        }
 
-#content {
-    flex: 1; 
-}
-        /* ========== GLOBAL STYLES ========== */
-        :root {
-            --primary: #4e73df;
-            --primary-light: #e3f2fd;
-            --success: #1cc88a;
-            --danger: #e74a3b;
-            --warning: #f6c23e;
-            --info: purple;
-            --gray: #858796;
-            --light-gray: #f8f9fc;
-            --dark-gray: #5a5c69;
+        #content {
+            flex: 1; 
         }
 
         body {
             font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
-            color: var(--dark-gray);
+            color: var(--gray-dark);
         }
 
         .card {
@@ -55,8 +43,8 @@
         }
 
         .card-header {
-            background-color: #f8f9fc;
-            border-bottom: 1px solid #e3e6f0;
+            background-color: var(--light);
+            border-bottom: 1px solid var(--gray-light);
             font-weight: 600;
             padding: 1rem 1.35rem;
         }
@@ -105,8 +93,8 @@
         }
 
         .btn-primary:hover {
-            background-color: #2e59d9;
-            border-color: #2653d4;
+            background-color: var(--primary-hover);
+            border-color: var(--primary-hover);
         }
 
         .btn-view {
@@ -132,7 +120,7 @@
         .table td {
             padding: 1rem;
             vertical-align: middle;
-            border-top: 1px solid #e3e6f0;
+            border-top: 1px solid var(--gray-light);
         }
 
         /* ========== UTILITY CLASSES ========== */
@@ -159,40 +147,27 @@
             animation: fadeIn 0.3s ease forwards;
         }
 
-.unread-count-badge {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    font-size: 10px;
-    padding: 3px 6px;
-    border-radius: 50% !important;
-}
+        .unread-count-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            font-size: 10px;
+            padding: 3px 6px;
+            border-radius: 50% !important;
+        }
 
-@media (max-width: 430px) {
-    /* .dataTables_length {
-        text-align: left !important;
-        margin-left: 3px;
-        margin-bottom: 10px;
-    }
-    
-.dataTables_filter{
-    margin-top: 10px;
-    margin-left: -10px;
-} */
+        @media (max-width: 430px) {
+            .dataTables_length {
+                text-align: left !important;
+                margin-left: 6px;
+                margin-bottom: 10px;
+            }
 
-.dataTables_length {
-        text-align: left !important;
-        margin-left: 6px;
-        margin-bottom: 10px;
-    }
-
-    .dataTables_filter {
-        text-align: left !important;
-        margin-bottom: 10px;
-    }
-
-
-}
+            .dataTables_filter {
+                text-align: left !important;
+                margin-bottom: 10px;
+            }
+        }
     </style>
 </head>
 

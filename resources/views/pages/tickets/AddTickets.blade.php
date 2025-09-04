@@ -8,27 +8,21 @@
 
     <!-- Custom Styles -->
     <style>
-html, body {
-    height: 100%;
-    margin: 0;
-}
-
-#content-wrapper {
-    min-height: 100vh; 
-    display: flex;
-    flex-direction: column;
-}
-
-#content {
-    flex: 1; 
-}
-        :root {
-            --primary: #4e73df;
-            --success: #1cc88a;
-            --danger: #e74a3b;
-            --warning: #f6c23e;
-            --gray: #858796;
+        html, body {
+            height: 100%;
+            margin: 0;
         }
+
+        #content-wrapper {
+            min-height: 100vh; 
+            display: flex;
+            flex-direction: column;
+        }
+
+        #content {
+            flex: 1; 
+        }
+
 
         body {
             font-family: 'Nunito', sans-serif;
@@ -41,8 +35,8 @@ html, body {
         }
 
         .card-header {
-            background-color: #f8f9fc;
-            border-bottom: 1px solid #e3e6f0;
+            background-color: var(--light);
+            border-bottom: 1px solid var(--gray-light);
             font-weight: 600;
             padding: 1rem 1.35rem;
         }
@@ -50,7 +44,7 @@ html, body {
         .form-control, .custom-select {
             border-radius: 0.35rem;
             padding: 0.375rem 0.75rem; /* Bootstrap default for perfect centering */
-            border: 1px solid #d1d3e2;
+            border: 1px solid var(--gray-light);
             height: calc(1.5em + 0.75rem + 2px); /* Match Bootstrap's input height */
             font-size: 1rem;
             line-height: 1.5;
@@ -73,8 +67,8 @@ html, body {
         }
 
         .btn-primary:hover {
-            background-color: #2e59d9;
-            border-color: #2653d4;
+            background-color: var(--primary-hover);
+            border-color: var(--primary-hover);
         }
 
         /* Quill Editor Container */
@@ -99,7 +93,7 @@ html, body {
             justify-content: space-between;
             align-items: center;
             padding: 10px;
-            border: 1px solid #eee;
+            border: 1px solid var(--gray-light);
             border-radius: 4px;
             margin-bottom: 10px;
         }
@@ -138,9 +132,9 @@ html, body {
             margin-left: 10px;
         }
 
-         .select2-container--default .select2-selection--single {
+        .select2-container--default .select2-selection--single {
             height: 38px;
-            border: 1px solid #d1d3e2;
+            border: 1px solid var(--gray-light);
             border-radius: 0.35rem;
             padding: 6px 12px;
         }
@@ -150,30 +144,30 @@ html, body {
         .select2-container--default .select2-selection--single .select2-selection__rendered {
             line-height: 24px;
         }
-        
-    .custom-col-md {
-        max-width: 20.33333%;
-    }
-    #userSelect {
-        width: 300px;
-    }
-.select2-search--dropdown
-{
-    padding: 0px !important;
-}
-    @media (max-width: 430px) {
-      .ForUser {
-        margin-top: 14px;
-    }
-    .custom-select{
-        width: 17rem;
-    }
-    #userSelect {
-        width: 270px;
-    }
-   
-}
+            
+        .custom-col-md {
+            max-width: 20.33333%;
+        }
+        #userSelect {
+            width: 300px;
+        }
 
+        .select2-search--dropdown
+        {
+            padding: 0px !important;
+        }
+
+        @media (max-width: 430px) {
+            .ForUser {
+                margin-top: 14px;
+            }
+            .custom-select{
+                width: 17rem;
+            }
+            #userSelect {
+                width: 270px;
+            }
+        }
     </style>
 @endpush
 </head>

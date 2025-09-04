@@ -10,23 +10,10 @@
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     
     <style>
-        :root {
-            --color-text-primary: #24292e;
-            --color-text-secondary: #586069;
-            --color-border-primary: #e1e4e8;
-            --color-border-secondary: #eaecef;
-            --color-bg-primary: #ffffff;
-            --color-bg-secondary: #f6f8fa;
-            --color-state-open: #28a745;
-            --color-state-closed: #d73a49;
-            --color-state-merged: #6f42c1;
-            --color-state-on-hold: #f66a0a;
-        }
-
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-            color: var(--color-text-primary);
-            background-color: var(--color-bg-primary);
+            color: var(--text-primary);
+            background-color: var(--white);
         }
 
         .container {
@@ -36,7 +23,7 @@
         .issue-header {
             padding-bottom: 8px;
             margin-bottom: 16px;
-            border-bottom: 1px solid var(--color-border-primary);
+            border-bottom: 1px solid var(--gray-light);
         }
 
         .issue-title {
@@ -47,7 +34,7 @@
         }
 
         .issue-meta {
-            color: var(--color-text-secondary);
+            color: var(--dark);
             font-size: 14px;
         }
 
@@ -56,7 +43,7 @@
             padding: 4px 8px;
             font-weight: 600;
             line-height: 20px;
-            color: #fff;
+            color: var(--white);
             text-align: center;
             border-radius: 2em;
             font-size: 12px;
@@ -64,22 +51,22 @@
         }
 
         .state-open {
-            background-color: var(--color-state-open);
+            background-color: var(--success);
         }
 
         .state-closed {
-            background-color: var(--color-state-closed);
+            background-color: var(--red);
         }
 
         .state-on-hold {
-            background-color: var(--color-state-on-hold);
+            background-color: var(--orange);
         }
 
         .timeline-item {
             position: relative;
             padding-bottom: 16px;
             margin-bottom: 16px;
-            border-bottom: 1px solid var(--color-border-primary);
+            border-bottom: 1px solid var(--gray-light);
         }
 
         .timeline-item:last-child {
@@ -88,15 +75,15 @@
 
         .comment {
             position: relative;
-            background-color: var(--color-bg-primary);
-            border: 1px solid var(--color-border-primary);
+            background-color: var(--white);
+            border: 1px solid var(--gray-light);
             border-radius: 6px;
         }
 
         .comment-header {
             padding: 8px 16px;
-            background-color: var(--color-bg-secondary);
-            border-bottom: 1px solid var(--color-border-primary);
+            background-color: var(--light);
+            border-bottom: 1px solid var(--gray-light);
             border-radius: 6px 6px 0 0;
             display: flex;
             align-items: center;
@@ -111,11 +98,11 @@
 
         .comment-author {
             font-weight: 600;
-            color: var(--color-text-primary);
+            color: var(--text-primary);
         }
 
         .comment-meta {
-            color: var(--color-text-secondary);
+            color: var(--dark);
             font-size: 12px;
             margin-left: 8px;
         }
@@ -128,14 +115,14 @@
 
         .new-comment {
             margin-top: 16px;
-            border: 1px solid var(--color-border-primary);
+            border: 1px solid var(--gray-light);
             border-radius: 6px;
         }
 
         .new-comment-header {
             padding: 8px 16px;
-            background-color: var(--color-bg-secondary);
-            border-bottom: 1px solid var(--color-border-primary);
+            background-color: var(--light);
+            border-bottom: 1px solid var(--gray-light);
             border-radius: 6px 6px 0 0;
             font-weight: 600;
         }
@@ -145,9 +132,9 @@
         }
 
         #editor-container {
-            border: 1px solid var(--color-border-primary);
+            border: 1px solid var(--gray-light);
             border-radius: 6px;
-            background-color: var(--color-bg-primary);
+            background-color: var(--white);
             min-height: 150px;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
             font-size: 14px;
@@ -156,21 +143,21 @@
         #editor-container .ql-editor {
             min-height: 150px;
             padding: 8px 16px;
-            color: var(--color-text-primary);
+            color: var(--text-primary);
             line-height: 1.5;
         }
 
         #editor-container .ql-toolbar {
             border-top-left-radius: 6px;
             border-top-right-radius: 6px;
-            border-color: var(--color-border-primary);
-            background-color: var(--color-bg-secondary);
+            border-color: var(--gray-light);
+            background-color: var(--light);
         }
 
         #editor-container .ql-container {
             border-bottom-left-radius: 6px;
             border-bottom-right-radius: 6px;
-            border-color: var(--color-border-primary);
+            border-color: var(--gray-light);
         }
 
         .form-actions {
@@ -195,19 +182,19 @@
         }
 
         .btn-primary:hover {
-            background-color: #2e59d9;
-            border-color: #2653d4;
+            background-color: var(--primary-hover);
+            border-color: var(--primary-hover);
         }
 
         .btn-secondary {
-        color: #fff;
-        background-color: #81838f;
-        border-color: #858796;
-        margin-right: 8px;
-     }
+            color: var(--white);
+            background-color: var(--gray);
+            border-color: var(--gray);
+            margin-right: 8px;
+        }
 
         .btn-secondary:hover {
-            background-color: #666769;
+            background-color: var(--secondary);
         }
 
         .markdown-body {
@@ -232,7 +219,7 @@
             height: 100px;
             overflow: hidden;
             border-radius: 4px;
-            border: 1px solid var(--color-border-primary);
+            border: 1px solid var(--gray-light);
             cursor: pointer;
         }
 

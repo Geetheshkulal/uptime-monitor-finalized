@@ -7,119 +7,105 @@
 
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap4.min.css">
     <style>
-        * {
-    border-radius: 3px;
+    * {
+        border-radius: 3px;
     }
 
     html, body {
-    height: 100%;
-    margin: 0;
-}
+        height: 100%;
+        margin: 0;
+    }
 
-#content-wrapper {
-    min-height: 100vh; 
-    display: flex;
-    flex-direction: column;
-    
-}
+    #content-wrapper {
+        min-height: 100vh; 
+        display: flex;
+        flex-direction: column;   
+    }
 
-#content {
-    flex: 1; 
-}
+    #content {
+        flex: 1; 
+    }
 
-     .form-group {
-            margin-bottom: 1rem;
-            position: relative;
-        }
-        .form-control {
-            display: block;
-            width: 100%;
-            padding: 0.375rem 0.75rem;
-            font-size: 1rem;
-            line-height: 1.5;
-            color: #495057;
-            background-color: #fff;
-            background-clip: padding-box;
-            border: 1px solid #ced4da;
-            border-radius: 0.25rem;
-            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-        }
+    .form-group {
+        margin-bottom: 1rem;
+        position: relative;
+    }
+    .form-control {
+        display: block;
+        width: 100%;
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        color: var(--dark);
+        background-color: var(--white);
+        background-clip: padding-box;
+        border: 1px solid var(--gray-light);
+        border-radius: 0.25rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
       
 
     .password-toggle {
-    position: absolute;
-    top: 45px;
-    right: 16px; 
-    transform: translateX(-80%);
-    cursor: pointer;
-    color: #6c757d;
-    z-index: 2;
-}
-        label {
-            display: inline-block;
-            margin-bottom: 0.5rem;
-        }
+        position: absolute;
+        top: 45px;
+        right: 16px; 
+        transform: translateX(-80%);
+        cursor: pointer;
+        color: var(--color-secondary-light);
+        z-index: 2;
+    }
+    label {
+        display: inline-block;
+        margin-bottom: 0.5rem;
+    }
     #content {
-    flex: 1;
-}
-@media (max-width: 578px) {
-
-/* .dataTables_length {
-   text-align: left !important;
-   margin-left: 2px;
-   margin-bottom: 10px;
-}
-.dataTables_filter{
-    margin-top: 5px;
-    margin-left: -9px;
-} */
-
-.dataTables_length {
-        text-align: left !important;
-        margin-left: 6px;
-        margin-bottom: 10px;
+        flex: 1;
     }
 
-    .dataTables_filter {
-        text-align: left !important;
-        margin-bottom: 10px;
+    @media (max-width: 578px) {
+        .dataTables_length {
+                text-align: left !important;
+                margin-left: 6px;
+                margin-bottom: 10px;
+            }
+
+            .dataTables_filter {
+                text-align: left !important;
+                margin-bottom: 10px;
+            }
     }
 
-}
+
+    .blur-content {
+        filter: blur(3px);
+        opacity: 0.8;
+        pointer-events: none; 
+        user-select: none; 
+    }
 
 
-.blur-content {
-    filter: blur(3px);
-    opacity: 0.8;
-    pointer-events: none; 
-    user-select: none; 
-}
+    .premium-modal {
+        position: fixed;
+        top: 80%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1050;
+        width: 400px;
+        max-width: 90%;
+    }
 
-
-.premium-modal {
-    position: fixed;
-    top: 80%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1050;
-    width: 400px;
-    max-width: 90%;
-}
-
-.modal-content {
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-
-
-    
+    .modal-content {
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+  
     .text-gold {
-        color: #ffc107;
+        color: var(--color-warning);
     }
     
     .btn-gold {
-        background-color: #ffc107;
-        color: #000;
+        background-color: var(--color-warning);
+        color: var(--black);
     }
 
 </style>

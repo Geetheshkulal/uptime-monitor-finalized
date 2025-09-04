@@ -13,11 +13,10 @@
 
     /* ========== INTROJS TOUR ========== */
         .introjs-tooltip {
-            background-color: white;
+            background-color:var(--white);
             color: rgb(51, 48, 48);
             font-family: 'Poppins', sans-serif;
             border-radius: 0.35rem;
-            /* box-shadow: 0 0.5rem 1.5rem rgba(7, 18, 144, 0.2); */
             box-shadow: 0px 0px 6px 4px rgba(28, 61, 245, 0.2);   
         }
 
@@ -37,17 +36,17 @@
         }
 
         .introjs-button:hover {
-            background-color: #2e59d9;
+            background-color: var(--primary-hover);
             color: white;
         } 
         .introjs-overlay
-         {
-        pointer-events: none; 
+        {
+            pointer-events: none; 
         }
 
         .introjs-helperLayer {
-        pointer-events: none;
-        z-index: 1001;
+            pointer-events: none;
+            z-index: 1001;
         }
         .btn {
             border-radius: 0.35rem;
@@ -61,8 +60,8 @@
         }
 
         .btn-primary:hover {
-            background-color: #2e59d9;
-            border-color: #2653d4;
+            background-color: var(--primary-hover);
+            border-color: var(--primary-hover);
         }
         .container-fluid{
             overflow: auto;
@@ -85,26 +84,25 @@
             border: 1px solid var(--primary) !important;
         }
 
-@media (max-width: 576px) {
-    .introjs-tooltip,
-    .introjs-overlay,
-    .introjs-floating,
-    .introjs-helperLayer {
-    display: none !important;
-        
-    }
+        @media (max-width: 576px) {
+            .introjs-tooltip,
+            .introjs-overlay,
+            .introjs-floating,
+            .introjs-helperLayer {
+                display: none !important;  
+            }
 
-    #monitoringTabs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
+            #monitoringTabs {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
 
-  #monitoringTabs .nav-item {
-    flex: 1 1 calc(50% - 8px);
-  }
+            #monitoringTabs .nav-item {
+                flex: 1 1 calc(50% - 8px);
+            }
 
-}
+        }
  </style>
 
 <div class="container-fluid">
@@ -183,7 +181,6 @@
 @push('scripts')
 
  <!-- jQuery and Toastr scripts -->
- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
  <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/intro.min.js"></script>
