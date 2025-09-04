@@ -98,7 +98,7 @@ Route::middleware(['auth', 'blockIp'])->group(function () {
 
 Route::get('/', function () {
     $plans = Subscriptions::where('is_active', 1)->get();
-    return view('welcome', compact('plans'));
+    return view('landing.landing', compact('plans'));
 })->middleware('blockIp', 'log.traffic');
 
 Route::get('latestUpdates', function () {
