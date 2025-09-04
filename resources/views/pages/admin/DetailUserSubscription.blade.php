@@ -16,14 +16,14 @@
 
     .payment-method-container {
         padding: 15px;
-        background-color: #f8f9fa;
+        background-color: var(--light);
         border-radius: 5px;
     }
     .method-details {
-        background-color: white;
+        background-color: var(--white);
         padding: 15px;
         border-radius: 5px;
-        border: 1px solid #dee2e6;
+        border: 1px solid var(--gray-light);
     }
     .detail-row {
         display: flex;
@@ -31,7 +31,7 @@
     }
     .detail-label {
         min-width: 180px;
-        color: #6c757d;
+        color: var(--secondary);
     }
     .detail-value {
         word-break: break-all;

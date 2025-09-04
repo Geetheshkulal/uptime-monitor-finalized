@@ -2,11 +2,12 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="{{ asset('frontend/assets/css/sb-admin-2.css') }}">
     <title>Invoice - {{ $payment->transaction_id }}</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            color: #333;
+            color: var(--dark);
             line-height: 1.4;
             font-size: 13px; 
         }
@@ -20,31 +21,32 @@
             justify-content: space-between;
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 1px solid var(--light);
         }
         .company-info {
             text-align: left;
         }
         .company-name {
-            font-size: 18px; /* smaller */
+            font-size: 18px; 
             font-weight: 700;
-            color: #2c3e50;
+            color: var(--dark);
             margin-bottom: 3px;
         }
+        
         .company-tagline {
-            font-size: 11px; /* smaller */
-            color: #7f8c8d;
+            font-size: 11px; 
+            color: var(--light);
             margin-bottom: 10px;
         }
         .company-address {
             font-size: 11px; /* smaller */
             line-height: 1.4;
-            color: #555;
+            color: var(--secondary);
         }
         .bill-title {
             font-size: 20px; /* smaller */
             font-weight: 300;
-            color: #3498db;
+            color: var(--primary);
             margin-bottom: 6px;
             text-align: right;
         }
@@ -60,7 +62,7 @@
         .bill-from, .bill-to {
             flex: 1;
             padding: 10px;
-            background: #f9f9f9;
+            background: var(--light);
             border-radius: 5px;
             font-size: 12px; /* smaller */
         }
@@ -84,7 +86,7 @@
         }
         .bill-table thead th {
             background: #3498db;
-            color: white;
+            color: var(--white);
             padding: 8px 10px;
             text-align: left;
             font-weight: 500;
@@ -125,7 +127,7 @@
             font-size: 11px; 
         }
         .signature-line {
-            border-top: 1px solid #ccc;
+            border-top: 1px solid var(--light);
             width: 200px;
             margin-top: 40px;
             text-align: center;
@@ -135,14 +137,14 @@
         .footer-note {
             margin-top: 30px;
             padding-top: 15px;
-            border-top: 1px solid #eee;
+            border-top: 1px solid var(--light);
             font-size: 11px; /* smaller */
-            color: #7f8c8d;
+            color: var(--secondary);
             text-align: center;
         }
         .footer-note .thank-you {
             font-size: 14px; /* smaller */
-            color: #3498db;
+            color: var(--primary);
             margin-bottom: 8px;
         }
     </style>

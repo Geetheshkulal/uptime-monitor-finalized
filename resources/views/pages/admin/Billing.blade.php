@@ -28,7 +28,7 @@
                 left: 0;
                 right: 0;
                 bottom: 0;
-                background-color: #ccc;
+                background-color: var(--gray-light);
                 transition: .4s;
             }
 
@@ -39,16 +39,16 @@
                 width: 26px;
                 left: 4px;
                 bottom: 4px;
-                background-color: white;
+                background-color: var(--white);
                 transition: .4s;
             }
 
             input:checked+.slider {
-                background-color: #2196F3;
+                background-color: var(--primary);
             }
 
             input:focus+.slider {
-                box-shadow: 0 0 1px #2196F3;
+                box-shadow: 0 0 1px var(--primary);
             }
 
             input:checked+.slider:before {
@@ -89,16 +89,16 @@
             .nav-tabs .nav-link {
                 background-color: transparent !important;
                 border: none !important;
-                color: #6c757d;
+                color: var(--secondary);
             }
 
             .nav-tabs .nav-link.active {
                 background-color: transparent !important;
                 border: none !important;
-                color: #000;
+                color: var(--secondary);
                 /* highlight active tab text */
                 font-weight: 600;
-                border-bottom: 2px solid #007bff !important;
+                border-bottom: 2px solid var(--primary) !important;
                 /* underline effect */
             }
         </style>

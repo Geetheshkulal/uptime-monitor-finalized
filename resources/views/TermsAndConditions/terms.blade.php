@@ -1,50 +1,54 @@
 @extends('welcome')
 @push('styles')
-<style>
-  .terms-content {
-    font-size: 0.95rem;
-    line-height: 1.7;
-  }
+    <style>
+        .terms-content {
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
 
 
-  @media (max-width: 768px) {
-    .terms-content h1, .terms-content h2 {
-      font-size: 1.5rem;
-    }
-    .terms-content {
-      font-size: 0.9rem;
-    }
-  }
-  
-  @media (max-width: 578px) {
-      .auth-buttons .btn {
-          margin-top: 20px;
-          padding: 10px 10px !important;
-          font-size: 15px !important;
-      }
+        @media (max-width: 768px) {
 
-      .auth-buttons i {
-          font-size: 14px;
-      }
-  }
+            .terms-content h1,
+            .terms-content h2 {
+                font-size: 1.5rem;
+            }
 
-  .navbar-toggler:focus {
-      box-shadow: none !important;
-  }
+            .terms-content {
+                font-size: 0.9rem;
+            }
+        }
 
-  p {
-    line-height: 2; 
-  }
+        @media (max-width: 578px) {
+            .auth-buttons .btn {
+                margin-top: 20px;
+                padding: 10px 10px !important;
+                font-size: 15px !important;
+            }
 
-  h1,h2,h3,h4{
-    line-height: 1.8; 
-  }
-</style>
+            .auth-buttons i {
+                font-size: 14px;
+            }
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none !important;
+        }
+
+        p {
+            line-height: 2;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            line-height: 1.8;
+        }
+    </style>
 @endpush
 
 @section('content')
-
-
     <section id="terms" class="py-5 bg-light">
         <div class="container terms-content mt-5">
             <h1 class="mb-3">Terms of service</h1>
@@ -91,9 +95,8 @@
                         made available by the Service.</p>
                 </li>
                 <li>
-                    <p><strong>Website</strong> refers to Drishti Pulse, accessible from <a
-                            href="https://drishtipulse.in/" rel="external nofollow noopener"
-                            target="_blank">https://drishtipulse.in/</a></p>
+                    <p><strong>Website</strong> refers to Drishti Pulse, accessible from <a href="https://drishtipulse.in/"
+                            rel="external nofollow noopener" target="_blank">https://drishtipulse.in/</a></p>
                 </li>
                 <li>
                     <p><strong>You</strong> means the individual accessing or using the Service, or the company, or
@@ -213,7 +216,8 @@
                 </li>
                 <li>
                     <p>By visiting this page on our website: <a href="https://drishtipulse.in/"
-                            rel="external nofollow noopener" target="_blank" class="text-decoration-none">https://drishtipulse.in/</a></p>
+                            rel="external nofollow noopener" target="_blank"
+                            class="text-decoration-none">https://drishtipulse.in/</a></p>
                 </li>
                 <li>
                     <p>By phone number: 8073 462 033</p>

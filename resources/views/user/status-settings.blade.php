@@ -24,8 +24,8 @@
     .tag {
       display: inline-flex;
       align-items: center;
-      background-color: #e9ecef;
-      color: #495057;
+      background-color: var(--gray-light);
+      color: var(--secondary);
       padding: 0.25rem 0.5rem;
       border-radius: 20px;
       margin: 0.25rem;
@@ -38,11 +38,11 @@
       margin-left: 0.4rem;
       cursor: pointer;
       line-height: 1;
-      color: #6c757d;
+      color: var(--secondary);
     }
-    .tag .remove-btn:hover {
+    /* .tag .remove-btn:hover {
       color: #dc3545;
-    }
+    } */
 
     @media (max-width: 430px) {
 
@@ -75,7 +75,7 @@
 
     <div class="page-title-box d-flex align-items-center justify-content-between">
      <h1 class="h3 mb-0 text-gray-800 font-600 white-color title-status-setting">Status Page Settings</h1>
-    <a href="{{ route('status') }}" class="btn btn-primary ms-3 status-page status-page-back-button" style="padding: 0.4rem 0.5rem;">
+    <a href="{{ route('status') }}" class="btn btn-secondary ms-3 status-page status-page-back-button" style="padding: 0.4rem 0.5rem;">
         <i class="fas fa-arrow-left me-2"></i> Back
     </a>
 </div><br>

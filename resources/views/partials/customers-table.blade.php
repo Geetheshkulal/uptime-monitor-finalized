@@ -1,3 +1,15 @@
+<style>
+    .unread-count-badge{
+        position: absolute !important;
+    top: -9px !important;
+    right: -9px;
+    font-size: 10px;
+    padding: 3px 6px;
+    border-radius: 50%;
+    }
+</style>
+
+
 <div class="card shadow mb-4">
     <div class="card-body">
         <div class="table-responsive">
@@ -54,8 +66,17 @@
                                     <a href="{{ route('show.user', $user->id) }}" class="btn btn-sm btn-success mr-2" title="View">
                                         <i class="fas fa-eye"></i>
                                     </a>
+                                    @php
+                                        $subUserCount = \App\Models\User::where('parent_user_id', $user->id)->count();
+                                    @endphp
+                                    
                                     <a href="{{ route('show.user', $user->id) }}" class="btn btn-sm btn-primary subuser-button" data-url="/admin/display/user/{{ $user->id }}" title="View" data-user-id="{{ $user->id }}" data-user-name="{{ $user->name }}" data-user-email="{{ $user->email }}">
                                         <i class="fas fa-users"></i>
+                                        @if ($subUserCount> 0)
+                                        <span class="badge badge-success unread-count-badge">
+                                            {{ $subUserCount }}
+                                        </span>
+                                    @endif
                                     </a>
                                 </div>
                             </td>

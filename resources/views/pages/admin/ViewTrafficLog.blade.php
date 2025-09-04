@@ -7,20 +7,19 @@
 
 <style>
     .traffic-card {
-        background: white;
+        background: var(--white);
         border-radius: 8px;
         border: 1px solid rgba(128, 128, 128, 0.3);
         margin-bottom: 1rem;
         overflow: hidden;
     }
     
-    /* New Header Styling */
     .traffic-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 0.75rem 1rem;
-        background: #f8fafc;
+        background: var(--light);
         border-bottom: 1px solid rgba(128, 128, 128, 0.3);
         box-shadow: 0 2px 4px rgba(0,0,0,0.03);
     }
@@ -34,7 +33,7 @@
     .ip-address {
         font-family: 'Roboto Mono', monospace;
         font-size: 0.875rem;
-        color: #3182ce;
+        color: var(--primary);
         font-weight: 500;
         
     }
@@ -52,7 +51,7 @@
     
     .header-time {
         font-size: 0.75rem;
-        color: #64748b;
+        color: var(--gray);
     }
     
     /* Rest of the existing styles remain exactly the same */
@@ -86,13 +85,13 @@
     
     .detail-label {
         font-size: 17px;
-        color: #64748b;
+        color: var(--secondary);
         font-weight: 700;
     }
     
     .detail-value {
         font-size: 0.9rem;
-        color: #1a202c;
+        color: var(--secondary);
     }
     
     .url-group, .referrer-group {
@@ -103,7 +102,7 @@
     .url-value, .referrer-value, .user-agent {
         font-family: 'Roboto Mono', monospace;
         font-size: 0.75rem;
-        background: #f8fafc;
+        background: var(--light);
         padding: 0.5rem;
         border-radius: 4px;
         border: 1px solid rgba(128, 128, 128, 0.3);
@@ -129,13 +128,13 @@
     }
     
     .block-btn {
-        background: #e53e3e;
-        color: white;
+        background: var(--danger);
+        color: var(--white);
     }
     
     .unblock-btn {
-        background: #38a169;
-        color: white;
+        background: var(--success);
+        color: var(--white);
     }
     .container-fluid {
         min-height: calc(100vh - 200px);
@@ -174,8 +173,8 @@
         right: -400px; /* hidden initially */
         width: 400px;
         height: 100%;
-        background: #fff;
-        border-left: 1px solid #ddd;
+        background: var(--white);
+        /* border-left: 1px solid #ddd; */
         box-shadow: -2px 0 8px rgba(0,0,0,0.15);
         transition: right 0.3s ease;
         z-index: 1050;
@@ -192,14 +191,14 @@
         justify-content: space-between;
         align-items: center;
         padding: 1rem;
-        background: #f8fafc;
-        border-bottom: 1px solid #ddd;
+        background: var(--light);
+        border-bottom: 1px solid var(--gray-light);
     }
 
     .ip-sidebar-header h5 {
         margin: 0;
         font-size: 1rem;
-        color: #2d3748;
+        color: var(--black);
     }
 
     .close-btn {

@@ -5,14 +5,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
 <style>
-       :root {
-    /* Colors */
-    --primary: #5154ff;
-    
-    /* Transitions */
-    --transition: all 0.3s ease;
-       }
-
+   
     .feature-item {
         padding: 10px;
         border-radius: 5px;
@@ -57,8 +50,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
-    transition: var(--transition);
+    background-color: var(--gray-light);
+    transition: all 0.3s ease;
     border-radius: 34px !important;
 }
 
@@ -69,8 +62,8 @@
     width: 26px;
     left: 4px;
     bottom: 4px;
-    background-color: white;
-    transition: var(--transition);
+    background-color: var(--white);
+    transition: all 0.3s ease;
     border-radius: 50% !important;
 }
 

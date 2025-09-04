@@ -34,12 +34,12 @@
 #historyDropdownBtn {
     font-size: 1rem; 
     font-weight: 600; 
-    color: #4e73df 
+    color: var(--primary);
     text-decoration: none; 
     padding: 0.5rem 1rem; 
-    border: 1px solid #4e73df; 
+    border: 1px solid var(--primary);
     border-radius: 25px; 
-    background-color: #ffffff; 
+    background-color: var(--white); 
     transition: all 0.3s ease; 
     display: inline-flex; 
     align-items: center; 
@@ -47,31 +47,29 @@
 }
 
 #historyDropdownBtn:hover {
-    background-color: #4e73df; 
-    color: #ffffff; 
+    background-color: var(--primary-hover); 
+    color: var(--white); 
     text-decoration: none;
 }
-    body {
-        background: linear-gradient(135deg, #c3eaff, #f6f8ff);
-    }
+   
     .card {
-        background: #ffffff;
+        background: var(--light);
         border-radius: 15px;
     }
     
 
     .custom-bg-danger{
-        background-color:  #ff4d4d;
-        color: white;
+        background-color: var(--danger);
+        color: var(--white);
     }
     .custom-bg-warning {
-    background-color: #ffcc00;
-    color: black; 
+    background-color: var(--warning);
+    color: var(--black); 
   }
 
 .custom-bg-success {
-    background-color: #4caf50; 
-    color: white; 
+    background-color: var(--success); 
+    color: var(--white); 
 }
 .custom-bg-danger,
 .custom-bg-warning,
@@ -82,7 +80,7 @@
     display: inline-block; 
 }
 #sslDetailsContainer .custom-li{
-    background-color: #f8f9fa;
+    background-color: var(--light);
 }
 
 .btn:focus{
@@ -91,7 +89,7 @@
 
 /* ========== INTROJS TOUR ========== */
      .introjs-tooltip {
-            background-color: white;
+            background-color: var(--white);
             color: var(--dark-gray);
             font-family: 'Poppins', sans-serif;
             border-radius: 0.35rem;
@@ -110,14 +108,15 @@
             border-radius: 0.25rem;
             font-weight: 600;
             text-shadow: none;
-            color: white;
+            color: var(--white);
         }
 
         .introjs-button:hover {
-            background-color: #2e59d9;
-            color: white;
+            background-color: var(--primary-hover);
+            color: var(--white);
             cursor: pointer;
         } 
+
         .introjs-overlay
         {
         pointer-events: none; 
@@ -195,12 +194,12 @@
 }
 
 .text-gold {
-    color: #ffc107;
+    color: var(--gold);
 }
 
 .btn-gold {
     background-color: #ffc107;
-    color: #000;
+    color: var(--black);
 }
 
 @media (max-width: 576px) {

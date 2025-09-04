@@ -54,6 +54,11 @@ use App\Http\Controllers\PushNotificationController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 
+use App\Mail\MonitorDownAlert;
+use Illuminate\Support\Facades\Mail;
+use App\Models\Monitors;
+
+
 // Route::get('/test-notification', [TestWebPushNotificationController::class, 'sendTestNotification']);
 
 
@@ -121,7 +126,6 @@ Route::post('/email/verification-notification', function (Request $request) {
     return back()->with('message', 'Verification Email Sent.');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 // end
-
 
 
 Route::get('/changelog', [ChangelogController::class, 'ChangelogPage'])->middleware('blockIp');
@@ -229,7 +233,6 @@ Route::middleware(['auth', 'verified', 'CheckUserSession', 'blockIp'])->group(fu
         return 'Broadcast event triggered!';
     });
 });
-
 
 
 Route::group(['middleware' => ['auth', 'blockIp']], function () {
@@ -357,5 +360,20 @@ Route::post('/subscribe', [PushNotificationController::class, 'subscribe']);
 
 Route::get('/track/{token}.png', [TrackingController::class, 'pixel'])->withoutMiddleware(['web', 'verified', 'auth', \App\Http\Middleware\VerifyCsrfToken::class]);
 
+use App\Models\Ticket;
+use App\Mail\CommentAddMail;
+
+Route::get('/test-email', function () {
+    // Create a dummy ticket object
+    $ticket = new Ticket();
+    $ticket->id = 101;
+    $ticket->ticket_id = 'TCK-101';
+
+    // Send email (synchronously for testing)
+    Mail::to('geetheshkulal84@gmail.com')
+        ->send(new CommentAddMail($ticket));
+
+    return '✅ Test comment email sent!';
+});
 
 require __DIR__ . '/auth.php';

@@ -10,13 +10,13 @@
 
 <style>
     .tooltip-inner {
-    background-color: #0e55e1 !important; 
-    color: #ffffff !important;           
+    background-color: var(--primary) !important; 
+    color: var(--white) !important;           
 }
 
 .tooltip.bs-tooltip-top .arrow::before,
 .tooltip.bs-tooltip-auto[x-placement^="top"] .arrow::before {
-    border-top-color: #0e55e1 !important;
+    border-top-color: var(--primary) !important;
 }
 
     .card-counter {

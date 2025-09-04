@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet">
 
     <!-- Custom styles -->
-    <link href="{{asset('frontend/assets/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <link href="{{asset('frontend/assets/css/sb-admin-2.css')}}" rel="stylesheet">
 
      <!-- Toastr CSS -->
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -46,8 +46,6 @@
         }
         
         .btn-primary {
-            background-color: #4e73df;
-            border-color: #4e73df;
             border-radius: 10rem;
             padding: 0.75rem 1rem;
             font-weight: 600;
@@ -56,8 +54,6 @@
         }
         
         .btn-primary:hover {
-            background-color: #2e59d9;
-            border-color: #2e59d9;
             transform: translateY(-1px);
         }
         
@@ -74,19 +70,19 @@
         
         .form-control-user:focus {
             /* box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25); */
-            border-color: #2e59d9 !important;
+            border-color: var(--primary) !important;
             box-shadow: none !important;
         }
         
         .login-text {
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
-            color: #4e73df;
+            color: var(--primary);
             font-weight: 700;
         }
         
         .login-subtext {
-            color: #858796;
+            color: var(--secondary);
             font-size: 0.9rem;
             margin-bottom: 2rem;
         }
@@ -94,18 +90,18 @@
         .login-footer {
             margin-top: 1.5rem;
             font-size: 0.9rem;
-            color: #858796;
+            color: var(--secondary);
         }
         
         .login-footer a {
-            color: #4e73df;
+            color: var(--primary);
             font-weight: 600;
             text-decoration: none;
             transition: all 0.3s;
         }
         
         .login-footer a:hover {
-            color: #2e59d9;
+            color: var(--primary-hover);
             text-decoration: none;
         }
         
@@ -119,7 +115,7 @@
             top: 50%;
             transform: translateY(-50%);
             cursor: pointer;
-            color: #6e707e;
+            color: var(--secondary);
         }
         
         .divider {
@@ -127,7 +123,7 @@
             text-align: center;
             margin: 1.5rem 0;
             font-size: 0.8rem;
-            color: #b7b9cc;
+            color: var(--secondary);
         }
         
         .divider:before {
@@ -137,7 +133,7 @@
             left: 0;
             right: 0;
             height: 1px;
-            background: #e3e6f0;
+            background: var(--gray-light);
             z-index: 0;
         }
         

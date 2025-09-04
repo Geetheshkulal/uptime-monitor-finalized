@@ -9,7 +9,7 @@ select.no-arrow {
   -moz-appearance: none;
   background-image: none !important; 
 
-  border-color: #6b7280;
+  border-color: var(--secondary);
 }
 
     @media screen and (max-width: 430px) {
@@ -31,19 +31,19 @@ select.no-arrow {
         @method('patch')
 
         <div class="row">
-            <div class="col-md-5 mb-3">
+            <div class="col-md-4 mb-3">
                 <label for="address" class="form-label">Address Line 1<sup class="text-danger">*</sup></label>
                 <input id="address_1" name="address_1" type="text" class="form-control form-control-sm" value="{{ old('address_!', $user->address_1) }}">
                 <x-input-error :messages="$errors->get('address_1')" class="text-danger small" />
             </div>
 
-            <div class="col-md-5 mb-3">
+            <div class="col-md-4 mb-3">
                 <label for="address" class="form-label">Address Line 2</label>
                 <input id="address_2" name="address_2" type="text" class="form-control form-control-sm" value="{{ old('address_2', $user->address_2) }}">
                 <x-input-error :messages="$errors->get('address_2')" class="text-danger small" />
             </div>
             
-            <div class="col-md-3 mb-3">
+            <div class="col-md-2 mb-3">
                 <label class="form-label" for="pincode">Pincode <sup class="text-danger">*</sup></label>
                 <input id="pincode" name="pincode" type="text" class="form-control form-control-sm" placeholder="Pincode" value="{{ old('pincode', $user->pincode) }}">
                 <x-input-error :messages="$errors->get('pincode')" class="text-danger small" />
@@ -54,10 +54,10 @@ select.no-arrow {
                 $selectedPincode = old('pincode', $user->pincode);
             @endphp
             
-            <div class="col-md-3 mb-3">
+            <div class="col-md-2 mb-3">
                 <label class="form-label" for="place">Place <sup class="text-danger">*</sup></label>
                 <div id="placeWrapper">
-                    <select class="form-control no-arrow" id="place" name="place" required>
+                    <select class="form-control no-arrow" type="text" id="place" name="place" required>
                         @if ($selectedPlace)
                             <option value="{{ $selectedPlace }}" selected hidden>{{ $selectedPlace }}</option>
                         @else
@@ -88,7 +88,7 @@ select.no-arrow {
                 <x-input-error :messages="$errors->get('country')" class="text-danger small" />
             </div>
 
-            <div class="col-md-4 mb-3">
+            <div class="col-md-3 mb-3">
                 <label for="gstin" class="form-label">GSTIN </label>
                 <input id="gstin" name="gstin" type="text" class="form-control form-control-sm" value="{{ old('gstin', $user->gstin) }}" placeholder="22xxxxxxxx1Z5">
                 {{-- <x-input-error :messages="$errors->get('gstin')" class="text-danger small" /> --}}

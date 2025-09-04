@@ -6,6 +6,7 @@
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
     <style>
+        
         #templateForm {
             margin-top: 1.5rem;
         }
@@ -13,8 +14,8 @@
             height: 300px;
         }
         .ql-variable-tag {
-            background-color: #d6f0ff;
-            color: #007acc;
+            background-color: var(--gray-light);
+            color: var(--blue);
             border-radius: 4px;
             padding: 2px 6px;
             margin: 0 2px;
@@ -42,7 +43,7 @@
         }
         .preview-column {
             flex: 1;
-            border-left: 1px solid #eee;
+            border-left: 1px solid var(--gray-light);
             padding-left: 30px;
         }
         .preview-content {
@@ -67,7 +68,7 @@
             border-radius: 7.5px 0 7.5px 7.5px;
             padding: 8px 12px;
             position: relative;
-            color: #111;
+            color: var(--black);
             font-family: "Segoe UI", Helvetica, Arial, sans-serif;
             font-size: 14.2px;
             line-height: 19px;
@@ -82,50 +83,48 @@
             margin-top: 4px;
         }
         .whatsapp-time {
-            color: #667781;
+            color: var(--secondary);
             font-size: 11px;
             margin-right: 4px;
         }
         .whatsapp-ticks {
-            color: #4fc3f7;
+            color: var(--blue);
             font-size: 14px;
         }
-        
-        /* Telegram message style */
+       
        .telegram-message {
             max-width: 75%;
-            margin-left: auto; /* Changed from margin-right to left */
+            margin-left: auto; 
             margin-bottom: 15px;
         }
         .telegram-bubble {
-            background: #ffffff;
-            border-radius: 7.5px 0 7.5px 7.5px; /* Adjusted for right alignment */
+            background: var(--white);
+            border-radius: 7.5px 0 7.5px 7.5px; 
             padding: 8px 12px;
             position: relative;
-            color: #000;
+            color: var(--black);
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             font-size: 15px;
             line-height: 20px;
             word-wrap: break-word;
             white-space: pre-wrap;
             box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
-            border: 1px solid #e6e6e6;
+            border: 1px solid var(--gray-light);
         }
         .telegram-meta {
             display: flex;
-            justify-content: flex-end; /* Keep time on the right */
+            justify-content: flex-end; 
             align-items: center;
             margin-top: 4px;
         }
         .telegram-time {
-            color: #999999;
+            color: var(--secondary);
             font-size: 11px;
         }
-        
-        /* Default preview style */
+
         .default-preview {
-            background: #f9f9f9;
-            border: 1px solid #ddd;
+            background: var(--white);
+            border: 1px solid var(--gray-light);
             padding: 15px;
             border-radius: 5px;
         }

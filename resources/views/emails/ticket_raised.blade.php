@@ -1,4 +1,28 @@
-<!DOCTYPE html>
+@extends('emails.layout')
+
+@section('title', 'Ticket Raised')
+
+@section('header_title')
+Ticket Raised Successfully
+@endsection
+
+@section('content')
+<p style="margin-top: 0;">Hello <span style="font-weight: 600;">{{ $ticket->user->name ?? 'User' }}</span>,</p>
+
+<p>Thank you for reaching out to us. We’ve successfully received your support ticket. Below are the details:</p>
+
+<div style="background-color: #f8f9fa; border-left: 4px solid #0066cc; padding: 15px; margin: 20px 0; border-radius: 4px;">
+    <p style="margin: 0 0 8px 0;"><strong>Subject:</strong> {{ $ticket->title }}</p>
+    <p style="margin: 0 0 8px 0;"><strong>Priority:</strong> {{ ucfirst($ticket->priority) }}</p>
+    <p style="margin: 0;"><strong>Description:</strong><br>{!! $ticket->message !!}</p>
+</div>
+
+<p>Our support team is reviewing your request and will get back to you as soon as possible.</p>
+
+<p>If you have any updates to share, you can reply to this email or track the status via your account dashboard.</p>
+@endsection
+
+{{-- <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -54,7 +78,6 @@
 
                             <p>If you have any updates to share, you can reply to this email or track the status via your account dashboard.</p>
 
-                            {{-- <p style="margin-bottom: 0;">If you have further questions, feel free to <a href="mailto:info@ditsolutions.net" style="color: #0066cc; text-decoration: none; font-weight: 500;">contact our support team</a>.</p> --}}
                         </td>
                     </tr>
 
@@ -91,4 +114,4 @@
         </tr>
     </table>
 </body>
-</html>
+</html> --}}

@@ -23,9 +23,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     <style>
-         * {
-    border-radius: 3px !important;
-}
+        * {
+            border-radius: 3px !important;
+        }
         .card {
             border: 0;
             border-radius: 1rem;
@@ -35,8 +35,8 @@
         }
         
         .btn-primary {
-            background-color: #4e73df;
-            border-color: #4e73df;
+            background-color: var(--primary);
+            border-color: var(--primary);
             border-radius: 10rem;
             padding: 0.75rem 1rem;
             font-weight: 600;
@@ -44,11 +44,6 @@
             transition: all 0.3s;
         }
         
-        .btn-primary:hover {
-            background-color: #2e59d9;
-            border-color: #2e59d9;
-            transform: translateY(-1px);
-        }
         
         .btn-primary:focus {
             box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.5);
@@ -62,7 +57,7 @@
         }
         
         .form-control-user:focus {
-            border-color: #2e59d9 !important;
+            border-color: var(--primary);
             box-shadow: none !important;
             /* box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25); */
         }
@@ -70,12 +65,12 @@
         .register-text {
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
-            color: #4e73df;
+            color: var(--primary);
             font-weight: 700;
         }
         
         .register-subtext {
-            color: #858796;
+            color: var(--secondary);
             font-size: 0.9rem;
             margin-bottom: 2rem;
         }
@@ -83,11 +78,11 @@
         .register-footer {
             margin-top: 1.5rem;
             font-size: 0.9rem;
-            color: #858796;
+            color:  var(--secondary);
         }
         
         .register-footer a {
-            color: #4e73df;
+            color: var(--primary);
             font-weight: 600;
             text-decoration: none;
             transition: all 0.3s;

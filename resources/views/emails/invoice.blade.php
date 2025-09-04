@@ -1,4 +1,24 @@
-<!DOCTYPE html>
+@extends('emails.layout')
+
+@section('title', 'Your Invoice')
+
+@section('header_title')
+Payment Receipt
+@endsection
+
+@section('content')
+<p style="margin-top: 0;">Hello <span style="font-weight: 600;">{{ $user->name }}</span>,</p>
+<p>Thank you for your payment. Here's your invoice details:</p>
+
+<div style="background-color: #f8f9fa; border-left: 4px solid #0066cc; padding: 15px; margin: 20px 0; border-radius: 4px;">
+    <p style="margin: 0 0 8px 0;"><strong>Amount:</strong> ₹{{ number_format($payment->payment_amount, 2) }}</p>
+    <p style="margin: 0 0 8px 0;"><strong>Transaction ID:</strong> {{ $payment->transaction_id }}</p>
+    <p style="margin: 0;"><strong>Date:</strong> {{ $payment->created_at->format('d M Y') }}</p>
+</div>
+
+<p>You can find the attached invoice PDF for your records.</p>
+@endsection
+{{-- <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -86,4 +106,4 @@
         </tr>
     </table>
 </body>
-</html>
+</html> --}}

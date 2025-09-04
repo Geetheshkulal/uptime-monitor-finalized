@@ -16,22 +16,19 @@
             font-size: 2.5rem;
             opacity: 0.3;
         }
-         /* * {
-    border-radius: 0 !important;
-} */
 
 button.btn-light {
     box-shadow: none !important;
     border: none !important; 
     background-color: transparent !important;
-    color:blue !important; 
+    color:var(--blue) !important; 
 }
 
 /* dark mode css */
 
 html.dark-mode  ul.dropdown-menu .dropdown-item:hover {
-    background-color: #4f4cde !important;
-    color: #cbcbcb !important;          
+    background-color: var(--primary) !important;
+    color: var(--white) !important;          
 }
     </style>
 @endpush

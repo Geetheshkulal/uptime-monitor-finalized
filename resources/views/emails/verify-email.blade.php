@@ -1,4 +1,33 @@
-<!DOCTYPE html>
+@extends('emails.layout')
+
+@section('title', 'Verify Your Email - DRISHTI PULSE')
+
+@section('header_title')
+Verify Your Email
+@endsection
+
+@section('content')
+    <p style="margin-top: 0;">Hello <span style="font-weight: 600;">{{ $user->name ?? 'User' }}</span>,</p>
+                                
+    <p>Welcome to Drishti Pulse! To get started with your account, please verify your email address by clicking the button below:</p>
+
+    <div style="text-align: center; margin: 35px 0;">
+        <a href="{{ $url }}" style="background: #3490dc; color: white; text-decoration: none; padding: 14px 30px; border-radius: 6px; font-weight: 600; display: inline-block; box-shadow: 0 3px 6px rgba(0,0,0,0.1); transition: all 0.2s ease;">Verify Email Address</a>
+    </div>
+
+    <p>This verification link will expire in 24 hours. If you did not create an account with Drishti Pulse, please disregard this email.</p>
+
+    <div style="background-color: #f8f9fa; border-left: 4px solid #0066cc; padding: 15px; margin: 30px 0; border-radius: 4px;">
+        <p style="margin: 0 0 10px 0; font-weight: 600;">If you're having trouble clicking the "Verify Email" button,copy and paste the URL given below into your web browser:</p>
+        <p style="margin: 0; word-break: break-all; font-size: 14px;">
+            <a href="{{ $url }}" style="color: #0066cc; text-decoration: underline;">{{ $url }}</a>
+        </p>
+    </div>
+
+    <p style="margin-bottom: 0;">If you have any questions, feel free to <a href="mailto:info@ditsolutions.net" style="color: #0066cc; text-decoration: none; font-weight: 500;">contact our support team</a>.</p>
+@endsection
+
+{{-- <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -143,4 +172,4 @@
         </tr>
     </table>
 </body>
-</html>
+</html> --}}

@@ -1,4 +1,32 @@
-<!DOCTYPE html>
+@extends('emails.layout')
+
+@section('title', 'New Ticket Assigned - DRISHTI PULSE')
+
+@section('header_title')
+New Ticket Assigned
+@endsection
+
+@section('content')
+    <p style="margin-top: 0;">Hello <strong>{{ $ticket->assignedUser->name }}</strong>,</p>
+
+    <p>You have been assigned a new ticket. Here are the details:</p>
+
+    <ul style="padding-left: 20px;">
+        <li><strong>Ticket ID:</strong> {{ $ticket->ticket_id }}</li>
+        <li><strong>Title:</strong> {{ $ticket->title }}</li>
+        <li><strong>Priority:</strong> {{ $ticket->priority }}</li>
+        <li><strong>Status:</strong> {{ $ticket->status }}</li>
+    </ul>
+
+    <p>Please log in to the system to view more details.</p>
+
+    {{-- <div style="text-align: center; margin: 35px 0;">
+        <a href="{{ $url }}" style="background: #4f46e5; color: white; text-decoration: none; padding: 14px 30px; border-radius: 6px; font-weight: 600; display: inline-block; box-shadow: 0 3px 6px rgba(0,0,0,0.1); transition: all 0.2s ease;">View Ticket</a>
+    </div> --}}
+
+    <p style="margin-bottom: 0;">If you have any questions, feel free to <a href="mailto:info@ditsolutions.net" style="color: #4f46e5; text-decoration: none; font-weight: 500;">contact our support team</a>.</p>
+@endsection
+{{-- <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -40,9 +68,7 @@
 
                             <p>Please log in to the system to view more details.</p>
 
-                            {{-- <div style="text-align: center; margin: 35px 0;">
-                                <a href="{{ $url }}" style="background: #4f46e5; color: white; text-decoration: none; padding: 14px 30px; border-radius: 6px; font-weight: 600; display: inline-block; box-shadow: 0 3px 6px rgba(0,0,0,0.1); transition: all 0.2s ease;">View Ticket</a>
-                            </div> --}}
+                            
 
                             <p style="margin-bottom: 0;">If you have any questions, feel free to <a href="mailto:info@ditsolutions.net" style="color: #4f46e5; text-decoration: none; font-weight: 500;">contact our support team</a>.</p>
                         </td>
@@ -65,4 +91,4 @@
         </tr>
     </table>
 </body>
-</html>
+</html> --}}

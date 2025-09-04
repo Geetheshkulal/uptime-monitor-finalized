@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap4.min.css">
 
 <style>
-  
+
     .nav-tabs{
         border-bottom: none;
     }
@@ -19,23 +19,23 @@
         position: relative;
     }
     .form-control {
-        display: block;
+        /* display: block;
         width: 100%;
         padding: 0.375rem 0.75rem;
         font-size: 1rem;
         line-height: 1.5;
-        color: #495057;
-        background-color: #fff;
+        color: var(--secondary);
+        background-color: var(--white);
         background-clip: padding-box;
-        border: 1px solid #ced4da;
-        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        border: 1px solid var(--gray-light);
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; */
     }
     .password-toggle {
         position: absolute;
         right: 10px;
         top: 40px;
         cursor: pointer;
-        color: #6c757d;
+        color: var(--gray-light);
     }
     label {
         display: inline-block;
@@ -46,28 +46,29 @@
     }
     .nav-link.active {
         background-color: #06357f !important;
-        color: white !important;
+        color: var(--white) !important;
     }
-    .dataTables_filter input {
+    /* .dataTables_filter input {
         padding: 5px 10px;
-        border: 1px solid #ddd;
+        border: 1px solid ;
         border-radius: 4px;
         margin-bottom: 10px;
-    }
-    .dataTables_wrapper .dataTables_filter {
+    } */
+    /* .dataTables_wrapper .dataTables_filter {
         float: right;
         text-align: right;
         margin-bottom: 15px;
-    }
+    } */
+
     .invalid-feedback {
         display: none;
         width: 100%;
         margin-top: 0.25rem;
         font-size: 80%;
-        color: #dc3545;
+        color: var(--danger);
     }
     .is-invalid {
-        border-color: #dc3545;
+        border-color: var(--danger);
     }
 
     .subuser-sidebar {
@@ -76,8 +77,8 @@
         right: -400px; /* hidden initially */
         width: 400px;
         height: 100%;
-        background: #fff;
-        border-left: 1px solid #ddd;
+        background: var(--white);
+        /* border-left: 1px solid #ddd; */
         box-shadow: -2px 0 8px rgba(0,0,0,0.15);
         transition: right 0.3s ease;
         z-index: 1050;
@@ -94,14 +95,14 @@
         justify-content: space-between;
         align-items: center;
         padding: 1rem;
-        background: #f8fafc;
-        border-bottom: 1px solid #ddd;
+        background: var(--light);
+        border-bottom: 1px solid var(--gray-light);
     }
 
     .subuser-sidebar-header h5 {
         margin: 0;
         font-size: 1rem;
-        color: #2d3748;
+        color: var(--secondary);
     }
 
     .close-btn {
@@ -142,6 +143,7 @@
 }
 
 </style>
+
 @endpush
 
 <!-- Right Sidebar -->
@@ -204,11 +206,14 @@
                 <div x-show="activeTab === 'users'">
                     @include('partials.users-table', ['users' => $users])
                 </div>
+
             </div>
         </div>
     </div>
 </div>
 
+
+{{-- Add new user modal --}}
 <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -231,6 +236,7 @@
                                 @enderror
                             </div>
                         </div>
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="email">Email Address*</label>
@@ -240,6 +246,7 @@
                                 @enderror
                             </div>
                         </div>
+
                     </div>
                     
                     <div class="row">
@@ -247,7 +254,6 @@
                             <div class="form-group">
                                 <label for="password">Password*</label>
                                 <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password">
-                                {{-- <span class="fas fa-eye password-toggle" id="togglePassword"></span> --}}
                                 @error('password')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -303,11 +309,11 @@
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-
 <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap4.min.js"></script>
 
 <script>
+
     toastr.options = {
         "closeButton": true,
         "progressBar": true,
@@ -384,13 +390,13 @@ function tabHandler(defaultTab) {
                         order: [[0, 'asc']],
                         columnDefs: [{ orderable: false, targets: -1 }]
                     });
+
                     this.usersInitialized = true;
                 }
             });
         }
     };
 }
-
 
 
 document.getElementById('showPasswordCheckbox').addEventListener('change', function () {
@@ -405,17 +411,26 @@ $(document).ready(function() {
 });
 @endif
 
-@if($errors->any())
 
-    $(document).ready(function() {
-        @foreach ($errors->all() as $error)
-            toastr.error("{{ $error }}");
-        @endforeach
-    });
 
-@endif
+// @if($errors->any())
 
+//     $(document).ready(function() {
+//         @foreach ($errors->all() as $error)
+//             toastr.error("{{ $error }}");
+//         @endforeach
+//     });
+
+// @endif
 
 </script>
+
+@if ($errors->any())
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        $('#addUserModal').modal('show');
+    });
+</script>
+@endif
 @endpush
 @endsection

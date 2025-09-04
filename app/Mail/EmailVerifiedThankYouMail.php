@@ -13,7 +13,6 @@ class EmailVerifiedThankYouMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-
     public $user;
 
     public function __construct($user)
@@ -33,6 +32,7 @@ class EmailVerifiedThankYouMail extends Mailable
      *
      * @return array<int, \Illuminate\Mail\Mailables\Attachment>
      */
+
     public function attachments(): array
     {
         return [];

@@ -1,4 +1,25 @@
-<!DOCTYPE html>
+@extends('emails.layout')
+
+@section('title', 'Follow-Up Alert - DRISHTI PULSE')
+
+@section('header_title')
+🔔 Follow-Up: Monitor Still Down
+@endsection
+
+@section('content')
+<p style="margin-top: 0;">Hey there,</p>
+<p>We wanted to let you know that one of your monitors is still down, and we noticed you haven't checked on it yet.</p>
+<p>This is just a follow-up reminder to ensure everything's okay on your end. If you've already resolved the issue, feel free to ignore this message.</p>
+<p>Otherwise, you might want to take a quick look.</p>
+
+<div style="background-color: #f8f9fa; border-left: 4px solid #3490dc; padding: 15px; margin: 30px 0; border-radius: 4px;">
+<p style="margin: 0 0 10px 0; font-weight: 600;">This message is a courtesy reminder from your Drishti Pulse monitor subscription.</p>
+</div>
+@endsection
+
+
+
+{{-- <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -116,4 +137,4 @@
         </tr>
     </table>
 </body>
-</html>
+</html> --}}

@@ -4,9 +4,7 @@
 @push('styles')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <style>
-    /* * {
-        border-radius: 0 !important;
-    } */
+ 
     .page-content {
         margin-bottom: 342px;
 }
