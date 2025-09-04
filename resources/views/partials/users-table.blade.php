@@ -13,7 +13,6 @@
                 </thead>
                 <tbody>
                     @forelse ($users as $user)
-                    @if(!$user->hasRole('user') && !$user->hasRole('subuser'))
                         <tr>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
@@ -39,7 +38,6 @@
                                 </div>
                             </td>
                         </tr>
-                    @endif
                     @empty
                     <tr>
                         <td colspan="6" class="text-center">No users found</td>

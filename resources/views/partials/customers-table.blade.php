@@ -26,7 +26,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($users as $user)
+                    @forelse ($customers as $user)
                     @if($user->hasRole('user') || $user->hasRole('subuser'))
                         <tr>
                             <td>{{ $user->name }}</td>

@@ -79,31 +79,57 @@ class UserController extends Controller
     //Display all users  (for superadmin)
     public function DisplayCustomers(Request $request)
     {
-        $roles = Role::whereNot('name', 'superadmin')->whereNot('name', 'subuser')->whereNot('name', 'user')->get();
+        $roles = Role::whereNot('name', 'superadmin')
+            ->whereNot('name', 'subuser')
+            ->whereNot('name', 'user')
+            ->get();
 
         // Basic search functionality
         $search = $request->input('search');
 
-        $users = User::withTrashed()->with('roles')->whereDoesntHave('roles', function ($q) {
-            $q->where('name', 'subuser');
-        })
+        // Users (excluding 'user' & 'subuser')
+        $users = User::withTrashed()
+            ->with('roles')
+            ->whereDoesntHave('roles', function ($q) {
+                $q->where('name', 'subuser')
+                ->orWhere('name', 'user');
+            })
             ->when($search, function ($query) use ($search) {
-                $query->where('name', 'like', "%{$search}%")
+                $query->where(function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%")
                     ->orWhere('email', 'like', "%{$search}%")
                     ->orWhere('phone', 'like', "%{$search}%");
+                });
             })
             ->orderBy('name')
-            ->paginate(10); // 10 users per page
+            ->paginate(10);
 
+
+        // Customers (only 'user' role)
+        $customers = User::withTrashed()
+            ->role('user')
+            ->when($search, function ($query) use ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('phone', 'like', "%{$search}%");
+                });
+            })
+            ->orderBy('name')
+            ->paginate(10);
+        
+
+        // Counts
         $customerCount = User::withTrashed()->role('user')->count();
 
-        $userCount =    User::whereDoesntHave('roles', function ($q) {
+        $userCount = User::whereDoesntHave('roles', function ($q) {
             $q->where('name', 'user')
-              ->orWhere('name', 'subuser');
+            ->orWhere('name', 'subuser');
         })->count();
 
-        return view('pages.admin.DisplayUsers', compact('users', 'roles', 'customerCount', 'userCount'));
+        return view('pages.admin.DisplayUsers', compact('users', 'customers', 'roles', 'customerCount', 'userCount'));
     }
+
 
     //Show details of a particular user
 
