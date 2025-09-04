@@ -14,13 +14,13 @@
         <!-- Left-aligned navigation items -->
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="#features">Features</a>
+            <a class="nav-link" href="/#features">Features</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#how-it-works">How It Works</a>
+            <a class="nav-link" href="/#how-it-works">How It Works</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#pricing">Pricing</a>
+            <a class="nav-link" href="/#pricing">Pricing</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ route('documentation.page') }}">User Docs</a>

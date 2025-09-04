@@ -83,7 +83,7 @@
             </p>
             <p class="mb-1 d-flex align-items-center">
                 <i class="fas fa-phone text-primary me-2"></i>
-                <a href="+91 8073462033" class="text-light text-decoration-none hover-text-primary transition">+91 8073462033</a>
+                <a href="tel:+91 8073462033" class="text-light text-decoration-none hover-text-primary transition">+91 8073462033</a>
             </p>
             {{-- <div class="mt-2">
                 <a href="{{ route('login') }}" class="btn btn-sm btn-outline-light">
