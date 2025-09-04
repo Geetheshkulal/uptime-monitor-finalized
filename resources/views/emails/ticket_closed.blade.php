@@ -1,4 +1,72 @@
-<!DOCTYPE html>
+@extends('emails.layout')
+
+@section('title', 'Ticket Closed')
+
+@section('header_title')
+    Ticket Closed
+@endsection
+
+@section('content')
+<p style="margin-top: 0;">Hello <span style="font-weight: 600; color: #4f46e5;">{{ $ticket->user->name ?? 'User' }}</span>,</p>
+
+<p>We're pleased to inform you that your support ticket has been successfully resolved and closed. Below are the details for your reference:</p>
+
+<div style="background-color: #f8f9fa; border-radius: 8px; padding: 20px; margin: 25px 0; border: 1px solid #e5e7eb;">
+    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+        <div style="background-color: #e0e7ff; width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-right: 12px; flex-shrink: 0;">
+            <img src="https://img.icons8.com/fluency/48/ticket.png" 
+alt="Ticket Icon" 
+width="25" height="25" 
+style="padding-top: 7px;padding-left: 6px;">
+
+        </div>
+        <div>
+            <h3 style="margin: 0 0 5px 0; font-size: 20px; color: #111827;">Ticket Summary</h3>
+            <p style="margin: 0; color: #6b7280; font-size: 14px;">Reference # {{ $ticket->ticket_id }}</p>
+        </div>
+    </div>
+    
+    <table cellpadding="0" cellspacing="0" style="width: 100%;">
+        <tr>
+            <td style="padding: 8px 0; border-bottom: 1px solid #e5e7eb; width: 30%; color: #6b7280;">Subject</td>
+            <td style="padding: 8px 0; border-bottom: 1px solid #e5e7eb; font-weight: 500;">{{ $ticket->title }}</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px 0; border-bottom: 1px solid #e5e7eb; color: #6b7280;">Priority</td>
+            <td style="padding: 8px 0; border-bottom: 1px solid #e5e7eb; font-weight: 500;">
+                <span style="display: inline-flex; align-items: center;">
+                    @if($ticket->priority == 'high')
+                        <i class="fas fa-circle" style="color: #ef4444; font-size: 8px; margin-right: 6px;"></i>
+                    @elseif($ticket->priority == 'medium')
+                        <i class="fas fa-circle" style="color: #f59e0b; font-size: 8px; margin-right: 6px;"></i>
+                    @else
+                        <i class="fas fa-circle" style="color: #10b981; font-size: 8px; margin-right: 6px;"></i>
+                    @endif
+                    {{ ucfirst($ticket->priority) }}
+                </span>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 8px 0; color: #6b7280;">Description</td>
+            <td style="padding: 8px 0; font-weight: 500;">{!! $ticket->message !!}</td>
+        </tr>
+    </table>
+</div>
+
+<div style="background-color: #f0fdf4; border-radius: 8px; padding: 20px; margin: 30px 0; text-align: center; border: 1px solid #d1fae5;">
+    <i class="fas fa-comment-dots" style="color: #10b981; font-size: 24px; margin-bottom: 10px;"></i>
+    <h3 style="margin: 10px 0; color: #065f46;">Was this helpful?</h3>
+    <p style="margin: 0 0 15px 0; color: #047857;">We'd love to hear your feedback about your support experience</p>
+    <a href="{{ url('/') }}" style="display: inline-block; background-color: #10b981; color: white; text-decoration: none; padding: 10px 20px; border-radius: 6px; font-weight: 500; font-size: 14px;">Share Feedback</a>
+</div>
+
+<p style="margin-bottom: 25px;">If you need further assistance, please don't hesitate to create a new ticket through your dashboard.</p>
+
+<a href="{{ url('/') }}" style="display: inline-block; background-color: #4f46e5; color: white; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-weight: 500; margin-top: 10px;">Go to Dashboard</a>
+@endsection
+
+
+{{-- <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -121,4 +189,4 @@
         </tr>
     </table>
 </body>
-</html>
+</html> --}}
