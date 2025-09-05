@@ -95,6 +95,8 @@ class UserController extends Controller
             ->orderBy('name')
             ->paginate(10); // 10 users per page
 
+        Log::info(json_encode($users));
+
         $customerCount = User::withTrashed()->role('user')->count();
 
         $userCount =    User::whereDoesntHave('roles', function ($q) {
@@ -151,7 +153,9 @@ class UserController extends Controller
             'phone' => $user->phone,
             'role' => $user->roles->pluck('name')->first() ?? 'none',
             'status' => $user->status,
-            'premium_end_date' => $user->premium_end_date ? $user->premium_end_date->format('Y-m-d') : null
+            'premium_end_date' => $user->premium_end_date
+                ? Carbon::parse($user->premium_end_date)->format('Y-m-d')
+                : null,
         ];
 
         $validated = $request->validate([
@@ -183,7 +187,9 @@ class UserController extends Controller
                 'phone' => $user->phone,
                 'role' => $role->name,
                 'status' => $user->status,
-                'premium_end_date' => $user->premium_end_date ? $user->premium_end_date->format('Y-m-d') : null
+                'premium_end_date' => $user->premium_end_date
+                    ? Carbon::parse($user->premium_end_date)->format('Y-m-d')
+                    : null,
             ];
 
             activity()
