@@ -106,8 +106,8 @@
 
                             <p style="font-size: 12px; color: #999; margin-top: 15px;">
                                 This email was sent to you because you signed up for a Drishti Pulse account.<br>
-                                <a href="#" style="color: #0066cc; text-decoration: none;">Privacy Policy</a> | 
-                                <a href="#" style="color: #0066cc; text-decoration: none;">Terms of Service</a>
+                                <a href="{{route('privacy')}}" style="color: #0066cc; text-decoration: none;">Privacy Policy</a> | 
+                                <a href="{{route('terms')}}" style="color: #0066cc; text-decoration: none;">Terms of Service</a>
                             </p>
                         </td>
                     </tr>
