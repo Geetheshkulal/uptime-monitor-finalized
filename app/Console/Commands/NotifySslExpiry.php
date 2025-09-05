@@ -42,7 +42,7 @@ class NotifySslExpiry extends Command
             $user = User::find($site->user_id);
 
             if ($user) {
-                Mail::to($user->email)->send(new SslExpiryMail($site));
+                Mail::to($user->email)->queue(new SslExpiryMail($site));
                 $this->info("Notification sent to: {$user->email}");
             }
         }

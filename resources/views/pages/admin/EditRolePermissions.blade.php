@@ -45,17 +45,22 @@
                 
                             <!-- Permission Groups -->
                             @foreach($permission_groups as $group)
-                                @php
-                                    // Skip role management permissions for user and subuser roles
-                                    $isUserRole = in_array($role->name, ['user', 'subuser']);
-                                    $isRoleGroup = $group->group_name === 'role';
-                                    
-                                    // Skip displaying role permissions for user/subuser roles
-                                    if ($isUserRole && $isRoleGroup) {
-                                        continue;
-                                    }
-                                @endphp
                                 
+                                @php
+                                $isUserRole = $role->name === 'user';
+                                $isOtherRole = $role->name !== 'user';
+                        
+                                // hide "subuser" for all except user
+                                if ($isOtherRole && $group->group_name === 'subuser') {
+                                    continue;
+                                }
+                        
+                                  // Skip displaying "role" permissions group name for user/subuser roles
+                                if (in_array($role->name, ['user','subuser']) && $group->group_name === 'role') {
+                                    continue;
+                                }
+                            @endphp
+
                                 <div class="permission-group">
                                     <!-- Group Checkbox -->
                                     <div class="form-check">

@@ -312,17 +312,16 @@ Route::group(['middleware' => ['auth', 'blockIp']], function () {
 
     Route::get('/display/subsusers', [UserController::class, 'DisplaySubUsers'])->name('display.sub.users');
 
-    Route::post('/add/subsusers', [UserController::class, 'StoreSubUser'])->middleware('premium_middleware')->name('add.sub.user');
-    Route::delete('/delete/subsuser/{id}', [UserController::class, 'DeleteSubUser'])->middleware('premium_middleware')->name('delete.sub.user');
-    
+    Route::post('/add/subsusers', [UserController::class, 'StoreSubUser'])->middleware('premium_middleware','permission:add.subuser')->name('add.sub.user');
+    Route::delete('/delete/subsuser/{id}', [UserController::class, 'DeleteSubUser'])->middleware('premium_middleware','permission:delete.subuser')->name('delete.sub.user');
+    Route::get('/sub-user/{id}/edit-permissions', [UserController::class, 'EditSubUserPermissions'])->middleware('permission:edit.subuser')->name('edit.sub.user.permissions');
+
+    Route::get('/sub-user/{id}/edit', [UserController::class, 'EditSubUser'])->middleware('premium_middleware')->name('edit.sub.user');
+
     Route::get('/get/subusers/{id}', [UserController::class, 'GetSubUsers'])->name('get.sub.users');
 
     Route::delete('/completely/delete/user/{id}', [UserController::class, 'CompletelyDeleteUser'])->name('completely.delete.user');
 
-    Route::get('/sub-user/{id}/edit', [UserController::class, 'EditSubUser'])->name('edit.sub.user');
-
-
-    Route::get('/sub-user/{id}/edit-permissions', [UserController::class, 'EditSubUserPermissions'])->name('edit.sub.user.permissions');
     Route::post('/sub-user/{id}/update-permissions', [UserController::class, 'UpdateSubUserPermissions'])->name('update.sub.user.permissions');
 
     Route::post('add/changelog', [ChangelogController::class, 'AddChangelog'])->name('add.changelog');

@@ -192,7 +192,7 @@
                     <h5 class="modal-title text-gold">Premium Feature</h5>
                 </div>
                 <div class="modal-body">
-                    <p>SSL Check is a premium feature. Upgrade your plan to access this tool.</p>
+                    <p>Subuser is a premium feature. Upgrade your plan to access this tool.</p>
                     <div class="text-center mb-3">
                         <i class="fas fa-lock fa-3x text-gold"></i>
                     </div>
@@ -209,7 +209,7 @@
 @endif
 
 
-<!-- Delete Coupon Modal -->
+<!-- Delete sub user Modal -->
  
 @foreach ($subUsers as $user)
 <div class="modal fade" id="deleteSubUserModal{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteSubUserModalLabel{{ $user->id }}" aria-hidden="true">

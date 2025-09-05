@@ -36,6 +36,11 @@ class PermissionTableSeeder extends Seeder
             ['name' => 'see.incidents', 'guard_name' => 'web', 'group_name' => 'incident', 'type' => 'system'],
 
             ['name' => 'manage.coupons', 'guard_name' => 'web', 'group_name' => 'coupons', 'type' => 'system'],
+
+            ['name' => 'delete.subuser', 'guard_name' => 'web', 'group_name' => 'subuser', 'type' => 'system'],
+            ['name' => 'add.subuser', 'guard_name' => 'web', 'group_name' => 'subuser', 'type' => 'system'],
+            ['name' => 'edit.subuser', 'guard_name' => 'web', 'group_name' => 'subuser', 'type' => 'system'],
+            
         ];
 
         $permissionNames = array_column($permissions, 'name');

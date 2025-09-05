@@ -318,8 +318,6 @@
         </li>
     @endhasrole
 
-
-
     @hasrole('user')
         <li class="nav-item ssl {{ request()->routeIs('ssl.check') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('ssl.check') }}">
@@ -428,6 +426,7 @@
             </a>
         </li>
 
+        
         <li class="nav-item {{ request()->routeIs('userSubscription') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('userSubscription') }}">
                 {{-- <i class="fas fa-user-tag"></i>  --}}
@@ -557,6 +556,14 @@
             <a class="nav-link" href="{{ route('display.tickets') }}">
                 <i class="fas fa-headset"></i>
                 <span>My Tickets</span>
+            </a>
+        </li>
+
+        <li class="nav-item {{ request()->routeIs('userSubscription') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('userSubscription') }}">
+                {{-- <i class="fas fa-user-tag"></i>  --}}
+                <i class="fas fa-receipt"></i>
+                <span>User Subscription</span>
             </a>
         </li>
     @endhasrole

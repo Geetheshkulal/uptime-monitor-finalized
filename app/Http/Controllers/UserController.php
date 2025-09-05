@@ -79,34 +79,58 @@ class UserController extends Controller
     //Display all users  (for superadmin)
     public function DisplayCustomers(Request $request)
     {
-        $roles = Role::whereNot('name', 'superadmin')->whereNot('name', 'subuser')->whereNot('name', 'user')->get();
+        $roles = Role::whereNot('name', 'superadmin')
+            ->whereNot('name', 'subuser')
+            ->whereNot('name', 'user')
+            ->get();
 
         // Basic search functionality
         $search = $request->input('search');
 
-        $users = User::withTrashed()->with('roles')->whereDoesntHave('roles', function ($q) {
-            $q->where('name', 'subuser');
-        })
+        // Users (excluding 'user' & 'subuser')
+        $users = User::withTrashed()
+            ->with('roles')
+            ->whereDoesntHave('roles', function ($q) {
+                $q->where('name', 'subuser')
+                    ->orWhere('name', 'user');
+            })
             ->when($search, function ($query) use ($search) {
-                $query->where('name', 'like', "%{$search}%")
-                    ->orWhere('email', 'like', "%{$search}%")
-                    ->orWhere('phone', 'like', "%{$search}%");
+                $query->where(function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%")
+                        ->orWhere('email', 'like', "%{$search}%")
+                        ->orWhere('phone', 'like', "%{$search}%");
+                });
             })
             ->orderBy('name')
-            ->paginate(10); // 10 users per page
+            ->get();
 
+
+        // Customers (only 'user' role)
+        $customers = User::withTrashed()
+            ->role('user')
+            ->when($search, function ($query) use ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%")
+                        ->orWhere('email', 'like', "%{$search}%")
+                        ->orWhere('phone', 'like', "%{$search}%");
+                });
+            })
+            ->orderBy('name')
+            ->get();
+
+
+        // Counts
         $customerCount = User::withTrashed()->role('user')->count();
 
-        $userCount =    User::whereDoesntHave('roles', function ($q) {
+        $userCount = User::whereDoesntHave('roles', function ($q) {
             $q->where('name', 'user')
                 ->orWhere('name', 'subuser');
         })->count();
 
-        return view('pages.admin.DisplayUsers', compact('users', 'roles', 'customerCount', 'userCount'));
+        return view('pages.admin.DisplayUsers', compact('users', 'customers', 'roles', 'customerCount', 'userCount'));
     }
 
     //Show details of a particular user
-
     public function ShowUser($id)
     {
         $user = User::withTrashed()->with('roles')->findOrFail($id);
@@ -151,13 +175,15 @@ class UserController extends Controller
             'phone' => $user->phone,
             'role' => $user->roles->pluck('name')->first() ?? 'none',
             'status' => $user->status,
-            'premium_end_date' => $user->premium_end_date ? $user->premium_end_date->format('Y-m-d') : null
+            'premium_end_date' => $user->premium_end_date
+                ? Carbon::parse($user->premium_end_date)->format('Y-m-d')
+                : null,
         ];
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
-            'phone' => 'nullable|string|max:20|unique:users,phone,' . $user->id,
+            'phone' => 'nullable|digits:10|unique:users,phone,' . $user->id,
             'role' => 'required|exists:roles,id',
             'status' => 'nullable|in:free,free_trial,paid',
             'premium_end_date' => 'nullable|date|after_or_equal:today'
@@ -183,7 +209,9 @@ class UserController extends Controller
                 'phone' => $user->phone,
                 'role' => $role->name,
                 'status' => $user->status,
-                'premium_end_date' => $user->premium_end_date ? $user->premium_end_date->format('Y-m-d') : null
+                'premium_end_date' => $user->premium_end_date
+                    ? Carbon::parse($user->premium_end_date)->format('Y-m-d')
+                    : null,
             ];
 
             activity()

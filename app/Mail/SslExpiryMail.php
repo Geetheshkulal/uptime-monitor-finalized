@@ -19,8 +19,12 @@ class SslExpiryMail extends Mailable
 
     public function build()
     {
+        // return $this->subject('SSL Certificate Expiry Alert')
+        //             ->markdown('emails.expiry')
+        //             ->with(['site' => $this->site]);
+
         return $this->subject('SSL Certificate Expiry Alert')
-                    ->markdown('emails.expiry')
-                    ->with(['site' => $this->site]);
+        ->view('emails.expiry')
+        ->with(['site' => $this->site]);
     }
 }

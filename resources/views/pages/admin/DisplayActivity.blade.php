@@ -215,8 +215,6 @@ html.dark-mode .select2-container--default .select2-results__option[aria-selecte
 </div>
 
 
-
-
  @push('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
