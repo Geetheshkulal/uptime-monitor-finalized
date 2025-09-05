@@ -102,7 +102,7 @@ class UserController extends Controller
                 });
             })
             ->orderBy('name')
-            ->paginate(10);
+            ->get();
 
 
         // Customers (only 'user' role)
@@ -116,7 +116,7 @@ class UserController extends Controller
                 });
             })
             ->orderBy('name')
-            ->paginate(10);
+            ->get();
 
 
         // Counts
