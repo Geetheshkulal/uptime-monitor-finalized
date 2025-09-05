@@ -1,4 +1,54 @@
-<!DOCTYPE html>
+@extends('emails.layout')
+
+@section('header_title')
+🎁 You've Got a New Coupon!
+@endsection
+
+@section('content')
+
+        <p style="margin: 0;">Hello <strong>{{ $user->name }}</strong>,</p>
+        <p>We're excited to offer you a special discount on your next purchase!</p>
+
+        <!-- Coupon Box -->
+        <div style="background-color: #f8f8f8; padding: 20px; border-radius: 8px; text-align: center; margin: 20px 0;">
+            <div style="font-size: 24px; font-weight: bold; color: #ff5722;">
+                {{ $coupon->code }}
+            </div>
+            <div style="font-size: 18px; margin-top: 10px;">
+                Save ₹{{ $coupon->value }}
+            </div>
+            @if($coupon->valid_until)
+                <div style="margin-top: 10px; font-size: 14px; color: #555;">
+                    Expires on: {{ \Carbon\Carbon::parse($coupon->valid_until)->format('d M Y') }}
+                </div>
+            @endif
+        </div>
+
+        <!-- CTA Button -->
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="{{ $url }}" 
+               style="background: linear-gradient(135deg, #1e3c72, #2a5298); 
+                      color: #fff; 
+                      padding: 12px 25px; 
+                      text-decoration: none; 
+                      border-radius: 6px; 
+                      display: inline-block; 
+                      font-size: 16px; 
+                      font-weight: bold;">
+                Apply Coupon & Go Premium
+            </a>
+        </div>
+
+        <p>Apply this coupon during checkout and enjoy the savings.</p>
+        <p style="margin-bottom: 0;">Thanks,<br><strong>Drishti Pulse Site Team</strong></p>
+
+@endsection
+
+
+
+
+
+{{-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -118,4 +168,4 @@
 
     </div>
 </body>
-</html>
+</html> --}}

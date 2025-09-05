@@ -200,7 +200,7 @@
                 </ul>
 
                 <div x-show="activeTab === 'customers'">
-                    @include('partials.customers-table', ['users' => $users])
+                    @include('partials.customers-table', ['customers' => $customers])
                 </div>
 
                 <div x-show="activeTab === 'users'">

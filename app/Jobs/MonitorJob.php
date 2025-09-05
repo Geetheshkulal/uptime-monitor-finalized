@@ -125,6 +125,7 @@ class MonitorJob
                 'last_checked_at' => now(),
                 'status' => $status,
             ]);
+            
         } catch (\Exception $e) {
             // Log::error("Failed to update monitor status for {$monitor->id}: " . $e->getMessage());
         }
