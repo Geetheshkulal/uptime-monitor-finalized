@@ -132,7 +132,6 @@ class UserController extends Controller
 
 
     //Show details of a particular user
-
     public function ShowUser($id)
     {
         $user = User::withTrashed()->with('roles')->findOrFail($id);
@@ -183,7 +182,7 @@ class UserController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
-            'phone' => 'nullable|string|max:20|unique:users,phone,' . $user->id,
+            'phone' => 'nullable|digits:10|unique:users,phone,' . $user->id,
             'role' => 'required|exists:roles,id',
             'status' => 'nullable|in:free,free_trial,paid',
             'premium_end_date' => 'nullable|date|after_or_equal:today'
