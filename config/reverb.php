@@ -87,6 +87,25 @@ return [
                 'activity_timeout' => env('REVERB_APP_ACTIVITY_TIMEOUT', 30),
                 'max_message_size' => env('REVERB_APP_MAX_MESSAGE_SIZE', 10_000),
             ],
+            [
+                'key' => env('CHAKRAWDA_REVERB_APP_KEY'),
+                'secret' => env('CHAKRAWDA_REVERB_APP_SECRET'),
+                'app_id' => env('CHAKRAWDA_REVERB_APP_ID'),
+                'options' => [
+                    'host' => env('REVERB_HOST'),
+                    'port' => env('REVERB_PORT', 443),
+                    'scheme' => env('REVERB_SCHEME', 'https'),
+                    'useTLS' => env('REVERB_SCHEME', 'https') === 'https',
+                ],
+                'allowed_origins' => [
+                    'https://chakrawda.impactatms.in',
+                    'https://chakrawda.impactatms.in/',
+                    'https://chakrawda.impactatms.in:443',
+                ],
+                'ping_interval' => env('REVERB_APP_PING_INTERVAL', 60),
+                'activity_timeout' => env('REVERB_APP_ACTIVITY_TIMEOUT', 30),
+                'max_message_size' => env('REVERB_APP_MAX_MESSAGE_SIZE', 10_000),
+            ],
         ],
 
     ],
