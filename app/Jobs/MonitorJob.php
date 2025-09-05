@@ -116,7 +116,7 @@ class MonitorJob
     private function sendAlert(Monitors $monitor, string $status, string $reason)
     {
     $shouldAlert =
-        ($status === 'down' && ($monitor->status === 'up' || $monitor->status === null)) ||
+        ($status === 'down' && ($monitor->status === 'up' || $monitor->status === null || $monitor->status==='waiting')) ||
         ($status === 'up' && ($monitor->status === 'down' || $monitor->status === null));
 
     if ($shouldAlert) {

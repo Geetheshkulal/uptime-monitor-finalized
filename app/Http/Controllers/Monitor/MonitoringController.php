@@ -13,6 +13,7 @@ use Illuminate\Validation\Rule;
 
 
 
+
 class MonitoringController extends Controller
 {
   //Get latest responses from relevant table.
@@ -44,41 +45,71 @@ class MonitoringController extends Controller
 
   //Controller for monitoring dashboard.
   public function MonitoringDashboard()
-  {
-      $user = auth()->user();
+    {
+        $user = auth()->user();
+        $user = ($user->hasRole('subuser')) ? $user->parentUser : $user;
 
-      $user = ($user->hasRole('subuser'))?$user->parentUser:auth()->user();
-      
-      // Get all monitors for the user
-      $monitorsQuery = Monitors::where('user_id', $user->id)->orderBy('created_at','asc');
-  
-      $totalMonitors = $monitorsQuery->count();
-      // Check if user has more than 5 monitors
-      $hasMoreMonitors = $monitorsQuery->count() > 5;
-  
-      // If user is free, limit to 5 monitors
-    //   if ($user->status === 'free') {
-    //       $monitors = $monitors->take(5);
-    //   }
-  
+        $monitorsQuery = Monitors::where('user_id', $user->id)->orderBy('created_at','asc');
+
+        $totalMonitors = $monitorsQuery->count();
+        $hasMoreMonitors = $totalMonitors > 5;
+
         $monitors = $monitorsQuery->get();
 
-      //Get Metrics for dashboard.
-      $upCount = $monitors->where('status', 'up')->where('paused',0)->count();
-      $downCount = $monitors->where('status', 'down')->where('paused',0)->count();
-    //   $totalMonitors = $monitors->count();
-      $pausedCount = Monitors::where('user_id',auth()->id())->where('paused', 1)->count();
-  
-      // Attach latest responses
-      foreach ($monitors as $monitor) {
-          $monitor->latestResponses = $this->getLatestResponsesByType($monitor);
-      }
+        $upCount = $monitors->where('status', 'up')->where('paused', 0)->count();
+        $downCount = $monitors->where('status', 'down')->where('paused', 0)->count();
+        $pausedCount = Monitors::where('user_id', $user->id)->where('paused', 1)->count();
 
-      $basic_plan = Subscriptions::where('plan_id', 'plan_basic')
-                ->first();
-  
-      return view('pages.MonitoringDashboard', compact('monitors', 'totalMonitors', 'upCount', 'downCount', 'hasMoreMonitors','pausedCount','basic_plan'));
-  }
+        $basic_plan = Subscriptions::where('plan_id', 'plan_basic')->first();
+
+        return view('pages.MonitoringDashboard', compact(
+            'totalMonitors', 'upCount', 'downCount', 'hasMoreMonitors', 'pausedCount', 'basic_plan'
+        ));
+    }
+
+    public function MonitoringDataTableUpdate()
+    {
+        $user = auth()->user();
+        $user = ($user->hasRole('subuser')) ? $user->parentUser : $user;
+
+        $monitors = Monitors::where('user_id', $user->id)
+            ->orderBy('created_at','asc')
+            ->get();
+
+        $monitors->map(function ($monitor) {
+            $monitor->latestResponses = $this->getLatestResponsesByType($monitor);
+
+            // Prepare fields DataTables will use
+            $monitor->status_badge = $monitor->paused || $monitor->pause_on_expire
+                ? '<span class="status-badge badge-paused">Paused</span>'
+                : ($monitor->status === 'up'
+                    ? '<span class="status-badge badge-up">Up</span>'
+                    : ($monitor->status === 'down'
+                        ? '<span class="status-badge badge-down">Down</span>'
+                        : '<span class="status-badge badge-loading">Loading..</span>'));
+
+            $monitor->uptime_display = $monitor->uptime . '%';
+
+            $monitor->history_dots = $monitor->latestResponses->count()
+                ? $monitor->latestResponses->map(function ($r) {
+                    if ($r->status === 'up') {
+                        return '<span class="status-dot d-inline-block mr-1" style="background: var(--success);"></span>';
+                    } elseif ($r->status === 'down') {
+                        return '<span class="status-dot d-inline-block mr-1" style="background: var(--danger);"></span>';
+                    }
+                    return '<span class="status-dot d-inline-block mr-1 spinner-dot"></span>';
+                })->implode('')
+                : '<span class="status-dot d-inline-block mr-1 spinner-dot"></span>';
+
+            $monitor->actions = '
+                    <a href="'.route('display.monitoring', [$monitor->id,$monitor->type]).'" class="btn btn-sm btn-primary">View</a>
+                ';        
+            });
+
+        return response()->json(['data' => $monitors]);
+    }
+
+
   
 
 
@@ -114,7 +145,6 @@ class MonitoringController extends Controller
   
       //For datatable.
       $totalMonitors = $monitors->count();
-      $monitors = $monitors->slice($start ?? 0, $length ?? 10);
   
       //Get latest responses for each monitor
       foreach ($monitors as $monitor) {

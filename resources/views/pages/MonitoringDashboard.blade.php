@@ -427,7 +427,7 @@
                     <br>
                     <div class="card-body p-0">
                         <div class="table-responsive"style="min-width: 100%;">
-                            <table class="table mb-0" id="dataTable" class="dt-responsive nowrap" style="width:100%;">
+                            <table class="table mb-0" id="monitorsTable" style="width:100%;">
                                 <thead>
                                     <tr>
                                         <th>Name</th>
@@ -441,76 +441,7 @@
                                         @endcan
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    @foreach ($monitors as $key => $monitor)
-                                        <tr
-                                            class="{{ auth()->user()->status === 'free' && $loop->index >= 5 ? 'disabled-row' : '' }}">
-
-                                            <td class="font-600">{{ $monitor->name }} </td>
-                                            <td>
-                                                <a href="{{ $monitor->url }}" target="_blank" class="text-primary">
-                                                    {{ Str::limit($monitor->url, 30) }}
-                                                </a>
-                                            </td>
-                                            <td>{{ ucfirst($monitor->type) }}{{ $monitor->type === 'port' ? ':' . $monitor->port : '' }}
-                                            </td>
-                                            <td>
-                                                @if ($monitor->paused == 1 || $monitor->pause_on_expire == 1)
-                                                    <span class="status-badge badge-paused">
-                                                        Paused
-                                                        @if ($monitor->pause_on_expire == 1)
-                                                            <i class="fas fa-crown text-warning ml-1"
-                                                                title="Paused on Expiry"></i>
-                                                        @endif
-                                                    </span>
-                                                @elseif ($monitor->status === 'up')
-                                                    <span class="status-badge badge-up">
-                                                        Up
-                                                    </span>
-                                                @elseif ($monitor->status === 'down')
-                                                    <span class="status-badge badge-down">
-                                                        Down
-                                                    </span>
-                                                @else
-                                                    <span class="status-badge badge-loading">
-                                                        Loading..
-                                                    </span>
-                                                @endif
-                                            </td>
-                                            <td>{{ $monitor->created_at->format('M d, Y') }}</td>
-                                            <td>
-                                                <a href="{{ route('display.monitoring', ['id' => $monitor->id, 'type' => $monitor->type]) }}"
-                                                    style="display: block; width: 100%; height: 100%; cursor: pointer; text-decoration: none;">
-                                                    @if ($monitor->latestResponses->isNotEmpty())
-                                                        @foreach ($monitor->latestResponses as $response)
-                                                            @if ($response->status === 'up')
-                                                                <span class="status-dot d-inline-block mr-1"
-                                                                    style="background: var(--success);"></span>
-                                                            @elseif ($response->status === 'down')
-                                                                <span class="status-dot d-inline-block mr-1"
-                                                                    style="background: var(--danger);"></span>
-                                                            @elseif ($response->status === 'waiting')
-                                                                <span
-                                                                    class="status-dot d-inline-block mr-1 spinner-dot"></span>
-                                                            @endif
-                                                        @endforeach
-                                                    @else
-                                                        <span class="status-dot d-inline-block mr-1 spinner-dot"></span>
-                                                    @endif
-                                                </a>
-                                            </td>
-
-                                            @can('see.monitor.details')
-                                                <td>
-                                                    <a href="{{ route('display.monitoring', ['id' => $monitor->id, 'type' => $monitor->type]) }}"
-                                                        class="btn btn-sm btn-view">
-                                                        <i class="fas fa-eye mr-1"></i>View
-                                                    </a>
-                                                </td>
-                                            @endcan
-                                        </tr>
-                                    @endforeach
-                                </tbody>
+                                <tbody></tbody> <!-- empty, DataTables will fill -->
                             </table>
                         </div>
                     </div>
@@ -549,21 +480,42 @@
 
             // Initialize DataTable
             $(document).ready(function() {
-                $('#dataTable').DataTable({
-                    "paging": true,
-                    "searching": true,
-                    "ordering": true,
-                    "info": true,
-                    "responsive": true,
-                    "scrollX": false,
-                    "order": [
-                        [4, "desc"]
+            var table = $('#monitorsTable').DataTable({
+                    ajax: "{{ route('monitoring.table.update') }}", // new JSON endpoint
+                    columns: [
+                        { data: 'name' },
+                        { 
+                            data: 'url',
+                            render: function(data, type, row) {
+                                return `<a href="${row.url}" target="_blank" class="text-primary">${data}</a>`;
+                            }
+                        },
+                        { 
+                            data: 'type',
+                            render: function(data, type, row) {
+                                return data === 'port' ? data + ':' + row.port : data;
+                            }
+                        },
+                        { data: 'status_badge', orderable: false, searchable: false },
+                        { 
+                            data: 'created_at',
+                            render: function(data) {
+                                let date = new Date(data);
+                                return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                            }
+                        },
+                        { data: 'history_dots', orderable: false, searchable: false },
+                        @can('see.monitor.details')
+                        { data: 'actions', orderable: false, searchable: false }
+                        @endcan
                     ],
-                    "language": {
-                        "search": '<i class="fas fa-search"></i>',
-                        "searchPlaceholder": "monitors, type, status",
-                        "lengthMenu": "Show _MENU_",
-                        "info": "Showing _START_ to _END_ of _TOTAL_"
+                    responsive: true,
+                    order: [[4, "desc"]],
+                    language: {
+                        search: '<i class="fas fa-search"></i>',
+                        searchPlaceholder: "monitors, type, status",
+                        lengthMenu: "Show _MENU_",
+                        info: "Showing _START_ to _END_ of _TOTAL_"
                     }
                 });
 
@@ -579,6 +531,8 @@
                             $('#pausedCount').text(response.pausedCount);
                         }
                     });
+
+                    table.ajax.reload(null, false);
                 }
 
                 // Update every 30 seconds
@@ -838,19 +792,9 @@
             });
         </script>
 
-        {{-- @if (session('success'))
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        toastr.options = {
-            "closeButton": true,
-            "progressBar": true,
-            "positionClass": "toast-top-right",
-            "timeOut": "5000"
-        };
-        toastr.success("{{ session('success') }}");
-    });
-</script>
-@endif --}}
+        <script>
+            
+        </script>
     @endpush
 
 @endsection

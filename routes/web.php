@@ -151,7 +151,9 @@ Route::middleware(['auth', 'verified', 'CheckUserSession', 'blockIp'])->group(fu
     Route::get('/monitoring/add', [MonitoringController::class, 'AddMonitoring'])->middleware('monitor.limit')->middleware('permission:add.monitor')->name('add.monitoring');
     Route::get('/monitoring/display/{id}/{type}', [MonitoringController::class, 'MonitoringDisplay'])->middleware('monitor.access')->middleware('permission:see.monitor.details')->name('display.monitoring');
     Route::get('/monitoring/chart/update/{id}/{type}', [MonitoringController::class, 'MonitoringChartUpdate'])->name('display.chart.update');
-
+    Route::get('/monitoring/table/update', [MonitoringController::class, 'MonitoringDataTableUpdate'])->name('monitoring.table.update');
+    
+    
     // for delete and edit monitoring
     Route::get('/monitoring/delete/{id}', [MonitoringController::class, 'MonitorDelete'])->middleware('permission:delete.monitor')->name('monitoring.delete');
     Route::post('/monitoring/edit/{id}', [MonitoringController::class, 'MonitorEdit'])->middleware('permission:edit.monitor')->name('monitoring.update');
