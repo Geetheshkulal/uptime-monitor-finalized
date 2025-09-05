@@ -38,7 +38,6 @@
     </div>
 
     <!-- Content Row with container margins -->
-
             <div class="card shadow mb-4">
                 <div class="card-body px-4 py-4">
                     <div class="table-responsive">

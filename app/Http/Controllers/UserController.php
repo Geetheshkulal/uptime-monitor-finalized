@@ -130,7 +130,6 @@ class UserController extends Controller
         return view('pages.admin.DisplayUsers', compact('users', 'customers', 'roles', 'customerCount', 'userCount'));
     }
 
-
     //Show details of a particular user
     public function ShowUser($id)
     {

@@ -209,7 +209,7 @@
 @endif
 
 
-<!-- Delete Coupon Modal -->
+<!-- Delete sub user Modal -->
  
 @foreach ($subUsers as $user)
 <div class="modal fade" id="deleteSubUserModal{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteSubUserModalLabel{{ $user->id }}" aria-hidden="true">
