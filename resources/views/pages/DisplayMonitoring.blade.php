@@ -189,14 +189,14 @@
 
                 @hasrole('superadmin')
                     <div class="ml-md-auto ">
-                        <a href="{{ route('admin.dashboard') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm text-nowrap">
+                        <a href="{{ route('admin.dashboard') }}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm text-nowrap">
                             <i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to Dashboard
                         </a>
                     </div>
                 @endhasrole
                 @if(! auth()->user()->hasRole('superadmin'))
                     <div class="ml-md-auto ">
-                        <a href="{{ route('monitoring.dashboard') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm text-nowrap">
+                        <a href="{{ route('monitoring.dashboard') }}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm text-nowrap">
                             <i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to Dashboard
                         </a>
                         {{-- <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-secondary rounded-pill shadow-sm text-nowrap">
