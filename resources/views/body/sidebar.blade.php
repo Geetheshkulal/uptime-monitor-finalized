@@ -1,12 +1,11 @@
 <style>
     /* ========== SIDEBAR STYLES ========== */
 
-    .nav-item {
+    /* .nav-item {
         position: relative;
-        /* adjust margin */
         border-radius: 0.35rem;
         transition: all 0.3s ease;
-    }
+    } */
 
 
 
@@ -336,6 +335,7 @@
                 <span>My Users</span>
             </a>
         </li>
+
         {{-- @else --}}
         {{-- <li class="nav-item premium-feature {{ request()->routeIs('premium.page') ? 'active' : '' }}">
                 <a class="nav-link ssl text-gold" href="{{ route('premium.page') }}">
@@ -358,7 +358,7 @@
         </li>
     @endhasrole
 
-    @can('see.users')
+    @can('see.users_and_customers')
         <li class="nav-item {{ request()->routeIs('display.users') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('display.users') }}">
                 <i class="fas fa-user"></i>
@@ -435,21 +435,6 @@
             </a>
         </li>
 
-        <!-- Nav Item - Pages Collapse Menu -->
-        {{-- <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Components</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">Buttons</a>
-                        <a class="collapse-item" href="cards.html">Cards</a>
-                    </div>
-                </div>
-            </li> --}}
 
         <li class="nav-item {{ request()->routeIs('userInvoices') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('userInvoices') }}">
@@ -458,33 +443,16 @@
                 <span>Invoices</span>
             </a>
         </li>
-
-        {{-- <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Components</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">Buttons</a>
-                        <a class="collapse-item" href="cards.html">Cards</a>
-                    </div>
-                </div>
-            </li> --}}
-
-        @can('manage.coupons')
-            <li class="nav-item {{ request()->routeIs('display.coupons') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('display.coupons') }}">
-                    <i class="fas fa-percent"></i>
-                    <span>Coupons</span>
-                </a>
-            </li>
-        @endcan
     @endhasrole
 
-
+    @can('manage.coupons')
+    <li class="nav-item {{ request()->routeIs('display.coupons') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('display.coupons') }}">
+            <i class="fas fa-percent"></i>
+            <span>Coupons</span>
+        </a>
+    </li>
+    @endcan
 
     @can('see.activity')
         <li class="nav-item activityLog {{ request()->routeIs('display.activity') ? 'active' : '' }}">

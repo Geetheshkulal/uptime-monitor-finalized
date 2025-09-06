@@ -5,6 +5,11 @@
       <a class="navbar-brand text-primary fw-bold d-flex align-items-center" href="/">
         <i class="fas fa-heartbeat me-2"></i>DRISHTI PULSE
       </a>
+      {{-- <a class="navbar-brand d-flex align-items-center" href="/">
+        <img src="{{ asset('frontend/assets/logo/Drishti Pulse-111.png') }}" 
+         alt="Drishti Pulse Logo" 
+         class="img-fluid">
+    </a> --}}
       
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>

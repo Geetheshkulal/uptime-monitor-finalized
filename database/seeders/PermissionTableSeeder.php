@@ -14,6 +14,8 @@ class PermissionTableSeeder extends Seeder
     {
         $permissions = [
             ['name' => 'see.users', 'guard_name' => 'web', 'group_name' => 'user', 'type' => 'system'],
+            ['name' => 'see.customers', 'guard_name' => 'web', 'group_name' => 'user', 'type' => 'system'],
+            ['name' => 'see.users_and_customers', 'guard_name' => 'web', 'group_name' => 'user', 'type' => 'system'],
             ['name' => 'edit.user', 'guard_name' => 'web', 'group_name' => 'user', 'type' => 'system'],
             ['name' => 'delete.user', 'guard_name' => 'web', 'group_name' => 'user', 'type' => 'system'],
             ['name' => 'add.user', 'guard_name' => 'web', 'group_name' => 'user', 'type' => 'system'],

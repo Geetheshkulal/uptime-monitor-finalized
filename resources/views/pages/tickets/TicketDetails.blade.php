@@ -10,12 +10,6 @@
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-            color: var(--text-primary);
-            background-color: var(--white);
-        }
-
         .container {
             max-width: 1280px;
         }
@@ -294,6 +288,15 @@
 
 <div class="container mt-4">
     <div class="d-flex justify-content-between mb-3">
+
+        @hasanyrole(['superadmin','support'])
+        <div>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editTicketModal">
+                <i class="fas fa-pencil-alt"></i> Edit Ticket
+            </button>
+        </div>
+        @endhasanyrole
+
         @if(auth()->user()->hasRole('superadmin'))
             <div>
                 <a href="{{ route('tickets') }}" class="btn btn-secondary">
@@ -307,13 +310,6 @@
                 </a>
             </div>
         @endif
-        @hasanyrole(['superadmin','support'])
-        <div>
-            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#editTicketModal">
-                <i class="fas fa-pencil-alt"></i> Edit Ticket
-            </button>
-        </div>
-        @endhasanyrole
     </div>
 
     <div class="issue-header">

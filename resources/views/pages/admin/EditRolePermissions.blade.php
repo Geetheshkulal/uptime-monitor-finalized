@@ -27,7 +27,7 @@
                             <h4 class="h3 mb-0 text-gray-800 white-color">
                                 Modify Permissions for Role: <strong>{{ $role->name }}</strong>
                             </h4>
-                            <a href="{{ route('display.roles') }}" class="btn btn-primary">
+                            <a href="{{ route('display.roles') }}" class="btn btn-secondary">
                                 <i class="fas fa-arrow-left"></i> Back
                             </a>
                         </div>
@@ -52,6 +52,14 @@
                         
                                 // hide "subuser" for all except user
                                 if ($isOtherRole && $group->group_name === 'subuser') {
+                                    continue;
+                                }
+
+                                if ($isUserRole && $group->group_name === 'coupons') {
+                                    continue;
+                                }
+
+                                if($isUserRole && $group->group_name === 'user'){
                                     continue;
                                 }
                         

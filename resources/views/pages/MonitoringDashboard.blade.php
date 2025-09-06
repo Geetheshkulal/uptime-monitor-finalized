@@ -190,10 +190,12 @@
                 }
 
 
-
+                .introjs-button{
+                    text-shadow: none !important;
+                }
                 .introjs-button:hover {
                     background-color: var(--primary-hover);
-                    color: white;
+                    /* color: white; */
                     cursor: pointer;
                 }
 

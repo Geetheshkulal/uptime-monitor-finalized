@@ -66,8 +66,10 @@
                                     </span>
 
                                      {{-- Pencil icon triggers modal --}}
+                                     @can('edit.user')
                                     <a href="#" data-toggle="modal" data-target="#editStatusModal" class="ml-2 text-primary">
                                      <i class="fas fa-pencil-alt"></i>
+                                     @endcan
                                 </td>
                             </tr>
                             @endif
