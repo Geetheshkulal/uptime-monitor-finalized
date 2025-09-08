@@ -47,24 +47,31 @@
                             @foreach($permission_groups as $group)
                                 
                                 @php
-                                $isUserRole = $role->name === 'user';
-                                $isOtherRole = $role->name !== 'user';
+                                // $isUserRole = $role->name === 'user';
+                                $isUserRole = in_array($role->name, ['user','subuser']);
+                                // $isOtherRole = $role->name !== 'user';
+                                $isOtherRole = !in_array($role->name, ['user', 'subuser']);
                         
                                 // hide "subuser" for all except user
-                                if ($isOtherRole && $group->group_name === 'subuser') {
+                                $hiddenForOtherRoles = ['subuser','incident','status_page'];
+                                if ($isOtherRole && in_array($group->group_name, $hiddenForOtherRoles)) {
                                     continue;
                                 }
+                                // if ($isOtherRole && $group->group_name === 'subuser') {
+                                //     continue;
+                                // }
 
-                                if ($isUserRole && $group->group_name === 'coupons') {
-                                    continue;
-                                }
-
-                                if($isUserRole && $group->group_name === 'user'){
+                                $hiddenFoCustomers = ['coupons', 'user', 'admin_dashboard', 'feedback','invoices','message_template','plans','traffic_Log','User_subscription']; 
+                                if ($isUserRole && in_array($group->group_name, $hiddenFoCustomers)) {
                                     continue;
                                 }
                         
                                   // Skip displaying "role" permissions group name for user/subuser roles
                                 if (in_array($role->name, ['user','subuser']) && $group->group_name === 'role') {
+                                    continue;
+                                }
+                                 // Skip displaying "subuser" permissions group name for subuser roles
+                                 if (in_array($role->name, ['subuser']) && $group->group_name === 'subuser') {
                                     continue;
                                 }
                             @endphp

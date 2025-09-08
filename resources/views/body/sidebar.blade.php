@@ -349,19 +349,21 @@
 
 
 
-    @hasrole('superadmin')
+    {{-- @hasrole('superadmin') --}}
+    @can('see.admin_dashboard')
         <li class="nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('admin.dashboard') }}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span>
             </a>
         </li>
-    @endhasrole
+    @endcan
+    {{-- @endhasrole --}}
 
     @can('see.users_and_customers')
         <li class="nav-item {{ request()->routeIs('display.users') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('display.users') }}">
-                <i class="fas fa-user"></i>
+                <i class="fas fa-user"></i> 
                 <span>Users & Customers</span>
             </a>
         </li>
@@ -385,7 +387,7 @@
                 <span>Permissions</span>
             </a>
         </li>
-        @hasrole('superadmin')
+  
             @php
                 $unreadTickets = \App\Models\Ticket::where('is_read', false)->count();
             @endphp
@@ -408,42 +410,45 @@
 
                 </a>
             </li>
-
-
-        @endhasrole
-
-        <li class="nav-item {{ request()->routeIs('billing') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('billing') }}">
-                <i class="fas fa-money-bill"></i>
-                <span>Plans</span>
-            </a>
-        </li>
-
-        <li class="nav-item {{ request()->routeIs('display.feedback') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('display.feedback') }}">
-                <i class="fas fa-comment-dots"></i>
-                <span>Feedback</span>
-            </a>
-        </li>
-
-        
-        <li class="nav-item {{ request()->routeIs('userSubscription') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('userSubscription') }}">
-                {{-- <i class="fas fa-user-tag"></i>  --}}
-                <i class="fas fa-receipt"></i>
-                <span>User Subscription</span>
-            </a>
-        </li>
-
-
-        <li class="nav-item {{ request()->routeIs('userInvoices') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('userInvoices') }}">
-                {{-- <i class="fas fa-user-tag"></i>  --}}
-                <i class="fas fa-file-invoice"></i>
-                <span>Invoices</span>
-            </a>
-        </li>
     @endhasrole
+
+    @can('see.plans')
+    <li class="nav-item {{ request()->routeIs('billing') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('billing') }}">
+            <i class="fas fa-money-bill"></i>
+            <span>Plans</span>
+        </a>
+    </li>
+    @endcan
+
+    @can('see.feedback')
+    <li class="nav-item {{ request()->routeIs('display.feedback') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('display.feedback') }}">
+            <i class="fas fa-comment-dots"></i>
+            <span>Feedback</span>
+        </a>
+    </li>
+    @endcan
+    
+    @can('see.user_subscription')
+    <li class="nav-item {{ request()->routeIs('userSubscription') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('userSubscription') }}">
+            {{-- <i class="fas fa-user-tag"></i>  --}}
+            <i class="fas fa-receipt"></i>
+            <span>User Subscription</span>
+        </a>
+    </li>
+    @endcan
+
+    @can('see.invoices')
+    <li class="nav-item {{ request()->routeIs('userInvoices') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('userInvoices') }}">
+            {{-- <i class="fas fa-user-tag"></i>  --}}
+            <i class="fas fa-file-invoice"></i>
+            <span>Invoices</span>
+        </a>
+    </li>
+    @endcan
 
     @can('manage.coupons')
     <li class="nav-item {{ request()->routeIs('display.coupons') ? 'active' : '' }}">
@@ -486,29 +491,33 @@
             </li>
         @endhasrole --}}
 
-    @hasrole('superadmin')
+
+        @can('see.traffic_Log')
         <li class="nav-item {{ request()->routeIs('display.trafficLog') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('display.trafficLog') }}">
                 <i class="fas fa-network-wired"></i>
                 <span>Traffic Log</span>
             </a>
         </li>
-    @endhasrole
-
-    @hasrole('superadmin')
-        <li class="nav-item {{ request()->routeIs('admin.whatsapp.login') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('admin.whatsapp.login') }}">
-                <i class="fab fa-whatsapp"></i>
-                <span>WhatsApp Login</span>
-            </a>
-        </li>
-
+        @endcan
+  
+        
+        @can('see.messsage_templates')
         <li class="nav-item {{ request()->routeIs('edit.template.page') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('edit.template.page') }}">
                 <i class="far fa-file-alt"></i>
                 <span>Edit Templates</span>
             </a>
         </li>
+        @endcan
+        
+    @hasrole('superadmin')
+        <li class="nav-item {{ request()->routeIs('admin.whatsapp.login') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('admin.whatsapp.login') }}">
+                <i class="fab fa-whatsapp"></i>
+                <span>WhatsApp Login</span>
+            </a>
+        </li> 
 
         <li class="nav-item {{ request()->routeIs('notification.page') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('notification.page') }}">
