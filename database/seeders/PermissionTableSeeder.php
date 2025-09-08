@@ -14,6 +14,8 @@ class PermissionTableSeeder extends Seeder
     {
         $permissions = [
             ['name' => 'see.users', 'guard_name' => 'web', 'group_name' => 'user', 'type' => 'system'],
+            ['name' => 'see.customers', 'guard_name' => 'web', 'group_name' => 'user', 'type' => 'system'],
+            ['name' => 'see.users_and_customers', 'guard_name' => 'web', 'group_name' => 'user', 'type' => 'system'],
             ['name' => 'edit.user', 'guard_name' => 'web', 'group_name' => 'user', 'type' => 'system'],
             ['name' => 'delete.user', 'guard_name' => 'web', 'group_name' => 'user', 'type' => 'system'],
             ['name' => 'add.user', 'guard_name' => 'web', 'group_name' => 'user', 'type' => 'system'],
@@ -40,6 +42,22 @@ class PermissionTableSeeder extends Seeder
             ['name' => 'delete.subuser', 'guard_name' => 'web', 'group_name' => 'subuser', 'type' => 'system'],
             ['name' => 'add.subuser', 'guard_name' => 'web', 'group_name' => 'subuser', 'type' => 'system'],
             ['name' => 'edit.subuser', 'guard_name' => 'web', 'group_name' => 'subuser', 'type' => 'system'],
+
+            ['name' => 'see.admin_dashboard', 'guard_name' => 'web', 'group_name' => 'admin_dashboard', 'type' => 'system'],
+
+            ['name' => 'see.plans', 'guard_name' => 'web', 'group_name' => 'plans', 'type' => 'system'],
+
+            ['name' => 'see.feedback', 'guard_name' => 'web', 'group_name' => 'feedback', 'type' => 'system'],
+
+            ['name' => 'see.user_subscription', 'guard_name' => 'web', 'group_name' => 'User_subscription', 'type' => 'system'],
+
+            ['name' => 'see.invoices', 'guard_name' => 'web', 'group_name' => 'invoices', 'type' => 'system'],
+
+            ['name' => 'see.traffic_Log', 'guard_name' => 'web', 'group_name' => 'traffic_Log', 'type' => 'system'],
+
+            ['name' => 'see.messsage_templates', 'guard_name' => 'web', 'group_name' => 'message_template', 'type' => 'system'],
+
+
             
         ];
 

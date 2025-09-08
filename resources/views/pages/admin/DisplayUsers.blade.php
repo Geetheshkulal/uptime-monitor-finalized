@@ -192,11 +192,15 @@
                             Customers
                         </button>
                     </li>
+
+                    @can('see.users')
                     <li class="nav-item">
                         <button class="nav-link btn-primary" :class="{ 'active': activeTab === 'users' }" @click="activeTab = 'users'">
                             Users
                         </button>
                     </li>
+                    @endcan
+                    
                 </ul>
 
                 <div x-show="activeTab === 'customers'">

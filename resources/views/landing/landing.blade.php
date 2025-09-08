@@ -314,7 +314,6 @@
 @endpush
 
 
-
 @section('content')
 
 <!-- Hero Section -->

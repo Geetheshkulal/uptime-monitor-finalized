@@ -238,12 +238,13 @@ Route::middleware(['auth', 'verified', 'CheckUserSession', 'blockIp'])->group(fu
 
 
 Route::group(['middleware' => ['auth', 'blockIp']], function () {
+
     // Routes accessible only by superadmin
-    Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->middleware('role:superadmin')->name('admin.dashboard');
-    Route::get('/admin/display/users', action: [UserController::class, 'DisplayCustomers'])->middleware('permission:see.users')->name('display.users');
+    Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->middleware('permission:see.admin_dashboard')->name('admin.dashboard');
+    Route::get('/admin/display/users', action: [UserController::class, 'DisplayCustomers'])->middleware('permission:see.users_and_customers')->name('display.users');
     Route::get('/admin/display/roles', action: [RoleController::class, 'DisplayRoles'])->middleware('permission:see.roles')->name('display.roles');
     Route::get('/admin/display/permissions', [PermissionController::class, 'DisplayPermissions'])->middleware('role:superadmin')->name('display.permissions');
-    Route::get('/admin/display/user/{id}', action: [UserController::class, 'ShowUser'])->middleware('permission:see.users')->name('show.user');
+    Route::get('/admin/display/user/{id}', action: [UserController::class, 'ShowUser'])->name('show.user');
 
 
     // Route::get('/admin/users', [AdminController::class, 'AddUser'])->name('add.user.form');

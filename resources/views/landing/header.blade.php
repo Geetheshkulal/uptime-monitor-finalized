@@ -5,6 +5,11 @@
       <a class="navbar-brand text-primary fw-bold d-flex align-items-center" href="/">
         <i class="fas fa-heartbeat me-2"></i>DRISHTI PULSE
       </a>
+      {{-- <a class="navbar-brand d-flex align-items-center" href="/">
+        <img src="{{ asset('frontend/assets/logo/Drishti Pulse-111.png') }}" 
+         alt="Drishti Pulse Logo" 
+         class="img-fluid">
+    </a> --}}
       
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
@@ -37,11 +42,17 @@
           <!-- Auth buttons -->
           @if (Route::has('login'))
             @auth
-              @hasrole('superadmin')
+              {{-- @hasrole('superadmin')
                 <a href="{{ route('admin.dashboard') }}" class="btn btn-primary btn-sm">Admin Dashboard</a>
               @else
                 <a href="{{ route('monitoring.dashboard') }}" class="btn btn-primary btn-sm">Dashboard</a>
-              @endhasrole
+              @endhasrole --}}
+              
+              @can('see.admin_dashboard')
+              <a href="{{ route('admin.dashboard') }}" class="btn btn-primary btn-sm">Admin Dashboard</a>
+              @else
+                  <a href="{{ route('monitoring.dashboard') }}" class="btn btn-primary btn-sm">Dashboard</a>
+              @endcan
             @else
             <div class="auth-buttons d-flex">
             <a href="{{ route('login') }}" class="btn btn-primary btn-sm me-2">
