@@ -385,6 +385,9 @@ class MonitorJob
         $statusCode = 0;
         $responseTime = 0;
         $reason = 'Connection timed out';
+        Log::info('hello');
+        $allowedCodes = $monitor->getExpandedStatusCodesAttribute();
+        Log::info('code'.json_encode($allowedCodes));
         // Log::info("Checking HTTP Monitor: {$monitor->id} ({$monitor->url})");
 
         for ($attempt = 0; $attempt < $monitor->retries; $attempt++) {
@@ -397,8 +400,10 @@ class MonitorJob
                 $statusCode = $response->status();
                 $responseTime = round(($endTime - $startTime) * 1000, 2);
 
-                // Log::info("HTTP Response ({$monitor->id}): Status $statusCode, Time {$responseTime}ms");
-                if ($response->successful()) {
+                
+
+                Log::info("HTTP Response ({$monitor->id}): Status $statusCode, Time {$responseTime}ms");
+                if (in_array($statusCode, $allowedCodes)) {
                     $status = 'up';
                 } else {
                     $status = 'down';
@@ -408,27 +413,47 @@ class MonitorJob
                 break; 
 
             } catch (RequestException $e) {
+
                 // Log::error("HTTP RequestException (Monitor ID: {$monitor->id}): " . $e->getMessage());
                 $statusCode = $e->response ? $e->response->status() : 0;
+                Log::info("HTTP Response ({$monitor->id}): Status $statusCode, Time {$responseTime}ms");
+                Log::info('code'.json_encode($allowedCodes));
+                if(in_array($statusCode, $allowedCodes)){
+                    $status = 'up';
+                }else{
+                    $status = 'down';
+                    $reason = $this->mapReason('http', $statusCode, $e->getMessage());
+                }
 
-                $status = 'down';
-                $reason = $this->mapReason('http', $statusCode, $e->getMessage());
-                
             } catch (\Exception $e) {
                 // Log::error("General HTTP Exception (Monitor ID: {$monitor->id}): " . $e->getMessage());
-                $status = 'down';
+                Log::info('code'.json_encode($allowedCodes));
                 // Handle timeouts and SSL errors
-                if (strpos($e->getMessage(), 'timed out') !== false) {
+                if(strpos($e->getMessage(), 'timed out') !== false) {
                     $statusCode = 408; 
-                    $reason = $this->mapReason('http', 408);
+                    Log::info("HTTP Response ({$monitor->id}): Status $statusCode, Time {$responseTime}ms");
+
+                    if(in_array($statusCode, $allowedCodes)){
+                        $status = 'up';
+                    }else{
+                        $status = 'down';
+                        $reason = $this->mapReason('http', 408);
+                    }
                 } elseif (strpos($e->getMessage(), 'SSL') !== false) {
                     $statusCode = 495; // SSL Failure
-                    $reason = $this->mapReason('http', 495);
+                    Log::info("HTTP Response ({$monitor->id}): Status $statusCode, Time {$responseTime}ms");
+
+                    if(in_array($statusCode, $allowedCodes)){
+                        $status = 'up';
+                    }else{
+                        $status = 'down';
+                        $reason = $this->mapReason('http', 495);
+                    }
                 }
             }
 
             // Exponential backoff (max 5s)
-            if ($attempt < $monitor->retries - 1) {
+            if($attempt < $monitor->retries - 1) {
                 sleep(min(pow(2, $attempt), 5));
             }
         }
@@ -755,57 +780,57 @@ class MonitorJob
     }
 
     public function sendFollowUpEmail()
- {
-    try {
-        $threeMinutesAgo = Carbon::now()->subMinutes(3);
+    {
+        try {
+            $threeMinutesAgo = Carbon::now()->subMinutes(3);
 
-        // Group unread notifications by monitor
-        $notifications = Notification::where('created_at', '<=', $threeMinutesAgo)
-            ->whereHas('monitor')
-            ->with('monitor.user')
-            ->where('status', 'unread')
-            ->get()
-            ->groupBy('monitor_id');
+            // Group unread notifications by monitor
+            $notifications = Notification::where('created_at', '<=', $threeMinutesAgo)
+                ->whereHas('monitor')
+                ->with('monitor.user')
+                ->where('status', 'unread')
+                ->get()
+                ->groupBy('monitor_id');
 
-        foreach ($notifications as $groupedNotifications) {
-        
-            $notification = $groupedNotifications->first();
+            foreach ($notifications as $groupedNotifications) {
+            
+                $notification = $groupedNotifications->first();
 
-            // ✅ Follow-up email (only once)
-            if (!$notification->follow_up_sent) {
-                Mail::to($notification->monitor->email)
-                    ->send(new FollowUpMail($notification->monitor));
-                $notification->follow_up_sent = true;
-                $notification->save();
-                // Log::info("Follow-up email sent to: {$notification->monitor->email}");
-            }
-
-            // ✅ PWA Notification logic
-            if ($notification->status === 'unread') {
-                $lastNotifiedAt = $notification->last_notified_at
-                    ? Carbon::parse($notification->last_notified_at)
-                    : null;
-
-                if (!$lastNotifiedAt || $lastNotifiedAt->diffInSeconds(now()) >= 180) { // 180 seconds = 3 minutes
-                    $this->SendPwaNotification(
-                        $notification->monitor->user_id,
-                        $notification->token,
-                        $notification->monitor->name, $status = 'down'
-                    );
-                    $notification->last_notified_at = now();
+                // ✅ Follow-up email (only once)
+                if (!$notification->follow_up_sent) {
+                    Mail::to($notification->monitor->email)
+                        ->send(new FollowUpMail($notification->monitor));
+                    $notification->follow_up_sent = true;
                     $notification->save();
-                    // Log::info("PWA Notification Triggered for monitor ID {$notification->monitor_id}");
-                } else {
-                    // Log::info("Skipped PWA Notification (waiting period) for monitor ID {$notification->monitor_id}");
+                    // Log::info("Follow-up email sent to: {$notification->monitor->email}");
                 }
-            } else {
-                $notification->delete();
+
+                // ✅ PWA Notification logic
+                if ($notification->status === 'unread') {
+                    $lastNotifiedAt = $notification->last_notified_at
+                        ? Carbon::parse($notification->last_notified_at)
+                        : null;
+
+                    if (!$lastNotifiedAt || $lastNotifiedAt->diffInSeconds(now()) >= 180) { // 180 seconds = 3 minutes
+                        $this->SendPwaNotification(
+                            $notification->monitor->user_id,
+                            $notification->token,
+                            $notification->monitor->name, $status = 'down'
+                        );
+                        $notification->last_notified_at = now();
+                        $notification->save();
+                        // Log::info("PWA Notification Triggered for monitor ID {$notification->monitor_id}");
+                    } else {
+                        // Log::info("Skipped PWA Notification (waiting period) for monitor ID {$notification->monitor_id}");
+                    }
+                } else {
+                    $notification->delete();
+                }
             }
+        } catch (\Exception $e) {
+            // Log::error("sendFollowUpEmail failed: " . $e->getMessage());
         }
-    } catch (\Exception $e) {
-        // Log::error("sendFollowUpEmail failed: " . $e->getMessage());
     }
-}
 
     // public function sendFollowUpEmail()
     // {

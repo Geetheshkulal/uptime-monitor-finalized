@@ -10,40 +10,40 @@
         border-radius: 3px !important;
     }
 
-    html.dark-mode .card-header{
+    html.dark-mode .card-header {
         border: none;
     }
 
     .form-check-input:focus {
-    box-shadow: none !important;
-    outline: none !important;
-}
-.nav-tabs{
-            border-bottom: none;
-        }
-
-          .nav-tabs .nav-link.active {
-            background-color: var(--primary);
-            color: var(--white);
-            border: none;
-        }
-
-        html.dark-mode .nav-tabs .nav-link:hover{
-            border: 1px solid var(--primary) !important;
-        }
-        
-@media (max-width: 578px) {
-    .dataTables_length {
-        text-align: left !important;
-        margin-left: 2px;
-        margin-bottom: 10px;
+        box-shadow: none !important;
+        outline: none !important;
     }
-     .dataTables_filter{
+
+    .nav-tabs {
+        border-bottom: none;
+    }
+
+    .nav-tabs .nav-link.active {
+        background-color: var(--primary);
+        color: var(--white);
+        border: none;
+    }
+
+    html.dark-mode .nav-tabs .nav-link:hover {
+        border: 1px solid var(--primary) !important;
+    }
+
+    @media (max-width: 578px) {
+        .dataTables_length {
+            text-align: left !important;
+            margin-left: 2px;
+            margin-bottom: 10px;
+        }
+
+        .dataTables_filter {
             margin-left: -11px;
+        }
     }
-   
-}
-
 </style>
 @endpush
 
@@ -58,47 +58,47 @@
         </div>
     </div>
 
-        
     <!-- Tabs Navigation -->
-<ul class="nav nav-tabs mb-4" id="monitoringTabs" role="tablist" style="gap: 5px;">
-    <li class="nav-item">
-        <button class="nav-link active HttpMonitoring" id="http-tab" data-toggle="tab" href="#http" type="button" role="tab" aria-controls="http" aria-selected="true">
-            User Information
-        </button>
-    </li>
-    <li class="nav-item">
-        <button class="nav-link PingMonitoring" id="ping-tab" data-toggle="tab" href="#ping" type="button" role="tab" aria-controls="ping" aria-selected="false">
-            User Monitors
-        </button>
-    </li>
-    <li class="nav-item">
-        <button class="nav-link PortMonitoring" id="port-tab" data-toggle="tab" href="#port" type="button" role="tab" aria-controls="port" aria-selected="false">
-            SSL Checks
-        </button>
-    </li>
-</ul>
+    <ul class="nav nav-tabs mb-4" id="userDetailsTabs" role="tablist" style="gap: 5px;">
+        <li class="nav-item">
+            <button class="nav-link active" id="user-info-tab" data-toggle="tab" href="#user-info" type="button"
+                role="tab" aria-controls="user-info" aria-selected="true">
+                User Information
+            </button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" id="user-monitors-tab" data-toggle="tab" href="#user-monitors" type="button"
+                role="tab" aria-controls="user-monitors" aria-selected="false">
+                User Monitors
+            </button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" id="ssl-checks-tab" data-toggle="tab" href="#ssl-checks" type="button" role="tab"
+                aria-controls="ssl-checks" aria-selected="false">
+                SSL Checks
+            </button>
+        </li>
+    </ul>
 
-<!-- Tab Content -->
-<div class="tab-content" id="monitoringTabsContent">
-    <div class="tab-pane fade show active" id="http" role="tabpanel" aria-labelledby="http-tab">
-        @include('pages.admin.ViewUserInformation')
-    </div>
+    <!-- Tab Content -->
+    <div class="tab-content" id="monitoringTabsContent">
+        <div class="tab-pane fade show active" id="user-info" role="tabpanel" aria-labelledby="user-info-tab">
+            @include('pages.admin.ViewUserInformation')
+        </div>
 
-    @can('see.monitors')
-    @if($user->hasRole('user'))
-    <div class="tab-pane fade" id="ping" role="tabpanel" aria-labelledby="ping-tab">
-        @include('pages.admin.ViewUserMonitor')
-    </div>
-    @endif
-    @endcan
+        @can('see.monitors')
+            @if($user->hasAnyRole(['user','subuser']))
+                <div class="tab-pane fade" id="user-monitors" role="tabpanel" aria-labelledby="user-monitors-tab">
+                    @include('pages.admin.ViewUserMonitor')
+                </div>
+            @endif
+        @endcan
 
-    <div class="tab-pane fade" id="port" role="tabpanel" aria-labelledby="port-tab">
-        @include('pages.admin.ViewUserSsl')
+        <div class="tab-pane fade" id="ssl-checks" role="tabpanel" aria-labelledby="ssl-checks-tab">
+            @include('pages.admin.ViewUserSsl')
+        </div>
     </div>
 </div>
-</div>
-
-  
 
 @push('scripts')
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -108,7 +108,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 <script>
-
     @if(Session::has('success'))
         toastr.success("{{ Session::get('success') }}");
     @endif
@@ -117,21 +116,22 @@
         toastr.error("{{ Session::get('error') }}");
     @endif
 
-            // Initialize tabs and show the previously selected tab if there was a validation error
-    document.addEventListener('DOMContentLoaded', function() {
-        const activeTab = localStorage.getItem('activeMonitoringTab') || 'http-tab';
-        document.getElementById(activeTab).click();
-        
-        // Store the active tab when changed
-        const tabButtons = document.querySelectorAll('#monitoringTabs button[data-toggle="tab"]');
+    // Initialize tabs and restore previously selected tab
+    document.addEventListener('DOMContentLoaded', function () {
+        const activeTab = localStorage.getItem('userDetailsTab') || 'user-info-tab';
+        const defaultTabButton = document.getElementById(activeTab);
+        if (defaultTabButton) {
+            defaultTabButton.click();
+        }
+
+        const tabButtons = document.querySelectorAll('#userDetailsTabs button[data-toggle="tab"]');
         tabButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                localStorage.setItem('activeMonitoringTab', this.id);
+            button.addEventListener('click', function () {
+                localStorage.setItem('userDetailsTab', this.id);
             });
         });
     });
 </script>
-    
 @endpush
 
 @endsection

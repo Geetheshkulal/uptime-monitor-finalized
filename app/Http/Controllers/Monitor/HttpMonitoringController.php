@@ -31,6 +31,8 @@ class HttpMonitoringController extends Controller
             'email' => 'required|email',
             'retries' => 'required|integer|min:1',
             'interval' => 'required|integer|min:1',
+            'allowed_status_codes'=>'required',
+            'allowed_status_codes.*' => 'string', 
             'telegram_id' => 'nullable|string',
             'telegram_bot_token' => 'nullable|string',
         ]);
@@ -41,6 +43,7 @@ class HttpMonitoringController extends Controller
             'name' => $request->name,
             'status' => 'waiting',
             'url' => $request->url,
+            'allowed_status_codes'=>$request->allowed_status_codes,
             'type' => 'http',
             'retries' => $request->retries,
             'interval' => $request->interval,

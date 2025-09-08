@@ -4,6 +4,7 @@
     @push('styles')
         <!-- Toastr CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     @endpush
 
     <style>
@@ -143,7 +144,6 @@
     </style>
     <!-- Page Heading -->
     <div class="container-fluid">
-        
         <div class="row  p-2">
             <div class="d-flex  flex-md-row justify-content-between align-items-start align-items-md-center w-100">
             
@@ -215,45 +215,43 @@
             
                     <span id="status-heartbeat">
                         @if($details->status === 'up')
-                        <svg xmlns="http://www.w3.org/2000/svg">
-                            <circle fill="#059212" stroke="none" cx="60" cy="60" r="17" opacity="0.5">
-                            <animate attributeName="opacity" dur="1s" values="0;0.5;0" repeatCount="indefinite" begin="0s" />
-                            </circle>
-                            <circle fill="#059212" stroke="none" cx="60" cy="60" r="9">
-                            <animate attributeName="opacity" dur="2s" values="0;1;0" repeatCount="indefinite" begin="2s"/>
-                            </circle>
-                        </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg">
+                                <circle fill="#059212" stroke="none" cx="60" cy="60" r="17" opacity="0.5">
+                                    <animate attributeName="opacity" dur="1s" values="0;0.5;0" repeatCount="indefinite" begin="0s" />
+                                </circle>
+                                <circle fill="#059212" stroke="none" cx="60" cy="60" r="9">
+                                    <animate attributeName="opacity" dur="2s" values="0;1;0" repeatCount="indefinite" begin="2s"/>
+                                </circle>
+                            </svg>
 
                         @elseif($details->status === 'down')
 
-                        <svg xmlns="http://www.w3.org/2000/svg">
+                            <svg xmlns="http://www.w3.org/2000/svg">
 
-                            <circle fill="#ff0000" stroke="none" cx="60" cy="60" r="17" opacity="0.5">
-                            <animate attributeName="opacity" dur="1s" values="0;0.5;0" repeatCount="indefinite" begin="0s" />
-                            </circle>
-                            <circle fill="#ff0000" stroke="none" cx="60" cy="60" r="9">
-                            <animate attributeName="opacity" dur="2s" values="0;1;0" repeatCount="indefinite" begin="2s"/>
-                            </circle>
-                        </svg>
+                                <circle fill="#ff0000" stroke="none" cx="60" cy="60" r="17" opacity="0.5">
+                                    <animate attributeName="opacity" dur="1s" values="0;0.5;0" repeatCount="indefinite" begin="0s" />
+                                </circle>
+                                <circle fill="#ff0000" stroke="none" cx="60" cy="60" r="9">
+                                    <animate attributeName="opacity" dur="2s" values="0;1;0" repeatCount="indefinite" begin="2s"/>
+                                </circle>
+                            </svg>
 
                         @else
-                        <svg xmlns="http://www.w3.org/2000/svg">
-                            <circle fill="#ff8c00" stroke="none" cx="60" cy="60" r="17" opacity="0.5">
-                            <animate attributeName="opacity" dur="1s" values="0;0.5;0" repeatCount="indefinite" begin="0s" />
-                            </circle>
-                            <circle fill="#ff8c00" stroke="none" cx="60" cy="60" r="9">
-                            <animate attributeName="opacity" dur="2s" values="0;1;0" repeatCount="indefinite" begin="2s"/>
-                            </circle>
-                        </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg">
+                                <circle fill="#ff8c00" stroke="none" cx="60" cy="60" r="17" opacity="0.5">
+                                    <animate attributeName="opacity" dur="1s" values="0;0.5;0" repeatCount="indefinite" begin="0s" />
+                                </circle>
+                                <circle fill="#ff8c00" stroke="none" cx="60" cy="60" r="9">
+                                    <animate attributeName="opacity" dur="2s" values="0;1;0" repeatCount="indefinite" begin="2s"/>
+                                </circle>
+                            </svg>
                         @endif
                       </span>
 
                       @if($details->type === 'port')
-                      
                         <span class="text-primary">{{ $details->url }} : {{$details->port}}</span>
                       @else
                         <span class="text-primary">{{ $details->url }}</span>
-                      
                       @endif
                 </h5>
             </div>
@@ -396,18 +394,18 @@
                         {{-- <input type="hidden" name="_method" value="POST">  --}}
                         <input type="hidden" name="type" value="{{ $details->type }}">
     
-                      <div class="modal-body">
-                                <div class="mb-3 col-md-12">
-                                    <label for="name" class="form-label">Friendly name</label>
-                                    <input id="name" class="form-control" name="name" type="text" placeholder="E.g. Google" value="{{ $details->name }}" required>
-                                </div>
-    
-                                <div class="row p-2">
+                        <div class="modal-body">
+                            <div class="mb-3 col-md-12">
+                                <label for="name" class="form-label">Friendly name</label>
+                                <input id="name" class="form-control" name="name" type="text" placeholder="E.g. Google" value="{{ $details->name }}" required>
+                            </div>
+
+                            <div class="row p-2">
                                 <div class="mb-3 col-md-6">
                                     <label for="retries" class="form-label">Retries</label>
                                     <input id="retries" class="form-control" name="retries" type="number" value="{{ $details->retries }}" required>
                                 </div>
-    
+
                                 <div class="mb-3 col-md-6">
                                     <label for="interval" class="form-label">Interval (in minutes)</label>
                                     <input 
@@ -428,79 +426,105 @@
                                         </small>
                                     @endif
                                 </div>
-                                </div>
-                                    
-    
+                            </div>
+                                        
+                            <div class="mb-3 col-md-12">
+                                <label for="url" class="form-label">URL</label>
+                                <input id="url" class="form-control" name="url" type="text" placeholder="E.g. https://www.google.com" value="{{ $details->url }}" required>
+                                @error('url')
+                                    <p style="color: red; font-size: 14px;">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            @if($details->type == 'http')
                                 <div class="mb-3 col-md-12">
-                                    <label for="url" class="form-label">URL</label>
-                                    <input id="url" class="form-control" name="url" type="text" placeholder="E.g. https://www.google.com" value="{{ $details->url }}" required>
-                                    @error('url')
-                                        <p style="color: red; font-size: 14px;">{{ $message }}</p>
+                                    <label for="edit_allowed_status_codes" class="form-label">Allowed Status Codes</label>
+                                    <select id="edit_allowed_status_codes" name="allowed_status_codes[]" class="form-control" multiple>
+                                        {{-- Selected codes --}}
+                                        @if(!in_array('2xx', $details->allowed_status_codes))
+                                            <option value="2xx">2xx</option>
+                                        @endif
+                                        @foreach ($details->allowed_status_codes as $allowed_code)
+                                            <option value="{{ $allowed_code }}" selected>{{ $allowed_code }}</option>
+                                        @endforeach
+
+                                        {{-- Remaining codes --}}
+                                        @for ($code = 100; $code <= 599; $code++)
+                                            @if (!in_array($code, $details->allowed_status_codes))
+                                                <option value="{{ $code }}">{{ $code }}</option>
+                                            @endif
+                                        @endfor
+                                    </select>
+                                    <small class="form-text text-muted">
+                                        Hold Ctrl (Windows) or Command (Mac) to select multiple codes.
+                                    </small>
+                                    @error('edit_allowed_status_codes')
+                                        <div class="text-danger mt-1">{{ $message }}</div>
                                     @enderror
                                 </div>
-    
-                                @if ($details->type == 'port')
-                                    {{-- <div class="mb-3 col-md-6">
-                                        <label for="port" class="form-label">Port</label>
-                                        <select id="port" class="form-control" name="port" required>
-                                            <option value="" disabled>Select Port</option>
-                                            @foreach ([21 => 'FTP', 22 => 'SSH / SFTP', 25 => 'SMTP', 53 => 'DNS', 80 => 'HTTP', 110 => 'POP3', 143 => 'IMAP', 443 => 'HTTPS', 465 => 'SMTP', 587 => 'SMTP', 993 => 'IMAP', 995 => 'POP3', 3306 => 'MySQL'] as $port => $label)
-                                                <option value="{{ $port }}" {{ $details->port == $port ? 'selected' : '' }}>{{ $label }} - {{ $port }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div> --}}
-    
-                                    <div class="col-md-12 mb-3 position-relative">
-                                        <label for="port" class="form-label">TCP port</label>
-                                        <input autocomplete="off" role="combobox" list="" id="portInput" name="port"
-                                               placeholder="E.g. 22, 80, 443" class="form-control mb-1"
-                                               value="{{ $details->port }}" type="text">
-                                        <datalist id="portOptions" role="listbox">
-                                            <option value="21">FTP (21)</option>
-                                            <option value="22">SSH (22)</option>
-                                            <option value="25">SMTP (25)</option>
-                                            <option value="53">DNS (53)</option>
-                                            <option value="80">HTTP (80)</option>
-                                            <option value="110">POP3 (110)</option>
-                                            <option value="143">IMAP (143)</option>
-                                            <option value="443">HTTPS (443)</option>
-                                            <option value="465">SMTP-SSL (465)</option>
-                                            <option value="587">SMTP-TLS (587)</option>
-                                            <option value="995">POP3 (995)</option>
-                                            <option value="3306">MySQL (3306)</option>
-                                        </datalist>
-                                    </div>
-                                @endif
-    
-                                @if ($details->type == 'dns')
-                                    <div class="mb-3 col-md-6">
-                                        <label for="dns_resource_type" class="form-label">DNS Resource Type</label>
-                                        <select id="dns_resource_type" class="form-control" name="dns_resource_type" required>
-                                            @foreach (['A', 'AAAA', 'CNAME', 'MX', 'NS', 'SOA', 'TXT', 'SRV', 'DNS_ALL'] as $type)
-                                                <option value="{{ $type }}" {{ $details->dns_resource_type == $type ? 'selected' : '' }}>{{ $type }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                @endif
-    
-                                <div class="col-12 mt-3">
-                                    <h5 class="card-title">Notification</h5>
+                            @endif
+                            @if ($details->type == 'port')
+                                {{-- <div class="mb-3 col-md-6">
+                                    <label for="port" class="form-label">Port</label>
+                                    <select id="port" class="form-control" name="port" required>
+                                        <option value="" disabled>Select Port</option>
+                                        @foreach ([21 => 'FTP', 22 => 'SSH / SFTP', 25 => 'SMTP', 53 => 'DNS', 80 => 'HTTP', 110 => 'POP3', 143 => 'IMAP', 443 => 'HTTPS', 465 => 'SMTP', 587 => 'SMTP', 993 => 'IMAP', 995 => 'POP3', 3306 => 'MySQL'] as $port => $label)
+                                            <option value="{{ $port }}" {{ $details->port == $port ? 'selected' : '' }}>{{ $label }} - {{ $port }}</option>
+                                        @endforeach
+                                    </select>
+                                </div> --}}
+
+                                <div class="col-md-12 mb-3 position-relative">
+                                    <label for="port" class="form-label">TCP port</label>
+                                    <input autocomplete="off" role="combobox" list="" id="portInput" name="port"
+                                        placeholder="E.g. 22, 80, 443" class="form-control mb-1"
+                                        value="{{ $details->port }}" type="text">
+                                    <datalist id="portOptions" role="listbox">
+                                        <option value="21">FTP (21)</option>
+                                        <option value="22">SSH (22)</option>
+                                        <option value="25">SMTP (25)</option>
+                                        <option value="53">DNS (53)</option>
+                                        <option value="80">HTTP (80)</option>
+                                        <option value="110">POP3 (110)</option>
+                                        <option value="143">IMAP (143)</option>
+                                        <option value="443">HTTPS (443)</option>
+                                        <option value="465">SMTP-SSL (465)</option>
+                                        <option value="587">SMTP-TLS (587)</option>
+                                        <option value="995">POP3 (995)</option>
+                                        <option value="3306">MySQL (3306)</option>
+                                    </datalist>
                                 </div>
-    
-                                <div class="mb-3 col-md-12">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input id="email" class="form-control" name="email" type="email" placeholder="example@gmail.com" value="{{ $details->email }}" required>
+                            @endif
+        
+                            @if ($details->type == 'dns')
+                                <div class="mb-3 col-md-6">
+                                    <label for="dns_resource_type" class="form-label">DNS Resource Type</label>
+                                    <select id="dns_resource_type" class="form-control" name="dns_resource_type" required>
+                                        @foreach (['A', 'AAAA', 'CNAME', 'MX', 'NS', 'SOA', 'TXT', 'SRV', 'DNS_ALL'] as $type)
+                                            <option value="{{ $type }}" {{ $details->dns_resource_type == $type ? 'selected' : '' }}>{{ $type }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
-    
-                                <div class="mb-3 col-md-12">
-                                    <label for="telegram_id" class="form-label">Telegram ID (Optional)</label>
-                                    <input id="telegram_id" class="form-control" name="telegram_id" type="text" value="{{ $details->telegram_id }}">
-                                </div>
-    
-                                <div class="mb-3 col-md-12">
-                                    <label for="telegram_bot_token" class="form-label">Telegram Bot Token (Optional)</label>
-                                    <input id="telegram_bot_token" class="form-control" name="telegram_bot_token" type="text" value="{{ $details->telegram_bot_token }}">
-                                </div>
+                            @endif
+        
+                            <div class="col-12 mt-3">
+                                <h5 class="card-title">Notification</h5>
+                            </div>
+
+                            <div class="mb-3 col-md-12">
+                                <label for="email" class="form-label">Email</label>
+                                <input id="email" class="form-control" name="email" type="email" placeholder="example@gmail.com" value="{{ $details->email }}" required>
+                            </div>
+        
+                            <div class="mb-3 col-md-12">
+                                <label for="telegram_id" class="form-label">Telegram ID (Optional)</label>
+                                <input id="telegram_id" class="form-control" name="telegram_id" type="text" value="{{ $details->telegram_id }}">
+                            </div>
+
+                            <div class="mb-3 col-md-12">
+                                <label for="telegram_bot_token" class="form-label">Telegram Bot Token (Optional)</label>
+                                <input id="telegram_bot_token" class="form-control" name="telegram_bot_token" type="text" value="{{ $details->telegram_bot_token }}">
+                            </div>
                         </div>
     
                         <div class="modal-footer">
@@ -516,178 +540,177 @@
 
     @push('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> 
 
-        <script>
-            let myLineChart;
+    <script>
+        let myLineChart;
 
-            document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function() {
 
-                const isDark = localStorage.getItem('theme') === 'dark';
-                var ctx = document.getElementById("myAreaChart").getContext('2d');     
+            const isDark = localStorage.getItem('theme') === 'dark';
+            var ctx = document.getElementById("myAreaChart").getContext('2d');     
 
-                var gradient = ctx.createLinearGradient(0, 0, 0, 400); // Vertical gradient
-                    gradient.addColorStop(0, "rgba(0, 0, 139, 0.3)"); 
-                    gradient.addColorStop(1, "rgba(173, 216, 230, 0)"); 
-                 
-
-
-                var responseTimes = {!! json_encode(array_slice($ChartResponses->pluck('response_time')->toArray(), -20)) !!};
-                var timestamps = {!! json_encode(
-                    array_slice(
-                        $ChartResponses->pluck('created_at')->map(fn($date) => \Carbon\Carbon::parse($date)->format('j/n/Y h:i:s A'))->toArray(),
-                        -20,
-                    ),
-                ) !!};
-
-                var statusElement = document.getElementById('statusElement');
-                var currentResponseElement = document.getElementById('currentResponse');
-                var averageResponseElement = document.getElementById('averageResponse');
-                var statusHeartbeat = document.getElementById('status-heartbeat');
+            var gradient = ctx.createLinearGradient(0, 0, 0, 400); // Vertical gradient
+                gradient.addColorStop(0, "rgba(0, 0, 139, 0.3)"); 
+                gradient.addColorStop(1, "rgba(173, 216, 230, 0)"); 
+                
 
 
-                 myLineChart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: timestamps,
-                        datasets: [{
-                            label: "Response Time (ms)",
-                            fill: true,
-                            // backgroundColor: "rgba(78, 115, 223, 0.05)",
-                            backgroundColor: gradient, 
-                            borderColor:"rgba(12, 12, 233, 0.97)",
-                            lineTension: 0.2,
-                            pointRadius: 3,
-                            pointBackgroundColor: "rgba(78, 115, 223, 1)",
-                            pointBorderColor: "rgba(78, 115, 223, 1)",
-                            pointHoverRadius: 3,
-                            pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-                            pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-                            pointHitRadius: 10,
-                            pointBorderWidth: 2,
-                            data: responseTimes,
-                        }],
+            var responseTimes = {!! json_encode(array_slice($ChartResponses->pluck('response_time')->toArray(), -20)) !!};
+            var timestamps = {!! json_encode(
+                array_slice(
+                    $ChartResponses->pluck('created_at')->map(fn($date) => \Carbon\Carbon::parse($date)->format('j/n/Y h:i:s A'))->toArray(),
+                    -20,
+                ),
+            ) !!};
+
+            var statusElement = document.getElementById('statusElement');
+            var currentResponseElement = document.getElementById('currentResponse');
+            var averageResponseElement = document.getElementById('averageResponse');
+            var statusHeartbeat = document.getElementById('status-heartbeat');
+
+
+            myLineChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: timestamps,
+                    datasets: [{
+                        label: "Response Time (ms)",
+                        fill: true,
+                        // backgroundColor: "rgba(78, 115, 223, 0.05)",
+                        backgroundColor: gradient, 
+                        borderColor:"rgba(12, 12, 233, 0.97)",
+                        lineTension: 0.2,
+                        pointRadius: 3,
+                        pointBackgroundColor: "rgba(78, 115, 223, 1)",
+                        pointBorderColor: "rgba(78, 115, 223, 1)",
+                        pointHoverRadius: 3,
+                        pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+                        pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+                        pointHitRadius: 10,
+                        pointBorderWidth: 2,
+                        data: responseTimes,
+                    }],
+                },
+                
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    layout: {
+                        padding: {
+                            left: 10,
+                            right: 25,
+                            top: 25,
+                            bottom: 0
+                        }
                     },
-                 
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        layout: {
-                            padding: {
-                                left: 10,
-                                right: 25,
-                                top: 25,
-                                bottom: 0
+                    scales: {
+                        x: {
+                            time: {
+                                unit: 'date'
+                            },
+                            gridLines: {
+                                display: true,
+                                drawBorder: true
+                            },
+                            ticks: {
+                                maxTicksLimit: 20,
+                                // color: isDark ? '#e0e0e0' : '#333'
+                                color: isDark ? '#e0e0e0' : '#4e73df'
                             }
                         },
-                        scales: {
-                            x: {
-                                time: {
-                                    unit: 'date'
+                        y:{
+                            ticks: {
+                                maxTicksLimit: 5,
+                                padding: 10,
+                                callback: function(value) {
+                                    return value + ' ms';
                                 },
-                                gridLines: {
-                                    display: true,
-                                    drawBorder: true
-                                },
-                                ticks: {
-                                    maxTicksLimit: 20,
-                                    // color: isDark ? '#e0e0e0' : '#333'
-                                    color: isDark ? '#e0e0e0' : '#4e73df'
-                                }
+                                color: isDark ? '#e0e0e0' : '#4e73df'
                             },
-                            y:{
-                                ticks: {
-                                    maxTicksLimit: 5,
-                                    padding: 10,
-                                    callback: function(value) {
-                                        return value + ' ms';
-                                    },
-                                    color: isDark ? '#e0e0e0' : '#4e73df'
-                                },
-                                gridLines: {
-                                    color: "rgb(234, 236, 244)",
-                                    zeroLineColor: "rgb(234, 236, 244)",
-                                    drawBorder: false,
-                                    borderDash: [2],
-                                    zeroLineBorderDash: [2]
-                                }
-                            },
+                            gridLines: {
+                                color: "rgb(234, 236, 244)",
+                                zeroLineColor: "rgb(234, 236, 244)",
+                                drawBorder: false,
+                                borderDash: [2],
+                                zeroLineBorderDash: [2]
+                            }
                         },
-                        legend: {
-                            display: true
-                        },
-                        tooltips: {
-                            backgroundColor: "rgb(255,255,255)",
-                            bodyFontColor: "#858796",
-                            titleMarginBottom: 10,
-                            titleFontColor: '#6e707e',
-                            titleFontSize: 14,
-                            borderColor: '#dddfeb',
-                            borderWidth: 1,
-                            xPadding: 15,
-                            yPadding: 15,
-                            displayColors: true,
-                            intersect: false,
-                            mode: 'index',
-                            caretPadding: 10,
-                            callbacks: {
-                                label: function(tooltipItem, chart) {
-                                    var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-                                    return datasetLabel + ': ' + tooltipItem.yLabel + ' ms';
-                                }
+                    },
+                    legend: {
+                        display: true
+                    },
+                    tooltips: {
+                        backgroundColor: "rgb(255,255,255)",
+                        bodyFontColor: "#858796",
+                        titleMarginBottom: 10,
+                        titleFontColor: '#6e707e',
+                        titleFontSize: 14,
+                        borderColor: '#dddfeb',
+                        borderWidth: 1,
+                        xPadding: 15,
+                        yPadding: 15,
+                        displayColors: true,
+                        intersect: false,
+                        mode: 'index',
+                        caretPadding: 10,
+                        callbacks: {
+                            label: function(tooltipItem, chart) {
+                                var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+                                return datasetLabel + ': ' + tooltipItem.yLabel + ' ms';
                             }
                         }
                     }
-
-
-                });
-
-
-
-                function updateAverageResponse(responseTimes) {
-                    if (responseTimes.length > 0) {
-                        let sum = responseTimes.reduce((a, b) => a + b, 0);
-                        let average = (sum / responseTimes.length).toFixed(2); // Round to 2 decimal places
-                        averageResponseElement.textContent = average + " ms";
-                        
-                    } else {
-                        averageResponseElement.textContent = "No Data";
-                    }
                 }
 
 
-        function initializeCurrentResponse() {
-            $.ajax({
-                url: "{{ route('display.chart.update', [$details->id, $details->type]) }}",
-                type: "GET",
-                dataType: "json",
-                success: function (response) {
-                    if (response.responses.length > 0) {
-                        // Get the latest response time
-                        const latestResponseTime = response.responses[response.responses.length - 1].response_time;
-                        currentResponseElement.textContent = latestResponseTime + " ms";
-
-                         // Update the average response
-                     const responseTimes = response.responses.map(item => item.response_time);
-                        updateAverageResponse(responseTimes);
-
-                    } else {
-                        currentResponseElement.textContent = "No Data";
-                        averageResponseElement.textContent = "No Data";
-                    }
-                },
-                error: function (xhr, status, error) {
-                    console.error("Error fetching initial response time:", error);
-                }
             });
-        }
 
-        // Call the function to initialize the current response time
-        initializeCurrentResponse();
 
-              setInterval(function() {
-                
+
+            function updateAverageResponse(responseTimes) {
+                if (responseTimes.length > 0) {
+                    let sum = responseTimes.reduce((a, b) => a + b, 0);
+                    let average = (sum / responseTimes.length).toFixed(2); // Round to 2 decimal places
+                    averageResponseElement.textContent = average + " ms";
+                    
+                } else {
+                    averageResponseElement.textContent = "No Data";
+                }
+            }
+
+
+            function initializeCurrentResponse() {
+                $.ajax({
+                    url: "{{ route('display.chart.update', [$details->id, $details->type]) }}",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.responses.length > 0) {
+                            // Get the latest response time
+                            const latestResponseTime = response.responses[response.responses.length - 1].response_time;
+                            currentResponseElement.textContent = latestResponseTime + " ms";
+
+                            // Update the average response
+                        const responseTimes = response.responses.map(item => item.response_time);
+                            updateAverageResponse(responseTimes);
+
+                        } else {
+                            currentResponseElement.textContent = "No Data";
+                            averageResponseElement.textContent = "No Data";
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error fetching initial response time:", error);
+                    }
+                });
+            }
+
+            // Call the function to initialize the current response time
+            initializeCurrentResponse();
+
+            setInterval(function() {
                 if(!isPaused) {
                     $.ajax({
                         url: "{{ route('display.chart.update', [$details->id, $details->type]) }}",
@@ -805,104 +828,113 @@
                         toastr.error('An error occurred.');
                     });
             }
-
         </script>
 
-<script>
-    function setEditUrl(id) {
-        let editForm = document.getElementById('editForm');
-        if (editForm) {
-            editForm.action = "/monitoring/edit/" + id; 
-        } else {
-            console.error("Edit form not found!");
-        }
-    }
-</script>
+        <script>
+            function setEditUrl(id) {
+                let editForm = document.getElementById('editForm');
+                if (editForm) {
+                    editForm.action = "/monitoring/edit/" + id; 
+                } else {
+                    console.error("Edit form not found!");
+                }
+            }
+        </script>
 
-<script>
-    function setDeleteUrl(id) {
-        let deleteButton = document.getElementById("deleteConfirmButton");
-        deleteButton.href = "/monitoring/delete/" + id; // Sets the GET request URL
-    }
-</script>
+        <script>
+            function setDeleteUrl(id) {
+                let deleteButton = document.getElementById("deleteConfirmButton");
+                deleteButton.href = "/monitoring/delete/" + id; // Sets the GET request URL
+            }
+        </script>
 
-<script>
-    const portInput = document.getElementById('portInput');
-    const portOptions = document.getElementById('portOptions');
-    let currentFocus = -1;
-    
-    // Show dropdown on focus
-    portInput.onfocus = function () {
-      portOptions.style.display = 'block';
-    //   portInput.style.borderRadius = "5px 5px 0 0";
-    };
-    
-    // Click to select an option
-    for (let option of portOptions.options) {
-      option.onclick = function () {
-        portInput.value = option.value;
-        portOptions.style.display = 'none';
-        // portInput.style.borderRadius = "5px";
-      }
-    }
-    
-    // Filter list based on input
-    portInput.oninput = function () {
-      currentFocus = -1;
-      let filter = portInput.value.toUpperCase();
-      for (let option of portOptions.options) {
-        option.style.display = option.value.toUpperCase().includes(filter)
-          ? "block"
-          : "none";
-      }
-    };
-    
-    // Keyboard navigation
-    portInput.onkeydown = function (e) {
-      if (e.keyCode == 40) {
-        // Down arrow
-        currentFocus++;
-        addActive(portOptions.options);
-      } else if (e.keyCode == 38) {
-        // Up arrow
-        currentFocus--;
-        addActive(portOptions.options);
-      } else if (e.keyCode == 13) {
-        // Enter
-        e.preventDefault();
-        if (currentFocus > -1) {
-          portOptions.options[currentFocus].click();
-        }
-      }
-    };
-    
-    function addActive(items) {
-      if (!items) return;
-      removeActive(items);
-      if (currentFocus >= items.length) currentFocus = 0;
-      if (currentFocus < 0) currentFocus = items.length - 1;
-      items[currentFocus].classList.add("active");
-    }
-    
-    function removeActive(items) {
-      for (let i = 0; i < items.length; i++) {
-        items[i].classList.remove("active");
-      }
-    }
-    
-    // Hide dropdown when clicking outside
-    document.addEventListener('click', function (e) {
-      if (!e.target.closest('.col-md-12')) {
-        portOptions.style.display = 'none';
-        // portInput.style.borderRadius = "5px";
-      }
-    });
-    </script>
+        <script>
+            const portInput = document.getElementById('portInput');
+            const portOptions = document.getElementById('portOptions');
+            let currentFocus = -1;
+            
+            // Show dropdown on focus
+            portInput.onfocus = function () {
+            portOptions.style.display = 'block';
+            //   portInput.style.borderRadius = "5px 5px 0 0";
+            };
+            
+            // Click to select an option
+            for (let option of portOptions.options) {
+            option.onclick = function () {
+                portInput.value = option.value;
+                portOptions.style.display = 'none';
+                // portInput.style.borderRadius = "5px";
+            }
+            }
+            
+            // Filter list based on input
+            portInput.oninput = function () {
+            currentFocus = -1;
+            let filter = portInput.value.toUpperCase();
+            for (let option of portOptions.options) {
+                option.style.display = option.value.toUpperCase().includes(filter)
+                ? "block"
+                : "none";
+            }
+            };
+            
+            // Keyboard navigation
+            portInput.onkeydown = function (e) {
+            if (e.keyCode == 40) {
+                // Down arrow
+                currentFocus++;
+                addActive(portOptions.options);
+            } else if (e.keyCode == 38) {
+                // Up arrow
+                currentFocus--;
+                addActive(portOptions.options);
+            } else if (e.keyCode == 13) {
+                // Enter
+                e.preventDefault();
+                if (currentFocus > -1) {
+                portOptions.options[currentFocus].click();
+                }
+            }
+            };
+            
+            function addActive(items) {
+                if (!items) return;
+                removeActive(items);
+                if (currentFocus >= items.length) currentFocus = 0;
+                if (currentFocus < 0) currentFocus = items.length - 1;
+                items[currentFocus].classList.add("active");
+            }
+            
+            function removeActive(items) {
+                for (let i = 0; i < items.length; i++) {
+                    items[i].classList.remove("active");
+                }
+            }
+            
+            // Hide dropdown when clicking outside
+            document.addEventListener('click', function (e) {
+            if (!e.target.closest('.col-md-12')) {
+                portOptions.style.display = 'none';
+                // portInput.style.borderRadius = "5px";
+            }
+            });
+        </script>
 
-<script>
-    @if (session('success'))
-        toastr.success("{{ session('success') }}");
-    @endif
-</script>
+        <script>
+            @if (session('success'))
+                toastr.success("{{ session('success') }}");
+            @endif
+        </script>
+
+        <script>
+            $(document).ready(function() {
+                $('#edit_allowed_status_codes').select2({
+                    placeholder: "Select allowed status codes",
+                    allowClear: true,
+                    width: '100%'
+                });
+            });
+        </script>
     @endpush
 @endsection
