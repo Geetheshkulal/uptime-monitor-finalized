@@ -228,6 +228,12 @@
     .navbar-toggler:focus {
         box-shadow: none !important;
     }
+
+    .navbar-brand img {
+    max-height: 50px;
+    width: auto;
+}
+
 </style>
 @stack('styles')
 
