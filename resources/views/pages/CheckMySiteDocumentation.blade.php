@@ -330,7 +330,7 @@
   <!-- Sidebar Navigation -->
   <div class="sidebar">
     <div class="sidebar-header">
-        <h4><i class="fas fa-heartbeat me-2"></i>Drishti Pulse</h4>
+        <h4><i class="fas fa-heartbeat me-2"></i>Drishti Pu</h4>
     </div>
     <div class="nav-menu">
       <a href="#" onclick="showTab('tab1')" class="active">

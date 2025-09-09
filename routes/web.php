@@ -146,7 +146,7 @@ Route::middleware(['auth', 'verified', 'CheckUserSession', 'blockIp'])->group(fu
 
     });
 
-    Route::get('/dashboard', [MonitoringController::class, 'MonitoringDashboard'])->middleware('role:user|subuser|admin')->middleware('permission:see.monitors')->name('monitoring.dashboard');
+    Route::get('/dashboard', [MonitoringController::class, 'MonitoringDashboard'])->middleware('role:user|subuser')->middleware('permission:see.monitors')->name('monitoring.dashboard');
     Route::get('/monitoring/dashboard/update', [MonitoringController::class, 'MonitoringDashboardUpdate'])->name('monitoring.dashboard.update');
     Route::get('/monitoring/add', [MonitoringController::class, 'AddMonitoring'])->middleware('monitor.limit')->middleware('permission:add.monitor')->name('add.monitoring');
     Route::get('/monitoring/display/{id}/{type}', [MonitoringController::class, 'MonitoringDisplay'])->middleware('monitor.access')->middleware('permission:see.monitor.details')->name('display.monitoring');
@@ -288,7 +288,7 @@ Route::group(['middleware' => ['auth', 'blockIp']], function () {
     Route::post('/roles/{id}/permissions', [RolePermissionController::class, 'UpdateRolePermissions'])->middleware('permission:edit.role.permissions')->name('update.role.permissions');
 
 
-    Route::middleware('role:superadmin')->controller(BillingController::class)->group(function () {
+    Route::middleware('permission:see.plans')->controller(BillingController::class)->group(function () {
         Route::get('/billing', 'Billing')->name('billing');
         Route::post('/edit/billing/{id}', 'EditBilling')->name('edit.billing');
         Route::post('/add/billing', 'AddBilling')->name('add.billing');
@@ -329,7 +329,7 @@ Route::group(['middleware' => ['auth', 'blockIp']], function () {
     Route::delete('/changelog/{id}', [ChangelogController::class, 'destroy'])->name('changelog.destroy');
     Route::put('/changelogs/{changelog}', [ChangelogController::class, 'update'])->name('changelog.update');
 
-    Route::get('/admin/trafficLog', [TrafficLogController::class, 'TrafficLogView'])->middleware('role:superadmin')->name('display.trafficLog');
+    Route::get('/admin/trafficLog', [TrafficLogController::class, 'TrafficLogView'])->middleware('permission:see.traffic_Log')->name('display.trafficLog');
 
 
     Route::get('/changelog', [ChangelogController::class, 'ChangelogPage'])->name('changelog.page');

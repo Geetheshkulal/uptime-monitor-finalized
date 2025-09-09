@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'DRISHTI PULSE')</title>
 </head>
+
 <body style="font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f5f7fa; margin: 0; padding: 0; color: #333333; -webkit-font-smoothing: antialiased;">
 
     {{-- Tracking Pixel (if needed globally) --}}
@@ -18,6 +19,7 @@
                     {{-- HEADER --}}
                     <tr>
                         <td style="text-align: center; background: #3490dc; padding: 30px 20px; border-radius: 12px 12px 0 0;">
+                            {{-- <td style="text-align: center; background: #52C41A; padding: 30px 20px; border-radius: 12px 12px 0 0;"> --}}
                             <table width="100%" cellpadding="0" cellspacing="0" border="0">
                                 <tr>
                                     <td align="center">
