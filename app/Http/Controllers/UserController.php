@@ -135,6 +135,10 @@ class UserController extends Controller
     {
         $user = User::withTrashed()->with('roles')->findOrFail($id);
 
+        if($user->hasRole('subuser')){
+            $user->monitors = $user->parentUser->monitors;
+        }
+
         activity()
             ->causedBy(auth()->user()) // super admin
             ->performedOn($user)       // the user being viewed

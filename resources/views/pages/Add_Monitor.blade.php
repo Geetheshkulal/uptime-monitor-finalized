@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/introjs.min.css"/>
-
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
   <style>
 
@@ -83,6 +83,9 @@
         html.dark-mode .nav-tabs .nav-link:hover{
             border: 1px solid var(--primary) !important;
         }
+
+        
+
 
         @media (max-width: 576px) {
             .introjs-tooltip,
@@ -182,9 +185,8 @@
 
  <!-- jQuery and Toastr scripts -->
  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
  <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/intro.min.js"></script>
-
+ <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> 
 
 
  <script>
@@ -419,18 +421,18 @@
         @endif
 
          // Initialize tabs and show the previously selected tab if there was a validation error
-    document.addEventListener('DOMContentLoaded', function() {
-        const activeTab = localStorage.getItem('activeMonitoringTab') || 'http-tab';
-        document.getElementById(activeTab).click();
-        
-        // Store the active tab when changed
-        const tabButtons = document.querySelectorAll('#monitoringTabs button[data-toggle="tab"]');
-        tabButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                localStorage.setItem('activeMonitoringTab', this.id);
+        document.addEventListener('DOMContentLoaded', function() {
+            const activeTab = localStorage.getItem('activeMonitoringTab') || 'http-tab';
+            document.getElementById(activeTab).click();
+            
+            // Store the active tab when changed
+            const tabButtons = document.querySelectorAll('#monitoringTabs button[data-toggle="tab"]');
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    localStorage.setItem('activeMonitoringTab', this.id);
+                });
             });
         });
-    });
 
     </script>
 
@@ -506,6 +508,15 @@ $(document).ready(function() {
        }).start();
    });
 });
+</script>
+<script>
+    $(document).ready(function() {
+        $('#allowed_status_codes').select2({
+            placeholder: "Select allowed status codes",
+            allowClear: true,
+            width: '100%'
+        });
+    });
 </script>
 @endpush
 

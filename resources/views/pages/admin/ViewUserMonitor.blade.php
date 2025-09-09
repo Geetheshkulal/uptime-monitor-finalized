@@ -36,7 +36,6 @@
 
 </style>
 @endpush
-
     <!-- User Details Card -->
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">

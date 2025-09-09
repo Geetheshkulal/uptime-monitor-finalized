@@ -56,9 +56,15 @@ class MonitoringController extends Controller
 
         $monitors = $monitorsQuery->get();
 
-        $upCount = $monitors->where('status', 'up')->where('paused', 0)->count();
-        $downCount = $monitors->where('status', 'down')->where('paused', 0)->count();
-        $pausedCount = Monitors::where('user_id', $user->id)->where('paused', 1)->count();
+        $upCount = $monitors->where('status', 'up')->where('paused', 0)->where('pause_on_expire', 0)->count();
+        $downCount = $monitors->where('status', 'down')->where('paused', 0)->where('pause_on_expire', 0)->count();
+        $pausedCount = $monitors->where('paused', 1)
+            ->union($monitors->where('pause_on_expire', 1))
+            ->count();
+
+        
+
+
 
         $basic_plan = Subscriptions::where('plan_id', 'plan_basic')->first();
 
@@ -81,7 +87,11 @@ class MonitoringController extends Controller
 
             // Prepare fields DataTables will use
             $monitor->status_badge = $monitor->paused || $monitor->pause_on_expire
-                ? '<span class="status-badge badge-paused">Paused</span>'
+                ? ($monitor->pause_on_expire?'
+                    <span class="status-badge badge-paused">Paused
+                        <i class="fas fa-crown" style="color:yellow;"></i>
+                    </span>':
+                    '<span class="status-badge badge-paused">Paused</span>')
                 : ($monitor->status === 'up'
                     ? '<span class="status-badge badge-up">Up</span>'
                     : ($monitor->status === 'down'
@@ -139,9 +149,9 @@ class MonitoringController extends Controller
       $monitors = $query->get();
   
       // Apply limit for free users
-      if ($user->status === 'free') {
-          $monitors = $monitors->take(5);
-      }
+    //   if ($user->status === 'free') {
+    //       $monitors = $monitors->take(5);
+    //   }
   
       //For datatable.
       $totalMonitors = $monitors->count();
@@ -152,8 +162,12 @@ class MonitoringController extends Controller
       }
   
       //latest value for dashboard metrics
-      $upCount = $monitors->where('status', 'up')->where('paused',0)->count();
-      $downCount = $monitors->where('status', 'down')->where('paused',0)->count();
+      $upCount = $monitors->where('status', 'up')->where('paused',0)->where('pause_on_expire',0)->count();
+      $downCount = $monitors->where('status', 'down')->where('paused',0)->where('pause_on_expire',0)->count();
+      $pausedCount = $monitors->where('paused', 1)
+            ->union($monitors->where('pause_on_expire', 1))
+            ->count();
+
   
       return response()->json([
           'draw' => $draw,
@@ -162,7 +176,8 @@ class MonitoringController extends Controller
           'data' => $monitors->values(), // Reset keys
           'upCount' => $upCount,
           'downCount' => $downCount,
-          'totalMonitors' => $totalMonitors
+          'totalMonitors' => $totalMonitors,
+          'pausedCount'=> $pausedCount
       ]);
   }
 
@@ -180,6 +195,9 @@ class MonitoringController extends Controller
         return view('pages.Add_Monitor');
 
     }
+
+
+
 
 
     //To display a particular monitor.
@@ -366,8 +384,8 @@ class MonitoringController extends Controller
         
         //Form validation
         $request->validate([
-            'name'=>'required|string|max:255',
-            'url' => [
+            'name'   => 'required|string|max:255',
+            'url'    => [
                 'required',
                 'url',
                 Rule::unique('monitors', 'url')
@@ -375,17 +393,20 @@ class MonitoringController extends Controller
                         return $query->where('user_id', $user->id)
                                     ->where('type', $request->type);
                     })
-                    ->ignore($id), // Ignore current record when checking for uniqueness
+                    ->ignore($id),
             ],
-            'retries' => 'required|integer|min:1',
+            'retries'  => 'required|integer|min:1',
             'interval' => 'required|integer|min:1',
-            'email' => 'required|email',
-            'port' => 'nullable|integer', 
-            'dns_resource_type' => 'nullable|string', 
-            'telegram_id' => 'nullable|string',
-            'telegram_bot_token' => 'nullable|string',
-            'type' => 'string'
+            'email'    => 'required|email',
+            'port'     => 'nullable|integer', 
+            'allowed_status_codes'   => Rule::requiredIf($request->type === 'http'),
+            'allowed_status_codes.*' => 'string',
+            'dns_resource_type'   => 'nullable|string', 
+            'telegram_id'         => 'nullable|string',
+            'telegram_bot_token'  => 'nullable|string',
+            'type'                => 'string'
         ]);
+
 
         //Find monitor with the id
         $EditMonitoring=Monitors::findOrFail($id);
