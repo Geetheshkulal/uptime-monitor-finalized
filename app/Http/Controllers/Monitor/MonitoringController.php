@@ -232,7 +232,7 @@ class MonitoringController extends Controller
             case 'http':
                     $ChartResponses = HttpResponse::where('monitor_id', $id)
                     ->orderBy('created_at', 'asc')
-                    ->get(['created_at', 'response_time']);
+                    ->get(['created_at', 'response_time','status_code']);
                     break;
 
             default:
@@ -286,7 +286,7 @@ class MonitoringController extends Controller
         case 'http':
                 $ChartResponses = HttpResponse::where('monitor_id', $id)
                 ->orderBy('created_at', 'asc')
-                ->get(['created_at', 'response_time']);
+                ->get(['created_at', 'response_time','status_code']);
                 break;
         default:
                 $ChartResponses = collect(); //Empty collection.

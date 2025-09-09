@@ -565,6 +565,10 @@
                 ),
             ) !!};
 
+            var statusCodes =  {!!($details->type === 'http')? json_encode(array_slice($ChartResponses->pluck('status_code')->toArray(), -20)):'null' !!}
+
+        
+
             var statusElement = document.getElementById('statusElement');
             var currentResponseElement = document.getElementById('currentResponse');
             var averageResponseElement = document.getElementById('averageResponse');
@@ -578,10 +582,9 @@
                     datasets: [{
                         label: "Response Time (ms)",
                         fill: true,
-                        // backgroundColor: "rgba(78, 115, 223, 0.05)",
-                        backgroundColor: gradient, 
-                        borderColor:"rgba(12, 12, 233, 0.97)",
-                        lineTension: 0.2,
+                        backgroundColor: gradient,
+                        borderColor: "rgba(12, 12, 233, 0.97)",
+                        tension: 0.2,
                         pointRadius: 3,
                         pointBackgroundColor: "rgba(78, 115, 223, 1)",
                         pointBorderColor: "rgba(78, 115, 223, 1)",
@@ -591,81 +594,80 @@
                         pointHitRadius: 10,
                         pointBorderWidth: 2,
                         data: responseTimes,
+                        statusCodes: statusCodes // attach status codes to dataset
                     }],
                 },
-                
+
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
                     layout: {
-                        padding: {
-                            left: 10,
-                            right: 25,
-                            top: 25,
-                            bottom: 0
-                        }
+                        padding: { left: 10, right: 25, top: 25, bottom: 0 }
                     },
                     scales: {
                         x: {
-                            time: {
-                                unit: 'date'
-                            },
-                            gridLines: {
+                            grid: {
                                 display: true,
-                                drawBorder: true
+                                drawBorder: true,
+                                color: "rgba(255,255,255,0.2)" // lighter lines
                             },
                             ticks: {
                                 maxTicksLimit: 20,
-                                // color: isDark ? '#e0e0e0' : '#333'
-                                color: isDark ? '#e0e0e0' : '#4e73df'
+                                color: '#4e73df'
                             }
                         },
-                        y:{
+                        y: {
                             ticks: {
                                 maxTicksLimit: 5,
                                 padding: 10,
                                 callback: function(value) {
                                     return value + ' ms';
                                 },
-                                color: isDark ? '#e0e0e0' : '#4e73df'
+                                color: '#4e73df'
                             },
-                            gridLines: {
-                                color: "rgb(234, 236, 244)",
-                                zeroLineColor: "rgb(234, 236, 244)",
+                            grid: {
+                                color: "rgba(255,255,255,0.2)", // lighter lines
                                 drawBorder: false,
-                                borderDash: [2],
-                                zeroLineBorderDash: [2]
+                                borderDash: [2]
                             }
                         },
                     },
-                    legend: {
-                        display: true
-                    },
-                    tooltips: {
-                        backgroundColor: "rgb(255,255,255)",
-                        bodyFontColor: "#858796",
-                        titleMarginBottom: 10,
-                        titleFontColor: '#6e707e',
-                        titleFontSize: 14,
-                        borderColor: '#dddfeb',
-                        borderWidth: 1,
-                        xPadding: 15,
-                        yPadding: 15,
-                        displayColors: true,
-                        intersect: false,
-                        mode: 'index',
-                        caretPadding: 10,
-                        callbacks: {
-                            label: function(tooltipItem, chart) {
-                                var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-                                return datasetLabel + ': ' + tooltipItem.yLabel + ' ms';
+                    plugins: {
+                        legend: {
+                            display: true
+                        },
+                        tooltip: {
+                            backgroundColor: "rgb(255,255,255)",
+                            bodyColor: "#858796",
+                            titleColor: '#6e707e',
+                            titleFont: { size: 14 },
+                            borderColor: '#dddfeb',
+                            borderWidth: 1,
+                            padding: 15,
+                            displayColors: true,
+                            intersect: false,
+                            mode: 'index',
+                            callbacks: {
+                                label: function(context) {
+                                    let datasetLabel = context.dataset.label || '';
+                                    let value = context.parsed.y;
+                                    let label = datasetLabel + ': ' + value + ' ms';
+
+                                    // append status code if available
+                                    let codes = context.dataset.statusCodes;
+                                    if (codes && codes[context.dataIndex] !== undefined) {
+                                        label += ' | Status: ' + codes[context.dataIndex];
+                                    }
+
+                                    return label;
+                                }
                             }
                         }
                     }
                 }
-
-
             });
+
+
 
 
 
