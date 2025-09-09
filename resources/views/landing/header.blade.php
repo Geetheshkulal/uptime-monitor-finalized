@@ -1,15 +1,15 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-light bg-[#FFFFFF] fixed-top">
 
     <div class="container">
       
-      <a class="navbar-brand text-primary fw-bold d-flex align-items-center" href="/">
+      {{-- <a class="navbar-brand text-primary fw-bold d-flex align-items-center" href="/">
         <i class="fas fa-heartbeat me-2"></i>DRISHTI PULSE
-      </a>
-      {{-- <a class="navbar-brand d-flex align-items-center" href="/">
-        <img src="{{ asset('frontend/assets/logo/Drishti Pulse-111.png') }}" 
+      </a> --}}
+      <a class="navbar-brand d-flex align-items-center" href="/">
+        <img src="{{ asset('frontend/assets/logo/Drishti Pulse-14.png') }}" 
          alt="Drishti Pulse Logo" 
          class="img-fluid">
-    </a> --}}
+      </a>
       
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
@@ -35,9 +35,10 @@
         <!-- Right-aligned items -->
         <div class="d-flex align-items-center">
           <!-- Feedback button -->
-          <button class="btn btn-link text-decoration-none me-3" data-feedbear-button>
-            <i class="far fa-comment-dots me-1"></i> Feedback
-          </button>
+        <button class="btn text-decoration-none active me-3" data-feedbear-button=""
+        style="border:none; box-shadow:none;">
+  <i class="far fa-comment-dots me-1"></i> Feedback
+</button>
           
           <!-- Auth buttons -->
           @if (Route::has('login'))

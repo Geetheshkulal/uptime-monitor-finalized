@@ -325,7 +325,6 @@ class MonitorJob
         // Log::info('Telegram API Response: ', $response->json());
     }
 
-
     public function SendPwaNotification($userId, $notificationToken = null, $monitorName, $status)
     {
         try {
@@ -885,6 +884,7 @@ class MonitorJob
     public function handle(): void
     {
         try {
+            
             $monitors = Monitors::where('paused', false)
                 ->where('pause_on_expire', false)
                 ->where(function ($query) {

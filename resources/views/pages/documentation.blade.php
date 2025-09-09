@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Drishti pulse | Documentation</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
   <link rel="stylesheet" href="{{ asset('frontend/assets/css/sb-admin-2.css') }}">
 
   <style>
@@ -323,6 +323,7 @@
       display: none;
     }
   </style>
+
 </head>
 
 <body>
@@ -336,6 +337,12 @@
       <a class="fw-bold d-flex align-items-center text-white text-decoration-none ms-auto" href="/">
         <i class="fas fa-heartbeat me-2"></i>Drishti Pulse
       </a>
+
+      {{-- <a class="navbar-brand d-flex align-items-center" href="/">
+        <img src="{{ asset('frontend/assets/logo/Drishti Pulse-14.png') }}" 
+         alt="Drishti Pulse Logo" 
+         class="img-fluid">
+      </a> --}}
     </div>
   </div>
 
@@ -345,9 +352,14 @@
   <!-- Sidebar Navigation -->
   <div class="sidebar">
     <div class="sidebar-header">
-        <a href="/">
+        {{-- <a href="/">
             <h4><i class="fas fa-heartbeat me-2"></i>Drishti Pulse</h4>
-        </a>
+        </a> --}}
+          <a class="navbar-brand d-flex align-items-center" href="/">
+        <img src="{{ asset('frontend/assets/logo/Drishti Pulse-14.png') }}" 
+         alt="Drishti Pulse Logo" 
+         class="img-fluid">
+      </a>
     </div>
     <div class="nav-menu">
         <a href="#" onclick="showTab('tab1')" class="active">

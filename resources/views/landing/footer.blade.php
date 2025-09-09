@@ -5,8 +5,14 @@
         <!-- Company Info -->
         <div class="col-lg-3 col-md-6">
             <div class="d-flex align-items-center mb-3">
-            <i class="fas fa-heartbeat text-primary me-2 fs-4"></i>
-            <h3 class="h5 fw-bold mb-0">DRISHTI PULSE</h3>
+            {{-- <i class="fas fa-heartbeat text-primary me-2 fs-4"></i>
+            <h3 class="h5 fw-bold mb-0">DRISHTI PULSE</h3> --}}
+            <a class="d-flex align-items-center" href="/">
+                <img src="{{ asset('frontend/assets/logo/Drishti Pulse-25.png') }}"
+                 alt="Drishti Pulse Logo" 
+                 class="img-fluid" style="
+    height: 53px;">
+            </a>
             </div>
             <p class="mb-3 text-muted">Enterprise-grade website monitoring for businesses of all sizes.</p>
             <!-- <div class="d-flex gap-3">
@@ -30,13 +36,13 @@
             <h3 class="h6 fw-bold mb-3 text-uppercase small text-muted">Product</h3>
             <div class="d-flex flex-column gap-2 footer-links">
             <a href="/#features" class="text-light text-decoration-none hover-text-primary transition">
-                <i class="fas fa-chevron-right me-1 text-primary opacity-50 fs-8"></i> Features
+                <i class="fas fa-chevron-right me-1 text-primary-icon opacity-50 fs-8"></i> Features
             </a>
             <a href="/#pricing" class="text-light text-decoration-none hover-text-primary transition">
-                <i class="fas fa-chevron-right me-1 text-primary opacity-50 fs-8"></i> Pricing
+                <i class="fas fa-chevron-right me-1 text-primary-icon opacity-50 fs-8"></i> Pricing
             </a>
             <a href="/changelog" class="text-light text-decoration-none hover-text-primary transition">
-                <i class="fas fa-chevron-right me-1 text-primary opacity-50 fs-8"></i> Changelog
+                <i class="fas fa-chevron-right me-1 text-primary-icon opacity-50 fs-8"></i> Changelog
             </a>
             </div>
         </div>
@@ -46,13 +52,13 @@
             <h3 class="h6 fw-bold mb-3 text-uppercase small text-muted">Useful Links</h3>
             <div class="d-flex flex-column gap-2 footer-links">
             <a href="{{ route('privacy') }}" class="text-light text-decoration-none hover-text-primary transition">
-                <i class="fas fa-chevron-right me-1 text-primary opacity-50 fs-8"></i> Privacy Policy
+                <i class="fas fa-chevron-right me-1 text-primary-icon opacity-50 fs-8"></i> Privacy Policy
             </a>
             <a href="{{ route('terms') }}" class="text-light text-decoration-none hover-text-primary transition">
-                <i class="fas fa-chevron-right me-1 text-primary opacity-50 fs-8"></i> Terms of Service
+                <i class="fas fa-chevron-right me-1 text-primary-icon opacity-50 fs-8"></i> Terms of Service
             </a>
             <a href="{{ route('cookies') }}" class="text-light text-decoration-none hover-text-primary transition">
-                <i class="fas fa-chevron-right me-1 text-primary opacity-50 fs-8"></i> Cookies Policy
+                <i class="fas fa-chevron-right me-1 text-primary-icon opacity-50 fs-8"></i> Cookies Policy
             </a>
             </div>
         </div>
@@ -61,9 +67,9 @@
         <!-- Contact Information - Added to fill empty space -->
         <div class="col-lg-3 col-md-6">
             <h3 class="h6 fw-bold mb-3 text-uppercase small text-muted">Contact Us</h3>
-            <div class="d-flex flex-column gap-2">
+            <div class="d-flex flex-column gap-2 footer-links">
             <p class="mb-3 d-flex align-items-start">
-                <i class="fas fa-map-marker-alt text-primary me-2 mt-1"></i>
+                <i class="fas fa-map-marker-alt text-primary-icon me-2 mt-1"></i>
                 <a 
                 href="https://www.google.com/maps/place/Mangalore" 
                 target="_blank"
@@ -78,11 +84,11 @@
                 </a>
             </p>
             <p class="mb-1 d-flex align-items-center">
-                <i class="fas fa-envelope text-primary me-2"></i>
+                <i class="fas fa-envelope text-primary-icon me-2"></i>
                 <a href="mailto:info@ditsolutions.net" class="text-light text-decoration-none hover-text-primary transition">info@ditsolutions.net</a>
             </p>
             <p class="mb-1 d-flex align-items-center">
-                <i class="fas fa-phone text-primary me-2"></i>
+                <i class="fas fa-phone text-primary-icon me-2"></i>
                 <a href="tel:+91 8073462033" class="text-light text-decoration-none hover-text-primary transition">+91 8073462033</a>
             </p>
             {{-- <div class="mt-2">

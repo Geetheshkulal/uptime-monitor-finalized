@@ -24,14 +24,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">  
+    {{-- <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet"> --}}
+
 </head>
 
 <style>
     :root {
-        --primary-color: #5d75ca;
-        --secondary-color: #4e73df;
+        /* --primary-color: #5d75ca; */
+        --primary-color:  #52C41A;
+        /* --secondary-color: #4e73df; */
+        --secondary-color:  #f9f9f9;
+        --secondary-color-button: #0ABFBC;
+        --text-color: #000000;
         --accent-color: #4cc9f0;
         --dark-color: #1a1a2e;
         --light-color: #f8f9fa;
@@ -40,11 +45,13 @@
     html,
     body {
         font-family: 'Poppins', sans-serif;
+        /* font-family: 'Audiowide', sans-serif; */
         overflow-x: hidden;
     }
 
     .gradient-bg {
-        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        /* background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); */
+        background: var(--secondary-color)
     }
 
 
@@ -109,9 +116,10 @@
     }
 
     .btn-primary {
-        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color-button) 100%) ;
         border: none;
-        box-shadow: 0 5px 15px rgba(67, 97, 238, 0.4);
+        /* color: var(--text-color); */
+        /* box-shadow: 0 5px 15px rgba(67, 97, 238, 0.4); */
     }
 
     .btn-primary:hover {
@@ -134,8 +142,8 @@
     }
 
     .navbar.scrolled {
-        background-color: white !important;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        background-color: var(--secondary-color) !important;
+        /* box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); */
         padding: 10px 0;
     }
 
@@ -168,7 +176,7 @@
     }
 
     .footer-links a:hover {
-        /* color: var(--accent-color) !important; */
+        color: var(--primary-color) !important;
         transform: translateX(5px);
     }
 
@@ -196,8 +204,16 @@
         opacity: 1 !important;
     }
 
+    .text-primary{
+        color: var(--text-color) !important;
+    }
+    .text-primary-icon{
+        color: var(--primary-color) ;
+    }
+
     .hover-text-primary:hover {
-        color: #0d6efd !important;
+        /* color: #0d6efd !important; */.
+        color: var(--primary-color) !important;
     }
 
     .text-muted {
@@ -225,6 +241,13 @@
 
     }
 
+    @media (max-width: 578px) {
+        .navbar-light{
+            background-color: var(--light-color) !important;
+        }
+
+    }
+
     .navbar-toggler:focus {
         box-shadow: none !important;
     }
@@ -233,6 +256,7 @@
     max-height: 50px;
     width: auto;
 }
+
 
 </style>
 @stack('styles')
@@ -322,8 +346,8 @@
         });
     </script>
 
-    <script type="module">
-        // Import the functions you need from the SDKs you need
+    {{-- <script type="module">
+     
         import {
             initializeApp
         } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
@@ -341,10 +365,10 @@
             measurementId: "G-FMM15QNKS4"
         };
 
-        // Initialize Firebase
+   
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
-    </script>
+    </script> --}}
 
 </body>
 

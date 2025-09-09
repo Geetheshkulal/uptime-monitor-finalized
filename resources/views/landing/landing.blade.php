@@ -46,7 +46,8 @@
     margin: 0 auto 1.5rem;
     font-size: 1.8rem;
     font-weight: bold;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    /* background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); */
+    background: var(--primary-color);
     color: white;
     box-shadow: 0 10px 20px rgba(67, 97, 238, 0.3);
   }
@@ -92,7 +93,8 @@
     align-items: center ;
     justify-content: center;
     margin-bottom: 1.5rem;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    /* background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color-button) 100%); */
+    background: var(--primary-color);
     color: white;
     font-size: 2rem;
     box-shadow: #4361ee;
@@ -325,7 +327,7 @@
     
     <div class="container">
       <div class="row align-items-center hero-content">
-        <div class="col-lg-6 text-center text-lg-start mb-5 mb-lg-0">
+        <div class="col-lg-6 text-center text-lg-start mb-5 mb-lg-0 text-black">
           <h1 class="text-center text-gradient-primary display-2 fw-black mb-5 animate__animated animate__fadeInDown">
             <span class="d-block fw-semibold mb-2" style="letter-spacing: 1px;">NEVER MISS A WEBSITE</span>
             <span class="d-block fw-semibold mt-3 animate__animated animate__fadeInUp animate__delay-1s">
@@ -337,16 +339,16 @@
           <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start gap-3 animate__animated animate__fadeIn animate__delay-2s">
             @if(auth()->check())
                 @hasrole('superadmin')
-                  <a href="{{ route('admin.dashboard') }}" class="btn btn-light btn-lg fw-bold">
+                  <a href="{{ route('admin.dashboard') }}" class="btn btn-primary btn-lg fw-bold">
                       <i class="fas fa-play-circle me-2"></i> Start Monitoring
                   </a>
                 @else
-                  <a href="{{ route('monitoring.dashboard') }}" class="btn btn-light btn-lg fw-bold">
+                  <a href="{{ route('monitoring.dashboard') }}" class="btn btn-primary btn-lg fw-bold">
                       <i class="fas fa-play-circle me-2"></i> Start Monitoring
                   </a>
                 @endhasrole
             @else
-                <a href="{{ route('login') }}" class="btn btn-light btn-lg fw-bold">
+                <a href="{{ route('login') }}" class="btn btn-primary btn-lg fw-bold">
                     <i class="fas fa-play-circle me-2"></i> Start Monitoring
                 </a>
             @endif
@@ -529,7 +531,7 @@
             <div class="card h-100 border-light shadow-sm popular-plan">
               <div class="card-body p-4 text-center">
                 <h3 class="fw-bold mb-2">{{ $plan->name }}</h3>
-                <div class="text-primary mb-4">
+                <div class="mb-4">
                   <span class="display-6 fw-bold">₹{{ $plan->amount }}</span>
                   <span class="text-muted">/month</span>
                 </div>
@@ -538,7 +540,7 @@
                   @foreach($plan->features ?? [] as $feature)
                     <li class="mb-3 {{ !$feature['available'] ? 'feature-unavailable' : '' }}">
                       @if($feature['available'])
-                        <i class="fas fa-check-circle" style="color: #065bef;"></i>
+                        <i class="fas fa-check-circle" style="color: var(--primary-color);"></i>
                       @else
                         <i class="fas fa-times-circle" style="color: #dc3545;"></i>
                       @endif
@@ -553,13 +555,13 @@
                     <a href="{{ route('admin.dashboard') }}" class="btn btn-primary d-block">
                       Get Started
                     </a>
-                  @else
-                    <a href="{{ route('monitoring.dashboard') }}" class="btn btn-outline-primary d-block">
+                @else
+                    <a href="{{ route('monitoring.dashboard') }}" class="btn btn-primary d-block">
                       Get Started
                     </a>
                   @endhasrole
                 @else
-                  <a href="{{ route('login') }}" class="btn btn-outline-primary d-block">
+                  <a href="{{ route('login') }}" class="btn btn-primary d-block">
                     Get Started
                   </a>
                 @endif
@@ -573,14 +575,14 @@
   </section>
 
   <!-- CTA Section -->
-  <section class="py-5 gradient-bg text-white">
+  <section class="py-5 gradient-bg text-black">
     <div class="container">
       <div class="row justify-content-center text-center">
         <div class="col-lg-8">
           <h2 class="display-5 fw-semibold mb-4 animate__animated animate__fadeInDown">Ready to Monitor Your Websites?</h2>
           <p class="lead mb-5 animate__animated animate__fadeIn animate__delay-1s">Join thousands of businesses that trust Drishti Pulse to keep their websites and services running smoothly.</p>
           <div class="d-flex flex-column flex-sm-row justify-content-center gap-3 animate__animated animate__fadeIn animate__delay-2s">
-            <a href="{{ route('login') }}" class="btn btn-light btn-lg fw-bold px-4">
+            <a href="{{ route('login') }}" class="btn btn-primary btn-lgfw-bold px-4">
               <i class="fas fa-rocket me-2"></i> Start Your Free Trial
             </a>
           </div>
