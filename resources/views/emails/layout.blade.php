@@ -6,6 +6,19 @@
     <title>@yield('title', 'DRISHTI PULSE')</title>
 </head>
 
+
+<style>
+    :root {
+        --primary-color:  #52C41A;
+        --primary-light-color:  #c6fcab;
+        /* --secondary-color:  #f9f9f9; */
+        --secondary-color: #0ABFBC;
+        --text-color: #000000;
+        --dark-color: #1a1a2e;
+        --light-color: #f8f9fa;
+    }
+</style>
+
 <body style="font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f5f7fa; margin: 0; padding: 0; color: #333333; -webkit-font-smoothing: antialiased;">
 
     {{-- Tracking Pixel (if needed globally) --}}
@@ -18,26 +31,28 @@
 
                     {{-- HEADER --}}
                     <tr>
-                        <td style="text-align: center; background: #3490dc; padding: 30px 20px; border-radius: 12px 12px 0 0;">
-                            {{-- <td style="text-align: center; background: #52C41A; padding: 30px 20px; border-radius: 12px 12px 0 0;"> --}}
+                        {{-- <td style="text-align: center; background: #3490dc; padding: 30px 20px; border-radius: 12px 12px 0 0;"> --}}
+                            <td style="text-align: center; background: #1e1e2f; padding: 30px 20px; border-radius: 12px 12px 0 0;">
                             <table width="100%" cellpadding="0" cellspacing="0" border="0">
                                 <tr>
                                     <td align="center">
                                         <table cellpadding="0" cellspacing="0" border="0">
                                             <tr>
                                                 <td style="vertical-align: middle;">
-                                                    <img src="https://i.ibb.co/Fq8LgD9s/mainlogo.png" alt="Logo" style="height: 40px; display: inline-block;">
+                                                    <a class="d-flex align-items-center" href="{{ config('app.url') }}">
+                                                    <img src="{{ asset('frontend/assets/logo/Drishti Pulse-25.png') }}"  alt="Logo" style="height: 70px; display: inline-block;">
+                                                    </a>
                                                 </td>
-                                                <td style="vertical-align: middle; padding-left: 10px;">
+                                                {{-- <td style="vertical-align: middle; padding-left: 10px;">
                                                     <span style="color: white; font-size: 24px; font-weight: 600; display: inline-block;">Drishti Pulse</span>
-                                                </td>
+                                                </td> --}}
                                             </tr>
                                         </table>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <h1 style="color: white; margin: 20px 0 0 0; font-size: 28px; font-weight: 600;">
+                                        <h1 style="color: white; margin: 0 0 0 0; font-size: 28px; font-weight: 600;">
                                             @yield('header_title')
                                         </h1>
                                     </td>
@@ -90,15 +105,17 @@
                             <table cellpadding="0" cellspacing="0" border="0" style="margin: 0 auto;">
                                 <tr>
                                     <td style="vertical-align: middle;">
-                                        <img src="https://i.ibb.co/Fq8LgD9s/mainlogo.png" alt="Logo" style="height: 30px; display: inline-block;">
+                                        <a class="d-flex align-items-center" href="{{ config('app.url') }}">
+                                        <img src="{{ asset('frontend/assets/logo/Drishti Pulse-14.png') }}" alt="Logo" style="height: 65px; display: inline-block;">
+                                        </a>
                                     </td>
-                                    <td style="vertical-align: middle; padding-left: 8px;">
+                                    {{-- <td style="vertical-align: middle; padding-left: 8px;">
                                         <span style="color: #333; font-size: 18px; font-weight: 600; display: inline-block;">DRISHTI PULSE</span>
-                                    </td>
+                                    </td> --}}
                                 </tr>
                             </table>
                             
-                            <p style="font-size: 14px; color: #666; margin: 20px 0 15px 0;">
+                            <p style="font-size: 14px; color: #666; margin: 10px 0 15px 0;">
                                 Need help? Contact us at <a href="mailto:info@ditsolutions.net" style="color: #0066cc; text-decoration: none;">info@ditsolutions.net</a>
                             </p>
 

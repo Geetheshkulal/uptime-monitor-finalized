@@ -18,6 +18,7 @@ Payment Receipt
 
 <p>You can find the attached invoice PDF for your records.</p>
 @endsection
+
 {{-- <!DOCTYPE html>
 <html>
 <head>

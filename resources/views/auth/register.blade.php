@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet">
 
     <!-- Custom styles -->
-    <link href="{{asset('frontend/assets/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <link href="{{asset('frontend/assets/css/sb-admin-2.css')}}" rel="stylesheet">
 
     <!-- Toastr CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">

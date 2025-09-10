@@ -17,7 +17,7 @@
 @section('content')
 <p>Hello, {{ $monitor->name }}</p>
 {{-- <p>Hello, {{ $monitor->user->name }}</p> --}}
-<p>We have detected that <strong style="color:#3490dc;">{{ $monitor->url }}</strong> is currently <strong>DOWN</strong>.</p>
+<p>We have detected that <strong style="color:var(--primary-color);">{{ $monitor->url }}</strong> is currently <strong>DOWN</strong>.</p>
 <p>We will notify you once the monitor is back <strong>UP</strong>.</p>
 
 <div style="background-color: #f8f9fa; border-left: 4px solid #3490dc; padding: 15px; margin: 30px 0; border-radius: 4px;">

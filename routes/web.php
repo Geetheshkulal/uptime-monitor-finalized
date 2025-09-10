@@ -59,7 +59,21 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\Monitors;
 
 
-// Route::get('/test-notification', [TestWebPushNotificationController::class, 'sendTestNotification']);
+use App\Services\PwaNotificationService;
+
+Route::get('/test/{userId}', function ($userId, PwaNotificationService $pwa) {
+    $title = "Test PWA Notification";
+    $body  = "This is a test push notification from Laravel!";
+    $url   = "/"; // can be changed to /dashboard or /login
+
+    $success = $pwa->sendToUser($userId, $title, $body, $url);
+
+    if ($success) {
+        return "✅ PWA notification sent to user {$userId}";
+    } else {
+        return "⚠️ No subscriptions found for user {$userId}";
+    }
+});
 
 
 // Route::match(['post'], '/cashfree/response', function (Request $request) {
@@ -365,17 +379,15 @@ Route::get('/track/{token}.png', [TrackingController::class, 'pixel'])->withoutM
 use App\Models\Ticket;
 use App\Mail\CommentAddMail;
 
-Route::get('/test-email', function () {
-    // Create a dummy ticket object
-    $ticket = new Ticket();
-    $ticket->id = 101;
-    $ticket->ticket_id = 'TCK-101';
+// Route::get('/test-email', function () {
 
-    // Send email (synchronously for testing)
-    Mail::to('geetheshkulal84@gmail.com')
-        ->send(new CommentAddMail($ticket));
+//     $ticket = new Ticket();
+//     $ticket->id = 101;
+//     $ticket->ticket_id = 'TCK-101';
+//     Mail::to('geetheshkulal84@gmail.com')
+//         ->send(new CommentAddMail($ticket));
 
-    return '✅ Test comment email sent!';
-});
+//     return '✅ Test comment email sent!';
+// });
 
 require __DIR__ . '/auth.php';

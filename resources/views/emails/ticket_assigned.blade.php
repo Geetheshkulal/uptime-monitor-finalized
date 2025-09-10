@@ -26,6 +26,8 @@ New Ticket Assigned
 
     <p style="margin-bottom: 0;">If you have any questions, feel free to <a href="mailto:info@ditsolutions.net" style="color: #4f46e5; text-decoration: none; font-weight: 500;">contact our support team</a>.</p>
 @endsection
+
+
 {{-- <!DOCTYPE html>
 <html>
 <head>

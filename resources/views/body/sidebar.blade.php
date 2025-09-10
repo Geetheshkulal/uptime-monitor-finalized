@@ -216,7 +216,8 @@
     }
 
     #accordionSidebar {
-        background-color: var(--primary) ;
+        /* background-color: var(--primary) ; */
+        background: linear-gradient(135deg,#0ABFBC  0%, var(--primary) 90%) ;
     }
 
 

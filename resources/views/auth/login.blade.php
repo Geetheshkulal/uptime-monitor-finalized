@@ -45,7 +45,7 @@
             margin: 2rem auto;
         }
         
-        .btn-primary {
+        /* .btn-primary {
             border-radius: 10rem;
             padding: 0.75rem 1rem;
             font-weight: 600;
@@ -59,7 +59,7 @@
         
         .btn-primary:focus {
             box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.5);
-        }
+        } */
         
         .form-control-user {
             border-radius: 10rem;
@@ -69,7 +69,6 @@
         }
         
         .form-control-user:focus {
-            /* box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25); */
             border-color: var(--primary) !important;
             box-shadow: none !important;
         }
@@ -371,7 +370,7 @@
                                                 <label class="custom-control-label" for="remember_me">Remember Me</label>
                                             </div>
                                             @if (Route::has('password.request'))
-                                                <a class="small text-primary forgot-password-link" href="{{ route('password.request') }}">Forgot Password?</a>
+                                                <a class="small  forgot-password-link" href="{{ route('password.request') }}">Forgot Password?</a>
                                             @endif
                                         </div>
 
