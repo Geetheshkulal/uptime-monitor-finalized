@@ -249,9 +249,9 @@
                       </span>
 
                       @if($details->type === 'port')
-                        <span class="text-primary">{{ $details->url }} : {{$details->port}}</span>
+                        <span style="color:var(--blue);">{{ $details->url }} : {{$details->port}}</span>
                       @else
-                        <span class="text-primary">{{ $details->url }}</span>
+                        <span style="color:var(--blue);">{{ $details->url }}</span>
                       @endif
                 </h5>
             </div>

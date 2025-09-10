@@ -79,7 +79,7 @@
     
     /* URL styling */
     .monitor-url {
-        color: var(--primary);
+        color: var(--blue);
         font-weight: 500;
     }
     

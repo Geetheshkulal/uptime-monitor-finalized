@@ -56,6 +56,8 @@
     border-bottom: none;
   }
 
+  
+
     * {
         box-sizing: border-box;
         font-family: "Nunito", sans-serif;
@@ -120,7 +122,7 @@
     /* SIDEBAR */
 
     html.dark-mode #accordionSidebar {
-        background-color: var(--color-card-alt-dark);
+        background: var(--color-card-alt-dark);
         box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
         border-right: 1px solid var(--color-card-accent-dark);
     }

@@ -54,7 +54,7 @@
             padding: 0.5rem 1.25rem;
         }
 
-        .btn-primary {
+        /* .btn-primary {
             background-color: var(--primary);
             border-color: var(--primary);
         }
@@ -62,7 +62,7 @@
         .btn-primary:hover {
             background-color: var(--primary-hover);
             border-color: var(--primary-hover);
-        }
+        } */
         .container-fluid{
             overflow: auto;
             margin-left: -19px;
@@ -75,7 +75,7 @@
         }
 
         .nav-tabs .nav-link.active {
-            background-color: var(--primary);
+            background: var(--primary-background-gradient) ;
             color: white;
             border: none;
         }

@@ -140,7 +140,7 @@ class MonitorJob
             ]);
 
             // Only for DOWN monitor
-            Mail::to($monitor->email)->queue(new MonitorDownAlert($monitor, $token, $reason));
+            // Mail::to($monitor->email)->queue(new MonitorDownAlert($monitor, $token, $reason));
 
             if ($monitor->telegram_bot_token && $monitor->telegram_id && $monitor->user->status !== 'free') {
                 $this->sendTelegramNotification($monitor);
@@ -177,7 +177,7 @@ class MonitorJob
 
             $token = Str::random(32);
             // Monitor UP — send only once directly
-            Mail::to($monitor->email)->send(new MonitorUpAlert($monitor, $token));
+            // Mail::to($monitor->email)->send(new MonitorUpAlert($monitor, $token));
 
             if ($monitor->telegram_bot_token && $monitor->telegram_id && $monitor->user->status !== 'free') {
                 $this->sendTelegramNotification($monitor);
@@ -384,9 +384,9 @@ class MonitorJob
         $statusCode = 0;
         $responseTime = 0;
         $reason = 'Connection timed out';
-        Log::info('hello');
+        // Log::info('hello');
         $allowedCodes = $monitor->getExpandedStatusCodesAttribute();
-        Log::info('code'.json_encode($allowedCodes));
+        // Log::info('code'.json_encode($allowedCodes));
         // Log::info("Checking HTTP Monitor: {$monitor->id} ({$monitor->url})");
 
         for ($attempt = 0; $attempt < $monitor->retries; $attempt++) {
@@ -401,7 +401,7 @@ class MonitorJob
 
                 
 
-                Log::info("HTTP Response ({$monitor->id}): Status $statusCode, Time {$responseTime}ms");
+                // Log::info("HTTP Response ({$monitor->id}): Status $statusCode, Time {$responseTime}ms");
                 if (in_array($statusCode, $allowedCodes)) {
                     $status = 'up';
                 } else {
@@ -415,8 +415,8 @@ class MonitorJob
 
                 // Log::error("HTTP RequestException (Monitor ID: {$monitor->id}): " . $e->getMessage());
                 $statusCode = $e->response ? $e->response->status() : 0;
-                Log::info("HTTP Response ({$monitor->id}): Status $statusCode, Time {$responseTime}ms");
-                Log::info('code'.json_encode($allowedCodes));
+                // Log::info("HTTP Response ({$monitor->id}): Status $statusCode, Time {$responseTime}ms");
+                // Log::info('code'.json_encode($allowedCodes));
                 if(in_array($statusCode, $allowedCodes)){
                     $status = 'up';
                 }else{
@@ -426,7 +426,6 @@ class MonitorJob
 
             } catch (\Exception $e) {
                 // Log::error("General HTTP Exception (Monitor ID: {$monitor->id}): " . $e->getMessage());
-                Log::info('code'.json_encode($allowedCodes));
                 // Handle timeouts and SSL errors
                 if(strpos($e->getMessage(), 'timed out') !== false) {
                     $statusCode = 408; 
@@ -796,13 +795,13 @@ class MonitorJob
                 $notification = $groupedNotifications->first();
 
                 // ✅ Follow-up email (only once)
-                if (!$notification->follow_up_sent) {
-                    Mail::to($notification->monitor->email)
-                        ->send(new FollowUpMail($notification->monitor));
-                    $notification->follow_up_sent = true;
-                    $notification->save();
-                    // Log::info("Follow-up email sent to: {$notification->monitor->email}");
-                }
+                // if (!$notification->follow_up_sent) {
+                //     Mail::to($notification->monitor->email)
+                //         ->send(new FollowUpMail($notification->monitor));
+                //     $notification->follow_up_sent = true;
+                //     $notification->save();
+                //     Log::info("Follow-up email sent to: {$notification->monitor->email}");
+                // }
 
                 // ✅ PWA Notification logic
                 if ($notification->status === 'unread') {

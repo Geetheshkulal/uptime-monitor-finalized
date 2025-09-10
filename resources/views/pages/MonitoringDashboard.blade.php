@@ -123,6 +123,10 @@
                     height: 100%;
                 }
 
+                .monitor-url{
+                    color: var(--blue);
+                }
+
                 /* ========== UTILITY CLASSES ========== */
                 .text-primary {
                     color: var(--primary) !important;
@@ -489,7 +493,7 @@
                         { 
                             data: 'url',
                             render: function(data, type, row) {
-                                return `<a href="${row.url}" target="_blank" class="text-primary">${data}</a>`;
+                                return `<a href="${row.url}" target="_blank" class="monitor-url">${data}</a>`;
                             }
                         },
                         { 

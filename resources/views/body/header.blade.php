@@ -43,7 +43,7 @@
 
     <!-- Skeleton Loader Styles -->
     <style>
-        *:not(.status-dot):not(.status-badge, .content, .status-indicator, .bar-segment, .badge, .whatsapp-bubble, .navbar, .telegram-bubble):not(#profile-photo, #accordionSidebar, #content-wrapper){
+        *:not(.status-dot):not(.status-badge, .content, .status-indicator, .bar-segment, .badge, .whatsapp-bubble, .navbar, .telegram-bubble, .spinner-border):not(#profile-photo, #accordionSidebar, #content-wrapper){
             border-radius: 3px;
         }
 

@@ -39,8 +39,12 @@
       transition: transform 0.3s ease-in-out;
     }
 
+    .primary-header{
+      background: var(--primary-background-gradient);
+    }
     .content {
       margin-left: var(--sidebar-width); 
+      margin-top: 30px;
       flex: 1;
       padding: 40px;
       overflow-y: auto;
@@ -146,7 +150,6 @@
       margin: 20px 25px;
       display: flex;
       align-items: center;
-      background-color: var(--blue);
       color: white;
       border: none;
       padding: 10px 15px;
@@ -157,7 +160,8 @@
     }
 
     .back-btn:hover {
-      background-color: var(--primary-hover);
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white !important;
       transform: translateY(-1px);
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
@@ -187,7 +191,7 @@
     }
 
     h2 {
-      color: var(--blue);
+      color: var(--primary);
       font-weight: 600;
       margin: 0;
     }
@@ -229,7 +233,6 @@
     .img-preview {
       border-radius: 8px;
       box-shadow: 0 3px 15px rgba(0,0,0,0.1);
-      border: 1px solid var(--gray-light);
       transition: transform 0.3s;
     }
 
@@ -239,7 +242,7 @@
 
     .feature-icon {
       font-size: 1.5rem;
-      color: var(--blue);
+      color: var(--primary);
       margin-right: 10px;
     }
 
@@ -247,7 +250,7 @@
       background-color: var(--light);
       padding: 30px;
       border-radius: 8px;
-      border-left: 4px solid var(--blue);
+      border-left: 4px solid var(--primary);
       margin: 20px 0;
     }
 
@@ -335,7 +338,9 @@
       </div>
       
       <a class="fw-bold d-flex align-items-center text-white text-decoration-none ms-auto" href="/">
-        <i class="fas fa-heartbeat me-2"></i>Drishti Pulse
+        <img src="{{ asset('frontend/assets/logo/Drishti Pulse-09.png') }}" 
+         alt="Drishti Pulse Logo" width="125px" height="80px"
+         class="img-fluid">
       </a>
 
       {{-- <a class="navbar-brand d-flex align-items-center" href="/">
@@ -356,7 +361,7 @@
             <h4><i class="fas fa-heartbeat me-2"></i>Drishti Pulse</h4>
         </a> --}}
           <a class="navbar-brand d-flex align-items-center" href="/">
-        <img src="{{ asset('frontend/assets/logo/Drishti Pulse-14.png') }}" 
+        <img src="{{ asset('frontend/assets/logo/Drishti Pulse-09.png') }}" 
          alt="Drishti Pulse Logo" 
          class="img-fluid">
       </a>
@@ -427,7 +432,7 @@
       <div class="row align-items-center mb-5">
         <div class="col-lg-6">
           <div class="card">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header primary-header text-white">
               <h5 class="mb-0">Monitoring Types</h5>
             </div>
             <div class="card-body">
@@ -448,7 +453,7 @@
       <div class="row align-items-center mb-5 flex-lg-row-reverse">
         <div class="col-lg-6">
           <div class="card">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header primary-header text-white">
               <h5 class="mb-0">Dashboard Overview</h5>
             </div>
             <div class="card-body">
@@ -470,7 +475,7 @@
       <div class="row align-items-center">
         <div class="col-lg-6">
           <div class="card">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header primary-header text-white">
               <h5 class="mb-0">Monitor Management</h5>
             </div>
             <div class="card-body">
@@ -503,7 +508,7 @@
         <div class="row align-items-center mb-5">
           <div class="col-lg-6">
             <div class="card">
-              <div class="card-header bg-primary text-white">
+              <div class="card-header primary-header text-white">
                 <h5 class="mb-0">SSL Check Interface</h5>
               </div>
               <div class="card-body">
@@ -525,7 +530,7 @@
         <div class="row align-items-center mb-5 flex-lg-row-reverse">
           <div class="col-lg-6">
             <div class="card">
-              <div class="card-header bg-primary text-white">
+              <div class="card-header primary-header text-white">
                 <h5 class="mb-0">Certificate Details</h5>
               </div>
               <div class="card-body">
@@ -546,7 +551,7 @@
         </div>
         
         <div class="card">
-          <div class="card-header bg-primary text-white">
+          <div class="card-header primary-header text-white">
             <h5 class="mb-0">SSL History Tracking</h5>
           </div>
           <div class="card-body">
@@ -575,7 +580,7 @@
       <div class="row">
         <div class="col-lg-8">
           <div class="card">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header primary-header text-white">
               <h5 class="mb-0">Incident Details</h5>
             </div>
             <div class="card-body">
@@ -608,7 +613,7 @@
       <div class="row mt-4">
         <div class="col-lg-6">
           <div class="card h-100">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header primary-header text-white">
               <h5 class="mb-0"><i class="fas fa-envelope me-2"></i> Email Alerts</h5>
             </div>
             <div class="card-body">
@@ -626,7 +631,7 @@
         
         <div class="col-lg-6">
           <div class="card h-100">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header primary-header text-white">
               <h5 class="mb-0"><i class="fab fa-telegram me-2"></i> Telegram Alerts</h5>
             </div>
             <div class="card-body">
@@ -661,7 +666,7 @@
       </div>
       
       <div class="card mt-4">
-        <div class="card-header bg-primary text-white">
+        <div class="card-header primary-header text-white">
           <h5 class="mb-0"><i class="fas fa-sliders-h me-2"></i> Alert Preferences</h5>
         </div>
         <div class="card-body">
@@ -699,7 +704,7 @@
         <div class="row mt-4">
           <div class="col-lg-12">
             <div class="card h-100">
-              <div class="card-header bg-primary text-white">
+              <div class="card-header primary-header text-white">
                 <h5 class="mb-0"><i class="fas fa-users me-2"></i> User Management</h5>
               </div>
               <div class="card-body">
@@ -718,7 +723,7 @@
         <div class="row mt-4">
           <div class="col-lg-12">
             <div class="card h-100">
-              <div class="card-header bg-primary text-white">
+              <div class="card-header primary-header text-white">
                 <h5 class="mb-0"><i class="fas fa-user-cog me-2"></i> User Permissions</h5>
               </div>
               <div class="card-body">
@@ -742,7 +747,7 @@
     <div class="row mt-4">
       <div class="col-lg-12">
         <div class="card h-100">
-          <div class="card-header bg-primary text-white">
+          <div class="card-header primary-header text-white">
             <h5 class="mb-0"><i class="fas fa-ticket-alt me-2"></i> Ticket Management</h5>
           </div>
           <div class="card-body">
@@ -760,7 +765,7 @@
     <div class="row mt-4">
       <div class="col-lg-12">
         <div class="card h-100">
-          <div class="card-header bg-primary text-white">
+          <div class="card-header primary-header text-white">
             <h5 class="mb-0"><i class="fas fa-history me-2"></i> Ticket History</h5>
           </div>
           <div class="card-body">
@@ -777,7 +782,7 @@
     <div class="row mt-4">
       <div class="col-lg-12">
         <div class="card h-100">
-          <div class="card-header bg-primary text-white">
+          <div class="card-header primary-header text-white">
             <h5 class="mb-0"><i class="fas fa-comments me-2"></i> Ticket Responses</h5>
           </div>
           <div class="card-body">
@@ -801,7 +806,7 @@
   <div class="row align-items-center mb-5">
       <div class="col-lg-6">
         <div class="card">
-          <div class="card-header bg-primary text-white">
+          <div class="card-header primary-header text-white">
             <h5 class="mb-0">Status page view for user</h5>
           </div>
           <div class="card-body">
@@ -820,7 +825,7 @@
     <div class="row align-items-center mb-5">
       <div class="col-lg-6">
         <div class="card">
-          <div class="card-header bg-primary text-white">
+          <div class="card-header primary-header text-white">
             <h5 class="mb-0">How to make the status page Public</h5>
           </div>
           <div class="card-body">
@@ -855,7 +860,7 @@
         <!-- Basic Plan -->
         <div class="col-lg-6 mb-4">
           <div class="card h-100">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header primary-header text-white">
               <h5 class="mb-0"><i class="fas fa-star me-2"></i> Basic Plan</h5>
             </div>
             <div class="card-body">
@@ -878,7 +883,7 @@
         @foreach($plans as $plan)
         <div class="col-lg-6 mb-4">
           <div class="card h-100 border-primary">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header primary-header text-white">
               <h5 class="mb-0"><i class="fas fa-crown me-2"></i> {{ $plan->name }}</h5>
             </div>
             <div class="card-body">

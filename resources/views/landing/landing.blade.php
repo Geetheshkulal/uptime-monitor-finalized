@@ -366,11 +366,11 @@
                   </div>
                   <div class="status-item">
                     <div class="status-indicator up"></div>
-                    <small>example.com</small>
+                    <small>github.com</small>
                   </div>
                   <div class="status-item">
                     <div class="status-indicator down"></div>
-                    <small>https://www.google.com</small>
+                    <small>medium.com</small>
                   </div>
                 </div>
                 <div class="chart-placeholder">

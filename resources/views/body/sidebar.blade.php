@@ -216,7 +216,8 @@
     }
 
     #accordionSidebar {
-        background-color: var(--primary) ;
+        /* background-color: var(--primary) ; */
+        background: linear-gradient(135deg, var(--blue), var(--primary-hover));
     }
 
 
@@ -261,16 +262,26 @@
     .collapse {
         visibility: visible !important;
     }
+
+    .sidebar-brand-icon {
+        width: 200px;  /* adjust size */
+        height: 80px;  /* adjust size */
+        background: url("{{ asset('frontend/assets/logo/Drishti Pulse-09.png') }}") no-repeat center/contain;
+    }
+
+    @media (max-width: 768px) {
+        .sidebar-brand-icon {
+            background-image: url("{{ asset('frontend/assets/logo/Drishti Pulse-20.png') }}");
+        }
+    }
+
 </style>
 
 <ul class="navbar-nav sidebar sidebar-dark accordion d-flex flex-column" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center " href="/">
-        <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-heartbeat"></i>
-        </div>
-        <div class="sidebar-brand-text mx-2">DRISHTI PULSE</div>
+        <div class="sidebar-brand-icon"></div>
     </a>
 
 
