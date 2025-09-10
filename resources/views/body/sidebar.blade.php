@@ -264,8 +264,10 @@
     }
 
     .sidebar-brand-icon {
-        width: 200px;  /* adjust size */
-        height: 80px;  /* adjust size */
+        width: 200px;
+        /* adjust size */
+        height: 80px;
+        /* adjust size */
         background: url("{{ asset('frontend/assets/logo/Drishti Pulse-09.png') }}") no-repeat center/contain;
     }
 
@@ -274,7 +276,6 @@
             background-image: url("{{ asset('frontend/assets/logo/Drishti Pulse-20.png') }}");
         }
     }
-
 </style>
 
 <ul class="navbar-nav sidebar sidebar-dark accordion d-flex flex-column" id="accordionSidebar">
@@ -374,7 +375,7 @@
     @can('see.users_and_customers')
         <li class="nav-item {{ request()->routeIs('display.users') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('display.users') }}">
-                <i class="fas fa-user"></i> 
+                <i class="fas fa-user"></i>
                 <span>Users & Customers</span>
             </a>
         </li>
@@ -398,76 +399,76 @@
                 <span>Permissions</span>
             </a>
         </li>
-  
-            @php
-                $unreadTickets = \App\Models\Ticket::where('is_read', false)->count();
-            @endphp
-            <li class="nav-item {{ request()->routeIs('tickets') ? 'active' : '' }}">
-                <a class="nav-link  position-relative" href="{{ route('tickets') }}">
 
-                    <i class="fas fa-ticket-alt"></i>
-                    <span>Tickets</span>
+        @php
+            $unreadTickets = \App\Models\Ticket::where('is_read', false)->count();
+        @endphp
+        <li class="nav-item {{ request()->routeIs('tickets') ? 'active' : '' }}">
+            <a class="nav-link  position-relative" href="{{ route('tickets') }}">
 
-                    <div class="badge-container">
-                        @if ($unreadTickets > 0)
-                            <span class="badge badge-success mb-1" style="font-size: 10px; padding: 2px 6px;">New
-                                {{ $unreadTickets }}</span>
-                        @endif
-                        @if ($unreadComments > 0)
-                            <span class="badge badge-success" style="font-size: 10px; padding: 2px 6px;">Comments
-                                {{ $unreadComments }}</span>
-                        @endif
-                    </div>
+                <i class="fas fa-ticket-alt"></i>
+                <span>Tickets</span>
 
-                </a>
-            </li>
+                <div class="badge-container">
+                    @if ($unreadTickets > 0)
+                        <span class="badge badge-success mb-1" style="font-size: 10px; padding: 2px 6px;">New
+                            {{ $unreadTickets }}</span>
+                    @endif
+                    @if ($unreadComments > 0)
+                        <span class="badge badge-success" style="font-size: 10px; padding: 2px 6px;">Comments
+                            {{ $unreadComments }}</span>
+                    @endif
+                </div>
+
+            </a>
+        </li>
     @endhasrole
 
     @can('see.plans')
-    <li class="nav-item {{ request()->routeIs('billing') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('billing') }}">
-            <i class="fas fa-money-bill"></i>
-            <span>Plans</span>
-        </a>
-    </li>
+        <li class="nav-item {{ request()->routeIs('billing') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('billing') }}">
+                <i class="fas fa-money-bill"></i>
+                <span>Plans</span>
+            </a>
+        </li>
     @endcan
 
     @can('see.feedback')
-    <li class="nav-item {{ request()->routeIs('display.feedback') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('display.feedback') }}">
-            <i class="fas fa-comment-dots"></i>
-            <span>Feedback</span>
-        </a>
-    </li>
+        <li class="nav-item {{ request()->routeIs('display.feedback') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('display.feedback') }}">
+                <i class="fas fa-comment-dots"></i>
+                <span>Feedback</span>
+            </a>
+        </li>
     @endcan
-    
+
     @can('see.user_subscription')
-    <li class="nav-item {{ request()->routeIs('userSubscription') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('userSubscription') }}">
-            {{-- <i class="fas fa-user-tag"></i>  --}}
-            <i class="fas fa-receipt"></i>
-            <span>User Subscription</span>
-        </a>
-    </li>
+        <li class="nav-item {{ request()->routeIs('userSubscription') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('userSubscription') }}">
+                {{-- <i class="fas fa-user-tag"></i>  --}}
+                <i class="fas fa-receipt"></i>
+                <span>User Subscription</span>
+            </a>
+        </li>
     @endcan
 
     @can('see.invoices')
-    <li class="nav-item {{ request()->routeIs('userInvoices') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('userInvoices') }}">
-            {{-- <i class="fas fa-user-tag"></i>  --}}
-            <i class="fas fa-file-invoice"></i>
-            <span>Invoices</span>
-        </a>
-    </li>
+        <li class="nav-item {{ request()->routeIs('userInvoices') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('userInvoices') }}">
+                {{-- <i class="fas fa-user-tag"></i>  --}}
+                <i class="fas fa-file-invoice"></i>
+                <span>Invoices</span>
+            </a>
+        </li>
     @endcan
 
     @can('manage.coupons')
-    <li class="nav-item {{ request()->routeIs('display.coupons') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('display.coupons') }}">
-            <i class="fas fa-percent"></i>
-            <span>Coupons</span>
-        </a>
-    </li>
+        <li class="nav-item {{ request()->routeIs('display.coupons') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('display.coupons') }}">
+                <i class="fas fa-percent"></i>
+                <span>Coupons</span>
+            </a>
+        </li>
     @endcan
 
     @can('see.activity')
@@ -503,32 +504,32 @@
         @endhasrole --}}
 
 
-        @can('see.traffic_Log')
+    @can('see.traffic_Log')
         <li class="nav-item {{ request()->routeIs('display.trafficLog') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('display.trafficLog') }}">
                 <i class="fas fa-network-wired"></i>
                 <span>Traffic Log</span>
             </a>
         </li>
-        @endcan
-  
-        
-        @can('see.messsage_templates')
+    @endcan
+
+
+    @can('see.messsage_templates')
         <li class="nav-item {{ request()->routeIs('edit.template.page') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('edit.template.page') }}">
                 <i class="far fa-file-alt"></i>
                 <span>Edit Templates</span>
             </a>
         </li>
-        @endcan
-        
+    @endcan
+
     @hasrole('superadmin')
         <li class="nav-item {{ request()->routeIs('admin.whatsapp.login') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('admin.whatsapp.login') }}">
                 <i class="fab fa-whatsapp"></i>
                 <span>WhatsApp Login</span>
             </a>
-        </li> 
+        </li>
 
         <li class="nav-item {{ request()->routeIs('notification.page') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('notification.page') }}">

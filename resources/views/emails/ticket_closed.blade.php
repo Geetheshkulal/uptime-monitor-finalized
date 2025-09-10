@@ -17,7 +17,7 @@
             <img src="https://img.icons8.com/fluency/48/ticket.png" 
 alt="Ticket Icon" 
 width="25" height="25" 
-style="padding-top: 7px;padding-left: 6px;">
+style="padding-top: 0px;padding-left: 0px;">
 
         </div>
         <div>
@@ -53,16 +53,12 @@ style="padding-top: 7px;padding-left: 6px;">
     </table>
 </div>
 
-<div style="background-color: #f0fdf4; border-radius: 8px; padding: 20px; margin: 30px 0; text-align: center; border: 1px solid #d1fae5;">
-    <i class="fas fa-comment-dots" style="color: #10b981; font-size: 24px; margin-bottom: 10px;"></i>
-    <h3 style="margin: 10px 0; color: #065f46;">Was this helpful?</h3>
-    <p style="margin: 0 0 15px 0; color: #047857;">We'd love to hear your feedback about your support experience</p>
-    <a href="{{ url('/') }}" style="display: inline-block; background-color: #10b981; color: white; text-decoration: none; padding: 10px 20px; border-radius: 6px; font-weight: 500; font-size: 14px;">Share Feedback</a>
+<div style="border-radius: 8px; padding: 20px; margin: 30px 0; text-align: center;">
+    <i class="fas fa-comment-dots" style="color: var(--primary-color); font-size: 24px; margin-bottom: 10px;"></i>
+    <h3 style="margin: 10px 0; color: var(--primary-color);">Was this helpful?</h3>
+    <p style="margin: 0 0 15px 0; color: var(--primary-color);">We'd love to hear your feedback about your support experience</p>
+    <a href="{{ url('/') }}" style="display: inline-block; background-color: var(--primary-color); color: white; text-decoration: none; padding: 10px 20px; border-radius: 6px; font-weight: 500; font-size: 14px;">Share Feedback</a>
 </div>
-
-<p style="margin-bottom: 25px;">If you need further assistance, please don't hesitate to create a new ticket through your dashboard.</p>
-
-<a href="{{ url('/') }}" style="display: inline-block; background-color: #4f46e5; color: white; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-weight: 500; margin-top: 10px;">Go to Dashboard</a>
 @endsection
 
 

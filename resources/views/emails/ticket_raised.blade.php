@@ -11,7 +11,7 @@ Ticket Raised Successfully
 
 <p>Thank you for reaching out to us. We’ve successfully received your support ticket. Below are the details:</p>
 
-<div style="background-color: #f8f9fa; border-left: 4px solid #0066cc; padding: 15px; margin: 20px 0; border-radius: 4px;">
+<div style="background-color: var(--primary-light-color); border-left: 4px solid var(--primary-color); padding: 15px; margin: 20px 0; border-radius: 4px;">
     <p style="margin: 0 0 8px 0;"><strong>Subject:</strong> {{ $ticket->title }}</p>
     <p style="margin: 0 0 8px 0;"><strong>Priority:</strong> {{ ucfirst($ticket->priority) }}</p>
     <p style="margin: 0;"><strong>Description:</strong><br>{!! $ticket->message !!}</p>

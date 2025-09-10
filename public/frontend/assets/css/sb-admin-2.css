@@ -26,9 +26,9 @@
   --gray: #858796;
   --gray-dark: #5a5c69;
   /* --primary: #4e73df; */
-  --primary : #52C41A;
-  --primary-hover : #46b40f !important;
-  --primary-background-gradient:  linear-gradient(135deg,#0ABFBC  0%, var(--primary) 90%) ;
+  --primary: #52C41A;
+  --primary-hover: #46b40f !important;
+  --primary-background-gradient: linear-gradient(135deg, #0ABFBC 0%, var(--primary) 90%);
   --secondary: #858796;
   --success: #1cc88a;
   --success-light: #e6fcf5;

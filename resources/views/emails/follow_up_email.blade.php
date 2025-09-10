@@ -12,7 +12,7 @@
 <p>This is just a follow-up reminder to ensure everything's okay on your end. If you've already resolved the issue, feel free to ignore this message.</p>
 <p>Otherwise, you might want to take a quick look.</p>
 
-<div style="background-color: #f8f9fa; border-left: 4px solid #3490dc; padding: 15px; margin: 30px 0; border-radius: 4px;">
+<div style="background-color: var(--primary-light-color); border-left: 4px solid var(--primary-color); padding: 15px; margin: 30px 0; border-radius: 4px;">
 <p style="margin: 0 0 10px 0; font-weight: 600;">This message is a courtesy reminder from your Drishti Pulse monitor subscription.</p>
 </div>
 @endsection

@@ -28,6 +28,7 @@ Reset Your Password
     <p style="margin-bottom: 0;">If you have any questions about this reset request, please <a href="mailto:checkmysite2025@gmail.com" style="color: #0066cc; text-decoration: none; font-weight: 500;">contact our support team</a>.</p>
 
 @endsection
+
 {{-- <!DOCTYPE html>
 <html>
 <head>
