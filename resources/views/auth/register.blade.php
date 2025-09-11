@@ -78,7 +78,6 @@
         .register-footer {
             margin-top: 1.5rem;
             font-size: 0.9rem;
-            color:  var(--secondary);
         }
         
         .register-footer a {
@@ -89,7 +88,7 @@
         }
         
         .register-footer a:hover {
-            color: #2e59d9;
+            color: var(--primary-hover);
             text-decoration: none;
         }
         

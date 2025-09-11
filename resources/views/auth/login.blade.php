@@ -291,6 +291,7 @@
     
     .forgot-password-link {
         /* margin-top: px; */
+        color: var(--primary);
         margin-left: 0 !important;
     }
 }
@@ -370,7 +371,7 @@
                                                 <label class="custom-control-label" for="remember_me">Remember Me</label>
                                             </div>
                                             @if (Route::has('password.request'))
-                                                <a class="small  forgot-password-link" href="{{ route('password.request') }}">Forgot Password?</a>
+                                                <a class="small text-primary" href="{{ route('password.request') }}">Forgot Password?</a>
                                             @endif
                                         </div>
 

@@ -17,6 +17,10 @@
     flex-direction: column;
 }
 
+.alert{
+    background: var(--primary-background-gradient) !important;
+}
+
 #content {
     flex: 1; 
 }
