@@ -98,13 +98,10 @@ CASHFREE_API_SECRET=
 ###  **Incident History** 
 <img width="1917" height="957" alt="image" src="https://github.com/user-attachments/assets/a7cf205a-ff59-48e2-a9ab-438ee7dd39c0" />
 
-### 🔍 **Monitor List**  
-<!-- ![Monitor List](your-screenshot-path/monitor-list.png)   -->
-![alt text](list.png)
 
 ### 📉 **Historical Uptime Graph**  
 <!-- ![Uptime Graph](your-screenshot-path/uptime-graph.png)   -->
-![alt text](historical.png)
+<img width="1900" height="968" alt="image" src="https://github.com/user-attachments/assets/ecb6d82c-25a1-4cf3-987d-3ffad974f0a9" />
 
 ### 💳 **Cashfree Payment Integration**  
 <!-- ![Payment](your-screenshot-path/payment.png)   -->
