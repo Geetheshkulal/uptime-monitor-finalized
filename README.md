@@ -35,10 +35,10 @@ A robust Laravel-based solution for monitoring website availability, SSL certifi
 - Incident timeline
 
 ## **🛠 Tech Stack**  
-- **Frontend**: Blade, Bootstrap  
-- **Backend**: Laravel, MySQL  
-- **Monitoring**:chart.js  
-- **Logging**: Spatie Laravel Activity Log  
+- **Frontend**: Blade, Bootstrap v4.5  
+- **Backend**: Laravel v10, MySQL  
+- **Monitoring**:chart.js library  
+- **Logging**: Spatie Laravel package for Activity Log  
 ---
 
 ## **📌 Installation**  
