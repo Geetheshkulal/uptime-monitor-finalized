@@ -17,7 +17,8 @@ A robust Laravel-based solution for monitoring website availability, SSL certifi
 
 ### 💳 Payment Integration  
 - Subscription-based plans (Free/Premium)  
-- Integrated **Cashfree** payment gateway for seamless transactions  
+- Integrated **Cashfree** payment gateway for seamless transactions with webhook
+-   
 
 
 ### 👤 User Management
@@ -104,8 +105,6 @@ CASHFREE_API_SECRET=
 <img width="1900" height="968" alt="image" src="https://github.com/user-attachments/assets/ecb6d82c-25a1-4cf3-987d-3ffad974f0a9" />
 
 ### 💳 **Cashfree Payment Integration**  
-<!-- ![Payment](your-screenshot-path/payment.png)   -->
-![alt text](premium.png)
 
 ![alt text](payemtt222.png)
 
