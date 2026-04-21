@@ -83,7 +83,10 @@ Update .env with the following:
 CASHFREE_API_KEY=
 CASHFREE_API_SECRET=
 ```
-## 📸 Snapshots  
+## 📸 Snapshots 
+
+### 📍 **Landing Page**  
+<img width="1898" height="961" alt="Screenshot 2026-04-21 232015" src="https://github.com/user-attachments/assets/da14a1de-c2b2-475b-b121-78fd77130810" />
 
 ### 📍 **Dashboard**  
 <!-- ![Dashboard](your-screenshot-path/dashboard.png)   -->
