@@ -88,9 +88,15 @@ CASHFREE_API_SECRET=
 ### 📍 **Landing Page**  
 <img width="1898" height="961" alt="Screenshot 2026-04-21 232015" src="https://github.com/user-attachments/assets/da14a1de-c2b2-475b-b121-78fd77130810" />
 
-### 📍 **Dashboard**  
+### **User Dashboard**  
 <!-- ![Dashboard](your-screenshot-path/dashboard.png)   -->
-![alt text](dashboard.png)
+<img width="1917" height="960" alt="Screenshot 2026-04-21 232506" src="https://github.com/user-attachments/assets/c898a364-5121-412b-8c16-b6d0082ece07" />
+
+### **Add Monitor** 
+<img width="1906" height="972" alt="image" src="https://github.com/user-attachments/assets/e271ec20-d8c7-4109-8e5f-d6229e58f94c" />
+
+###  **Incident History** 
+<img width="1917" height="957" alt="image" src="https://github.com/user-attachments/assets/a7cf205a-ff59-48e2-a9ab-438ee7dd39c0" />
 
 ### 🔍 **Monitor List**  
 <!-- ![Monitor List](your-screenshot-path/monitor-list.png)   -->
