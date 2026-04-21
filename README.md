@@ -108,6 +108,10 @@ CASHFREE_API_SECRET=
 
 ![alt text](payemtt222.png)
 
+## **Admin Dashboard**
+<img width="1897" height="970" alt="image" src="https://github.com/user-attachments/assets/b2282aea-96e3-4959-96ec-09e9fbc1c3cd" />
+
+
 ---
 
 ## **📢 Contributing**  
